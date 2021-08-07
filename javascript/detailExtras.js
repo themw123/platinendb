@@ -147,7 +147,7 @@
                   setTimeout(function(){
                   dieses.children().toggleClass('fas fa-check-circle checkedcircle').toggleClass('fas fa-save');
                   warte = 0;
-                  }, 1000);
+                  }, 500);
                   
     
                   }
