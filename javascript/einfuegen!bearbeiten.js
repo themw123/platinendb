@@ -1,4 +1,3 @@
-//# sourceURL=formEditor.js
 $(function(){
     $('#edit').submit(function(event){
       event.preventDefault();  
