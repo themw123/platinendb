@@ -271,7 +271,7 @@ $(document).ready(function(){
     timeOutId = 0;
     timeOutId2 = 0;
 
-     getDetailEinmal = function () {
+     getDetailEinmal = function (showmodal) {
     
       aktion = "detail";
       $.ajax({  
@@ -280,6 +280,10 @@ $(document).ready(function(){
                      data:{Id:Id, ziel:ziel, aktion:aktion},  
                      success:function(data){
                           $('.dynamischetabelle').html(data); 
+                          if(showmodal) {
+                            $('#dataModal1').modal("show");
+                          }
+
                       },
                       complete: function (response) { 
 
@@ -294,7 +298,7 @@ $(document).ready(function(){
       }
 
 
-    getHinzufuegenEinmal = function () {
+    getHinzufuegenEinmal = function (showmodal) {
      var einmal = true;
      aktion = "detail";
       $.ajax({  
@@ -302,9 +306,11 @@ $(document).ready(function(){
         method:"post",  
         data:{Id:Id, ziel:ziel, einmal:einmal, aktion:aktion},  
         success:function(data){
-
-             $('.platinenadd').html(data);
-
+            
+            $('.platinenadd').html(data);
+            if(showmodal) {
+             $('#dataModal1').modal("show");
+            }
          }
     })
   }
@@ -330,11 +336,10 @@ $(document).ready(function(){
         NutzenId = Id;
         ziel = "nutzen";
            
-        getDetailEinmal();
+        getDetailEinmal(true);
 
-        getHinzufuegenEinmal();
+        getHinzufuegenEinmal(true);
 
-        $('#dataModal1').modal("show");
     
       }
     }

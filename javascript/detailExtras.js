@@ -23,10 +23,10 @@
                             ziel = "nutzen"
   
                            
-                            getDetailEinmal();
+                            getDetailEinmal(false);
                        
                             setTimeout(function() {
-                              getHinzufuegenEinmal();
+                              getHinzufuegenEinmal(false);
                             }, 500);
                             }
   
@@ -67,10 +67,10 @@
   
   
                                     setTimeout(function() {
-                                      getDetailEinmal();
+                                      getDetailEinmal(false);
                                     }, 500);
                                     
-                                    getHinzufuegenEinmal();
+                                    getHinzufuegenEinmal(false);
   
                                     
                                   }
