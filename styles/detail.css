@@ -1,0 +1,36 @@
+
+/*
+Fehlermeldung
+*/
+.alert {
+  display: flex;
+  justify-content: center;
+}
+
+
+
+/*
+modal button anpassen
+*/
+#button5 {
+background-color: #005ea9;
+border-color:#005ea9;
+outline: none !important;
+box-shadow: none!important;
+}
+
+#button5:hover{
+background-color: #0000cc!important;
+border-color:#0000cc!important;
+}
+
+
+#tabelle2 tr {
+cursor: default;
+}
+
+.modal-backdrop {
+  width: 100%;
+  height: 100%;
+}
+
