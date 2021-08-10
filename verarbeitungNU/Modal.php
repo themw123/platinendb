@@ -363,7 +363,7 @@ if($bestanden == true) {
           
           <label class='btn btn-primary' id='uploadlabel'>
           <input id='uploadfeld' type='file' style='opacity:0'>
-          <p id='uploadtext'>Cam360(.txt)</p>
+          <p id='uploadtext'>Kupferflächen(.txt)</p>
           </label>
           <span class='label label-info' id='upload-info' style='opacity:0'>
           </span>

@@ -22,7 +22,7 @@ $(function(){
         if(getselected == "neu" && getselected != $("#status :selected").val()) {
           if ($('#uploadfeld').get(0).files.length === 0) {
             show = true;
-            meldung = "Ohne Cam360-Daten fortfahren?";
+            meldung = "Ohne Kupferflächen fortfahren?";
           }
         }
       }
