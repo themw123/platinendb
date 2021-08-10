@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" type="text/css" href="styles/detail.css">
+
 
 <?php
 require_once("../config/db2.php");
