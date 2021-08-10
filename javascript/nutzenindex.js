@@ -623,6 +623,7 @@ $(document).ready(function(){
       setTimeout(function() {
         $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
       }, 0);
+      pad = $('body').css('padding-right');
     });
     
     
@@ -630,9 +631,7 @@ $(document).ready(function(){
     $(document).on('hidden.bs.modal', '.bootbox.modal', function (e) {    
       if($(".modal").hasClass('show')) {
           $('body').addClass('modal-open');
-          $('body').css("padding-right", "19px");
-            
-
+          $('body').css("padding-right", pad);
       }
     })
 

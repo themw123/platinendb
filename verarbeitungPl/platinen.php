@@ -27,6 +27,8 @@ if($bestanden == true) {
 			/*
 			Abfrage von platinen Tabelle
 			*/
+
+			
 			if (isUserEst($link) == true) {
 			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar FROM platinenview order by erstelltam desc";
 			}

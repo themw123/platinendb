@@ -22,6 +22,8 @@ if($bestanden == true) {
 		Abfrage von nutzen Tabelle
 		*/
 		$sql = "SELECT * FROM nutzenview order by erstellt desc";
+	
+		
 
 		$result = $link->query($sql);
 
