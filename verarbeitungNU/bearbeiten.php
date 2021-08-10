@@ -47,11 +47,62 @@ if($bestanden == true) {
           $Bearbeiter = mysqli_fetch_assoc($bearbeiterid);   
 
 
-        /*
+          /*
           Inputs auslesen Status
           */
           $Status = mysqli_real_escape_string($link, $_POST["Status"]);
           
+
+
+
+          // Datum input von erstellt, Fertigung und abgeschlossen auslesen
+          $Erstellt = null;
+
+          //Datum aus db holen
+          $datumquery = "SELECT Datum FROM nutzen WHERE ID ='$id'"; 
+          $datumresult =  mysqli_query($link, $datumquery);
+          $datumAlt = mysqli_fetch_assoc($datumresult );  
+          
+          $datumAltString = $datumAlt['Datum'];
+          $createDate = new DateTime($datumAltString);
+          $datumAltohnezeit = $createDate->format('Y-m-d');
+                  
+          
+          
+          //neues Datum aus input holen
+          $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Erstellt"]));
+          $datumNeu = date('Y-m-d', $datumzumformatieren);
+          
+                    
+          if($datumAltohnezeit == $datumNeu) {
+            $Erstellt = $datumAlt['Datum'];
+          }
+          
+          else {
+            $Erstellt = $datumNeu;
+          }
+          
+        
+          
+          if (empty($_POST["Fertigung"])) {
+            $Fertigung = NULL;
+          }
+          else {
+            $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Fertigung"]));
+            $Fertigung = date('Y-m-d', $datumzumformatieren);
+          }  
+          
+          
+            if (empty($_POST["Abgeschlossen"])) {
+            $Abgeschlossen = NULL;
+          }
+          else {
+            $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Abgeschlossen"]));
+            $Abgeschlossen = date('Y-m-d', $datumzumformatieren);
+          }  
+
+          
+
           
           /*
           Inputs auslesen material
@@ -78,55 +129,7 @@ if($bestanden == true) {
           Inputs auslesen Lagen
           */
           $Lagen = mysqli_real_escape_string($link, $_POST["Lagen"]);
-          
-
-
-          // Datum input von erstellt, Fertigung und abgeschlossen auslesen
-          $Erstellt = null;
-
-          //Datum aus db holen
-          $datumquery = "SELECT Datum FROM nutzen WHERE ID ='$id'"; 
-          $datumresult =  mysqli_query($link, $datumquery);
-          $datumAlt = mysqli_fetch_assoc($datumresult );  
-
-          $datumAltString = $datumAlt['Datum'];
-          $createDate = new DateTime($datumAltString);
-          $datumAltohnezeit = $createDate->format('Y-m-d');
         
-
-
-          //neues Datum aus input holen
-          $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Erstellt"]));
-          $datumNeu = date('Y-m-d', $datumzumformatieren);
-
-          
-          if($datumAltohnezeit == $datumNeu) {
-            $Erstellt = $datumAlt['Datum'];
-          }
-
-          else {
-            $Erstellt = $datumNeu;
-          }
-
-
-
-
-          if (empty($_POST["Fertigung"])) {
-            $Fertigung = NULL;
-          }
-          else {
-            $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Fertigung"]));
-            $Fertigung = date('Y-m-d', $datumzumformatieren);
-          }  
-
-
-          if (empty($_POST["Abgeschlossen"])) {
-            $Abgeschlossen = NULL;
-          }
-          else {
-            $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Abgeschlossen"]));
-            $Abgeschlossen = date('Y-m-d', $datumzumformatieren);
-          }  
 
 
           /*

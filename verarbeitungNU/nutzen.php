@@ -81,13 +81,13 @@ if($bestanden == true) {
 				$nestedData[] = $row["Nr"];
 				$nestedData[] = $row["Bearbeiter"];
 				$nestedData[] = $row["Status"];
+				$nestedData[] = $creation_time1;
+				$nestedData[] = $creation_time2;
+				$nestedData[] = $creation_time3;
 				$nestedData[] = $row["Material"];
 				$nestedData[] = $row["Endkupfer"];
 				$nestedData[] = $row["Staerke"];
 				$nestedData[] = $row["Lagen"];
-				$nestedData[] = $creation_time1;
-				$nestedData[] = $creation_time2;
-				$nestedData[] = $creation_time3;
 				$nestedData[] = $row["Groesse"];
 				$nestedData[] = $row["intoderext"];
 				$nestedData[] = $row["Testdaten"];

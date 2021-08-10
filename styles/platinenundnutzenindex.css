@@ -814,7 +814,7 @@ testdaten haken farbe
 
     #upload-info{
       margin-left: 30px;
-      font-size: 20px;
+      font-size: 0px;
     }
 
 
@@ -906,5 +906,50 @@ testdaten haken farbe
     }
 
     .bootbox {
-      margin-left: -19px;
+      margin-left: -20px;
+    }
+
+
+    @media screen and (max-width: 577px) {
+      .bootbox {
+        margin-left: -1px;
+        
+      }
+    }
+
+    .alert {
+      display: flex;
+      justify-content: center;
+    }
+    
+    
+    
+    /*
+    modal button anpassen
+    */
+    #button5 {
+    background-color: #005ea9;
+    border-color:#005ea9;
+    outline: none !important;
+    box-shadow: none!important;
+    }
+    
+    #button5:hover{
+    background-color: #0000cc!important;
+    border-color:#0000cc!important;
+    }
+    
+    
+    #tabelle2 tr {
+    cursor: default;
+    }
+    
+    .modal-backdrop {
+      width: 100%;
+      height: 100%;
+    }
+
+    #inputbild{
+      opacity: 0;
+      display: inline;
     }

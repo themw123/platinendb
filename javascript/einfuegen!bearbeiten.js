@@ -1,3 +1,6 @@
+
+//# sourceURL=formEditor.js
+
 $(function(){
     $('#edit').submit(function(event){
       event.preventDefault();  
@@ -246,16 +249,7 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                   var richtigerInhalt2 = text.includes(":Bottom");
         
                   if(!richtigerInhalt || !richtigerInhalt2) {
-                    $('#uploadfeld').val('');
-                    $('#fehleraddlagen').show();
-                    $('#lagen').prop( "disabled", false);
-                    $('#fehleraddlagen').text("Der Inhalt entspricht nicht den Erwartungen.");
-                    $('#fehleraddlagen').show();
-                    $('#upload-info').text("");
-                    $('#inputbild').hide();
-                    $('#delfile').hide();  
-                    $('#lagenid').text("Lagen: ");
-                    $('#lagenid').addClass('iconaus');
+                    remUploadData("Der Inhalt entspricht nicht den Erwartungen.");
                   }
                   else {         
                     //AnzahlLagen aus aktuellem Nutzen
@@ -270,22 +264,16 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                     var anzahlLagen2 = textneu.split(/\r\n|\r|\n/).length;
 
                     if(anzahlLagen1 != anzahlLagen2) {
-                      $('#uploadfeld').val('');
-                      $('#lagen').prop( "disabled", false);
-                      $('#fehleraddlagen').text("Die Anzahl der Lagen stimmt nicht überein.");
-                      $('#fehleraddlagen').show();
-                      $('#upload-info').text(""); 
-                      $('#inputbild').hide();
-                      $('#delfile').hide();
-                      $('#lagenid').text("Lagen: ");
-                      $('#lagenid').addClass('iconaus');
+                      remUploadData("Die Anzahl der Lagen stimmt nicht überein.");
                     }
                     else {
                       let fileName = $('#uploadfeld').val().split('\\').pop(); 
                       $('#upload-info').text(fileName);
-                      $('#inputbild').show(); 
+                      $('#upload-info').show();
+                      $('#inputbild').show();
+                      $('#upload-info').animate({opacity: 1,fontSize: '20px'},500);
+                      $('#inputbild').animate({opacity: 1,fontSize: '16px'},500);
                       $('#delfile').show(); 
-                      //$('#uploadlabel').text(fileName);
                       $('#lagen').prop( "disabled", true );
                       $('#fehleraddlagen').hide();
                       //infoicon
@@ -302,31 +290,33 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                 reader.readAsText(input.files[0]);
            }
            else {
-            $('#uploadfeld').val('');
-            $('#lagen').prop( "disabled", false);
-            $('#fehleraddlagen').text("Die Datei muss eine Text-Datei sein.");
-            $('#fehleraddlagen').show();
-            $('#upload-info').text("");
-            $('#inputbild').hide();
-            $('#delfile').hide();  
-            $('#lagenid').text("Lagen: ");
-            $('#lagenid').addClass('iconaus');
+            remUploadData("Es muss eine Textdatei sein.");
            }
         });  
 
 
+      
+
+
         //Wenn auf delfile geklickt wird
         $("#delfile").click(function(ev){
-          $('#uploadfeld').val('');
-          $('#lagen').prop( "disabled", false);
-          $('#upload-info').text("");
-          $('#inputbild').hide();
-          $('#delfile').hide(); 
-          $('#lagenid').text("Lagen: ");
-          $('#lagenid').addClass('iconaus');
+          remUploadData();
         })
 
 
+        function remUploadData(mel) {
+          $('#uploadfeld').val('');
+          $('#lagen').prop( "disabled", false);
+          if(mel != null) {
+            $('#fehleraddlagen').text(mel);
+            $('#fehleraddlagen').show();
+          }
+          $('#upload-info').animate({opacity: 0,fontSize: '0px'},500, function() {$('#upload-info').hide();} );
+          $('#inputbild').animate({opacity: 0,fontSize: '0px'},500, function() {$('#inputbild').hide();} );
+          $('#delfile').hide();  
+          $('#lagenid').text("Lagen: ");
+          $('#lagenid').addClass('iconaus');
+        }
 
 
 
@@ -485,14 +475,13 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
             $("#status option:nth-child(4)" ).attr("disabled","disabled");
            
             if(getselected == "neu") {
-              $('#inputbild').hide();
+              $('#upload-info').animate({opacity: 0,fontSize: '0px'},500);
+              $('#inputbild').animate({opacity: 0,fontSize: '0px'},500);
               $('#delfile').hide();
-              $('#upload-info').text("");
               $('#fehleraddlagen').hide();
               $('#lagen').prop( "disabled", false);
               $('#uploadfeld').val('');
               $('#collapse3').collapse('hide');
-              //$('#uploadfeld').attr("required", false);
               $('#lagenid').text("Lagen: ");
             }
             else {

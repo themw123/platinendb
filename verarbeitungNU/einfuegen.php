@@ -44,6 +44,15 @@ if($bestanden == true) {
             */
             $Status = mysqli_real_escape_string($link, $_POST["Status"]);
 
+            /*
+            Fertigung erstellen
+            */
+            $Fertigung = NULL;
+
+            /*
+            abgeschlossen erstellen
+            */
+            $Abgeschlossen = NULL;
 
             /*
             Inputs auslesen material
@@ -91,19 +100,6 @@ if($bestanden == true) {
 
             date_default_timezone_set('Europe/Berlin');
             $Erstellt = date('Y-m-d H:i:s', time());
-
-
-
-
-            /*
-            Fertigung erstellen
-            */
-            $Fertigung = NULL;
-
-            /*
-            abgeschlossen erstellen
-            */
-            $Abgeschlossen = NULL;
 
 
             /*

@@ -48,13 +48,13 @@ echo'<table id="tabelle1"  style="width:100%" class="table text-center table-hov
 		echo'<th>Nr</th>';
 		echo'<th>Bearbeiter</th>';
 		echo'<th>Status</th>';
+		echo'<th>erstellt</th>';
+		echo'<th>Fertigung</th>';
+		echo'<th>abgeschlossen</th>';
 		echo'<th>Material</th>';
 		echo'<th>Endkupfer</th>';
 		echo'<th>Stärke(mm)</th>';
 		echo'<th>Lagen</th>';
-		echo'<th>erstellt</th>';
-		echo'<th>Fertigung</th>';
-		echo'<th>abgeschlossen</th>';
 		echo'<th>Größe</th>';
 		echo'<th>int/ext</th>';
 		echo'<th>Testdaten</th>';

@@ -360,11 +360,12 @@ if($bestanden == true) {
           </span>
           -->
 
+          
           <label class='btn btn-primary' id='uploadlabel'>
           <input id='uploadfeld' type='file' style='opacity:0'>
           <p id='uploadtext'>Cam360(.txt)</p>
           </label>
-          <span class='label label-info' id='upload-info'>
+          <span class='label label-info' id='upload-info' style='opacity:0'>
           </span>
           <i class='far fa-file-alt collapse' id='inputbild'></i>
           <i class='fa fa-trash-alt collapse' id='delfile'></i>
@@ -374,6 +375,38 @@ if($bestanden == true) {
           </div>
          
 
+
+          
+          <div class='form-group'>
+          <label for='usr'>erstellt:</label>
+          <input id='datepicker' class='form-control' name='Erstellt' onkeydown='return false' value='$_POST[Erstellt]'/>
+          </div>
+
+
+          <div class='form-group'>
+          <label for='usr'>Fertigung:</label>
+          <input id='datepicker2' class='form-control' name='Fertigung' onkeydown='return false' value='$_POST[Fertigung]'/>
+          </div>
+
+
+          <div class='form-group'>
+          <button class='btn btn-secondary' id='reset-date2' onclick='return false;'>
+          <i class='fas fa-calendar-times' id='kalender'></i> 
+          </button>
+          </div>
+
+
+
+          <div class='form-group'>
+          <label for='usr'>abgeschlossen:</label>
+          <input id='datepicker3' class='form-control' name='Abgeschlossen' onkeydown='return false' value='$_POST[Abgeschlossen]'/>
+          </div>
+
+          <div class='form-group'>
+          <button class='btn btn-secondary' id='reset-date3' onclick='return false;'>
+          <i class='fas fa-calendar-times' id='kalender'></i> 
+          </button>
+          </div>
 
 
 
@@ -427,39 +460,6 @@ if($bestanden == true) {
           </select>
           </div>
           
-
-
-
-          <div class='form-group'>
-          <label for='usr'>erstellt:</label>
-          <input id='datepicker' class='form-control' name='Erstellt' onkeydown='return false' value='$_POST[Erstellt]'/>
-          </div>
-
-
-          <div class='form-group'>
-          <label for='usr'>Fertigung:</label>
-          <input id='datepicker2' class='form-control' name='Fertigung' onkeydown='return false' value='$_POST[Fertigung]'/>
-          </div>
-
-
-          <div class='form-group'>
-          <button class='btn btn-secondary' id='reset-date2' onclick='return false;'>
-          <i class='fas fa-calendar-times' id='kalender'></i> 
-          </button>
-          </div>
-
-
-
-          <div class='form-group'>
-          <label for='usr'>abgeschlossen:</label>
-          <input id='datepicker3' class='form-control' name='Abgeschlossen' onkeydown='return false' value='$_POST[Abgeschlossen]'/>
-          </div>
-
-          <div class='form-group'>
-          <button class='btn btn-secondary' id='reset-date3' onclick='return false;'>
-          <i class='fas fa-calendar-times' id='kalender'></i> 
-          </button>
-          </div>
 
 
 
