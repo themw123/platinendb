@@ -30,7 +30,7 @@ if($bestanden == true) {
 
 			
 			if (isUserEst($link) == true) {
-			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar FROM platinenview order by erstelltam desc";
+			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Status, aelter10Tage, aelter14Tage FROM platinenviewest";
 			}
 
 			else {
@@ -99,6 +99,16 @@ if($bestanden == true) {
 					$nestedData[] = $creation_time;
 					$nestedData[] = $creation_time2;
 					$nestedData[] = $row["Kommentar"];
+					if (isUserEst($link) == true) {
+						$nestedData[] = $row["Status"];
+						$nestedData[] = $row["aelter10Tage"];
+						$nestedData[] = $row["aelter14Tage"];
+					}
+					else {
+						$nestedData[] = "";
+						$nestedData[] = "";
+						$nestedData[] = "";
+					}
 					
 					
 					
@@ -106,7 +116,12 @@ if($bestanden == true) {
 
 				}
 
-				$json_data = array("data" => $data);
+				if (isUserEst($link) == true) {
+					$json_data = array("data" => $data, "est" => "ja");
+				}
+				else {
+					$json_data = array("data" => $data, "est" => "nein");
+				}
 
 				echo json_encode($json_data);  // send data as json format
 			}

@@ -59,7 +59,9 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
        }
      },
 
-     "stateSave": true, "scrollX": true,  "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "alle"]] , "info": false, "order":[] , "columnDefs": [{ 
+     "stateSave": true, "scrollX": true,  "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "alle"]] , "info": false, "order":[],
+     
+          "columnDefs": [{ 
           
     
 
@@ -84,10 +86,32 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
          "className": "ohnedetail",
          "defaultContent": "<i class='fa fa-edit iconx' id='iconklasse2'></i><i class='fa fa-trash-alt iconx' id='iconklasse'></i>"
          
-         }
+         },
+
+         {
+          "targets": [15,16,17],
+          "visible": false
+         },
 
           ], 
 
+
+        
+          "createdRow": function( row, data){
+            //wenn benutzer est ist (siehe unten bei :"initComplete": function(data))
+              if(data[3] > 0 || data[15] == "neu"){
+                $(row).attr('id', 'blau');
+                if(data[16] == "ja"){
+                  $(row).attr('id', 'orange');
+                }
+                if (data[17] == "ja"){
+                  $(row).attr('id', 'red');
+                }
+              }
+
+            
+ 
+          },  
 
 
 
@@ -102,7 +126,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
 //"initComplete": function(){ = wenn tabelle vollständig geladen ist
 "initComplete": function(data){
-  
+
     //ajax antwort überprüfen
     var zustand = data.json.data[1];
     var pausieren = false;
@@ -171,6 +195,13 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
     table.api().liveAjax.pause();
     }, 1000) 
     */
+
+    //wenn nicht est, entferne farbige markierung der zeilen
+    var est = data.json.est;
+    if(est == "nein") {
+      $('tr').removeAttr('id');
+    }
+
 
 
 }
@@ -480,7 +511,16 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
 
   }
   }});
-} );
+});
+
+
+//wenn auf buttondefault geklickt wird
+$('#buttondefault').on( 'click', function () {
+  table.fnSortNeutral();
+  table.api().searchPanes.clearSelections();
+  table.api().search("").draw();
+  $('input[type=search]').val('').change();
+})
 
 
 

@@ -953,3 +953,29 @@ testdaten haken farbe
       opacity: 0;
       display: inline;
     }
+
+    
+    #blau {
+      color:#005ea9;
+    }
+
+    #orange {
+      color:#e89b02;
+    }
+
+    #red {
+      color:red
+    }
+
+    #buttondefault{
+      color: #005ea9;
+      font-size: 13px;
+    }
+
+    #buttondefault:hover{
+      color: #0000cc!important;
+      }
+
+      .hinzu {
+        display: inline;
+      }

@@ -23,7 +23,7 @@ $(document).ready(function(){
       searchPanes: {
                 viewTotal: true,
                 controls: false,
-                columns: [0]
+                columns: [3]
                 
             },
     
@@ -64,34 +64,54 @@ $(document).ready(function(){
          "columnDefs": [{ 
     
     
-          /*
-          hier beliebigen filter setzen
     
-              "targets": [3],
-              searchPanes:{
-                show: true
-              }
-              },
-          */
-    
-              "targets": [3], 
-              render: function(data, type, row, meta) { 
-    
-              if (data == "neu") { 
-               return '<div style="color: #005ea9;">' + data + '</div>';
-              } 
-              else if (data == "Fertigung") {
-                return '<div style="color: #e89b02;">' + data + '</div>';
-              }
-              else if (data == "abgeschlossen") {
-                return '<div style="color: #06a130;">' + data + '</div>';
-              }
-              else  {
-               return data;
-              }
-    
-              }
-              },
+
+            
+          
+            
+                "targets": [3], 
+
+
+                searchPanes:{
+                      options:[
+                          {
+                              label: 'neu',
+                              value: function(rowData) {
+                                  return rowData[3] == "neu";
+                              }
+                          },
+                          {
+                              label: 'Fertigung',
+                              value: function(rowData) {
+                                  return rowData[3] == "Fertigung";
+                              }
+                          },
+                          {
+                              label: 'abgeschlossen',
+                              value: function(rowData) {
+                                  return rowData[3] == "abgeschlossen";
+                              }
+                          }
+                      ]
+                  },
+
+                render: function(data, type, row, meta) { 
+        
+                  if (data == "neu") { 
+                  return '<div style="color: #005ea9;">' + data + '</div>';
+                  } 
+                  else if (data == "Fertigung") {
+                    return '<div style="color: #e89b02;">' + data + '</div>';
+                  }
+                  else if (data == "abgeschlossen") {
+                    return '<div style="color: #06a130;">' + data + '</div>';
+                  }
+                  else  {
+                  return data;
+                  }
+      
+                }
+            },
     
               {
               "targets": [4], 

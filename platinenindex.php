@@ -111,6 +111,7 @@ else {
     <script src="/logingit4/plugins/bootstrap-table-master/dist/bootstrap-table.min.js"></script>
 
     <script src="/logingit4/plugins/datatable/DataTables-1.10.22/js/jquery.dataTables.min.js" charset="utf8" type="text/javascript"></script>
+    <script src="/logingit4/plugins/fnsort/fnSortNeutral.js" type="text/javascript" charset="utf8"></script>
     <script src="/logingit4/plugins/datatable/DataTables-1.10.22/js/dataTables.bootstrap4.min.js" type="text/javascript" charset="utf8"></script>
 
     <script src="/logingit4/plugins/tabletools2.2.4/dataTables.tableTools.min.js" type="text/javascript"></script>
