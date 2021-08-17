@@ -206,7 +206,6 @@ function dostuff() {
                     }, 1000);
                     }
               }
-              
 
            }   
 

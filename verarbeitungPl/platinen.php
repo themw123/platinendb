@@ -30,7 +30,7 @@ if($bestanden == true) {
 
 			
 			if (isUserEst($link) == true) {
-			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Status, aelter10Tage, aelter14Tage FROM platinenviewest";
+			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Status, ignorieren, abgeschlossen, 10Tage, 14Tage, dringlichkeit FROM platinenviewest";
 			}
 
 			else {
@@ -101,10 +101,16 @@ if($bestanden == true) {
 					$nestedData[] = $row["Kommentar"];
 					if (isUserEst($link) == true) {
 						$nestedData[] = $row["Status"];
-						$nestedData[] = $row["aelter10Tage"];
-						$nestedData[] = $row["aelter14Tage"];
+						$nestedData[] = $row["ignorieren"];
+						$nestedData[] = $row["abgeschlossen"];
+						$nestedData[] = $row["10Tage"];
+						$nestedData[] = $row["14Tage"];
+						$nestedData[] = $row["dringlichkeit"];
 					}
 					else {
+						$nestedData[] = "";
+						$nestedData[] = "";
+						$nestedData[] = "";
 						$nestedData[] = "";
 						$nestedData[] = "";
 						$nestedData[] = "";
@@ -116,12 +122,9 @@ if($bestanden == true) {
 
 				}
 
-				if (isUserEst($link) == true) {
-					$json_data = array("data" => $data, "est" => "ja");
-				}
-				else {
-					$json_data = array("data" => $data, "est" => "nein");
-				}
+				
+				$json_data = array("data" => $data);
+
 
 				echo json_encode($json_data);  // send data as json format
 			}

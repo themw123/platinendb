@@ -22,6 +22,7 @@ var table = $('#tabelle1').DataTable({
 
   liveAjax: true,
 
+  
   searchPanes: {
             viewTotal: true,
             controls: false,
@@ -64,20 +65,30 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
           "columnDefs": [{ 
           
     
-
+          
+            
           "targets": [3],
+
           searchPanes:{
                 options:[
                     {
                         label: 'offene',
                         value: function(rowData, rowIdx) {
-                            return rowData[3] > 0;
+                            return rowData[17] == 0;
                         }
-                    }
+                    },
+                    {
+                      label: 'ignorierte',
+                      value: function(rowData, rowIdx) {
+                          return rowData[16] == 1;
+                      }
+                  }
                 ]
             },
            
           },
+
+          
 
 
           { 
@@ -89,7 +100,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
          },
 
          {
-          "targets": [15,16,17],
+          "targets": [15,16,17,18,19,20],
           "visible": false
          },
 
@@ -98,17 +109,21 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
         
           "createdRow": function( row, data){
-            //wenn benutzer est ist (siehe unten bei :"initComplete": function(data))
-              if(data[3] > 0 || data[15] == "neu"){
-                $(row).attr('id', 'blau');
-                if(data[16] == "ja"){
+            //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
+            if(est == "ja") {
+              if(data[17] == 0){
+
+                if(data[20] == 0) {
+                  $(row).attr('id', 'blue');
+                }
+                else if(data[20] == 1) {
                   $(row).attr('id', 'orange');
                 }
-                if (data[17] == "ja"){
+                else if(data[20] == 2) {
                   $(row).attr('id', 'red');
                 }
               }
-
+            }
             
  
           },  
@@ -186,23 +201,14 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
         table.fnDraw(false);
     
 
-    //anzahl der reihen in variable reinpacken
-    //var api = this.api();
-    //var eintraege = api.page.info().recordsDisplay;
-    //live pausieren
-    /*
-    setTimeout(function(){
-    table.api().liveAjax.pause();
-    }, 1000) 
-    */
-
-    //wenn nicht est, entferne farbige markierung der zeilen
-    var est = data.json.est;
-    if(est == "nein") {
-      $('tr').removeAttr('id');
-    }
+        //placeholder text von searchpane verändern
+        $('input[placeholder="Ausstehend"]').attr('placeholder', 'Filter');
 
 
+        //wenn est searchpane button verstecken
+        if(est == "nein") {
+          $('#button3').hide();
+        }
 
 }
 
@@ -373,11 +379,12 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse2', function () {
     var Loetstopp = table.api().row($(this).closest('tr')).data()[11];
     var Wunschdatum = table.api().row($(this).closest('tr')).data()[13];
     var Kommentar = table.api().row($(this).closest('tr')).data()[14];
+    var Ignorieren = table.api().row($(this).closest('tr')).data()[16];
 
     $.ajax({  
                     url:"verarbeitungPl/Modal.php",  
                     method:"post",  
-                    data:{aktion:aktion, ziel:ziel, Id:Id, Leiterkartenname:Leiterkartenname, Auftraggeber:Auftraggeber, Anzahl:Anzahl, Material:Material, Endkupfer:Endkupfer, Staerke:Staerke, Lagen:Lagen, Groesse:Groesse, Oberflaeche:Oberflaeche, Loetstopp:Loetstopp, Wunschdatum:Wunschdatum, Kommentar:Kommentar},  
+                    data:{aktion:aktion, ziel:ziel, Id:Id, Leiterkartenname:Leiterkartenname, Auftraggeber:Auftraggeber, Anzahl:Anzahl, Material:Material, Endkupfer:Endkupfer, Staerke:Staerke, Lagen:Lagen, Groesse:Groesse, Oberflaeche:Oberflaeche, Loetstopp:Loetstopp, Wunschdatum:Wunschdatum, Kommentar:Kommentar, Ignorieren:Ignorieren},  
                     success:function(data){  
                         $('#modalbody2').html(data);  
                         

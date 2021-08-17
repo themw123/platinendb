@@ -24,10 +24,12 @@ echo'</div>';
 
 echo'<div id="containerleiste" class="container-fluid" style="visibility: hidden;">';	
 echo'<div id="leiste" class=" my-3 bg-light">';
-echo'<a class="btn" id="button1" role="button" ><i class="fa fa-plus-square" id="icons"></i></a>';
+echo'<div class="hinzu1"><a class="btn" id="button1" role="button" ><i class="fa fa-plus-square" id="icons"></i></a></div>';
 echo'
+<div class="hinzu3">
 <a class="btn btn-primary" style="visibility: hidden;" id="button3" href="#" role="button" data-toggle="collapse" data-target="#spCont" aria-expanded="false" aria-controls="collapseExample">
 <i class="fas fa-filter" id="icon2"></i></a>
+</div>
 ';
 echo'</div>';
 echo'</div>';

@@ -25,9 +25,9 @@ echo'</div>';
 
 echo'<div id="containerleiste" class="container-fluid" style="visibility: hidden;">';	
 echo'<div id="leiste" class=" my-3 bg-light">';
-echo'<div class="hinzu"><a class="btn" id="button1" role="button" ><i class="fa fa-plus-square" id="icons"></i></a></div>';
+echo'<div class="hinzu1"><a class="btn" id="button1" role="button" ><i class="fa fa-plus-square" id="icons"></i></a></div>';
 if (isUserEst($link) == true) {
-	echo'<div class="hinzu"><a class="btn" id="buttondefault" role="button" >
+	echo'<div class="hinzu2"><a class="btn" id="buttondefault" role="button" >
 	<span class="fa-stack fa-lg">
 	<i class="fas fa-filter fa-stack-1x"></i>
 	<i class="fas fa-ban fa-stack-2x"></i>
@@ -36,7 +36,7 @@ if (isUserEst($link) == true) {
 	</div>';
 }
 echo'
-<div class="hinzu">
+<div class="hinzu3">
 <a class="btn btn-primary" style="visibility: hidden;" id="button3" href="#" role="button" data-toggle="collapse" data-target="#spCont" aria-expanded="false" aria-controls="collapseExample">
 <i class="fas fa-filter" id="icon2"></i></a>
 </div>
@@ -71,15 +71,37 @@ echo'<table id="tabelle1"  style="width:100%" class="table text-center table-hov
 		echo'<th>erstellt</th>';
 		echo'<th>Wunschdatum</th>';
 		echo'<th>Kommentar</th>';
+		
 		echo'<th>Status</th>';
-		echo'<th>>10Tage</th>';
-		echo'<th>>14Tage</th>';
+		echo'<th>ignorieren</th>';
+		echo'<th>abgeschlossen</th>';
+		echo'<th>10Tage</th>';
+		echo'<th>14Tage</th>';
+		echo'<th>dringlichkeit</th>';
 		
 		echo'</thead>';
 		echo'</table>';	
 
 	echo'</div>';
 	echo'</div>';
+
+
+	if (isUserEst($link) == true) { 
+		echo <<<END
+		<script>
+		est = "ja";
+		</script>
+		END;
+	}
+	else {
+		echo <<<END
+		<script>
+		est = "nein";
+		</script>
+		END;
+	}
+
+
 ?>	
 
 

@@ -21,7 +21,7 @@ if($bestanden == true) {
 		/*
 		Abfrage von nutzen Tabelle
 		*/
-		$sql = "SELECT * FROM nutzenview order by erstellt desc";
+		$sql = "SELECT * FROM nutzenview order by Nr desc";
 	
 		
 

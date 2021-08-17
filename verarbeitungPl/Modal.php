@@ -259,6 +259,7 @@ if($bestanden == true) {
         </div>
 
 
+
         <div class='buttonklasse'>
         <button type='submit' class='btn btn-primary' id='button8' name='fertig'>Fertig</button>
         </div>
@@ -283,6 +284,12 @@ if($bestanden == true) {
 
             $ziel = $_POST['ziel'];
 
+
+
+            $check = '';
+            if ($_POST['Ignorieren'] == 1){
+              $check = "checked=''";
+            }
 
               
             /*
@@ -433,8 +440,20 @@ if($bestanden == true) {
             <textarea class='form-control' id='kommentar' rows='1' name='Kommentar'>$_POST[Kommentar]</textarea>
             </div>
 
+            ";
+            
+            
+            if(isUserEst($link)) {
+              $output .= "
+              <div class='custom-control custom-checkbox form-group'>
+              <input name='Ignorieren' type='checkbox' class='custom-control-input' id='checkbox-2' $check>
+              <label class='custom-control-label' for='checkbox-2' style='margin-top: 10px;margin-bottom: 10px;'>ignorieren</label>
+              </div>
+              ";
+            }
+            
 
-
+            $output .= "
             <div class='buttonklasse'>
             <button type='submit' class='btn btn-primary' id='button8' name='insert' value='Insert'>Fertig</button>
             </div>

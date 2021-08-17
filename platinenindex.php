@@ -92,6 +92,7 @@ if ($login->isUserLoggedIn() == true) {
     // the user is logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are logged in" view.
     include("views/logged_in.php");
+
     
 } 
 else {
@@ -138,7 +139,6 @@ else {
     <script src="/logingit4/plugins/gijgo1.9.13/js/messages/messages.de-de.js" type="text/javascript"></script>
 
     <script src="/logingit4/plugins/dataTables.liveAjax.js" language="JavaScript"></script>
-
 
 
 

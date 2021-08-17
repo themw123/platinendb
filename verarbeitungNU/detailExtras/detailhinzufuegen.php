@@ -1,5 +1,4 @@
 
-<link rel="stylesheet" type="text/css" href="styles/detail.css">
 
 
 <?php 
@@ -62,7 +61,7 @@ if($bestanden == true) {
 
 
          $output = '';   
-         $query = "SELECT ID, Name, user_name, erstelltam, ausstehend  FROM detailplatineadd WHERE MaterialName = '$MaterialName' AND Endkupfer = '$EndkupferName' AND Staerke = '$StaerkeZahl' AND Lagen = '$LagenAnzahl' AND (ausstehend <0 OR ausstehend >0)"; 
+         $query = "SELECT ID, Name, user_name, erstelltam, ausstehend, ignorieren  FROM detailplatineadd WHERE MaterialName = '$MaterialName' AND Endkupfer = '$EndkupferName' AND Staerke = '$StaerkeZahl' AND Lagen = '$LagenAnzahl' AND (ausstehend <0 OR ausstehend >0) AND ignorieren = 0"; 
          $add = mysqli_query($link, $query);  
 
 
@@ -152,7 +151,7 @@ if($bestanden == true) {
 
 
           //Platinen zum hinzufügen holen
-          $query3 = "SELECT ID, Name, user_name, erstelltam, ausstehend  FROM detailplatineadd $WhereAnweisung order by erstelltam asc"; 
+          $query3 = "SELECT ID, NAME, user_name, erstelltam, ausstehend, dringlichkeit  FROM detailplatineadd $WhereAnweisung"; 
           $finalquery = mysqli_query($link, $query3);  
 
      
@@ -163,7 +162,7 @@ if($bestanden == true) {
              
              <div class="table-responsive">
    
-             <table id="tabelle2" class="table text-center table-hover border">
+             <table id="tabelle3" class="table text-center table-hover border">
 
              <thead class="thead-light">
              <th>Aktion</th>
@@ -171,6 +170,7 @@ if($bestanden == true) {
              <th>Auftraggeber</th>
              <th>erstellt</th>
              <th>Ausstehend</th>
+             <th style="display:none">dringlichkeit</th>
              </thead>
                    
              <tbody>
@@ -199,6 +199,7 @@ if($bestanden == true) {
              <td> '.$row["user_name"].'</td>
              <td> '.$creation_time.'</td> 
              <td>' .$row["ausstehend"].'</td>
+             <td style="display:none">' .$row["dringlichkeit"].'</td>
              </tr>  
              ';     
             
@@ -221,7 +222,7 @@ if($bestanden == true) {
           $output .= ' 
 
           <div class="container-fluid warnung">
-          <div class="alert alert-warning"> Es gibt keine Platinen zum hinzufügen. Bedingungen: Platinen und Nutzen mit den selben folgenden Eigenschaften: Material, Endkupfer, Stärke und Lagen. Außerdem nur Platinen die ausstehend größer oder kleiner null sind und Platinen die noch nicht auf diesem Nutzen sind.     
+          <div class="alert alert-warning"> Es gibt keine Platinen zum hinzufügen. Bedingungen: Platinen und Nutzen mit den selben folgenden Eigenschaften: Material, Endkupfer, Stärke und Lagen. Außerdem nur Platinen die ausstehend größer oder kleiner null sind, nicht ignoriert werden sollen und noch nicht auf diesem Nutzen sind.     
           </div>
 
           <script>

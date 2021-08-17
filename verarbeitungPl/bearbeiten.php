@@ -123,12 +123,22 @@ if($bestanden == true) {
           $Kommentar = mysqli_real_escape_string($link, $_POST["Kommentar"]);
         
 
+          
+          /*
+          Input auslesen Testdaten
+          */
+          if (isset($_POST['Ignorieren'])) {
+            $Ignorieren = 1;
+          }
+          else{
+            $Ignorieren = 0;
+          }
 
 
 
           //bearbeitung durchführen
           if(isUserEst($link)) {
-            $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = '$Wunschdatum',Kommentar = '$Kommentar' WHERE ID = $id";
+            $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = '$Wunschdatum',Kommentar = '$Kommentar', ignorieren = '$Ignorieren' WHERE ID = $id";
           }
           else {
             $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl,Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = '$Wunschdatum',Kommentar = '$Kommentar' WHERE ID = $id";

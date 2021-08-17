@@ -5,6 +5,7 @@ styles für platinenindex.php (view: logged_in.php)
 body,html {
   height: 100%;
   zoom: 75%;
+  overflow: auto!important;
 }
 
 
@@ -386,15 +387,14 @@ modal button anpassen
 
 #button3 {
   background-color: #005ea9;
-  border-color:#005ea9;
+  border-color: #005ea9;
   outline: none !important;
-  box-shadow: none!important;
-  float: right;
-  margin-top: 8.5px;
+  box-shadow: none !important;
   font-size: 13px;
   width: 30px;
   height: 30px;
   margin-right: 14px;
+ 
 }
 
 
@@ -433,6 +433,7 @@ modal button anpassen
   display: flex !important;
   align-items: center;
   justify-content: center;
+  margin-left: -8px!important;
 }
 
 
@@ -905,14 +906,18 @@ testdaten haken farbe
       color: #0000cc;
     }
 
-    .bootbox {
-      margin-left: -20px;
-    }
 
+
+    @media screen and (max-width: 3000px) {
+      .bootbox {
+        margin-left: 0px;
+        
+      }
+    }
 
     @media screen and (max-width: 577px) {
       .bootbox {
-        margin-left: -1px;
+        margin-left: -1px!important;
         
       }
     }
@@ -955,7 +960,7 @@ testdaten haken farbe
     }
 
     
-    #blau {
+    #blue {
       color:#005ea9;
     }
 
@@ -969,13 +974,25 @@ testdaten haken farbe
 
     #buttondefault{
       color: #005ea9;
-      font-size: 13px;
+      font-size: 12px;
     }
 
     #buttondefault:hover{
       color: #0000cc!important;
       }
 
-      .hinzu {
-        display: inline;
+      .hinzu1 {
+        margin-right: auto;
       }
+      .hinzu2 {
+        margin-right: auto;
+      }
+
+    
+      #leiste {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      

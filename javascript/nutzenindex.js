@@ -331,6 +331,26 @@ $(document).ready(function(){
             if(showmodal) {
              $('#dataModal1').modal("show");
             }
+
+
+            $('#tabelle3 tbody tr').each(function(){
+              
+              var dringlichkeit = $(':nth-child(6)',this).text();
+
+              if(dringlichkeit == 0) {
+                $(this).attr('id', 'blue');
+              }
+              else if(dringlichkeit == 1) {
+                $(this).attr('id', 'orange');
+              }
+              else if(dringlichkeit == 2) {
+                $(this).attr('id', 'red');
+              }
+              
+            });
+
+       
+
          }
     })
   }
@@ -632,9 +652,6 @@ $(document).ready(function(){
     
     
     //weitere eigene functionen
-
-
-
 
     //damit modal Hintergründe noch stimmen wenn zwei geöffnet werden
     $(document).on('show.bs.modal', '.modal', function (event) {
