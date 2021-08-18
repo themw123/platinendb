@@ -151,7 +151,7 @@ else {
 
     <script src="/javascript/nutzenindex.js"></script>
    
-    <script src="javascript/detailExtras.js"></script>
+    <script src="/javascript/detailExtras.js"></script>
 
   </body>
 </html>
