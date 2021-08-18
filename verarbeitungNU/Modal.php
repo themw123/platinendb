@@ -2,8 +2,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     
     
-<link href="/logingit4/plugins/fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
-<link href="/logingit4/plugins/gijgo1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css">
+<link href="plugins/fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
+<link href="plugins/gijgo1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css">
 
 
 <link rel="stylesheet" type="text/css" href="styles/modal.css">

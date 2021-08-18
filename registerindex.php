@@ -8,13 +8,13 @@
 
     <link href="#" rel="shortcut icon" />
     
-    <link href="/logingit4/plugins/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="plugins/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <script src='/logingit4/plugins/fontawesome-free-5.15.1-web/a076d05399.js'></script>
+    <script src='plugins/fontawesome-free-5.15.1-web/a076d05399.js'></script>
 
-    <script src="/logingit4/plugins/jquery3.5.1/dist/jquery.min.js" type="text/javascript"></script>
+    <script src="plugins/jquery3.5.1/dist/jquery.min.js" type="text/javascript"></script>
     
-    <link rel="stylesheet" type="text/css" href="/logingit4/styles/registerindex.css">
+    <link rel="stylesheet" type="text/css" href="styles/registerindex.css">
 
     
   
