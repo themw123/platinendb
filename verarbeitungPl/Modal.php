@@ -34,9 +34,9 @@ else {
 
 
 if($aktion == "modaleinfuegen") {
-  echo <<<END
+  echo'
   <script src="javascript/auftraggeber!bearbeiter.js"></script>
-  END;
+  ';
 }
 
 $von = "platine";
