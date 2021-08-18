@@ -88,17 +88,13 @@ echo'<table id="tabelle1"  style="width:100%" class="table text-center table-hov
 
 	if (isUserEst($link) == true) { 
 		echo <<<END
-		<script>
-		est = "ja";
-		</script>
-		_END;
+		<script>est = "ja";</script>
+		END;
 	}
 	else {
 		echo <<<END
-		<script>
-		est = "nein";
-		</script>
-		_END;
+		<script>est = "nein";</script>
+		END;
 	}
 
 
