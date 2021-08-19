@@ -142,7 +142,7 @@ else {
 
 
 
-    <script src="javascript\platinenindex.js"></script>
+    <script src="javascript/platinenindex.js"></script>
 
   </body>
 </html>
