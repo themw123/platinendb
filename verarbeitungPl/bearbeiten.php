@@ -107,7 +107,7 @@ if($bestanden == true) {
           */
 
           if (empty($_POST["Wunschdatum"])) {
-              $Wunschdatum = NULL;
+              $Wunschdatum = "null";
           }
           else {
               $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Wunschdatum"]));
