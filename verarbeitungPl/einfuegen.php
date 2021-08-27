@@ -121,7 +121,9 @@ if($bestanden == true) {
           }
           else {
             $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Wunschdatum"]));
-            $Wunschdatum = date('Y-m-d', $datumzumformatieren);
+            $Wunschdatum = "'";
+            $Wunschdatum .= date('Y-m-d', $datumzumformatieren);
+            $Wunschdatum .= "'";
           }
 
         

@@ -59,7 +59,7 @@ if($bestanden == true) {
 					if (isset($row['Wunschdatum'])) {
 					$creation_time2 = date('d-m-Y', strtotime($row['Wunschdatum']));
 					}
-					if ($row['Wunschdatum'] == "0000-00-00 00:00:00" ) {
+					if ($row['Wunschdatum'] == null ) {
 					$creation_time2 = "";
 					}
 
