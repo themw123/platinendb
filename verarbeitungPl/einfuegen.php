@@ -141,7 +141,7 @@ if($bestanden == true) {
           
 
        
-          $eintrag = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar')";
+          $eintrag = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, ignorieren) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', '0')";
           
 
 
