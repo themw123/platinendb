@@ -1,4 +1,6 @@
 <?php
+
+//dfd
 require_once("../config/db2.php");
 require_once("../classes/Login.php");
 require_once("../funktion/alle.php");
@@ -18,7 +20,7 @@ $bestanden = $sicherheit->ergebnis();
 
 if($bestanden == true) {
 
-	
+			
 			//für where anweisung in abfrage
 			$auftraggeber1 = mysqli_real_escape_string($link, $_SESSION['user_name']);
 
