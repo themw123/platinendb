@@ -44,15 +44,6 @@ if($bestanden == true) {
             */
             $Status = mysqli_real_escape_string($link, $_POST["Status"]);
 
-            /*
-            Fertigung erstellen
-            */
-            $Fertigung = NULL;
-
-            /*
-            abgeschlossen erstellen
-            */
-            $Abgeschlossen = NULL;
 
             /*
             Inputs auslesen material
@@ -139,7 +130,7 @@ if($bestanden == true) {
             
 
 
-            $eintrag = "INSERT INTO nutzen (Nr, Bearbeiter_ID, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Datum, intoderext, Status1, Testdaten, Datum1, Datum2, Kommentar) VALUES ('$Nr', '$Bearbeiter', '$Material', '$Endkupfer', '$Staerke', '$Lagen', '$Groesse', '$Erstellt', '$Int', '$Status', '$Testdaten', '$Fertigung', '$Abgeschlossen', '$Kommentar')";
+            $eintrag = "INSERT INTO nutzen (Nr, Bearbeiter_ID, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Datum, intoderext, Status1, Testdaten, Kommentar) VALUES ('$Nr', '$Bearbeiter', '$Material', '$Endkupfer', '$Staerke', '$Lagen', '$Groesse', '$Erstellt', '$Int', '$Status', '$Testdaten', '$Kommentar')";
 
 
             mysqli_query($link, $eintrag);

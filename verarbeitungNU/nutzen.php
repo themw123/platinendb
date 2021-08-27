@@ -46,14 +46,14 @@ if($bestanden == true) {
 				if (isset($row['Fertigung'])) {
 				$creation_time2 = date('d-m-Y', strtotime($row['Fertigung']));
 				}
-				if ($row['Fertigung'] == "0000-00-00 00:00:00" ) {
+				if ($row['Fertigung'] == null ) {
 				$creation_time2 = "";
 				}
 
 				if (isset($row['abgeschlossen'])) {
 				$creation_time3 = date('d-m-Y', strtotime($row['abgeschlossen']));
 				}
-				if ($row['abgeschlossen'] == "0000-00-00 00:00:00" ) {
+				if ($row['abgeschlossen'] == null ) {
 				$creation_time3 = "";
 				}
 

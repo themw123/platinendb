@@ -85,20 +85,24 @@ if($bestanden == true) {
         
           
           if (empty($_POST["Fertigung"])) {
-            $Fertigung = NULL;
+            $Fertigung = "null";
           }
           else {
             $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Fertigung"]));
-            $Fertigung = date('Y-m-d', $datumzumformatieren);
+            $Fertigung = "'";
+            $Fertigung .= date('Y-m-d', $datumzumformatieren);
+            $Fertigung .= "'";
           }  
           
           
-            if (empty($_POST["Abgeschlossen"])) {
-            $Abgeschlossen = NULL;
+          if (empty($_POST["Abgeschlossen"])) {
+            $Abgeschlossen = "null";
           }
           else {
             $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Abgeschlossen"]));
-            $Abgeschlossen = date('Y-m-d', $datumzumformatieren);
+            $Abgeschlossen = "'";
+            $Abgeschlossen .= date('Y-m-d', $datumzumformatieren);
+            $Abgeschlossen .= "'";
           }  
 
           
@@ -169,19 +173,19 @@ if($bestanden == true) {
             uploadSecurity();
             $a = readfiledata();
             $lagenHinzufuegen = lagenBefehl($a);
-            $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[ID],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',$lagenHinzufuegen,Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = '$Fertigung',Datum2 = '$Abgeschlossen',Kommentar = '$Kommentar' WHERE ID = $id";
+            $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[ID],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',$lagenHinzufuegen,Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
           }
           else {
             //Bearbeiten und Layer Daten löschen
             if(isset($_POST['layerLoeschen'])) {
               if($_POST['layerLoeschen'] == "true") {
-                $lagenLoeschen = "Top = '0', L2 = '0', L3 = '0', L4 = '0', L5 = '0', Bottom = '0', LagenSumme = '0'";
-                $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[ID],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',$lagenLoeschen,Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = '$Fertigung',Datum2 = '$Abgeschlossen',Kommentar = '$Kommentar' WHERE ID = $id";
+                $lagenLoeschen = "Top = null, L2 = null, L3 = null, L4 = null, L5 = null, Bottom = null, LagenSumme = null";
+                $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[ID],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',$lagenLoeschen,Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
               }
             }
             //Nur bearbeiten
             else {
-              $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[ID],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = '$Fertigung',Datum2 = '$Abgeschlossen',Kommentar = '$Kommentar' WHERE ID = $id";
+              $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[ID],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
             }
 
           }
