@@ -1,4 +1,3 @@
-//hi
 $(document).ready(function(){ 
 
 
