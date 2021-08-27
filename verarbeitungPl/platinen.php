@@ -1,6 +1,5 @@
 <?php
 
-//dfd
 require_once("../config/db2.php");
 require_once("../classes/Login.php");
 require_once("../funktion/alle.php");
