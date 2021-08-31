@@ -11,7 +11,10 @@ class Login
     /**
      * @var object The database connection
      */
-    private $db_connection = null;
+    private $login_connection = null;
+
+    private $platinendb_connection = null;
+
     /**
      * @var array Collection of error messages
      */
@@ -63,6 +66,50 @@ class Login
         return $this->errors;
     }
 
+
+
+
+    public function mysqlplatinendb() {
+        $this->platinendb_connection = new mysqli(platinendb_DB_HOST, platinendb_DB_USER, platinendb_DB_PASS, platinendb_DB_NAME);
+
+            // change character set to utf8 and check it
+            if (!$this->platinendb_connection->set_charset("utf8")) {
+                $this->errors[] = $this->platinendb_connection->error;
+            }
+
+            // if no connection errors (= working database connection)
+            if ($this->platinendb_connection->connect_errno) {
+                $this->errors[] = "Problem mit der platinendb Datenbankverbindung";
+            }
+
+    }
+
+    public function getplatinendb_connection() {
+        return $this->platinendb_connection;
+    }
+
+
+
+    public function mysqllogin() {
+        $this->login_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+            // change character set to utf8 and check it
+            if (!$this->login_connection->set_charset("utf8")) {
+                $this->errors[] = $this->login_connection->error;
+            }
+
+            // if no connection errors (= working database connection)
+            if ($this->login_connection->connect_errno) {
+                $this->errors[] = "Problem mit der login Datenbankverbindung";
+            }
+
+    }
+
+    public function getlogin_connection() {
+        return $this->login_connection;
+    }
+
+
     /**
      * log in with post data
      */
@@ -76,25 +123,25 @@ class Login
         } elseif (!empty($_POST['user_name']) && !empty($_POST['user_password'])) {
 
             // create a database connection, using the constants from config/db.php (which we loaded in index.php)
-            $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            $this->login_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
             // change character set to utf8 and check it
-            if (!$this->db_connection->set_charset("utf8")) {
-                $this->errors[] = $this->db_connection->error;
+            if (!$this->login_connection->set_charset("utf8")) {
+                $this->errors[] = $this->login_connection->error;
             }
 
             // if no connection errors (= working database connection)
-            if (!$this->db_connection->connect_errno) {
+            if (!$this->login_connection->connect_errno) {
 
                 // escape the POST stuff
-                $user_name = $this->db_connection->real_escape_string($_POST['user_name']);
+                $user_name = $this->login_connection->real_escape_string($_POST['user_name']);
 
                 // database query, getting all the info of the selected user (allows login via email address in the
                 // username field)
                 $sql = "SELECT user_name, user_email, user_password_hash
                         FROM users
                         WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
-                $result_of_login_check = $this->db_connection->query($sql);
+                $result_of_login_check = $this->login_connection->query($sql);
 
                 // if this user exists
                 if ($result_of_login_check->num_rows == 1) {
@@ -119,7 +166,7 @@ class Login
                     $this->errors[] = "Der Benutzer existiert nicht";
                 }
             } else {
-                $this->errors[] = "Problem mit der Datenbankverbindung";
+                $this->errors[] = "Problem mit der login Datenbankverbindung";
             }
         }
     }
@@ -174,7 +221,7 @@ class Login
     private function databaseConnection()
     {
         // if connection already exists
-        if ($this->db_connection != null) {
+        if ($this->login_connection != null) {
             return true;
         } else {
             try {
@@ -184,7 +231,7 @@ class Login
                 // @see http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers#Connecting_to_MySQL says:
                 // "Adding the charset to the DSN is very important for security reasons,
                 // most examples you'll see around leave it out. MAKE SURE TO INCLUDE THE CHARSET!"
-                $this->db_connection = new PDO('mysql:host='. DB_HOST .';dbname='. DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
+                $this->login_connection = new PDO('mysql:host='. DB_HOST .';dbname='. DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
                 return true;
             } catch (PDOException $e) {
                 $this->errors[] = MESSAGE_DATABASE_ERROR . $e->getMessage();
@@ -203,7 +250,7 @@ class Login
         // if database connection opened
         if ($this->databaseConnection()) {
             // database query, getting all the info of the selected user
-            $query_user = $this->db_connection->prepare('SELECT * FROM users WHERE user_name = :user_name');
+            $query_user = $this->login_connection->prepare('SELECT * FROM users WHERE user_name = :user_name');
             $query_user->bindValue(':user_name', $user_name, PDO::PARAM_STR);
             $query_user->execute();
             // get result row (as an object)
@@ -234,7 +281,7 @@ class Login
             if (isset($result_row->user_id)) {
 
                 // database query:
-                $query_update = $this->db_connection->prepare('UPDATE users SET user_password_reset_hash = :user_password_reset_hash,
+                $query_update = $this->login_connection->prepare('UPDATE users SET user_password_reset_hash = :user_password_reset_hash,
                                                                user_password_reset_timestamp = :user_password_reset_timestamp
                                                                WHERE user_name = :user_name');
                 $query_update->bindValue(':user_password_reset_hash', $user_password_reset_hash, PDO::PARAM_STR);
@@ -369,7 +416,7 @@ class Login
             $user_password_hash = password_hash($user_password_new, PASSWORD_DEFAULT, array('cost' => $hash_cost_factor));
 
             // write users new hash into database
-            $query_update = $this->db_connection->prepare('UPDATE users SET user_password_hash = :user_password_hash,
+            $query_update = $this->login_connection->prepare('UPDATE users SET user_password_hash = :user_password_hash,
                                                            user_password_reset_hash = NULL, user_password_reset_timestamp = NULL
                                                            WHERE user_name = :user_name AND user_password_reset_hash = :user_password_reset_hash');
             $query_update->bindValue(':user_password_hash', $user_password_hash, PDO::PARAM_STR);
@@ -419,7 +466,7 @@ class Login
 
 
     public function returnDatabase() {
-        return $this->db_connection;
+        return $this->login_connection;
     }
 }
 

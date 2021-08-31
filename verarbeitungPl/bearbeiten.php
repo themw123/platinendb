@@ -1,12 +1,19 @@
 <?php
-require_once("../config/db2.php");
+require_once("../config/db.php");
 require_once("../classes/Login.php");
 require_once("../funktion/alle.php");
 require_once("../classes/Sicherheit.php");
 
 $login = new Login();
-$link = OpenCon();
-$link2 = OpenCon2();
+
+//Verbindung zur Platinendb Datenbank aufbauen
+$login->mysqlplatinendb();
+
+//Verbindung zur login Datenbank aufbauen
+$login->mysqllogin();
+
+$login_connection= $login->getlogin_connection();
+$platinendb_connection = $login->getplatinendb_connection();
 
 
 //$aktion = "bearbeiten";
@@ -15,10 +22,10 @@ if(!(isset($_POST['aktion']))) {
   $aktion = "";
 }
 else {
-  $aktion = mysqli_real_escape_string($link, $_POST["aktion"]);
+  $aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 }
 $von = "platine";
-$sicherheit = new Sicherheit($aktion, $von, $login, $link, $link2);
+$sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
 
@@ -27,23 +34,23 @@ if($bestanden == true) {
 
 
 
-          $id = mysqli_real_escape_string($link, $_POST['Id']);
+          $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
 
           /*
           Inputs auslesen Name
           */
 
-          $Name = mysqli_real_escape_string($link, $_POST["Name"]);
+          $Name = mysqli_real_escape_string($platinendb_connection, $_POST["Name"]);
 
 
-          if(isUserEst($link) == true) {
+          if(isUserEst($platinendb_connection) == true) {
           /*
           Inputs auslesen Auftraggeber
           */
-          $auftraggeber = mysqli_real_escape_string($link, $_POST["Auftraggeber"]);
+          $auftraggeber = mysqli_real_escape_string($platinendb_connection, $_POST["Auftraggeber"]);
           $auftraggeberquery = "SELECT user_id FROM users WHERE user_name='$auftraggeber'"; 
-          $auftraggeberid =  mysqli_query($link2, $auftraggeberquery);
+          $auftraggeberid =  mysqli_query($login_connection, $auftraggeberquery);
           $Auftraggeber = mysqli_fetch_assoc($auftraggeberid);   
           }
 
@@ -51,15 +58,15 @@ if($bestanden == true) {
           /*
           Inputs auslesen Anzahl
           */
-          $Anzahl = mysqli_real_escape_string($link, $_POST["Anzahl"]);
+          $Anzahl = mysqli_real_escape_string($platinendb_connection, $_POST["Anzahl"]);
 
 
           /*
           Inputs auslesen material
           */
-          $material2 = mysqli_real_escape_string($link, $_POST["Material"]);
+          $material2 = mysqli_real_escape_string($platinendb_connection, $_POST["Material"]);
           $material2query = "SELECT ID FROM material WHERE Name='$material2'"; 
-          $material2id =  mysqli_query($link, $material2query);
+          $material2id =  mysqli_query($platinendb_connection, $material2query);
           $row2 = mysqli_fetch_assoc($material2id);   
 
 
@@ -67,39 +74,39 @@ if($bestanden == true) {
           /*
           Inputs auslesen Endkupfer
           */
-          $Endkupfer = mysqli_real_escape_string($link, $_POST["Endkupfer"]);
+          $Endkupfer = mysqli_real_escape_string($platinendb_connection, $_POST["Endkupfer"]);
 
 
 
           /*
           Inputs auslesen Stärke
           */
-          $Staerke = mysqli_real_escape_string($link, $_POST["Staerke"]);
+          $Staerke = mysqli_real_escape_string($platinendb_connection, $_POST["Staerke"]);
 
 
 
           /*
           Inputs auslesen Lagen
           */
-          $Lagen = mysqli_real_escape_string($link, $_POST["Lagen"]);
+          $Lagen = mysqli_real_escape_string($platinendb_connection, $_POST["Lagen"]);
 
 
           /*
           Inputs auslesen Größe
           */
-          $Groeße = mysqli_real_escape_string($link, $_POST["Groeße"]);
+          $Groeße = mysqli_real_escape_string($platinendb_connection, $_POST["Groeße"]);
 
 
           /*
           Inputs auslesen Oberfläche
           */
-          $Oberflaeche = mysqli_real_escape_string($link, $_POST["Oberflaeche"]);
+          $Oberflaeche = mysqli_real_escape_string($platinendb_connection, $_POST["Oberflaeche"]);
 
 
           /*
           Inputs auslesen Loetstopp
           */
-          $Loetstopp = mysqli_real_escape_string($link, $_POST["Loetstopp"]);
+          $Loetstopp = mysqli_real_escape_string($platinendb_connection, $_POST["Loetstopp"]);
 
 
           /*
@@ -110,7 +117,7 @@ if($bestanden == true) {
               $Wunschdatum = "null";
           }
           else {
-              $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Wunschdatum"]));
+              $datumzumformatieren = strtotime(mysqli_real_escape_string($platinendb_connection, $_POST["Wunschdatum"]));
               $Wunschdatum = "'";
               $Wunschdatum .= date('Y-m-d', $datumzumformatieren);
               $Wunschdatum .= "'";
@@ -122,7 +129,7 @@ if($bestanden == true) {
           /*
           Inputs auslesen Kommentar
           */
-          $Kommentar = mysqli_real_escape_string($link, $_POST["Kommentar"]);
+          $Kommentar = mysqli_real_escape_string($platinendb_connection, $_POST["Kommentar"]);
         
 
           
@@ -139,7 +146,7 @@ if($bestanden == true) {
 
 
           //bearbeitung durchführen
-          if(isUserEst($link)) {
+          if(isUserEst($platinendb_connection)) {
             $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar', ignorieren = '$Ignorieren' WHERE ID = $id";
           }
           else {
@@ -147,11 +154,11 @@ if($bestanden == true) {
           }
         
 
-          mysqli_query($link, $bearbeiten);
+          mysqli_query($platinendb_connection, $bearbeiten);
           
-          $sicherheit->checkQuery($link);
+          $sicherheit->checkQuery($platinendb_connection);
 
-          mysqli_close($link); 
+          mysqli_close($platinendb_connection); 
 
 }
 

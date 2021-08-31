@@ -1,12 +1,19 @@
 <?php
-require_once("../config/db2.php");
+require_once("../config/db.php");
 require_once("../classes/Login.php");
 require_once("../funktion/alle.php");
 require_once("../classes/Sicherheit.php");
 
 $login = new Login();
-$link = OpenCon();
-$link2 = OpenCon2();
+
+//Verbindung zur Platinendb Datenbank aufbauen
+$login->mysqlplatinendb();
+
+//Verbindung zur login Datenbank aufbauen
+$login->mysqllogin();
+
+$login_connection= $login->getlogin_connection();
+$platinendb_connection = $login->getplatinendb_connection();
 
 
 //$aktion = "bearbeiten";
@@ -15,27 +22,27 @@ if(!(isset($_POST['aktion']))) {
 	$aktion = "";
 }
 else {
-	$aktion = mysqli_real_escape_string($link, $_POST["aktion"]);
+	$aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 }
 $von = "platine";
-$sicherheit = new Sicherheit($aktion, $von, $login, $link, $link2);
+$sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
 
 if($bestanden == true) {
 
 
-		$id = mysqli_real_escape_string($link, $_POST['Id']);
+		$id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
 
 		$loeschen = "DELETE FROM platinen WHERE id=$id";
 
 
-		mysqli_query($link, $loeschen);
+		mysqli_query($platinendb_connection, $loeschen);
 
-		$sicherheit->checkQuery($link); 
+		$sicherheit->checkQuery($platinendb_connection); 
 
-		mysqli_close($link);
+		mysqli_close($platinendb_connection);
 
 		
 

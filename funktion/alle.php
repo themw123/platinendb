@@ -1,11 +1,11 @@
 <?php
 
 //gucken ob eingeloggter benutzer est ist
-function isUserEst ($link) {
+function isUserEst ($login_connection) {
 
 
 //eingeloggter user
-$user = mysqli_real_escape_string($link, $_SESSION['user_name']);
+$user = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
 
 //gucken ob es est ist
 if ($user == "est") {
@@ -22,11 +22,11 @@ return false;
 
 // gucken ob zu bearbeitende oder detail anschauende Platine  dem eingeloggten Benutzer gehört
 
-function legitimierung ($link) {
+function legitimierung ($login_connection) {
 
 
-	$id = mysqli_real_escape_string($link, $_POST['Id']);
-	$ziel =  mysqli_real_escape_string($link, $_POST['ziel']);
+	$id = mysqli_real_escape_string($login_connection, $_POST['Id']);
+	$ziel =  mysqli_real_escape_string($login_connection, $_POST['ziel']);
 
 
 	
@@ -41,7 +41,7 @@ function legitimierung ($link) {
 
 
 
-	$auftraggeberid =  mysqli_query($link, $auftraggeberquery);
+	$auftraggeberid =  mysqli_query($login_connection, $auftraggeberquery);
 	$rowauftraggeber = mysqli_fetch_assoc($auftraggeberid);
 	$VariableAuftraggeber = $rowauftraggeber["Nameee"];
 	
@@ -61,9 +61,9 @@ function legitimierung ($link) {
 
 }
 
-function veraenderbarNutzen($link) {
+function veraenderbarNutzen($platinendb_connection) {
 
-	$id = mysqli_real_escape_string($link, $_POST['Id']);
+	$id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
 	$query = 
 	"SELECT
@@ -72,16 +72,16 @@ function veraenderbarNutzen($link) {
   	  nutzenplatinen
 	WHERE Nutzen_ID = '$id'";
 
-	$queryresult1 =  mysqli_query($link, $query);
+	$queryresult1 =  mysqli_query($platinendb_connection, $query);
 	$queryresult2 = mysqli_fetch_assoc($queryresult1);
 
 	//Überprüfung nur wenn Platinen auf Nutzen drauf sind
 	if($queryresult2 !== null) {
 
-			$eigenschaftenNeu[1] = mysqli_real_escape_string($link, $_POST['Material']);
-			$eigenschaftenNeu[2] = mysqli_real_escape_string($link, $_POST['Endkupfer']);
-			$eigenschaftenNeu[3] = mysqli_real_escape_string($link, $_POST['Staerke']);
-			$eigenschaftenNeu[4] = mysqli_real_escape_string($link, $_POST['Lagen']);
+			$eigenschaftenNeu[1] = mysqli_real_escape_string($platinendb_connection, $_POST['Material']);
+			$eigenschaftenNeu[2] = mysqli_real_escape_string($platinendb_connection, $_POST['Endkupfer']);
+			$eigenschaftenNeu[3] = mysqli_real_escape_string($platinendb_connection, $_POST['Staerke']);
+			$eigenschaftenNeu[4] = mysqli_real_escape_string($platinendb_connection, $_POST['Lagen']);
 
 
 			$query = 
@@ -98,7 +98,7 @@ function veraenderbarNutzen($link) {
 				nutzen.ID = '$id'";
 
 
-			$queryresult1 =  mysqli_query($link, $query);
+			$queryresult1 =  mysqli_query($platinendb_connection, $query);
 			$queryresult2 = mysqli_fetch_assoc($queryresult1);
 
 			$eigenschaftenAlt[1] = $queryresult2["Material"];
@@ -132,9 +132,9 @@ function veraenderbarNutzen($link) {
 
 
 
-function veraenderbarPlatine ($link) {
+function veraenderbarPlatine ($platinendb_connection) {
 
-	$id = mysqli_real_escape_string($link, $_POST['Id']);
+	$id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
 	$anzahlaufnutzen = 
 	"SELECT
@@ -144,7 +144,7 @@ function veraenderbarPlatine ($link) {
 	WHERE
 	platinendb.nutzenplatinen.Platinen_ID = '$id'";
 
-	$anzahlaufnutzen2=  mysqli_query($link, $anzahlaufnutzen);
+	$anzahlaufnutzen2=  mysqli_query($platinendb_connection, $anzahlaufnutzen);
 	
 	$anzahlaufnutzen3 = mysqli_fetch_assoc($anzahlaufnutzen2);	
 
@@ -154,15 +154,15 @@ function veraenderbarPlatine ($link) {
 	if ($anzahlaufnutzen3 !== null) {
 		
 
-		if(isUserEst($link) == true) {
+		if(isUserEst($platinendb_connection) == true) {
 
-			$aktion = mysqli_real_escape_string($link, $_POST["aktion"]);
+			$aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 			if($aktion != "loeschen") { 
 	
-					$eigenschaftenNeu[1] = mysqli_real_escape_string($link, $_POST['Material']);
-					$eigenschaftenNeu[2] = mysqli_real_escape_string($link, $_POST['Endkupfer']);
-					$eigenschaftenNeu[3] = mysqli_real_escape_string($link, $_POST['Staerke']);
-					$eigenschaftenNeu[4] = mysqli_real_escape_string($link, $_POST['Lagen']);
+					$eigenschaftenNeu[1] = mysqli_real_escape_string($platinendb_connection, $_POST['Material']);
+					$eigenschaftenNeu[2] = mysqli_real_escape_string($platinendb_connection, $_POST['Endkupfer']);
+					$eigenschaftenNeu[3] = mysqli_real_escape_string($platinendb_connection, $_POST['Staerke']);
+					$eigenschaftenNeu[4] = mysqli_real_escape_string($platinendb_connection, $_POST['Lagen']);
 
 					$query = 
 					"SELECT
@@ -177,7 +177,7 @@ function veraenderbarPlatine ($link) {
 					WHERE platinen.ID = '$id'";
 
 
-					$queryresult1 =  mysqli_query($link, $query);
+					$queryresult1 =  mysqli_query($platinendb_connection, $query);
 					$queryresult2 = mysqli_fetch_assoc($queryresult1);
 
 					$eigenschaftenAlt[1] = $queryresult2["Material"];
@@ -235,14 +235,14 @@ else {
 
 //existens der paramater prüfen und gucken ob überhaupt übergeben wurde
 
-function existens ($link) {
+function existens ($connection) {
 
 
 if (isset($_POST["Id"]) && isset($_POST["ziel"])) {
 
 
-$ziel = mysqli_real_escape_string($link, $_POST['ziel']);
-$url_id = mysqli_real_escape_string($link, $_POST['Id']);
+$ziel = mysqli_real_escape_string($connection, $_POST['ziel']);
+$url_id = mysqli_real_escape_string($connection, $_POST['Id']);
 
 if($ziel == "platinen") {
 $sqlx = "SELECT ID FROM platinenview WHERE ID='$url_id'";
@@ -256,7 +256,7 @@ elseif($ziel == "nutzenplatinen") {
 $sqlx = "SELECT ID FROM platinenaufnutzen2 WHERE nuplid='$url_id'";
 }
 
-$resultx = mysqli_query($link, $sqlx);
+$resultx = mysqli_query($connection, $sqlx);
 
 
 //gucken ob Platinen id in tabelle existiert 
@@ -457,7 +457,7 @@ echo'
 
 //modal für benutzerinformationen
 
-function modal1($link) {
+function modal1($login_connection) {
 
 
 	
@@ -473,7 +473,7 @@ echo "
 	  eingeloggt:  $_SESSION[user_name] <br> <br>
 	  Berechtigung: 
 	  ";
-	  if (isUserEst ($link) == true) { 
+	  if (isUserEst ($login_connection) == true) { 
 	  echo 'Admin';
 	  }
 

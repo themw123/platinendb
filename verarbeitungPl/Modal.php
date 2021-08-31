@@ -14,14 +14,21 @@
 
 <?php
 
-require_once("../config/db2.php");
+require_once("../config/db.php");
 require_once("../classes/Login.php");
 require_once("../funktion/alle.php");
 require_once("../classes/Sicherheit.php");
 
 $login = new Login();
-$link = OpenCon();
-$link2 = OpenCon2();
+
+//Verbindung zur Platinendb Datenbank aufbauen
+$login->mysqlplatinendb();
+
+//Verbindung zur login Datenbank aufbauen
+$login->mysqllogin();
+
+$login_connection= $login->getlogin_connection();
+$platinendb_connection = $login->getplatinendb_connection();
  
 
 //sicherheit checks
@@ -29,7 +36,7 @@ if(!(isset($_POST['aktion']))) {
   $aktion = "";
 }
 else {
-  $aktion = mysqli_real_escape_string($link, $_POST["aktion"]);
+  $aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 }
 
 
@@ -40,7 +47,7 @@ if($aktion == "modaleinfuegen") {
 }
 
 $von = "platine";
-$sicherheit = new Sicherheit($aktion, $von, $login, $link, $link2);
+$sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
 if($bestanden == true) {
@@ -48,11 +55,11 @@ if($bestanden == true) {
         /*
         Auftraggeber vorbereitung
         */
-        if(isUserEst($link) == true) {
+        if(isUserEst($platinendb_connection) == true) {
 
           $auftraggeber = 'SELECT user_name FROM users';
           
-          $auftraggeberabfrage = mysqli_query($link2, $auftraggeber);
+          $auftraggeberabfrage = mysqli_query($login_connection, $auftraggeber);
 
           $option = '';
 
@@ -70,7 +77,7 @@ if($bestanden == true) {
 
         $material = 'SELECT Name FROM material';
 
-        $abfragematerial = mysqli_query($link, $material);
+        $abfragematerial = mysqli_query($platinendb_connection, $material);
 
         $option2 = '';
 
@@ -120,7 +127,7 @@ if($bestanden == true) {
         </div>
         ";
 
-        if(isUserEst($link) == true) {
+        if(isUserEst($platinendb_connection) == true) {
           $output .= "
           <label for='usr'>Auftraggeber:</label>
           <div class='input-group ipg1'>
@@ -324,7 +331,7 @@ if($bestanden == true) {
             ";
 
 
-            if(isUserEst($link) == true) {
+            if(isUserEst($platinendb_connection) == true) {
               $output .= "
               <div class='form-group'>
               <label for='usr'>Auftraggeber:</label>
@@ -443,7 +450,7 @@ if($bestanden == true) {
             ";
             
             
-            if(isUserEst($link)) {
+            if(isUserEst($platinendb_connection)) {
               $output .= "
               <div class='custom-control custom-checkbox form-group'>
               <input name='Ignorieren' type='checkbox' class='custom-control-input' id='checkbox-2' $check>

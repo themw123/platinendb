@@ -6,18 +6,18 @@ class Sicherheit {
     private $aktion;
     private $von;
     private $login;
-    private $link;
-    private $link2;
+    private $login_connection;
+    private $platinendb_connection;
 
     //Konstruktor
-    public function __construct($aktion, $von, $login, $link, $link2){
+    public function __construct($aktion, $von, $login, $login_connection, $platinendb_connection){
 
         $this->bestanden = false;
         $this->aktion = $aktion;
         $this->von = $von;
         $this->login = $login;
-        $this->link = $link;
-        $this->link2 = $link2;
+        $this->login_connection = $login_connection;
+        $this->platinendb_connection = $platinendb_connection;
 
         if($von == "platine") {
             $this->platine();
@@ -36,8 +36,8 @@ class Sicherheit {
     } 
 
 
-    public function checkQuery($link) {
-        if (mysqli_error($link))
+    public function checkQuery($connection) {
+        if (mysqli_error($connection))
         {
           header('Content-Type: application/json');
           echo json_encode(array('data'=> "dberror"));
@@ -57,7 +57,7 @@ class Sicherheit {
 
         $fromajax = $this->fromJavascript();
         $eingeloggt = $this->login->isUserLoggedIn();
-        $est = isUserEst($this->link);
+        $est = isUserEst($this->login_connection);
         $parameter = $this->parameterNu($this->aktion); 
  
  
@@ -80,7 +80,7 @@ class Sicherheit {
 
  
          elseif($this->aktion == "modalbearbeiten") {
-                 $existens = existens($this->link);
+                 $existens = existens($this->platinendb_connection);
  
                  if ($existens == false) {
                      
@@ -110,7 +110,7 @@ class Sicherheit {
 
  
          elseif($this->aktion == "bearbeiten") {
-                 $existens = existens($this->link);
+                 $existens = existens($this->platinendb_connection);
  
                  if ($existens == false) {
                  
@@ -118,7 +118,7 @@ class Sicherheit {
                  elseif ($parameter == false) {
                          
                  }
-                 elseif(veraenderbarNutzen($this->link) == false) {
+                 elseif(veraenderbarNutzen($this->platinendb_connection) == false) {
                     header('Content-Type: application/json');
                     echo json_encode(array('data'=> "nichtveraenderbar"));
                     die();
@@ -130,7 +130,7 @@ class Sicherheit {
          }
  
          elseif($this->aktion == "detail") {
-                 $existens = existens($this->link);
+                 $existens = existens($this->platinendb_connection);
  
                  if ($existens == false) {
  
@@ -141,7 +141,7 @@ class Sicherheit {
              }
  
              elseif($this->aktion == "loeschen") {
-                 $existens = existens($this->link);
+                 $existens = existens($this->platinendb_connection);
  
                  if ($existens == false) {
  
@@ -255,7 +255,7 @@ class Sicherheit {
         }
 
         elseif($this->aktion == "modalbearbeiten") {
-                $existens = existens($this->link);
+                $existens = existens($this->platinendb_connection);
 
                 if ($existens == false) {
                     
@@ -283,8 +283,8 @@ class Sicherheit {
          }
 
         elseif($this->aktion == "bearbeiten") {
-                $existens = existens($this->link);
-                $veraenderbar = veraenderbarPlatine($this->link);
+                $existens = existens($this->platinendb_connection);
+                $veraenderbar = veraenderbarPlatine($this->platinendb_connection);
 
                 if ($existens == false) {
                 
@@ -292,7 +292,7 @@ class Sicherheit {
                 elseif ($parameter == false) {
                         
                 }
-                elseif(legitimierung($this->link) == false) {
+                elseif(legitimierung($this->login_connection) == false) {
 
                 }
                 elseif($veraenderbar[0] == false) {
@@ -307,12 +307,12 @@ class Sicherheit {
         }
 
         elseif($this->aktion == "detail") {
-                $existens = existens($this->link);
+                $existens = existens($this->platinendb_connection);
 
                 if ($existens == false) {
 
                 }
-                elseif(legitimierung ($this->link) == false) {
+                elseif(legitimierung ($this->login_connection) == false) {
 
                 }
                 else{
@@ -321,13 +321,13 @@ class Sicherheit {
             }
 
             elseif($this->aktion == "loeschen") {
-                $existens = existens($this->link);
-                $veraenderbar = veraenderbarPlatine($this->link);
+                $existens = existens($this->platinendb_connection);
+                $veraenderbar = veraenderbarPlatine($this->platinendb_connection);
 
                 if ($existens == false) {
 
                 }
-                elseif(legitimierung ($this->link) == false) {
+                elseif(legitimierung ($this->login_connection) == false) {
 
                 }
                 elseif($veraenderbar[0] == false) {

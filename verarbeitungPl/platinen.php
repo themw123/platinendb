@@ -1,19 +1,26 @@
 <?php
 
-require_once("../config/db2.php");
+require_once("../config/db.php");
 require_once("../classes/Login.php");
 require_once("../funktion/alle.php");
 require_once("../classes/Sicherheit.php");
 
 $login = new Login();
-$link = OpenCon();
-$link2 = OpenCon2();
+
+//Verbindung zur Platinendb Datenbank aufbauen
+$login->mysqlplatinendb();
+
+//Verbindung zur login Datenbank aufbauen
+$login->mysqllogin();
+
+$login_connection= $login->getlogin_connection();
+$platinendb_connection = $login->getplatinendb_connection();
 
 
 //sicherheit checks
 $aktion = "platinen";
 $von = "platine";
-$sicherheit = new Sicherheit($aktion, $von, $login, $link, $link2);
+$sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
 
@@ -21,7 +28,7 @@ if($bestanden == true) {
 
 			
 			//für where anweisung in abfrage
-			$auftraggeber1 = mysqli_real_escape_string($link, $_SESSION['user_name']);
+			$auftraggeber1 = mysqli_real_escape_string($platinendb_connection, $_SESSION['user_name']);
 
 
 
@@ -30,7 +37,7 @@ if($bestanden == true) {
 			*/
 
 			
-			if (isUserEst($link) == true) {
+			if (isUserEst($platinendb_connection) == true) {
 			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Status, ignorieren, abgeschlossen, 10Tage, 14Tage, dringlichkeit FROM platinenviewest";
 			}
 
@@ -38,9 +45,9 @@ if($bestanden == true) {
 			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar FROM platinenview WHERE platinenview.Auftraggeber = '$auftraggeber1' order by erstelltam desc";
 			}
 
-			$result = $link->query($sql);
+			$result = $platinendb_connection->query($sql);
 
-			if (mysqli_error($link))
+			if (mysqli_error($platinendb_connection))
 			{
 				$datax[1] = "dberror";
 				header('Content-Type: application/json');
@@ -100,7 +107,7 @@ if($bestanden == true) {
 					$nestedData[] = $creation_time;
 					$nestedData[] = $creation_time2;
 					$nestedData[] = $row["Kommentar"];
-					if (isUserEst($link) == true) {
+					if (isUserEst($platinendb_connection) == true) {
 						$nestedData[] = $row["Status"];
 						$nestedData[] = $row["ignorieren"];
 						$nestedData[] = $row["abgeschlossen"];

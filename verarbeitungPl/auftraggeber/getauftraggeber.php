@@ -1,12 +1,19 @@
 <?php
-require_once("../../config/db2.php");
+require_once("../../config/db.php");
 require_once("../../classes/Login.php");
 require_once("../../funktion/alle.php");
 require_once("../../classes/Sicherheit.php");
 
 $login = new Login();
-$link = OpenCon();
-$link2 = OpenCon2();
+
+//Verbindung zur Platinendb Datenbank aufbauen
+$login->mysqlplatinendb();
+
+//Verbindung zur login Datenbank aufbauen
+$login->mysqllogin();
+
+$login_connection= $login->getlogin_connection();
+$platinendb_connection = $login->getplatinendb_connection();
 
 
 //sicherheit checks
@@ -14,10 +21,10 @@ if(!(isset($_POST['aktion']))) {
   $aktion = "";
 }
 else {
-  $aktion = mysqli_real_escape_string($link, $_POST["aktion"]);
+  $aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 }
 $von = "platine";
-$sicherheit = new Sicherheit($aktion, $von, $login, $link, $link2);
+$sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
 
@@ -25,7 +32,7 @@ if($bestanden == true) {
  
   
          $query = "SELECT user_name FROM users"; 
-         $result = mysqli_query($link2, $query);  
+         $result = mysqli_query($login_connection, $query);  
          $namen = array();
          $counter = 0;
          if ($result->num_rows > 0) {
