@@ -1,12 +1,13 @@
 <?php
-require_once("../config/db2.php");
+require_once("../config/db.php");
 require_once("../classes/Login.php");
 require_once("../funktion/alle.php");
 require_once("../classes/Sicherheit.php");
 
 $login = new Login();
-$link = OpenCon();
-$link2 = OpenCon2();
+
+$login_connection= $login->getlogin_connection();
+$platinendb_connection = $login->getplatinendb_connection();
 
 
 //sicherheit checks
@@ -14,10 +15,10 @@ if(!(isset($_POST['aktion']))) {
   $aktion = "";
 }
 else {
-  $aktion = mysqli_real_escape_string($link, $_POST["aktion"]);
+  $aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 }
 $von = "nutzen";
-$sicherheit = new Sicherheit($aktion, $von, $login, $link, $link2);
+$sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
 
@@ -27,30 +28,30 @@ if($bestanden == true) {
             /*
             Inputs auslesen Name
             */
-            $Nr = mysqli_real_escape_string($link, $_POST["Nr"]);
+            $Nr = mysqli_real_escape_string($platinendb_connection, $_POST["Nr"]);
 
 
             /*
             Bearbeiter
             */
-            $bearbeiter = mysqli_real_escape_string($link, $_POST["Bearbeiter"]);
+            $bearbeiter = mysqli_real_escape_string($platinendb_connection, $_POST["Bearbeiter"]);
             $bearbeiterquery = "SELECT ID FROM bearbeiter WHERE BearbeiterName='$bearbeiter'"; 
-            $Bearbeiterquery =  mysqli_query($link, $bearbeiterquery);
+            $Bearbeiterquery =  mysqli_query($platinendb_connection, $bearbeiterquery);
             $Bearbeiterx = mysqli_fetch_assoc($Bearbeiterquery);
             $Bearbeiter = $Bearbeiterx['ID']; 
 
             /*
             Inputs auslesen Status
             */
-            $Status = mysqli_real_escape_string($link, $_POST["Status"]);
+            $Status = mysqli_real_escape_string($platinendb_connection, $_POST["Status"]);
 
 
             /*
             Inputs auslesen material
             */
-            $material2 = mysqli_real_escape_string($link, $_POST["Material"]);
+            $material2 = mysqli_real_escape_string($platinendb_connection, $_POST["Material"]);
             $material2query = "SELECT ID FROM material WHERE Name='$material2'"; 
-            $material2id =  mysqli_query($link, $material2query);
+            $material2id =  mysqli_query($platinendb_connection, $material2query);
             $Materialx = mysqli_fetch_assoc($material2id);   
             $Material = $Materialx['ID'];
 
@@ -58,20 +59,20 @@ if($bestanden == true) {
             /*
             Inputs auslesen Endkupfer
             */
-            $Endkupfer = mysqli_real_escape_string($link, $_POST["Endkupfer"]);
+            $Endkupfer = mysqli_real_escape_string($platinendb_connection, $_POST["Endkupfer"]);
 
 
             /*
             Inputs auslesen Staerke
             */
-            $Staerke = mysqli_real_escape_string($link, $_POST["Staerke"]);
+            $Staerke = mysqli_real_escape_string($platinendb_connection, $_POST["Staerke"]);
 
 
 
             /*
             Inputs auslesen Lagen
             */
-            $Lagen = mysqli_real_escape_string($link, $_POST["Lagen"]);
+            $Lagen = mysqli_real_escape_string($platinendb_connection, $_POST["Lagen"]);
             
 
 
@@ -96,13 +97,13 @@ if($bestanden == true) {
             /*
             Inputs auslesen Größe
             */
-            $Groesse = mysqli_real_escape_string($link, $_POST["Groesse"]);
+            $Groesse = mysqli_real_escape_string($platinendb_connection, $_POST["Groesse"]);
 
 
             /*
             Inputs auslesen int/ext
             */
-            $Int = mysqli_real_escape_string($link, $_POST["Int"]);
+            $Int = mysqli_real_escape_string($platinendb_connection, $_POST["Int"]);
 
 
             /*
@@ -121,7 +122,7 @@ if($bestanden == true) {
             /*
             Inputs auslesen Kommentar
             */
-            $Kommentar = mysqli_real_escape_string($link, $_POST["Kommentar"]);
+            $Kommentar = mysqli_real_escape_string($platinendb_connection, $_POST["Kommentar"]);
 
 
             /*
@@ -133,13 +134,13 @@ if($bestanden == true) {
             $eintrag = "INSERT INTO nutzen (Nr, Bearbeiter_ID, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Datum, intoderext, Status1, Testdaten, Kommentar) VALUES ('$Nr', '$Bearbeiter', '$Material', '$Endkupfer', '$Staerke', '$Lagen', '$Groesse', '$Erstellt', '$Int', '$Status', '$Testdaten', '$Kommentar')";
 
 
-            mysqli_query($link, $eintrag);
+            mysqli_query($platinendb_connection, $eintrag);
 
 
-            $sicherheit->checkQuery($link);
+            $sicherheit->checkQuery($platinendb_connection);
 
             
-            mysqli_close($link);
+            mysqli_close($platinendb_connection);
 
 
 }

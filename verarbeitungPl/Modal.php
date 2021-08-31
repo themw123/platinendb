@@ -21,12 +21,6 @@ require_once("../classes/Sicherheit.php");
 
 $login = new Login();
 
-//Verbindung zur Platinendb Datenbank aufbauen
-$login->mysqlplatinendb();
-
-//Verbindung zur login Datenbank aufbauen
-$login->mysqllogin();
-
 $login_connection= $login->getlogin_connection();
 $platinendb_connection = $login->getplatinendb_connection();
  

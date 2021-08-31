@@ -54,7 +54,7 @@
 
     // include the configs / constants for the database connection
     require_once("config/db.php");
-    require_once("config/db2.php");
+
     require_once("funktion/alle.php");
     // load the login class
     require_once("classes/Login.php");
@@ -63,10 +63,14 @@
 
     // create a login object. when this object is created, it will do all login/logout stuff automatically
     // so this single line handles the entire login process. in consequence, you can simply ...
+    
+    //stellt nur session un datenbankverbindungen wiederher wenn schon eingeloggt
     $login = new Login();
 
-    //Verbindung zur Platinendb Datenbank aufbauen
-    $link = OpenCon();
+    //für logged_in.php
+    $login_connection = $login->getlogin_connection();
+
+
     ?>
 
 
@@ -92,7 +96,20 @@ if ($login->isUserLoggedIn() == true) {
     // for demonstration purposes, we simply show the "you are logged in" view.
 
     //gucken ob es est ist
-    if (isUserEst($link) == true) {
+    if (isUserEst($login_connection) == true) {
+
+     //gucken ob Datenbankverbindung zu platinendb (bzw auch login) besteht, sonnst abbruch
+    if (isset($login)) {
+      if ($login->errors) {
+          foreach ($login->errors as $error) {
+              if($error != false) {
+                echo '<div class="alert alert-warning"> '.$error.'   </div> ';
+                die();
+              }
+          }
+      }
+    }
+
     include("views/nutzen.php");
     }
     else {

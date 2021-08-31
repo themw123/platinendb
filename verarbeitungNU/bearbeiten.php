@@ -1,13 +1,14 @@
 <?php
 
-require_once("../config/db2.php");
+require_once("../config/db.php");
 require_once("../classes/Login.php");
 require_once("../funktion/alle.php");
 require_once("../classes/Sicherheit.php");
 
 $login = new Login();
-$link = OpenCon();
-$link2 = OpenCon2();
+
+$login_connection= $login->getlogin_connection();
+$platinendb_connection = $login->getplatinendb_connection();
 
 
 //sicherheit checks
@@ -15,10 +16,10 @@ if(!(isset($_POST['aktion']))) {
   $aktion = "";
 }
 else {
-  $aktion = mysqli_real_escape_string($link, $_POST["aktion"]);
+  $aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 }
 $von = "nutzen";
-$sicherheit = new Sicherheit($aktion, $von, $login, $link, $link2);
+$sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
 
@@ -26,7 +27,7 @@ if($bestanden == true) {
 
 
 
-          $id = mysqli_real_escape_string($link, $_POST['Id']);
+          $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
 
 
@@ -34,23 +35,23 @@ if($bestanden == true) {
           Inputs auslesen Nr
           */
 
-          $Nr = mysqli_real_escape_string($link, $_POST["Nr"]);
+          $Nr = mysqli_real_escape_string($platinendb_connection, $_POST["Nr"]);
 
 
 
           /*
           Inputs auslesen Bearbeiter
           */
-          $bearbeiter2 = mysqli_real_escape_string($link, $_POST["Bearbeiter"]);
+          $bearbeiter2 = mysqli_real_escape_string($platinendb_connection, $_POST["Bearbeiter"]);
           $bearbeiter2query = "SELECT ID FROM bearbeiter WHERE BearbeiterName='$bearbeiter2'"; 
-          $bearbeiterid =  mysqli_query($link, $bearbeiter2query);
+          $bearbeiterid =  mysqli_query($platinendb_connection, $bearbeiter2query);
           $Bearbeiter = mysqli_fetch_assoc($bearbeiterid);   
 
 
           /*
           Inputs auslesen Status
           */
-          $Status = mysqli_real_escape_string($link, $_POST["Status"]);
+          $Status = mysqli_real_escape_string($platinendb_connection, $_POST["Status"]);
           
 
 
@@ -60,7 +61,7 @@ if($bestanden == true) {
 
           //Datum aus db holen
           $datumquery = "SELECT Datum FROM nutzen WHERE ID ='$id'"; 
-          $datumresult =  mysqli_query($link, $datumquery);
+          $datumresult =  mysqli_query($platinendb_connection, $datumquery);
           $datumAlt = mysqli_fetch_assoc($datumresult );  
           
           $datumAltString = $datumAlt['Datum'];
@@ -70,7 +71,7 @@ if($bestanden == true) {
           
           
           //neues Datum aus input holen
-          $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Erstellt"]));
+          $datumzumformatieren = strtotime(mysqli_real_escape_string($platinendb_connection, $_POST["Erstellt"]));
           $datumNeu = date('Y-m-d', $datumzumformatieren);
           
                     
@@ -88,7 +89,7 @@ if($bestanden == true) {
             $Fertigung = "null";
           }
           else {
-            $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Fertigung"]));
+            $datumzumformatieren = strtotime(mysqli_real_escape_string($platinendb_connection, $_POST["Fertigung"]));
             $Fertigung = "'";
             $Fertigung .= date('Y-m-d', $datumzumformatieren);
             $Fertigung .= "'";
@@ -99,7 +100,7 @@ if($bestanden == true) {
             $Abgeschlossen = "null";
           }
           else {
-            $datumzumformatieren = strtotime(mysqli_real_escape_string($link, $_POST["Abgeschlossen"]));
+            $datumzumformatieren = strtotime(mysqli_real_escape_string($platinendb_connection, $_POST["Abgeschlossen"]));
             $Abgeschlossen = "'";
             $Abgeschlossen .= date('Y-m-d', $datumzumformatieren);
             $Abgeschlossen .= "'";
@@ -111,41 +112,41 @@ if($bestanden == true) {
           /*
           Inputs auslesen material
           */
-          $material2 = mysqli_real_escape_string($link, $_POST["Material"]);
+          $material2 = mysqli_real_escape_string($platinendb_connection, $_POST["Material"]);
           $material2query = "SELECT ID FROM material WHERE Name='$material2'"; 
-          $material2id =  mysqli_query($link, $material2query);
+          $material2id =  mysqli_query($platinendb_connection, $material2query);
           $row2 = mysqli_fetch_assoc($material2id);   
 
 
           /*
           Inputs auslesen Endkupfer
           */
-          $Endkupfer = mysqli_real_escape_string($link, $_POST["Endkupfer"]);
+          $Endkupfer = mysqli_real_escape_string($platinendb_connection, $_POST["Endkupfer"]);
           
 
           /*
           Inputs auslesen Status
           */
-          $Staerke = mysqli_real_escape_string($link, $_POST["Staerke"]);
+          $Staerke = mysqli_real_escape_string($platinendb_connection, $_POST["Staerke"]);
           
 
           /*
           Inputs auslesen Lagen
           */
-          $Lagen = mysqli_real_escape_string($link, $_POST["Lagen"]);
+          $Lagen = mysqli_real_escape_string($platinendb_connection, $_POST["Lagen"]);
         
 
 
           /*
           Inputs auslesen Größe
           */
-          $Groesse = mysqli_real_escape_string($link, $_POST["Groesse"]);
+          $Groesse = mysqli_real_escape_string($platinendb_connection, $_POST["Groesse"]);
 
 
           /*
           Inputs auslesen int/ext
           */
-          $Int = mysqli_real_escape_string($link, $_POST["Int"]);
+          $Int = mysqli_real_escape_string($platinendb_connection, $_POST["Int"]);
 
 
           
@@ -164,7 +165,7 @@ if($bestanden == true) {
           /*
           Inputs auslesen Kommentar
           */
-          $Kommentar = mysqli_real_escape_string($link, $_POST["Kommentar"]);
+          $Kommentar = mysqli_real_escape_string($platinendb_connection, $_POST["Kommentar"]);
         
 
 
@@ -191,13 +192,13 @@ if($bestanden == true) {
           }
 
 
-          mysqli_query($link, $bearbeiten);
+          mysqli_query($platinendb_connection, $bearbeiten);
 
 
-          $sicherheit->checkQuery($link);
+          $sicherheit->checkQuery($platinendb_connection);
 
           
-          mysqli_close($link);
+          mysqli_close($platinendb_connection);
       
 
   

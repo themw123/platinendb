@@ -65,16 +65,12 @@
     // create a login object. when this object is created, it will do all login/logout stuff automatically
     // so this single line handles the entire login process. in consequence, you can simply ...
     
-    //stellt nur session wiederher
+    //stellt nur session un datenbankverbindungen wiederher wenn schon eingeloggt
     $login = new Login();
 
-    //Verbindung zur Platinendb Datenbank aufbauen
-    $login->mysqlplatinendb();
-
-    //Verbindung zur login Datenbank aufbauen
-    $login->mysqllogin();
-
-      
+    //für logged_in.php
+    $login_connection = $login->getlogin_connection();
+    
     ?>
 
 
@@ -99,7 +95,7 @@ if ($login->isUserLoggedIn() == true) {
     // the user is logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are logged in" view.
 
-    //gucken ob Datenbankverbindung zu platinendb besteht, sonnst abbruch
+    //gucken ob Datenbankverbindung zu platinendb (bzw auch login) besteht, sonnst abbruch
     if (isset($login)) {
       if ($login->errors) {
           foreach ($login->errors as $error) {

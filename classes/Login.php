@@ -52,6 +52,16 @@ class Login
             $this->dologinWithPostData();
         }
 
+        //wenn eingeloggt, dann mit Datenbanken verbinden, ist wichtig, da die vorherige Verbindung welche beim login hergestellt wurde nicht mehr existiert sobald login abgeschlossen ist und verbindung zu platinendb fehlt sowieso noch.
+        else if($this->isUserLoggedIn()) {
+            //Verbindung zur Platinendb Datenbank aufbauen
+            $this->mysqlplatinendb();
+
+            //Verbindung zur login Datenbank aufbauen
+            $this->mysqllogin();   
+        }
+
+
         // checking if user requested a password reset mail
         if (isset($_POST["request_password_reset"]) && isset($_POST['user_name'])) {
             $this->setPasswordResetDatabaseTokenAndSendMail($_POST['user_name']);
@@ -68,6 +78,23 @@ class Login
 
 
 
+    
+    public function mysqllogin() {
+        $this->login_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+            // change character set to utf8 and check it
+            if (!$this->login_connection->set_charset("utf8")) {
+                $this->errors[] = $this->login_connection->error;
+            }
+
+            // if no connection errors (= working database connection)
+            if ($this->login_connection->connect_errno) {
+                $this->errors[] = "Problem bei der Verbindung mit der login Datenbank";
+            }
+
+    }
+
+
 
     public function mysqlplatinendb() {
         $this->platinendb_connection = new mysqli(platinendb_DB_HOST, platinendb_DB_USER, platinendb_DB_PASS, platinendb_DB_NAME);
@@ -79,34 +106,19 @@ class Login
 
             // if no connection errors (= working database connection)
             if ($this->platinendb_connection->connect_errno) {
-                $this->errors[] = "Problem mit der platinendb Datenbankverbindung";
+                $this->errors[] = "Problem bei der Verbindung mit der platinendb Datenbank";
             }
 
+    }
+
+
+
+    public function getlogin_connection() {
+        return $this->login_connection;
     }
 
     public function getplatinendb_connection() {
         return $this->platinendb_connection;
-    }
-
-
-
-    public function mysqllogin() {
-        $this->login_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-            // change character set to utf8 and check it
-            if (!$this->login_connection->set_charset("utf8")) {
-                $this->errors[] = $this->login_connection->error;
-            }
-
-            // if no connection errors (= working database connection)
-            if ($this->login_connection->connect_errno) {
-                $this->errors[] = "Problem mit der login Datenbankverbindung";
-            }
-
-    }
-
-    public function getlogin_connection() {
-        return $this->login_connection;
     }
 
 
@@ -166,7 +178,7 @@ class Login
                     $this->errors[] = "Der Benutzer existiert nicht";
                 }
             } else {
-                $this->errors[] = "Problem mit der login Datenbankverbindung";
+                $this->errors[] = "Problem bei der Verbindung mit der login Datenbank";
             }
         }
     }

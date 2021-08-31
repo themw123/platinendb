@@ -1,18 +1,19 @@
 <?php
-require_once("../config/db2.php");
+require_once("../config/db.php");
 require_once("../classes/Login.php");
 require_once("../funktion/alle.php");
 require_once("../classes/Sicherheit.php");
 
 $login = new Login();
-$link = OpenCon();
-$link2 = OpenCon2();
+
+$login_connection= $login->getlogin_connection();
+$platinendb_connection = $login->getplatinendb_connection();
 
 
 //sicherheit checks
 $aktion = "nutzen";
 $von = "nutzen";
-$sicherheit = new Sicherheit($aktion, $von, $login, $link, $link2);
+$sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
 
@@ -25,9 +26,9 @@ if($bestanden == true) {
 	
 		
 
-		$result = $link->query($sql);
+		$result = $platinendb_connection->query($sql);
 
-		if (mysqli_error($link))
+		if (mysqli_error($platinendb_connection))
 		{
 		$datax[1] = "dberror";
 		header('Content-Type: application/json');

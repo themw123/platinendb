@@ -1,7 +1,6 @@
 
 <?php
 
-$login_connection = $login->getlogin_connection();
 
 // modal (Benutzerinformationen) zur verfügung stellen
 modal1($login_connection);
