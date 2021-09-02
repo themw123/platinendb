@@ -1,3 +1,4 @@
+
 $(function(){
     $('#edit').submit(function(event){
       event.preventDefault();  
@@ -151,6 +152,7 @@ function dostuff() {
             
               var zustand = data.data;
 
+
               if (zustand == 'erfolgreich') {
                 $('#result').hide().fadeIn(1000).html('<div class="alert alert-success alertm">'+aktionText2+' wurde erfolgreich '+aktionText+'.</div>');
               }
@@ -164,7 +166,7 @@ function dostuff() {
                 $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">'+aktionText2+' konnte nicht '+aktionText+' werden. Die Anzahl der Lagen stimmt nicht überein.</div>');
               }
               else if(zustand == 'dberror'){
-                $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">'+aktionText2+' konnte nicht '+aktionText+' werden. Der Fehler liegt bei der Durchführung des Datenbankbefehls.</div>');
+                $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">'+aktionText2+' konnte nicht '+aktionText+' werden. Der Fehler liegt bei der Durchführung des Datenbankbefehls. Fehler: ' + data.error +'</div>');
               }
               else if(zustand == 'fehlerhaft'){
                 $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">'+aktionText2+' konnte nicht '+aktionText+' werden. Es ist ein Fehler im Zusammenhang mit der Sicherheit aufgetreten.</div>');

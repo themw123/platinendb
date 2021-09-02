@@ -152,7 +152,7 @@ if($bestanden == true) {
           $sicherheit->checkQuery($platinendb_connection);
 
           
-          mysqli_close($link);
+          mysqli_close($platinendb_connection);
 
 
 }

@@ -97,7 +97,8 @@ class Login
 
 
     public function mysqlplatinendb() {
-        $this->platinendb_connection = new mysqli(platinendb_DB_HOST, platinendb_DB_USER, platinendb_DB_PASS, platinendb_DB_NAME);
+        $this->platinendb_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME_platinendb);
+
 
             // change character set to utf8 and check it
             if (!$this->platinendb_connection->set_charset("utf8")) {
@@ -108,6 +109,8 @@ class Login
             if ($this->platinendb_connection->connect_errno) {
                 $this->errors[] = "Problem bei der Verbindung mit der platinendb Datenbank";
             }
+
+
 
     }
 

@@ -10,6 +10,10 @@ $login_connection= $login->getlogin_connection();
 $platinendb_connection = $login->getplatinendb_connection();
 
 
+
+$bearbeiten= "UPDATEds platinen SET Namexdfxdf = 'hi' WHERE ID = '3'";
+mysqli_query($platinendb_connection, $bearbeiten);
+
 //$aktion = "bearbeiten";
 //sicherheit checks
 if(!(isset($_POST['aktion']))) {
@@ -137,6 +141,12 @@ if($bestanden == true) {
             $Ignorieren = 0;
           }
 
+
+
+
+
+
+        
 
 
           //bearbeitung durchführen

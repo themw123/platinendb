@@ -143,9 +143,10 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
     //ajax antwort überprüfen
     var zustand = data.json.data[1];
+    var error = data.json.data[2];
     var pausieren = false;
       if(zustand == "dberror"){
-        $('#leer').hide().fadeIn(1000).html('<div class="alert alert-danger leer2">Die Platinen konnten nicht geholt werden. Der Fehler liegt bei der Durchführung des Datenbankbefehls.</div>');
+        $('#leer').hide().fadeIn(1000).html('<div class="alert alert-danger leer2">Die Platinen konnten nicht geholt werden. Der Fehler liegt bei der Durchführung des Datenbankbefehls. Fehler: ' + error +'</div>');
         pausieren = true;
       }
       else if(zustand == "fehlerhaft") {
@@ -469,7 +470,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
                           }, 1000);
                       }
                       else if(zustand == 'dberror'){
-                          $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Die Platine konnte nicht gelöscht werden. Der Fehler liegt bei der Durchführung des Datenbankbefehls.</div>');
+                          $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Die Platine konnte nicht gelöscht werden. Der Fehler liegt bei der Durchführung des Datenbankbefehls. Fehler: ' + data.error +'</div>');
                       }
                       else if (zustand == 'fehlerhaft') {  
                           setTimeout(function(){

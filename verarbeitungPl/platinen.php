@@ -38,15 +38,13 @@ if($bestanden == true) {
 			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar FROM platinenview WHERE platinenview.Auftraggeber = '$auftraggeber1' order by erstelltam desc";
 			}
 
-			$result = $platinendb_connection->query($sql);
 
-			if (mysqli_error($platinendb_connection))
-			{
-				$datax[1] = "dberror";
-				header('Content-Type: application/json');
-				echo json_encode(array('data'=> $datax));
-				die();
-			}
+			$result = $platinendb_connection->query($sql);
+          
+			$sicherheit->checkQuery3($platinendb_connection);
+  
+
+
 
 			if ($result->num_rows > 0) {
 					
@@ -135,6 +133,8 @@ if($bestanden == true) {
 				echo json_encode(array('data'=> $datax));
 				die();
 			}
+
+			mysqli_close($platinendb_connection); 
 
 }
 else {

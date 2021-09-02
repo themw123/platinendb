@@ -107,6 +107,7 @@ $('#add').on( 'click', function () {
           success: function(data){
 
                 var zustand = data.data; 
+                var error = data.error;
                 var inputfeld = document.getElementById("addBenutzer");
                 if(zustand == "erfolgreich") {
                   inputfeld.value = '';
@@ -114,8 +115,8 @@ $('#add').on( 'click', function () {
                   $('#collapse'+col).collapse("hide");
                   //$("#addbearbeiter").text("hinzufügen");
                 }
-                else {
-                  document.getElementById("fehleraddbenutzer").innerHTML="Der Benutzer existiert bereits.";
+                else{
+                  document.getElementById("fehleraddbenutzer").innerHTML="Datenbankfehler: " + error;
                   $('#fehleraddbenutzer').show();
                 }
         } 
@@ -161,7 +162,8 @@ $('#rem').on( 'click', function () {
         dataType: 'JSON',
         success: function(data){
 
-             var zustand = data.data;
+            var zustand = data.data; 
+            var error = data.error;
             if(zustand == "erfolgreich") {
               Objekt.remove(Objekt.selectedIndex);
               Objekt.selectedIndex = "0";
@@ -169,7 +171,12 @@ $('#rem').on( 'click', function () {
               $('#collapse'+col).collapse("hide");
             }
             else {
-              document.getElementById("fehleraddbenutzer").innerHTML="Der Bearbeiter ist bereits einen Nutzen zugewiesen.";
+              if(error.indexOf("foreign") >= 0) {
+                document.getElementById("fehleraddbenutzer").innerHTML="Der Auftraggeber ist bereits einer Platine zugewiesen.";
+              }
+              else {
+                document.getElementById("fehleraddbenutzer").innerHTML="Datenbankfehler: " + error;
+              }
               $('#fehleraddbenutzer').show();
             }
     } 

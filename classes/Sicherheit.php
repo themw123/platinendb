@@ -40,7 +40,7 @@ class Sicherheit {
         if (mysqli_error($connection))
         {
           header('Content-Type: application/json');
-          echo json_encode(array('data'=> "dberror"));
+          echo json_encode(array('data'=> 'dberror', 'error'=> $connection->error));
           die();
         }
         else{
@@ -50,6 +50,29 @@ class Sicherheit {
         }
     }
 
+    //Rückmeldung nicht an javascript, sondern php 
+    public function checkQuery2($connection) {
+        if (mysqli_error($connection))
+        {
+            return $connection->error;
+        }
+        else {
+            return "erfolgreich";
+        }
+    }
+
+
+    //Rückmeldung für platinen und nutzen 
+    public function checkQuery3($connection) {
+        if (mysqli_error($connection))
+        {
+            $datax[1] = "dberror";
+            $datax[2] = $connection->error;
+            header('Content-Type: application/json');
+            echo json_encode(array('data'=> $datax));
+            die();
+        }
+    }
 
 
 

@@ -33,79 +33,90 @@ if($bestanden == true) {
 
                $output = '';    
                $query = "SELECT * FROM platinenaufnutzen1 WHERE Platinen_ID = '$id'"; 
-               $result = mysqli_query($platinendb_connection, $query);  
-     
-               if ($result->num_rows > 0) {
-     
-               $output .= '  
-                    
-               
-     
-               <div class="container-fluid>
-               <div class="table-responsive">
-     
-               <table id="tabelle2" class="table text-center table-hover border">
-     
-               <thead class="thead-light">
-               <th>Nutzen</th>
-               <th>Status</th>
-               <th>Anzahl auf Nutzen</th>
-               </thead>
-                    
-               <tbody>';
-     
-     
-               while($row = $result->fetch_assoc())   
-               {  
-                    
-
-                    if ($row['Status1'] == "Fertigung") {
 
 
-                         $output .= '  
-                    
-                    
-                         <tr>  
-                         <td> '.$row["Nr"].'</td>
-                         <td style=color:orange;> '.$row["Status1"].'</td>
-                         <td> '.$row["platinenaufnutzen"].'   </td> 
-                         </tr>  
-                         ';     
-                    
-                    }    
+               $result = mysqli_query($platinendb_connection, $query);
           
-                    else if ($row['Status1'] == "neu") {
-                         
-                         
-                         $output .= '  
-               
-               
-                         <tr>  
-                         <td> '.$row["Nr"].'</td>
-                         <td style=color:#005EA9;> '.$row["Status1"].'</td>
-                         <td> '.$row["platinenaufnutzen"].'   </td> 
-                         </tr>  
-                         ';    
-
-                    }
+               $zustand = $sicherheit->checkQuery2($platinendb_connection);
+     
+               mysqli_close($platinendb_connection); 
 
 
-                    else if ($row['Status1'] == "abgeschlossen") {
+               if($zustand == "erfolgreich") {
+
+               
+     
+                    if ($result->num_rows > 0) {
+          
+                    $output .= '  
                          
-                         $output .= '  
+                    
+          
+                    <div class="container-fluid>
+                    <div class="table-responsive">
+          
+                    <table id="tabelle2" class="table text-center table-hover border">
+          
+                    <thead class="thead-light">
+                    <th>Nutzen</th>
+                    <th>Status</th>
+                    <th>Anzahl auf Nutzen</th>
+                    </thead>
+                         
+                    <tbody>';
+          
+          
+                    while($row = $result->fetch_assoc())   
+                    {  
+                         
+
+                         if ($row['Status1'] == "Fertigung") {
+
+
+                              $output .= '  
+                         
+                         
+                              <tr>  
+                              <td> '.$row["Nr"].'</td>
+                              <td style=color:orange;> '.$row["Status1"].'</td>
+                              <td> '.$row["platinenaufnutzen"].'   </td> 
+                              </tr>  
+                              ';     
+                         
+                         }    
                
-               
-                         <tr>  
-                         <td> '.$row["Nr"].'</td>
-                         <td style=color:green;> '.$row["Status1"].'</td>
-                         <td> '.$row["platinenaufnutzen"].'   </td> 
-                         </tr>  
-                         '; 
+                         else if ($row['Status1'] == "neu") {
+                              
+                              
+                              $output .= '  
+                    
+                    
+                              <tr>  
+                              <td> '.$row["Nr"].'</td>
+                              <td style=color:#005EA9;> '.$row["Status1"].'</td>
+                              <td> '.$row["platinenaufnutzen"].'   </td> 
+                              </tr>  
+                              ';    
 
                          }
-          
-                       }
-                    }
+
+
+                         else if ($row['Status1'] == "abgeschlossen") {
+                              
+                              $output .= '  
+                    
+                    
+                              <tr>  
+                              <td> '.$row["Nr"].'</td>
+                              <td style=color:green;> '.$row["Status1"].'</td>
+                              <td> '.$row["platinenaufnutzen"].'   </td> 
+                              </tr>  
+                              '; 
+
+                              }
+               
+                         }
+                         }
 
                     else {
                          echo'<div class="container-fluid">';
@@ -117,9 +128,22 @@ if($bestanden == true) {
                          echo'</div>';
                     }
 
+                    
+
 
                     $output .= "</table></div></div>";  
-                    echo $output;  
+                    echo $output; 
+                    
+               }
+               else {
+                    echo'<div class="container-fluid">';
+               
+                    echo"
+                    <div class='alert alert-warning'> Datenbankfehler: $zustand 
+                    </div>";
+               
+                    echo'</div>';
+               }
 }
      
      else {

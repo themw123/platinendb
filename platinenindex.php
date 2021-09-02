@@ -100,7 +100,7 @@ if ($login->isUserLoggedIn() == true) {
       if ($login->errors) {
           foreach ($login->errors as $error) {
               if($error != false) {
-                echo '<div class="alert alert-warning"> '.$error.'   </div> ';
+                echo '<div class="alert alert-danger"> '.$error.'   </div> ';
                 die();
               }
           }
