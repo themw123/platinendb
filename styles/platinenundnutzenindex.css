@@ -991,4 +991,7 @@ testdaten haken farbe
         justify-content: center;
       }
 
+      .anzahldiv {
+        display: none;
+      }
       

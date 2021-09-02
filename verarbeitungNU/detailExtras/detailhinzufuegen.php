@@ -156,66 +156,91 @@ if($bestanden == true) {
           $finalquery = mysqli_query($platinendb_connection, $query3);  
 
      
+          $result = mysqli_query($platinendb_connection, $finalquery);
+          $zustand = $sicherheit->checkQuery2($platinendb_connection);
+          mysqli_close($platinendb_connection); 
+          mysqli_close($login_connection);  
+
+          if($zustand == "erfolgreich") {
 
 
-             $output .= '  
+                    $output .= '  
 
-             
-             <div class="table-responsive">
-   
-             <table id="tabelle3" class="table text-center table-hover border">
+                    
+                    <div class="table-responsive">
+          
+                    <table id="tabelle3" class="table text-center table-hover border">
 
-             <thead class="thead-light">
-             <th>Aktion</th>
-             <th>Name</th>
-             <th>Auftraggeber</th>
-             <th>erstellt</th>
-             <th>Ausstehend</th>
-             <th style="display:none">dringlichkeit</th>
-             </thead>
-                   
-             <tbody>
-             ';
-
-
-             while($row = $finalquery->fetch_assoc())  {
+                    <thead class="thead-light">
+                    <th>Aktion</th>
+                    <th>Name</th>
+                    <th>Auftraggeber</th>
+                    <th>erstellt</th>
+                    <th>Ausstehend</th>
+                    <th style="display:none">dringlichkeit</th>
+                    </thead>
+                         
+                    <tbody>
+                    ';
 
 
+                    while($row = $finalquery->fetch_assoc())  {
 
 
 
 
-             $creation_time = date('d-m-Y', strtotime($row['erstelltam']));
 
-             $output .= '  
 
-             <tr>  
+                    $creation_time = date('d-m-Y', strtotime($row['erstelltam']));
 
-             <td>
-             <a id= '.$row["ID"].'></i>
-             <i class="fas fa-plus-circle iconx" id="iconklasse5"></i>
-             </td>
+                    $output .= '  
 
-             <td> '.$row["NAME"].'</td>
-             <td> '.$row["user_name"].'</td>
-             <td> '.$creation_time.'</td> 
-             <td>' .$row["ausstehend"].'</td>
-             <td style="display:none">' .$row["dringlichkeit"].'</td>
-             </tr>  
-             ';     
-            
+                    <tr>  
 
-             }
+                    <td>
+                    <a id= '.$row["ID"].'></i>
+                    <i class="fas fa-plus-circle iconx" id="iconklasse5"></i>
+                    </td>
 
-             $output .= "</table>
+                    <td> '.$row["NAME"].'</td>
+                    <td> '.$row["user_name"].'</td>
+                    <td> '.$creation_time.'</td> 
+                    <td>' .$row["ausstehend"].'</td>
+                    <td style="display:none">' .$row["dringlichkeit"].'</td>
+                    </tr>  
+                    ';     
+                    
 
-             </div>
-             <script>
-             $('.anzahldiv').show();
-             </script>
-             ";
-             echo $output;
+                    }
 
+                    $output .= "</table>
+
+                    </div>
+                    <script>
+                    $('.anzahldiv').show();
+                    </script>
+                    ";
+                    echo $output;
+               
+
+               }
+               else {
+                    echo "
+                    </div>
+                    <script>
+                    $('.anzahldiv').hide();
+                    </script>
+                    ";
+
+                    echo'<div>';
+               
+                    echo"
+                    <div class='alert alert-warning'> Datenbankfehler: $zustand 
+                    </div>";
+               
+                    echo'</div>';
+
+                }
 
          }
 

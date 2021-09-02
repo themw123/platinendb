@@ -141,6 +141,8 @@ if($bestanden == true) {
 
             
             mysqli_close($platinendb_connection);
+             
+            mysqli_close($login_connection);  
 
 
 }

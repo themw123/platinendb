@@ -518,7 +518,8 @@ if($bestanden == true) {
 
           }
 
-
+          mysqli_close($login_connection); 
+          mysqli_close($platinendb_connection); 
 }
 else {
   echo'<div class="container-fluid">';

@@ -192,9 +192,10 @@ $(document).ready(function(){
       
     //ajax antwort überprüfen
     var zustand = data.json.data[1];
+    var error = data.json.data[2];
     var pausieren = false;
       if(zustand == "dberror"){
-        $('#leer').hide().fadeIn(1000).html('<div class="alert alert-danger leer2">Die Nutzen konnten nicht geholt werden. Der Fehler liegt bei der Durchführung des Datenbankbefehls.</div>');
+        $('#leer').hide().fadeIn(1000).html('<div class="alert alert-danger leer2">Die Nutzen konnten nicht geholt werden. Der Fehler liegt bei der Durchführung des Datenbankbefehls. Fehler: ' + error +'</div>');
         pausieren = true;
       }
       else if(zustand == "fehlerhaft") {
@@ -582,11 +583,13 @@ $(document).ready(function(){
                           $('#tabelle1').DataTable().ajax.reload();
   
                           var zustand = data.data;
+                          var error = data.error;
+
                           if (zustand == 'erfolgreich') {
                             $('#result').hide().fadeIn(1000).html('<div class="alert alert-success alertm">Der Nutzen wurde erfolgreich gelöscht.</div>');
                           }
                           else if(zustand == 'dberror'){
-                            $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Der Nutzen konnte nicht gelöscht werden. Der Fehler liegt bei der Durchführung des Datenbankbefehls.</div>');
+                            $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Der Nutzen konnte nicht gelöscht werden. Der Fehler liegt bei der Durchführung des Datenbankbefehls. Fehler: ' + error +'</div>');
                           }
                           else if(zustand == 'fehlerhaft'){
                             $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Der Nutzen konnte nicht gelöscht werden. Es ist ein Fehler im Zusammenhang mit der Sicherheit aufgetreten.</div>');

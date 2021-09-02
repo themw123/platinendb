@@ -454,6 +454,8 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
 
                       $('#tabelle1').DataTable().ajax.reload();
                       var zustand = data.data; 
+                      var error = data.error;
+                      
                       if (zustand == 'erfolgreich') {
                           setTimeout(function(){
                           $('#result').hide().fadeIn(1000).html('<div class="alert alert-success alertm">Die Platine wurde erfolgreich gelöscht.</div>');
@@ -470,7 +472,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
                           }, 1000);
                       }
                       else if(zustand == 'dberror'){
-                          $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Die Platine konnte nicht gelöscht werden. Der Fehler liegt bei der Durchführung des Datenbankbefehls. Fehler: ' + data.error +'</div>');
+                          $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Die Platine konnte nicht gelöscht werden. Der Fehler liegt bei der Durchführung des Datenbankbefehls. Fehler: ' + error +'</div>');
                       }
                       else if (zustand == 'fehlerhaft') {  
                           setTimeout(function(){

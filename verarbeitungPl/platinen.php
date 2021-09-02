@@ -40,7 +40,6 @@ if($bestanden == true) {
 
 
 			$result = $platinendb_connection->query($sql);
-          
 			$sicherheit->checkQuery3($platinendb_connection);
   
 
@@ -135,6 +134,7 @@ if($bestanden == true) {
 			}
 
 			mysqli_close($platinendb_connection); 
+			mysqli_close($login_connection);  
 
 }
 else {

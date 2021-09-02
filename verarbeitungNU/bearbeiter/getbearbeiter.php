@@ -38,6 +38,10 @@ if($bestanden == true) {
             }
             echo json_encode($namen);
         }
+        
+        mysqli_close($platinendb_connection); 
+      
+        mysqli_close($login_connection); 
   }
 
 

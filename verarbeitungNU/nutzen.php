@@ -27,14 +27,7 @@ if($bestanden == true) {
 		
 
 		$result = $platinendb_connection->query($sql);
-
-		if (mysqli_error($platinendb_connection))
-		{
-		$datax[1] = "dberror";
-		header('Content-Type: application/json');
-		echo json_encode(array('data'=> $datax));
-		die();
-		}
+		$sicherheit->checkQuery3($platinendb_connection);
 
 		if ($result->num_rows > 0) {
 				
@@ -115,6 +108,8 @@ if($bestanden == true) {
 				die();
 			}
 
+			mysqli_close($platinendb_connection); 
+			mysqli_close($login_connection); 
 }
 else {
 	$datax[1] = "fehlerhaft";

@@ -81,38 +81,6 @@ if($bestanden == true) {
         }
 
 
-          
-        $zustand = $sicherheit->checkQuery2($login_connection);
-        $zustand2 = $sicherheit->checkQuery2($platinendb_connection);
-
-
-
-        if($zustand != "erfolgreich" || $zustand2 != "erfolgreich") {
-           
-
-            echo'<div class="container-fluid">';
-            
-            echo"
-            <div class='alert alert-danger'>  Datenbankfehler: ";
-
-            if($zustand != "erfolgreich" && $zustand2 == "erfolgreich") {
-              echo "$zustand";
-            }
-            else if($zustand2 != "erfolgreich" && $zustand == "erfolgreich") {
-              echo "$zustand2";
-            }
-            else if($zustand != "erfolgreich" && $zustand2 != "erfolgreich") {
-              echo "1. Fehler: $zustand 2. Fehler: $zustand2";
-            }
-            
-            echo"
-            </div>";
-            
-            echo'</div>';
-            die();
-        }
-
-
         /*
         auftraggeber vorbereitung
         */

@@ -163,6 +163,7 @@ if($bestanden == true) {
           $sicherheit->checkQuery($platinendb_connection);
 
           mysqli_close($platinendb_connection); 
+          mysqli_close($login_connection);  
 
 }
 

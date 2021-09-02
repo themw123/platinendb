@@ -26,7 +26,7 @@ if($bestanden == true) {
         $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
         $anzahl = mysqli_real_escape_string($platinendb_connection, $_POST['anzahl']);
 
-        $anzahlupdate = "UPDATE nutzenplatinenx SET platinenaufnutzen = '$anzahl'  WHERE id=$id";
+        $anzahlupdate = "UPDATE nutzenplatinen SET platinenaufnutzen = '$anzahl'  WHERE id=$id";
 
         
       
@@ -36,7 +36,9 @@ if($bestanden == true) {
         $sicherheit->checkQuery($platinendb_connection);
 
       
-        mysqli_close($platinendb_connection);
+        mysqli_close($platinendb_connection); 
+        
+        mysqli_close($login_connection);  
 
             
 

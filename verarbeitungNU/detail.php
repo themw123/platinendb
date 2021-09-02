@@ -33,120 +33,135 @@ if($bestanden == true) {
 
                     $output = '';    
                     $query = "SELECT * FROM platinenaufnutzen2 WHERE ID = '$id'"; 
+                    
                     $result = mysqli_query($platinendb_connection, $query);  
-               
-                    if ($result->num_rows > 0) {
-               
-                    $output .= '  
-                         
-                    
-          
-                    <div class="container-fluid nutzenplatinen" id='.$id.'>
-                    <div class="table-responsive">
-          
-                    <table id="tabelle2" class="table text-center table-hover border">
-          
-                    <thead class="thead-light">
-                    <th>Aktion</th>
-                    <th>Name</th>
-                    <th>Auftraggeber</th>
-                    <th>Anzahl auf Nutzen</th>
-                    <th>alle verteilt</th>
-                    </thead>
-                         
-                    <tbody>';
-          
-          
-                    while($row = $result->fetch_assoc())   
-                    {  
-                         
+                    $zustand = $sicherheit->checkQuery2($platinendb_connection);
+                    mysqli_close($platinendb_connection); 
+                    mysqli_close($login_connection);  
 
-                         if ($row['zustand'] == "1") {
-                              $output .= '  
-                         
-                         
-                              <tr>  
+                    if($zustand == "erfolgreich") {
+
+                         if ($result->num_rows > 0) {
+                    
+                         $output .= '  
                               
-                              <td>
-                              <a id= '.$row["nuplid"].'></i>
-                              <i class="fas fa-minus-circle iconx" id="iconklasse4"></i>
-                              </td>
-
-                              <td> '.$row["Name"].'</td>
-                              <td> '.$row["user_name"].'</td>
                          
-                              <td>
-                              <a id= '.$row["nuplid"].'></i>  
-                              <div class="input-group anzahldiv3">
-                              <input value="'.$row["platinenaufnutzen"].'" type="number" min="1" class="form-control" id="anzahl3" name="Anzahl">
-                              <div class="input-group-append">
-                              <button id="saveanzahl" type="button" class="btn btn-primary saveanzahl"><i class="fas fa-save"></i></button>
-                              </div>
-                              </div>
-                              </td> 
+               
+                         <div class="container-fluid nutzenplatinen" id='.$id.'>
+                         <div class="table-responsive">
+               
+                         <table id="tabelle2" class="table text-center table-hover border">
+               
+                         <thead class="thead-light">
+                         <th>Aktion</th>
+                         <th>Name</th>
+                         <th>Auftraggeber</th>
+                         <th>Anzahl auf Nutzen</th>
+                         <th>alle verteilt</th>
+                         </thead>
+                              
+                         <tbody>';
+               
+               
+                         while($row = $result->fetch_assoc())   
+                         {  
+                              
 
-                              <td> <span class="fas fa-check check"></span></td>
-                              </tr>  
-                              ';     
-                         
+                              if ($row['zustand'] == "1") {
+                                   $output .= '  
+                              
+                              
+                                   <tr>  
+                                   
+                                   <td>
+                                   <a id= '.$row["nuplid"].'></i>
+                                   <i class="fas fa-minus-circle iconx" id="iconklasse4"></i>
+                                   </td>
+
+                                   <td> '.$row["Name"].'</td>
+                                   <td> '.$row["user_name"].'</td>
+                              
+                                   <td>
+                                   <a id= '.$row["nuplid"].'></i>  
+                                   <div class="input-group anzahldiv3">
+                                   <input value="'.$row["platinenaufnutzen"].'" type="number" min="1" class="form-control" id="anzahl3" name="Anzahl">
+                                   <div class="input-group-append">
+                                   <button id="saveanzahl" type="button" class="btn btn-primary saveanzahl"><i class="fas fa-save"></i></button>
+                                   </div>
+                                   </div>
+                                   </td> 
+
+                                   <td> <span class="fas fa-check check"></span></td>
+                                   </tr>  
+                                   ';     
+                              
+                              }
+                              else {
+                                   $output .= '  
+                              
+                              
+                                   <tr>  
+
+                                   <td>
+                                   <a id= '.$row["nuplid"].'></i>
+                                   <i class="fas fa-minus-circle iconx" id="iconklasse4"></i>
+                                   </td>
+
+                                   <td> '.$row["Name"].'</td>
+                                   <td> '.$row["user_name"].'</td>
+
+                                   <td> 
+                                   <a id= '.$row["nuplid"].'></i>   
+                                   <div class="input-group anzahldiv3">
+                                   <input value="'.$row["platinenaufnutzen"].'" type="number" min="1" class="form-control" id="anzahl3" name="Anzahl">
+                                   <div class="input-group-append">
+                                   <button id="saveanzahl" type="button" class="btn btn-primary saveanzahl"><i class="fas fa-save"></i></button>
+                                   </div>
+                                   </div>
+                                   </td> 
+
+                                   <td> <span class="fas fa-times error"></span></td>
+                                   </tr>  
+                                   ';     
+                              
+                              }   
                          }
+                         
+                    
+                         }
+
                          else {
-                              $output .= '  
-                         
-                         
-                              <tr>  
-
-                              <td>
-                              <a id= '.$row["nuplid"].'></i>
-                              <i class="fas fa-minus-circle iconx" id="iconklasse4"></i>
-                              </td>
-
-                              <td> '.$row["Name"].'</td>
-                              <td> '.$row["user_name"].'</td>
-
-                              <td> 
-                              <a id= '.$row["nuplid"].'></i>   
-                              <div class="input-group anzahldiv3">
-                              <input value="'.$row["platinenaufnutzen"].'" type="number" min="1" class="form-control" id="anzahl3" name="Anzahl">
-                              <div class="input-group-append">
-                              <button id="saveanzahl" type="button" class="btn btn-primary saveanzahl"><i class="fas fa-save"></i></button>
-                              </div>
-                              </div>
-                              </td> 
-
-                              <td> <span class="fas fa-times error"></span></td>
-                              </tr>  
-                              ';     
-                         
-                         }   
-                    }
-
-               
-                    }
-
-                    else {
-                         echo'<div class="container-fluid">';
-               
-                         echo"
-                         <div class='alert alert-warning'>  Momentan befinden sich keine Platinen auf diesem Nutzen.
-                         </div>";
+                              echo'<div class="container-fluid">';
                     
-                         echo'</div>';
-                    }
+                              echo"
+                              <div class='alert alert-warning'>  Momentan befinden sich keine Platinen auf diesem Nutzen.
+                              </div>";
+                         
+                              echo'</div>';
+                         }
 
 
 
-               $output .= "</table>
-               
+                    $output .= "</table>
                     
+                         
 
 
 
-               </div>
-               </div>";  
-               echo $output;  
+                    </div>
+                    </div>";  
+                    echo $output;  
+               }    
 
-
+               else {
+                    echo'<div class="container-fluid">';
+               
+                    echo"
+                    <div class='alert alert-warning'> Datenbankfehler: $zustand 
+                    </div>";
+               
+                    echo'</div>';
+               }
  }
 
  else {
