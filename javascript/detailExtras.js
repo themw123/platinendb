@@ -1,3 +1,5 @@
+    
+//# sourceURL=formEditor.js
     //wenn bei detail auf löschen geklickt wird
     $('#dataModal1').on( 'click', '#iconklasse4', function () {
       
@@ -17,6 +19,8 @@
       
       
                             var zustand = data.data; 
+                            var error = data.error;
+
                             if (zustand == 'erfolgreich') {
                               
                             Id = NutzenId;
@@ -28,6 +32,16 @@
                             setTimeout(function() {
                               getHinzufuegenEinmal(false);
                             }, 500);
+                            }
+
+                            else if(zustand == 'dberror') {
+                              $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Datenbankfehler: ' + error +'</div>');
+                                    
+                              window.setTimeout(function() {
+                              $(".resultalert").fadeTo(500, 0).slideUp(500, function(){
+                              $(this).remove();
+                              });  
+                              }, 5000);
                             }
   
       
@@ -59,7 +73,7 @@
                               success:function(data){  
         
                                   var zustand = data.data;
-  
+                                  var error = data.error;
                                   if (zustand == 'erfolgreich') {
                                     
                                     Id = document.querySelector('.nutzenplatinen').id;
@@ -76,7 +90,7 @@
                                   }
   
                                   else if (zustand == 'fehlerhaft'){
-                                    $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Anzahl größer null erforderlich.</div>');
+                                    $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-warning resultalert p-1">Anzahl größer null erforderlich.</div>');
                                     
                                     window.setTimeout(function() {
                                     $(".resultalert").fadeTo(500, 0).slideUp(500, function(){
@@ -85,21 +99,17 @@
                                     }, 5000);
                                     
                                   }
-  
-                                  else if (zustand == 'dberror'){
-                                    $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Es gab einen Fehler bei der Durchführung des Datenbankbefehls.</div>');
+
+                                  else if(zustand == "dberror") {
+                                    $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Datenbankfehler: ' + error +'</div>');
                                     
                                     window.setTimeout(function() {
                                     $(".resultalert").fadeTo(500, 0).slideUp(500, function(){
                                     $(this).remove();
                                     });  
                                     }, 5000);
-                                    
                                   }
-  
-  
-                        
-                                
+
                             
           
                                 }
@@ -136,6 +146,7 @@
     
     
                   var zustand = data.data; 
+                  var error = data.error;
                   if (zustand == 'erfolgreich') {
                     
                   Id = NutzenId;
@@ -160,6 +171,14 @@
                     dieses.children().toggleClass('fas fa-exclamation-triangle errorcircle').toggleClass('fas fa-save');
                     warte = 0;
                     }, 1000);
+
+                    $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Datenbankfehler: ' + error +'</div>');
+                                    
+                    window.setTimeout(function() {
+                    $(".resultalert").fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove();
+                    });  
+                    }, 5000);
                   }
                 
                 }  

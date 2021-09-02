@@ -31,6 +31,7 @@ if($bestanden == true) {
 
 
       if($Anzahl > 0) {
+  
 
 
       $hinzufuegen = "INSERT INTO nutzenplatinen (Platinen_ID, Nutzen_ID, platinenaufnutzen) VALUES ('$PlatinenID', '$NutzenID', '$Anzahl')";

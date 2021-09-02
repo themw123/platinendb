@@ -408,6 +408,14 @@ echo'
 
 			  </div>
 
+			  
+			  <div>
+			  <div class="container-fluid resultanzahl">
+			  <center><div id="resultanzahl"></div></center>
+			  </div>
+			  </div>
+
+
 			  <div class="hinzufuegen">
 			  		
 
@@ -426,11 +434,7 @@ echo'
 			  <label for="usr">Anzahl:</label>
 			  <input type="number" min="1" class="form-control" id="anzahl2" name="Anzahl">
 			  </div>
-			  
-			  <div class="container-fluid resultanzahl">
-			  <center><div id="resultanzahl"></div></center>
-			  </div>
-
+			
 			  </div>
 
 
