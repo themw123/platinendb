@@ -107,7 +107,6 @@ if ($login->isUserLoggedIn() == true) {
       }
     }
 
-ggg
     include("views/logged_in.php");
 
     
