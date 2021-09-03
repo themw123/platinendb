@@ -98,7 +98,7 @@ class Login
 
     public function mysqlplatinendb() {
         $this->platinendb_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME_platinendb);
-
+        //$this->platinendb_connection = new mysqli("p:127.0.0.1", "est", "***REMOVED***", "platinendb");
 
             // change character set to utf8 and check it
             if (!$this->platinendb_connection->set_charset("utf8")) {
