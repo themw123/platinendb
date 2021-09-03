@@ -1,5 +1,4 @@
-    
-//# sourceURL=formEditor.js
+  
     //wenn bei detail auf löschen geklickt wird
     $('#dataModal1').on( 'click', '#iconklasse4', function () {
       

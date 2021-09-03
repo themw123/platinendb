@@ -1,4 +1,4 @@
-
+//# sourceURL=formEditor.js
 $(function(){
     $('#edit').submit(function(event){
       event.preventDefault();  
@@ -265,11 +265,15 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                       remUploadData("Die Anzahl der Lagen stimmt nicht überein.");
                     }
                     else {
-                      let fileName = $('#uploadfeld').val().split('\\').pop(); 
+
+                      let fileName = $('#uploadfeld').val().split('\\').pop();
+                      fileName = truncate(fileName, 11);
+
+
                       $('#upload-info').text(fileName);
                       $('#upload-info').show();
                       $('#inputbild').show();
-                      $('#upload-info').animate({opacity: 1,fontSize: '20px'},500);
+                      $('#upload-info').animate({opacity: 1,fontSize: '17px'},500);
                       $('#inputbild').animate({opacity: 1,fontSize: '16px'},500);
                       $('#delfile').show(); 
                       $('#lagen').prop( "disabled", true );
@@ -293,7 +297,11 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
         });  
 
 
-      
+    
+        function truncate(fileName, n){
+          return (fileName.length > n) ? fileName.substr(0, n-1) + '(...).txt' : fileName;
+        };
+
 
 
         //Wenn auf delfile geklickt wird
