@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteRule ^(classes) - [F]
+  RewriteRule ^(config) - [F]
+  RewriteRule ^(funktionen) - [F]
+  RewriteRule ^(libaries) - [F]
+  RewriteRule ^(navbar) - [F]
+  RewriteRule ^(translations) - [F]
+  RewriteRule ^(views) - [F]
+</IfModule>
+Options -Indexes
