@@ -81,7 +81,6 @@ class Sicherheit {
         $fromajax = $this->fromJavascript();
         $eingeloggt = $this->login->isUserLoggedIn();
         $est = isUserEst($this->login_connection);
-        $parameter = $this->parameterNu($this->aktion); 
  
  
         if($eingeloggt == false) {
@@ -97,7 +96,7 @@ class Sicherheit {
         }
  
  
-         if($this->aktion == "nutzen" || $this->aktion == "modaleinfuegen") {
+         if($this->aktion == "nutzen" || $this->aktion == "modaleinfuegen" || $this->aktion == "einfuegen" || $this->aktion == "bearbeiter") {
             $this->bestanden = true;
          }
 
@@ -108,28 +107,12 @@ class Sicherheit {
                  if ($existens == false) {
                      
                  }
-                 elseif ($parameter == false) {
- 
-                 }
                  else{
                      $this->bestanden = true;
                  }
              }
  
- 
- 
-         elseif($this->aktion == "einfuegen") {
-                 if ($parameter == false) {
-                 }
-                 else{
-                     $this->bestanden = true;
-                 }
-         }
 
-
-         elseif($this->aktion == "bearbeiter") {
-            $this->bestanden = true;
-         }
 
  
          elseif($this->aktion == "bearbeiten") {
@@ -137,9 +120,6 @@ class Sicherheit {
  
                  if ($existens == false) {
                  
-                 }
-                 elseif ($parameter == false) {
-                         
                  }
                  elseif(veraenderbarNutzen($this->platinendb_connection) == false) {
                     header('Content-Type: application/json');
@@ -182,35 +162,6 @@ class Sicherheit {
  
  
  
- 
- 
- 
-     private function parameterNu($aktion) {
-         if($this->aktion == "modalbearbeiten") {
-            if (isset($_POST['Id']) && isset($_POST['Nr']) && isset($_POST['Bearbeiter']) && isset($_POST['Status']) && isset($_POST['Material']) && isset($_POST['Erstellt']) && isset($_POST['Fertigung']) && isset($_POST['Abgeschlossen'])&& isset($_POST['Groesse']) && isset($_POST['Int']) && isset($_POST['Testdaten']) && isset($_POST['Kommentar'])) { 
-                return true;
-             }
-             else {
-                 return false;
-             }
-         }
-         elseif($this->aktion == "einfuegen") {
-            if (isset($_POST['Nr']) && isset($_POST['Bearbeiter']) && isset($_POST['Status']) && isset($_POST['Material']) && isset($_POST['Erstellt'])  && isset($_POST['Groesse']) && isset($_POST['Int']) && isset($_POST['Kommentar'])){
-                return true;
-             }
-             else {
-                 return false;
-             }
-         }
-         elseif($this->aktion == "bearbeiten") {
-            if (isset($_POST['Nr']) && isset($_POST['Bearbeiter']) && isset($_POST['Status']) && isset($_POST['Material']) && isset($_POST['Erstellt'])  && isset($_POST['Groesse']) && isset($_POST['Int']) && isset($_POST['Kommentar'])){
-                return true;
-             }
-             else {
-                 return false;
-             }
-         }
-     }
 
 
 
@@ -225,26 +176,17 @@ class Sicherheit {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+     private function fromJavascript() {
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') 
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+        
+        
+    }
 
 
 
@@ -261,7 +203,6 @@ class Sicherheit {
 
        $fromajax = $this->fromJavascript();
        $eingeloggt = $this->login->isUserLoggedIn();
-       $parameter = $this->parameterPl($this->aktion); 
 
 
        if($eingeloggt == false) {
@@ -273,7 +214,7 @@ class Sicherheit {
        }
 
 
-        if($this->aktion == "platinen" || $this->aktion == "modaleinfuegen") {
+        if($this->aktion == "platinen" || $this->aktion == "modaleinfuegen" || $this->aktion == "einfuegen" || $this->aktion == "auftraggeber") {
             $this->bestanden = true;
         }
 
@@ -283,27 +224,10 @@ class Sicherheit {
                 if ($existens == false) {
                     
                 }
-                elseif ($parameter == false) {
-
-                }
                 else{
                     $this->bestanden = true;
                 }
             }
-
-
-
-        elseif($this->aktion == "einfuegen") {
-                if ($parameter == false) {
-                }
-                else{
-                    $this->bestanden = true;
-                }
-        }
-
-        elseif($this->aktion == "auftraggeber") {
-            $this->bestanden = true;
-         }
 
         elseif($this->aktion == "bearbeiten") {
                 $existens = existens($this->platinendb_connection);
@@ -311,9 +235,6 @@ class Sicherheit {
 
                 if ($existens == false) {
                 
-                }
-                elseif ($parameter == false) {
-                        
                 }
                 elseif(legitimierung($this->login_connection) == false) {
 
@@ -366,62 +287,5 @@ class Sicherheit {
         
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private function fromJavascript() {
-        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') 
-        {
-            return true;
-        }
-        else {
-            return false;
-        }
-        
-        
-    }
-
-
-    private function parameterPl($aktion) {
-        if($this->aktion == "modalbearbeiten") {
-            if (isset($_POST['Id']) && isset($_POST['Leiterkartenname']) && isset($_POST['Anzahl']) && isset($_POST['Material']) && isset($_POST['Groesse']) && isset($_POST['Endkupfer']) && isset($_POST['Staerke']) && isset($_POST['Lagen'])&& isset($_POST['Oberflaeche']) && isset($_POST['Loetstopp']) && isset($_POST['Wunschdatum']) && isset($_POST['Kommentar'])) { 
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        elseif($this->aktion == "einfuegen") {
-            if (isset($_POST['Name']) && isset($_POST['Anzahl']) && isset($_POST['Material']) && isset($_POST['Groesse'])  && isset($_POST['Endkupfer']) && isset($_POST['Staerke']) && isset($_POST['Lagen']) && isset($_POST['Oberflaeche']) && isset($_POST['Loetstopp']) && isset($_POST['Wunschdatum']) && isset($_POST['Kommentar']) ){
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        elseif($this->aktion == "bearbeiten") {
-            if (isset($_POST['Name']) && isset($_POST['Anzahl']) && isset($_POST['Material']) && isset($_POST['Groeße']) && isset($_POST['Endkupfer']) && isset($_POST['Staerke']) && isset($_POST['Lagen']) && isset($_POST['Oberflaeche']) && isset($_POST['Loetstopp']) && isset($_POST['Wunschdatum']) && isset($_POST['Kommentar']) ) { 
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-    }
-
 
 }
