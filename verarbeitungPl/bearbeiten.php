@@ -109,11 +109,13 @@ if($bestanden == true) {
           */
 
           if (empty($_POST["Wunschdatum"])) {
-              $Wunschdatum = null;
+              $Wunschdatum = "null";
           }
           else {
               $datumzumformatieren = strtotime(mysqli_real_escape_string($platinendb_connection, $_POST["Wunschdatum"]));
+              $Wunschdatum = "'";
               $Wunschdatum .= date('Y-m-d', $datumzumformatieren);
+              $Wunschdatum .= "'";
           }
         
           
@@ -146,36 +148,17 @@ if($bestanden == true) {
 
           //bearbeitung durchführen
           if(isUserEst($platinendb_connection)) {
-            
-            $bearbeiten = $platinendb_connection->prepare("UPDATE platinen SET Name = ?,Anzahl = ?, Auftraggeber_ID = ?,Material_ID = ?,Endkupfer = ?,Staerke = ?,Lagen = ?,Groesse = ?,Oberflaeche = ?,Loetstopp = ?,wunschDatum = ?,Kommentar = ?, ignorieren = ? WHERE ID = ?");
-            $sicherheit->checkQuery($platinendb_connection);
-            $bearbeiten->bind_param("siiississsssii", $pname, $panzahl, $pauftraggeber, $pmaterial, $pendkupfer, $pstaerke, $plagen, $pgroesse, $poberflaeche, $ploetstopp, $pwunschdatum, $pkommentar, $pignorieren, $pid);
-
-            $pauftraggeber = $Auftraggeber['user_id'];
-            $pignorieren = $Ignorieren;
-            
+            $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar', ignorieren = '$Ignorieren' WHERE ID = $id";
           }
           else {
-            $bearbeiten = $platinendb_connection->prepare("UPDATE platinen SET Name = ?,Anzahl = ?,Material_ID = ?,Endkupfer = ?,Staerke = ?,Lagen = ?,Groesse = ?,Oberflaeche = ?,Loetstopp = ?,wunschDatum = ?,Kommentar = ? WHERE ID = ?");
-            $sicherheit->checkQuery($platinendb_connection);
-            $bearbeiten->bind_param("siississsssi", $pname, $panzahl, $pmaterial, $pendkupfer, $pstaerke, $plagen, $pgroesse, $poberflaeche, $ploetstopp, $pwunschdatum, $pkommentar, $pid);
+            $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl,Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar' WHERE ID = $id";
           }
         
-          $pname = $Name;
-          $panzahl = $Anzahl;
-          $pmaterial = $row2['ID'];
-          $pendkupfer = $Endkupfer;
-          $pstaerke = $Staerke;
-          $plagen = $Lagen;
-          $pgroesse = $Groeße;
-          $poberflaeche = $Oberflaeche;
-          $ploetstopp = $Loetstopp;
-          $pwunschdatum = $Wunschdatum;
-          $pkommentar = $Kommentar;
-          $pid = $id;
 
-          $bearbeiten->execute();
+          mysqli_query($platinendb_connection, $bearbeiten);
           
+          $sicherheit->checkQuery($platinendb_connection);
+
           mysqli_close($platinendb_connection); 
           mysqli_close($login_connection);  
 
