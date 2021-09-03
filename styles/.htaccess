@@ -1,4 +1,4 @@
-# This file prevents that your .php  files are accessed directly from the outside
+# This file prevents that your .php view files are accessed directly from the outside
 <Files ~ "\.(htaccess)$">
 order allow,deny
 deny from all
