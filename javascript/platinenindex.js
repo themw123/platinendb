@@ -463,7 +463,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
                       }
                       else if (zustand == 'nichtest') {  
                           setTimeout(function(){
-                          $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Die Platine befindet sich bereits auf einem Nutzen kann nur von einem Admin gelöscht werden.</div>');
+                          $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Die Platine befindet sich bereits auf einem Nutzen und kann nur von einem Admin gelöscht werden.</div>');
                           }, 1000);
                       }
                       else if (zustand == 'nichtveraenderbar') {  

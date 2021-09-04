@@ -207,8 +207,8 @@ function veraenderbarPlatine ($platinendb_connection) {
 					}
 			}
 			else {
-				$array[0] = true;
-				$array[1] = "xxx";
+				$array[0] = false;
+				$array[1] = "nichtveraenderbar";
 				return $array;
 			}	
 
