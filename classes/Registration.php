@@ -171,7 +171,7 @@ class Registration
         
         //$link = EMAIL_PASSWORDRESET_URL.'?user_name='.urlencode($user_name).'&verification_code='.urlencode($user_password_reset_hash);
         //$link = ACCOUNT_VALIDATE_URL;
-        $link = ACCOUNT_VALIDATE_URL.'?user_name='.urlencode($user_name).'&user_email='.urlencode($user_email).'&user_password_new='.urlencode($user_password_hash).'&user_standort='.urlencode($user_standort);
+        $link = ACCOUNT_VALIDATE_URL.'&user_name='.urlencode($user_name).'&user_email='.urlencode($user_email).'&user_password_new='.urlencode($user_password_hash).'&user_standort='.urlencode($user_standort);
 
         $mail->Body = ACCOUNT_VALIDATE_CONTENT . ' ' . $link;
 
