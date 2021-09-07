@@ -58,6 +58,8 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
 // include the configs / constants for the database connection
 require_once("config/db.php");
 
+require_once("funktion/alle.php");
+
 // load the registration class
 require_once("classes/Registration.php");
 
@@ -67,12 +69,19 @@ require_once('translations/en.php');
 // include the PHPMailer library
 require_once('libraries/PHPMailer.php');
 
+// load the login class
+require_once("classes/Login.php");
+
+$login = new Login();
+
 // create the registration object. when this object is created, it will do all registration stuff automatically
 // so this single line handles the entire registration process.
 $registration = new Registration();
 
-// show the register view (with the registration form, and messages/errors)
+
 include("views/register.php");
+
+
 
 
 ?>
