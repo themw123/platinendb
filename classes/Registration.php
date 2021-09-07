@@ -33,20 +33,23 @@ class Registration
             //$this->registerNewUser();
             $this->registerNewUser();
         }
-        if (isset($_GET["Validation"])) {
+        else if(isset($_GET["Validation"]) || isset($_POST["reg"])) {
             $this->login = new Login();
             if($this->login->isUserLoggedIn() == true) {
                 if(isUserEst($this->login->getlogin_connection()) == true) {
-                    $this->registerNewUserEst();
+                    if(isset($_POST["reg"])) {
+                        $this->registerNewUserEst();
+                    }
                 }
                 else {
-                    header("location: index.php");
+                    header("location: platinenindex.php");
                 }
             }
             else {
-                header("location: index.php?Validation");
+                header("location: index.php?Validation"); 
             }
         }
+
     }
 
 
@@ -111,7 +114,7 @@ class Registration
                     $this->errors[] = "Der Benutzername/E-Mail-Adresse ist bereits vergeben";
                 } else {
                     //send email with user's data
-                    $zustand = $this->sendRegisterMail($user_name, $user_email, $user_password, $user_standort);
+                    $zustand = $this->sendRegisterMail($user_name, $user_email, $user_password_hash, $user_standort);
                     //$zustand = true;
                     if($zustand) {
                         // if user has been send successfully
@@ -132,7 +135,7 @@ class Registration
     }
 
 
-    private function sendRegisterMail($user_name, $user_email, $user_password, $user_standort) {
+    private function sendRegisterMail($user_name, $user_email, $user_password_hash, $user_standort) {
         $mail = new PHPMailer;
 
         //damit Umlaute richtig angezeigt werden
@@ -186,16 +189,10 @@ class Registration
      */
     private function registerNewUserEst()
     {
-
-
-
-
         if (empty($_POST['user_name'])) {
             $this->errors[] = "Empty Username";
-        } elseif (empty($_POST['user_password_new']) || empty($_POST['user_password_repeat'])) {
+        } elseif (empty($_POST['user_password_new'])) {
             $this->errors[] = "Empty Password";
-        } elseif ($_POST['user_password_new'] !== $_POST['user_password_repeat']) {
-            $this->errors[] = "Die Passwörter stimmen nicht überein";
         } elseif (strlen($_POST['user_password_new']) < 6) {
             $this->errors[] = "Passwort muss mindestens 6 Zeichen lang sein";
         } elseif (strlen($_POST['user_name']) > 64 || strlen($_POST['user_name']) < 2) {
@@ -216,8 +213,6 @@ class Registration
             && strlen($_POST['user_email']) <= 64
             && filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)
             && !empty($_POST['user_password_new'])
-            && !empty($_POST['user_password_repeat'])
-            && ($_POST['user_password_new'] === $_POST['user_password_repeat'])
         ) {
             // create a database connection
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -234,15 +229,13 @@ class Registration
                 // escaping, additionally removing everything that could be (html/javascript-) code
                 $user_name = $this->db_connection->real_escape_string(strip_tags($_POST['user_name'], ENT_QUOTES));
                 $user_email = $this->db_connection->real_escape_string(strip_tags($_POST['user_email'], ENT_QUOTES));
-
-                $user_password = $_POST['user_password_new'];
-
-                $user_standort = $_POST['user_standort'];
+                $user_password = $this->db_connection->real_escape_string(strip_tags($_POST['user_password_new'], ENT_QUOTES));
+                $user_standort = $this->db_connection->real_escape_string(strip_tags($_POST['user_standort'], ENT_QUOTES));
 
                 // crypt the user's password with PHP 5.5's password_hash() function, results in a 60 character
                 // hash string. the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using
                 // PHP 5.3/5.4, by the password hashing compatibility library
-                $user_password_hash = password_hash($user_password, PASSWORD_ARGON2ID);
+               // $user_password_hash = password_hash($user_password, PASSWORD_ARGON2ID);
                 
 
                 // check if user or email address already exists
@@ -254,7 +247,7 @@ class Registration
                 } else {
                     // write new user's data into database
                     $sql = "INSERT INTO users (user_name, user_password_hash, user_email, intoderext)
-                            VALUES('" . $user_name . "', '" . $user_password_hash . "', '" . $user_email . "', '" . $user_standort . "');";
+                            VALUES('" . $user_name . "', '" . $user_password . "', '" . $user_email . "', '" . $user_standort . "');";
                     $query_new_user_insert = $this->db_connection->query($sql);
 
                     // if user has been added successfully

@@ -1,6 +1,9 @@
 
 <?php
 
+if(isset($_GET["Validation"])) {
+  $login->messages[] = "Du musst dich erst als est einloggen und anschließend den Link erneut öffnen, um den Account bestätigen zu können.";
+}
 
 // show potential errors / feedback (from login object)
 if (isset($login)) {
