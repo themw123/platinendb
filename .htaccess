@@ -54,7 +54,7 @@ Deny from all
 <IfModule mod_rewrite.c>
   RewriteEngine on
   RewriteRule ^(classes) - [F]
-  RewriteRule ^(funktion/*) - [F]
+  RewriteRule ^(funktion) - [F]
   RewriteRule ^(libaries) - [F]
   RewriteRule ^(navbar) - [F]
   RewriteRule ^(translations) - [F]
