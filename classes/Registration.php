@@ -270,7 +270,7 @@ class Registration
         }
     }
 
-    private function sendNotificationMail($user_name) {
+    private function sendNotificationMail($user_name, $user_email) {
         $mail = new PHPMailer;
 
         //damit Umlaute richtig angezeigt werden
