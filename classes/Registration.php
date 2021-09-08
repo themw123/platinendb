@@ -119,7 +119,7 @@ class Registration
                     if($zustand) {
                         // if user has been send successfully
                         $this->messages[] = "Du wirst jetzt zur Loginseite weitergeleitet";
-                        header('Refresh:5; url=index.php?wait');
+                        header('Refresh:2.5; url=index.php?wait');
                     }
                     else{
 
@@ -256,7 +256,8 @@ class Registration
                     // if user has been added successfully
                     if ($query_new_user_insert) {
                         $this->messages[] = "Der Benutzer wurde erfolgreich angelegt. Du wirst jetzt weitergeleitet.";
-                        header('Refresh:2.5; url=index.php');
+                        $this->sendNotificationMail($user_name);
+                        //header('Refresh:2.5; url=index.php');
                     } else {
                         $this->errors[] = "Die Registrierung ist fehlgeschlagen";
                     }
@@ -266,6 +267,53 @@ class Registration
             }
         } else {
             $this->errors[] = "Ein unbekannter Fehler ist aufgetreten.";
+        }
+    }
+
+    private function sendNotificationMail($user_name) {
+        $mail = new PHPMailer;
+
+        //damit Umlaute richtig angezeigt werden
+        $mail->CharSet = 'utf-8'; 
+
+        // please look into the config/config.php for much more info on how to use this!
+        // use SMTP or use mail()
+        if (EMAIL_USE_SMTP) {
+            // Set mailer to use SMTP
+            $mail->IsSMTP();
+            //useful for debugging, shows full SMTP errors
+            //$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+            // Enable SMTP authentication
+            $mail->SMTPAuth = EMAIL_SMTP_AUTH;
+            // Enable encryption, usually SSL/TLS
+            if (defined(EMAIL_SMTP_ENCRYPTION)) {
+                $mail->SMTPSecure = EMAIL_SMTP_ENCRYPTION;
+            }
+            // Specify host server
+            $mail->Host = EMAIL_SMTP_HOST;
+            $mail->Username = EMAIL_SMTP_USERNAME;
+            $mail->Password = EMAIL_SMTP_PASSWORD;
+            $mail->Port = EMAIL_SMTP_PORT;
+        } else {
+            $mail->IsMail();
+        }
+
+        
+        $mail->From = EMAIL_PASSWORDRESET_FROM;
+        $mail->FromName = EMAIL_PASSWORDRESET_FROM_NAME;
+        $mail->AddAddress($user_email);
+        $mail->Subject = NOTIFICATION_VALIDATE_SUBJECT;
+        
+
+        $benutzername = "\n\n Benutzername: " . $user_name;
+
+        $mail->Body = NOTIFICATION_CONTENT . '' . $benutzername;
+
+        if(!$mail->Send()) {
+            $this->errors[] = MESSAGE_PASSWORD_RESET_MAIL_FAILED . $mail->ErrorInfo;
+            return false;
+        } else {
+            return true;
         }
     }
 }
