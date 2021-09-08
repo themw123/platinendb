@@ -27,7 +27,7 @@ define("MESSAGE_PASSWORD_BAD_CONFIRM", "Passwort und Passwort-Wiederholung sind 
 define("MESSAGE_PASSWORD_CHANGE_FAILED", "Tut mir leid, die Änderung Ihres Passworts ist fehlgeschlagen.");
 define("MESSAGE_PASSWORD_CHANGED_SUCCESSFULLY", "Passwort erfolgreich geändert!");
 define("MESSAGE_PASSWORD_EMPTY", "Passwort-Feld war leer");
-define("MESSAGE_PASSWORD_RESET_MAIL_FAILED", "E-Mail zum Zurücksetzen des Passworts NICHT erfolgreich gesendet! Fehler: ");
+define("MESSAGE_PASSWORD_RESET_MAIL_FAILED", "E-Mail konnte NICHT gesendet werden! Fehler: ");
 define("MESSAGE_PASSWORD_RESET_MAIL_SUCCESSFULLY_SENT", "E-Mail zum Zurücksetzen des Passworts erfolgreich gesendet!");
 define("MESSAGE_PASSWORD_TOO_SHORT", "Das Passwort hat eine Mindestlänge von 6 Zeichen.");
 define("MESSAGE_PASSWORD_WRONG", "Falsches Kennwort. Versuchen Sie es erneut.");
