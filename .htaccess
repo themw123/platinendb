@@ -8,7 +8,7 @@ deny from all
   RewriteEngine on
   RewriteRule ^(classes) - [F]
   RewriteRule ^(config) - [F]
-  RewriteRule ^(funktionen) - [F]
+  RewriteRule ^(funktion/*) - [F]
   RewriteRule ^(libaries) - [F]
   RewriteRule ^(navbar) - [F]
   RewriteRule ^(translations) - [F]

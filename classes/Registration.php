@@ -256,8 +256,8 @@ class Registration
                     // if user has been added successfully
                     if ($query_new_user_insert) {
                         $this->messages[] = "Der Benutzer wurde erfolgreich angelegt. Du wirst jetzt weitergeleitet.";
-                        $this->sendNotificationMail($user_name);
-                        //header('Refresh:2.5; url=index.php');
+                        $this->sendNotificationMail($user_name, $user_email);
+                        header('Refresh:2.5; url=index.php');
                     } else {
                         $this->errors[] = "Die Registrierung ist fehlgeschlagen";
                     }
