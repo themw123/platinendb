@@ -121,9 +121,6 @@ class Registration
                         $this->messages[] = "Du wirst jetzt zur Loginseite weitergeleitet";
                         header('Refresh:2.5; url=index.php?wait');
                     }
-                    else{
-
-                    }
 
                 }
             } else {
