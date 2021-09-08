@@ -5,6 +5,10 @@ if(isset($_GET["Validation"])) {
   $login->messages[] = "Du musst dich erst als est einloggen und anschließend den Link erneut öffnen, um den Account bestätigen zu können.";
 }
 
+if(isset($_GET["wait"])) {
+  $login->messages[] = "Sobald ein Admin deinen Account bestätigt, kannst du dich einloggen. Du wirst außerdem per E-Mail benachrichtigt wenn dein Account bestätigt wurde.";
+}
+
 // show potential errors / feedback (from login object)
 if (isset($login)) {
     if ($login->errors) {

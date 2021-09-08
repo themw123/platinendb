@@ -118,8 +118,8 @@ class Registration
                     //$zustand = true;
                     if($zustand) {
                         // if user has been send successfully
-                        $this->messages[] = "Sobald ein Admin deinen Account bestätigt, kannst du dich einloggen. Du wirst jetzt zur Loginseite weitergeleitet";
-                        header('Refresh:5; url=index.php');
+                        $this->messages[] = "Du wirst jetzt zur Loginseite weitergeleitet";
+                        header('Refresh:5; url=index.php?wait');
                     }
                     else{
 
