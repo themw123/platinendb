@@ -237,7 +237,7 @@ class Registration
                 // crypt the user's password with PHP 5.5's password_hash() function, results in a 60 character
                 // hash string. the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using
                 // PHP 5.3/5.4, by the password hashing compatibility library
-                $user_password = password_hash($user_password, PASSWORD_ARGON2ID);
+                // $user_password = password_hash($user_password, PASSWORD_ARGON2ID);
 
                 // check if user or email address already exists
                 $sql = "SELECT * FROM users WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_email . "';";
@@ -253,7 +253,7 @@ class Registration
 
                     // if user has been added successfully
                     if ($query_new_user_insert) {
-                        $this->messages[] = "Der Benutzer wurde erfolgreich angelegt. Du wirst jetzt zur Loginseite weitergeleitet";
+                        $this->messages[] = "Der Benutzer wurde erfolgreich angelegt. Du wirst jetzt weitergeleitet.";
                         header('Refresh:2.5; url=index.php');
                     } else {
                         $this->errors[] = "Die Registrierung ist fehlgeschlagen";

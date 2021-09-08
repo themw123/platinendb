@@ -154,7 +154,7 @@ if ($registration->messages == null ) {
             </div>
 
             
-            <input id="registrierensubmit" type="submit" name="register" class="fadeIn second" value="anlegen/bestätigen">
+            <input id="registrierensubmit" type="submit" name="reg" class="fadeIn second" value="anlegen/bestätigen">
 
             ';
         }
