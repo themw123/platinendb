@@ -1,5 +1,5 @@
 <?php
-require_once("../../config/db.php");
+require_once("/documents/config/db.php");
 require_once("../../classes/Login.php");
 require_once("../../funktion/alle.php");
 require_once("../../classes/Sicherheit.php");

@@ -53,7 +53,7 @@
     }
 
     // include the configs / constants for the database connection
-    require_once("config/db.php");
+    require_once("/documents/config/db.php");
 
     require_once("funktion/alle.php");
     // load the login class

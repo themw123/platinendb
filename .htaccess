@@ -3,10 +3,6 @@ order allow,deny
 deny from all
 </Files>
 
-<Files db.php>
-Order Allow,Deny
-Deny from all
-</Files>
 
 <Files Login.php>
 Order Allow,Deny

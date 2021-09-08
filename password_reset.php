@@ -41,7 +41,7 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     require_once('libraries/password_compatibility_library.php');
 }
 // include the config
-require_once('config/db.php');
+require_once("/documents/config/db.php");
 
 // include the to-be-used language, english by default. feel free to translate your project and include something else
 require_once('translations/en.php');
