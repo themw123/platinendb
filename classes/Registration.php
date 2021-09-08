@@ -214,7 +214,7 @@ class Registration
             && !empty($_POST['user_email'])
             && strlen($_POST['user_email']) <= 64
             && filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)
-            && !empty($_POST['user_password_new'])
+            && !empty($_POST['user_password'])
         ) {
             // create a database connection
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
