@@ -14,4 +14,5 @@ deny from all
   RewriteRule ^(translations) - [F]
   RewriteRule ^(views) - [F]
 </IfModule>
-Options -Indexes
+
+Options All -Indexes
