@@ -171,7 +171,7 @@ class Registration
         
         //$link = EMAIL_PASSWORDRESET_URL.'?user_name='.urlencode($user_name).'&verification_code='.urlencode($user_password_reset_hash);
         //$link = ACCOUNT_VALIDATE_URL;
-        $link = ACCOUNT_VALIDATE_URL.'&user_name='.urlencode($user_name).'&user_email='.urlencode($user_email).'&user_password_new='.urlencode($user_password_hash).'&user_standort='.urlencode($user_standort);
+        $link = ACCOUNT_VALIDATE_URL.'&user_name='.urlencode($user_name).'&user_email='.urlencode($user_email).'&user_password='.urlencode($user_password_hash).'&user_standort='.urlencode($user_standort);
 
         $mail->Body = ACCOUNT_VALIDATE_CONTENT . ' ' . $link;
 
@@ -231,7 +231,7 @@ class Registration
                 // escaping, additionally removing everything that could be (html/javascript-) code
                 $user_name = $this->db_connection->real_escape_string(strip_tags($_POST['user_name'], ENT_QUOTES));
                 $user_email = $this->db_connection->real_escape_string(strip_tags($_POST['user_email'], ENT_QUOTES));
-                $user_password = $this->db_connection->real_escape_string(strip_tags($_POST['user_password_new'], ENT_QUOTES));
+                $user_password = $this->db_connection->real_escape_string(strip_tags($_POST['user_password'], ENT_QUOTES));
                 $user_standort = $this->db_connection->real_escape_string(strip_tags($_POST['user_standort'], ENT_QUOTES));
 
                 // crypt the user's password with PHP 5.5's password_hash() function, results in a 60 character

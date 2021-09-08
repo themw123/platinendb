@@ -67,7 +67,7 @@ if ($registration->messages == null ) {
     }
     else {
 
-        if(isset($_GET["user_name"]) && isset($_GET["user_email"]) && isset($_GET["user_password_new"]) && isset($_GET["user_standort"])) {
+        if(isset($_GET["user_name"]) && isset($_GET["user_email"]) && isset($_GET["user_password"]) && isset($_GET["user_standort"])) {
             echo
             '<div class="wrapper fadeInDown">
 
@@ -86,7 +86,7 @@ if ($registration->messages == null ) {
         
             <input value='.$_GET["user_email"].' id="login_input_email" class="login_input" type="email" name="user_email" placeholder="E-Mail-Adresse" required /> 
 
-            <input value='.$_GET["user_password_new"].' id="login_input_password_new" class="login_input" type="password" name="user_password_new" pattern=".{6,}" placeholder="Passwort (min. 6 Zeichen)"  required autocomplete="off" />
+            <input value='.$_GET["user_password"].' id="login_input_password_new" class="login_input" type="hidden" name="user_password" pattern=".{6,}" placeholder="Passwort (min. 6 Zeichen)"  required autocomplete="off" />
         
         
             <div class="containerintext">
