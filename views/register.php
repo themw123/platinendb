@@ -140,7 +140,7 @@ if ($registration->messages == null ) {
         
             <input id="login_input_email" class="login_input" type="email" name="user_email" placeholder="E-Mail-Adresse" required /> 
 
-            <input id="login_input_password_new" class="login_input" type="password" name="user_password_new" pattern=".{6,}" placeholder="Passwort (min. 6 Zeichen)"  required autocomplete="off" />
+            <input id="login_input_password_new" class="login_input" type="password" name="user_password_unhashed" pattern=".{6,}" placeholder="Passwort (min. 6 Zeichen)"  required autocomplete="off" />
         
         
             <div class="containerintext">
