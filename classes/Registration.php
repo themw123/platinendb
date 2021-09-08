@@ -170,14 +170,12 @@ class Registration
         $mail->Subject = ACCOUNT_VALIDATE_SUBJECT;
         
 
-        $benutzername = "Benutzername: " + $user_name + "\n";
-        $emailadresse = "E-Mail-Adresse: " + $user_email + "\n";
-        $standort = "Standort" + $user_standort + "\n";
+        $accountinfo = "Benutzername: " + $user_name + "\n" + "E-Mail-Adresse: " + $user_email + "\n" + "Standort" + $user_standort + "\n";
 
         //$link = ACCOUNT_VALIDATE_URL;
-        $link = ACCOUNT_VALIDATE_URL.'&user_name='.urlencode($user_name).'&user_email='.urlencode($user_email).'&user_password='.urlencode($user_password_hash).'&user_standort='.urlencode($user_standort);
+        $link = ACCOUNT_VALIDATE_URL.'&user_name='.urlencode($user_name).'&user_email='.urlencode($user_email).'&user_password='.urlencode($user_password_hash).'&user_standort='.urlencode($user_standort) + "\n \n \n" ;
 
-        $mail->Body = ACCOUNT_VALIDATE_CONTENT + $link;
+        $mail->Body = ACCOUNT_VALIDATE_CONTENT . ' ' . $link . ' ' . $accountinfo;
 
         if(!$mail->Send()) {
             $this->errors[] = MESSAGE_PASSWORD_RESET_MAIL_FAILED . $mail->ErrorInfo;
