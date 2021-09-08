@@ -193,9 +193,9 @@ class Registration
     {
         if (empty($_POST['user_name'])) {
             $this->errors[] = "Empty Username";
-        } elseif (empty($_POST['user_password_new'])) {
+        } elseif (empty($_POST['user_password'])) {
             $this->errors[] = "Empty Password";
-        } elseif (strlen($_POST['user_password_new']) < 6) {
+        } elseif (strlen($_POST['user_password']) < 6) {
             $this->errors[] = "Passwort muss mindestens 6 Zeichen lang sein";
         } elseif (strlen($_POST['user_name']) > 64 || strlen($_POST['user_name']) < 2) {
             $this->errors[] = "Benutzername muss zwischen 2 und 62 Zeichen lang sein";
