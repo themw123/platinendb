@@ -99,7 +99,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
          },
 
          {
-          "targets": [15,16,17,18,19,20],
+          "targets": [15,16,17,18,19,20,21,22],
           "visible": false
          },
 
@@ -111,15 +111,14 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
             //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
             if(est == "ja") {
               if(data[17] == 0){
-
-                if(data[20] == 0) {
-                  $(row).attr('id', 'blue');
-                }
-                else if(data[20] == 1) {
+                $(row).attr('id', 'blue');
+              }
+              else {
+                if(data[21] == 0) {
                   $(row).attr('id', 'orange');
                 }
-                else if(data[20] == 2) {
-                  $(row).attr('id', 'red');
+                else {
+                  $(row).attr('id', 'green');
                 }
               }
             }

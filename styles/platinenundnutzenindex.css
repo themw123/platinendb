@@ -969,6 +969,14 @@ testdaten haken farbe
       color:red
     }
 
+    #green {
+      color:green
+    }
+
+    #purple {
+      color:purple
+    }
+
     #buttondefault{
       color: #005ea9;
       font-size: 12px;

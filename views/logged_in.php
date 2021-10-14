@@ -73,11 +73,13 @@ echo'<table id="tabelle1"  style="width:100%" class="table text-center table-hov
 		
 		echo'<th>Status</th>';
 		echo'<th>ignorieren</th>';
-		echo'<th>abgeschlossen</th>';
+		echo'<th>abgeschlossenPost</th>';
 		echo'<th>10Tage</th>';
 		echo'<th>14Tage</th>';
-		echo'<th>dringlichkeit</th>';
-		
+		echo'<th>dringlichkeitPost</th>';
+		echo'<th>abgeschlossenFertigung</th>';
+		echo'<th>5Tage</th>';
+
 		echo'</thead>';
 		echo'</table>';	
 
