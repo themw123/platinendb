@@ -94,8 +94,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
          "targets": [0] ,
          "data": null,
          "className": "ohnedetail",
-         "defaultContent": "<i class='fa fa-edit iconx' id='iconklasse2'></i><i class='fa fa-trash-alt iconx' id='iconklasse'></i>"
-         
+         "defaultContent": "<i class='fa fa-edit iconx' id='iconklasse2'></i><i class='fa fa-trash-alt iconx' id='iconklasse'></i><i class='fas fa-exclamation-triangle ohnedetail' id='iconklasse3'></i>"
          },
 
          {
@@ -112,10 +111,26 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
             if(est == "ja") {
               if(data[17] == 0){
                 $(row).attr('id', 'blue');
+
+                if(data[16] == 0) {
+                  if(data[20] == 2) {
+                    $(row).find('i:nth-child(3)').addClass("red").css("opacity", 1);
+                  }
+                  else if(data[20] == 1) {
+                    $(row).find('i:nth-child(3)').addClass("orange").css("opacity", 1);
+                  }
+                }
+
               }
               else {
                 if(data[21] == 0) {
                   $(row).attr('id', 'orange');
+                  
+                  if(data[16] == 0) {
+                    if(data[22] == "ja") {
+                      $(row).find('i:nth-child(3)').css("opacity", 1);
+                    }
+                  }
                 }
                 else {
                   $(row).attr('id', 'green');

@@ -1004,3 +1004,26 @@ testdaten haken farbe
         display: none;
       }
       
+
+      #iconklasse3 {
+        color: black;
+        padding-right: 9px;
+        padding-left: 9px;
+        font-size: 18px;
+        opacity: 0;
+      }
+      
+      
+      
+      #iconklasse3:hover {
+        color: black;
+      }
+
+      .red {
+        color: red!important;
+      }
+
+      .orange {
+        color: orange!important;
+      }
+
