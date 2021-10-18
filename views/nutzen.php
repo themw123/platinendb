@@ -25,6 +25,15 @@ echo'</div>';
 echo'<div id="containerleiste" class="container-fluid" style="visibility: hidden;">';	
 echo'<div id="leiste" class=" my-3 bg-light">';
 echo'<div class="hinzu1"><a class="btn" id="button1" role="button" ><i class="fa fa-plus-square" id="icons"></i></a></div>';
+
+echo'<div class="hinzu2"><a class="btn" id="buttondefault" role="button" >
+<span class="fa-stack fa-lg">
+<i class="fas fa-filter fa-stack-1x"></i>
+<i class="fas fa-ban fa-stack-2x"></i>
+</span>
+</i></a>
+</div>';
+
 echo'
 <div class="hinzu3">
 <a class="btn btn-primary" style="visibility: hidden;" id="button3" href="#" role="button" data-toggle="collapse" data-target="#spCont" aria-expanded="false" aria-controls="collapseExample">
@@ -61,6 +70,7 @@ echo'<table id="tabelle1"  style="width:100%" class="table text-center table-hov
 		echo'<th>int/ext</th>';
 		echo'<th>Testdaten</th>';
 		echo'<th>Kommentare</th>';
+		echo'<th>dringlichkeitFertigung</th>';
 		
 		echo'</thead>';
 		echo'</table>';	

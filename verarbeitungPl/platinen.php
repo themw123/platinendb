@@ -30,7 +30,7 @@ if($bestanden == true) {
 
 			
 			if (isUserEst($platinendb_connection) == true) {
-			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Status, ignorieren, abgeschlossenPost, 10Tage, 14Tage, dringlichkeitPost, abgeschlossenFertigung, 5Tage FROM platinenviewest";
+			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Status, ignorieren, abgeschlossenPost, 10Tage, 14Tage, dringlichkeitPost, abgeschlossenFertigung FROM platinenviewest";
 			}
 
 			else {
@@ -104,10 +104,8 @@ if($bestanden == true) {
 						$nestedData[] = $row["14Tage"];
 						$nestedData[] = $row["dringlichkeitPost"];
 						$nestedData[] = $row["abgeschlossenFertigung"];
-						$nestedData[] = $row["5Tage"];
 					}
 					else {
-						$nestedData[] = "";
 						$nestedData[] = "";
 						$nestedData[] = "";
 						$nestedData[] = "";

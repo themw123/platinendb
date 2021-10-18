@@ -1019,12 +1019,8 @@ testdaten haken farbe
         color: black;
       }
 
-      .darkBlue {
-        color: #00006f!important;
-      }
-
-      .lightBlue {
-        color: #44a6c5!important;
+      .red {
+        color: red!important;
       }
 
       .orange {

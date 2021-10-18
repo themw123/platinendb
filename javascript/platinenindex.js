@@ -98,7 +98,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
          },
 
          {
-          "targets": [15,16,17,18,19,20,21,22],
+          "targets": [15,16,17,18,19,20,21],
           "visible": false
          },
 
@@ -114,10 +114,10 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
                 if(data[16] == 0) {
                   if(data[20] == 2) {
-                    $(row).find('i:nth-child(3)').addClass("darkBlue").css("opacity", 1);
+                    $(row).find('i:nth-child(3)').addClass("red").css("opacity", 1);
                   }
                   else if(data[20] == 1) {
-                    $(row).find('i:nth-child(3)').addClass("lightBlue").css("opacity", 1);
+                    $(row).find('i:nth-child(3)').addClass("orange").css("opacity", 1);
                   }
                 }
 
@@ -125,12 +125,6 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
               else {
                 if(data[21] == 0) {
                   $(row).attr('id', 'orange');
-
-                  if(data[16] == 0) {
-                    if(data[22] == "ja") {
-                      $(row).find('i:nth-child(3)').addClass("orange").css("opacity", 1);
-                    }
-                  }
                 }
                 else {
                   $(row).attr('id', 'green');
@@ -561,9 +555,6 @@ table.searchPanes.container().insertAfter('#leiste').addClass('collapse').attr("
 
 
 //weitere eigene functionen
-
-
-
 
 //wenn um edit und bearbeiten geklickt wird, markierung bzw. auswahl der reihe verhindern
 $(document).on('click','td.ohnedetail',function(event){

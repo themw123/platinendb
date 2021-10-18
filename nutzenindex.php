@@ -136,6 +136,7 @@ else {
 
     
     <script src="plugins/datatable/DataTables-1.10.22/js/jquery.dataTables.min.js" charset="utf8" type="text/javascript"></script>
+    <script src="plugins/fnsort/fnSortNeutral.js" type="text/javascript" charset="utf8"></script>
     <script src="plugins/datatable/DataTables-1.10.22/js/dataTables.bootstrap4.min.js" type="text/javascript" charset="utf8"></script>
     
 

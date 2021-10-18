@@ -22,7 +22,7 @@ if($bestanden == true) {
 		/*
 		Abfrage von nutzen Tabelle
 		*/
-		$sql = "SELECT * FROM nutzenview order by Nr desc";
+		$sql = "SELECT * FROM nutzenview";
 	
 		
 
@@ -88,7 +88,8 @@ if($bestanden == true) {
 				$nestedData[] = $row["intoderext"];
 				$nestedData[] = $row["Testdaten"];
 				$nestedData[] = $row["Kommentar"];
-
+				$nestedData[] = $row["dringlichkeitFertigung"];
+				
 
 
 				

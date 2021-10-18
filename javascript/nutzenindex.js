@@ -168,13 +168,27 @@ $(document).ready(function(){
              "targets": [0] ,
              "data": null,
              "className": "ohnedetail",
-             "defaultContent": "</i><i class='fa fa-edit iconx' id='iconklasse2'></i><i class='fa fa-trash-alt iconx' id='iconklasse'></i>"
+             "defaultContent": "</i><i class='fa fa-edit iconx' id='iconklasse2'></i><i class='fa fa-trash-alt iconx' id='iconklasse'></i><i class='fas fa-exclamation-triangle ohnedetail' id='iconklasse3'></i>"
              
-             }
+             },
     
+             {
+              "targets": [15],
+              "visible": false
+             },
+
               ], 
     
-    
+
+
+
+              "createdRow": function( row, data){
+
+                  if(data[15] == 0){
+                    $(row).find('i:nth-child(3)').addClass("red").css("opacity", 1);
+                  } 
+              
+              },
     
     
     
@@ -341,10 +355,10 @@ $(document).ready(function(){
               var dringlichkeit = $(':nth-child(6)',this).text();
 
               if(dringlichkeit == 2) {
-                $(this).find('i:nth-child(2)').addClass("darkBlue").css("opacity", 1);
+                $(this).find('i:nth-child(2)').addClass("red").css("opacity", 1);
               }
               else if(dringlichkeit == 1) {
-                $(this).find('i:nth-child(2)').addClass("lightBlue").css("opacity", 1);
+                $(this).find('i:nth-child(2)').addClass("orange").css("opacity", 1);
               }
             });
 
@@ -635,6 +649,13 @@ $(document).ready(function(){
 
 
 
+    //wenn auf buttondefault geklickt wird
+    $('#buttondefault').on( 'click', function () {
+      table.fnSortNeutral();
+      table.api().searchPanes.clearSelections();
+      table.api().search("").draw();
+      $('input[type=search]').val('').change();
+    })
 
     
     //Filter instanz laden
@@ -646,8 +667,7 @@ $(document).ready(function(){
     
     
     
-    
-    
+  
     
     
     
