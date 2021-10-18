@@ -114,10 +114,10 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
                 if(data[16] == 0) {
                   if(data[20] == 2) {
-                    $(row).find('i:nth-child(3)').addClass("red").css("opacity", 1);
+                    $(row).find('i:nth-child(3)').addClass("darkBlue").css("opacity", 1);
                   }
                   else if(data[20] == 1) {
-                    $(row).find('i:nth-child(3)').addClass("orange").css("opacity", 1);
+                    $(row).find('i:nth-child(3)').addClass("lightBlue").css("opacity", 1);
                   }
                 }
 
@@ -128,7 +128,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
                   if(data[16] == 0) {
                     if(data[22] == "ja") {
-                      $(row).find('i:nth-child(3)').addClass("purple").css("opacity", 1);
+                      $(row).find('i:nth-child(3)').addClass("orange").css("opacity", 1);
                     }
                   }
                 }

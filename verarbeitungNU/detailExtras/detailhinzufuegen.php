@@ -152,7 +152,7 @@ if($bestanden == true) {
 
 
           //Platinen zum hinzufügen holen
-          $query3 = "SELECT ID, NAME, user_name, erstelltam, ausstehend, dringlichkeit  FROM detailplatineadd $WhereAnweisung"; 
+          $query3 = "SELECT ID, NAME, user_name, erstelltam, ausstehend, dringlichkeitPost  FROM detailplatineadd $WhereAnweisung"; 
           $finalquery = mysqli_query($platinendb_connection, $query3);  
 
      
@@ -177,7 +177,7 @@ if($bestanden == true) {
                     <th>Auftraggeber</th>
                     <th>erstellt</th>
                     <th>Ausstehend</th>
-                    <th style="display:none">dringlichkeit</th>
+                    <th style="display:none">dringlichkeitPost</th>
                     </thead>
                          
                     <tbody>
@@ -200,13 +200,14 @@ if($bestanden == true) {
                     <td>
                     <a id= '.$row["ID"].'></i>
                     <i class="fas fa-plus-circle iconx" id="iconklasse5"></i>
+                    <i class="fas fa-exclamation-triangle" id="iconklasse3"></i>
                     </td>
 
                     <td> '.$row["NAME"].'</td>
                     <td> '.$row["user_name"].'</td>
                     <td> '.$creation_time.'</td> 
                     <td>' .$row["ausstehend"].'</td>
-                    <td style="display:none">' .$row["dringlichkeit"].'</td>
+                    <td style="display:none">' .$row["dringlichkeitPost"].'</td>
                     </tr>  
                     ';     
                     

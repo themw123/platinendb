@@ -336,18 +336,16 @@ $(document).ready(function(){
 
             $('#tabelle3 tbody tr').each(function(){
               
+              $(this).attr('id', 'blue');
+
               var dringlichkeit = $(':nth-child(6)',this).text();
 
-              if(dringlichkeit == 0) {
-                $(this).attr('id', 'blue');
+              if(dringlichkeit == 2) {
+                $(this).find('i:nth-child(2)').addClass("darkBlue").css("opacity", 1);
               }
               else if(dringlichkeit == 1) {
-                $(this).attr('id', 'orange');
+                $(this).find('i:nth-child(2)').addClass("lightBlue").css("opacity", 1);
               }
-              else if(dringlichkeit == 2) {
-                $(this).attr('id', 'red');
-              }
-              
             });
 
        
