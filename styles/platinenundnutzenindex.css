@@ -1020,10 +1020,13 @@ testdaten haken farbe
       }
 
       .red {
-        color: red!important;
+        color: #00006f!important;
       }
 
       .orange {
-        color: orange!important;
+        color: #44a6c5!important;
       }
 
+      .purple {
+        color: #e89b02!important;
+      }
