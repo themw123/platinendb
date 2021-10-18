@@ -25,7 +25,7 @@ $bestanden = $sicherheit->ergebnis();
 if($bestanden == true) {
  
   
-         $query = "SELECT BearbeiterName FROM bearbeiter"; 
+         $query = "SELECT BearbeiterName FROM bearbeiter order by ID asc"; 
          $result = mysqli_query($platinendb_connection, $query);  
          $namen = array();
          $counter = 0;
