@@ -463,6 +463,7 @@ echo'
 
 function modal1($login_connection) {
 
+	
 
 	
 echo "
@@ -474,16 +475,37 @@ echo "
 		<h5 class='modal-title' id='exampleModalLabel'>Benutzerinformationen</h5>
 	  </div>
 	  <div class='modal-body'>
-	  eingeloggt:  $_SESSION[user_name] <br> <br>
-	  Berechtigung: 
-	  ";
-	  if (isUserEst ($login_connection) == true) { 
-	  echo 'Admin';
-	  }
 
-	  else { 
-		echo 'Standardbenutzer';
-	  }
+	  <table class='tableInfo' style='width:100%'>
+	  <tr>
+		<th>Name</th>
+		<th>E-Mail</th>
+		<th>Berechtigung</th>
+	  </tr>
+	  <tr>
+		<td> 
+		$_SESSION[user_name] 
+		</td>
+		<td> 
+		$_SESSION[user_email] 
+		</td>
+		</div>
+		<td>
+		"; 
+		if (isUserEst ($login_connection) == true) { 
+			echo 'Admin';
+			}
+			
+			else { 
+			  echo 'Standardbenutzer';
+		}
+		echo "
+		</td>
+
+	  </tr>
+	  </table>
+	  ";
+
 echo"
 	  </div>
 	  <div class='modal-footer'>
@@ -494,6 +516,3 @@ echo"
 </div>		
 ";
 }
-
-
-
