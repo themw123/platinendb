@@ -229,8 +229,6 @@ $(document).ready(function(){
         leiste.style.visibility = "visible"
         var filterknopf = document.getElementById("button1");
         filterknopf.style.visibility = "visible"
-        var buttondefault = document.getElementById("buttondefault");
-        buttondefault.style.visibility = "visible"
         
         //meldung ausgeben
         $('#leer').hide().fadeIn(1000).html('<div class="alert alert-info leer2">Es sind keine Nutzen vorhanden. Drücke auf das Plus-Symbol, um ein Nutzen hinzuzufügen.</div>');
