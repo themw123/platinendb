@@ -478,19 +478,16 @@ echo "
 
 	  <table class='tableInfo' style='width:100%'>
 	  <tr>
-		<th>Name</th>
-		<th>E-Mail</th>
-		<th>Berechtigung</th>
+		<th>Name:</th>
+		<td> $_SESSION[user_name] </td>
 	  </tr>
 	  <tr>
-		<td> 
-		$_SESSION[user_name] 
-		</td>
-		<td> 
-		$_SESSION[user_email] 
-		</td>
-		</div>
-		<td>
+		<th>E-Mail:</th>
+		<td> $_SESSION[user_email] </td>
+	  </tr>
+	  <tr>
+	  	<th>Berechtigung:</th>
+	  	<td>
 		"; 
 		if (isUserEst ($login_connection) == true) { 
 			echo 'Admin';
@@ -501,7 +498,6 @@ echo "
 		}
 		echo "
 		</td>
-
 	  </tr>
 	  </table>
 	  ";
