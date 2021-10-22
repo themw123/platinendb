@@ -26,7 +26,7 @@ echo'<div id="containerleiste" class="container-fluid" style="visibility: hidden
 echo'<div id="leiste" class=" my-3 bg-light">';
 echo'<div class="hinzu1"><a class="btn" id="button1" role="button" ><i class="fa fa-plus-square" id="icons"></i></a></div>';
 if (isUserEst($login_connection) == true) {
-	echo'<div class="hinzu2"><a class="btn" id="buttondefault" role="button" >
+	echo'<div class="hinzu2"><a class="btn" style="visibility: hidden;" id="buttondefault" role="button" >
 	<span class="fa-stack fa-lg">
 	<i class="fas fa-filter fa-stack-1x"></i>
 	<i class="fas fa-ban fa-stack-2x"></i>
