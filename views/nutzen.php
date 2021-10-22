@@ -9,7 +9,7 @@ modal1($link);
 modal2();
 
 
-// modal (bearbeitung) zur verfügung stellen
+// modal (einfügen/bearbeiten) zur verfügung stellen
 modal3();
 
 
