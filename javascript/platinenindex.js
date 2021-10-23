@@ -168,9 +168,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
         //tabelle verstecken
         var tabellecontainer = document.getElementById("tabellex");
         tabellecontainer.style.visibility = "hidden"
-        var buttondefault = document.getElementById("buttondefault");
-        buttondefault.style.visibility = "hidden"
-
+        
         //container und knopf hinzufügen anzeigen
         var leiste = document.getElementById("containerleiste");
         leiste.style.visibility = "visible"
@@ -517,9 +515,12 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
 
                       var tabellecontainer = document.getElementById("tabellex");
                       tabellecontainer.style.visibility = "hidden"
-
+                      
                       var filterknopf = document.getElementById("button3");
                       filterknopf.style.visibility = "hidden"
+
+                      var buttondefault = document.getElementById("buttondefault");
+                      buttondefault.style.visibility = "hidden"
                       }
                       }, 1000)
 
