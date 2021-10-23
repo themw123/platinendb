@@ -106,7 +106,9 @@ function dostuff() {
         var leiste = document.getElementById("containerleiste");
         var button1knopf = document.getElementById("button1");
         var tabellecontainer = document.getElementById("tabellex");
+        var buttondefault = document.getElementById("buttondefault");
       }
+
 
 
       if(upload != "" && upload != null) {
@@ -202,6 +204,9 @@ function dostuff() {
                     button1knopf.style.visibility = "visible"
 
                     tabellecontainer.style.visibility = "visible" 
+
+                    buttondefault.style.visibility = "visible"
+
                     }, 1000);
                     }
               }
