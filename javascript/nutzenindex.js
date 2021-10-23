@@ -223,6 +223,8 @@ $(document).ready(function(){
         //tabelle verstecken
         var tabellecontainer = document.getElementById("tabellex");
         tabellecontainer.style.visibility = "hidden"
+        var buttondefault = document.getElementById("buttondefault");
+        buttondefault.style.visibility = "hidden"
         
         //container und knopf hinzufügen anzeigen
         var leiste = document.getElementById("containerleiste");
