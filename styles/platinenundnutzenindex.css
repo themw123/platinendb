@@ -1023,6 +1023,10 @@ testdaten haken farbe
         color: red!important;
       }
 
+      .orange {
+        color: orange!important;
+      }
+
       .tableInfo{
         border-collapse: separate;
         border-spacing: 1em;
