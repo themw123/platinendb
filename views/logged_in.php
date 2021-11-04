@@ -1,18 +1,19 @@
 
 <?php
 
-// modal (Benutzerinformationen) zur verfügung stellen
+// modal Benutzerinformationen zur verfügung stellen
 modal1($login_connection);
 
 
-// modal (detail) zur verfügung stellen
+// modal detail zur verfügung stellen
 modal2();
 
 
-// modal (einfügen/bearbeiten) zur verfügung stellen
+// modal einfügen/bearbeiten zur verfügung stellen
 modal3();
 
-
+// modal Legende zur verfügung stellen
+modal4($currentpage);
 
 echo'<div class="container-fluid">';
 echo'<center><div id="result"></div></center>';
@@ -24,7 +25,12 @@ echo'</div>';
 
 echo'<div id="containerleiste" class="container-fluid" style="visibility: hidden;">';	
 echo'<div id="leiste" class=" my-3 bg-light">';
-echo'<div class="hinzu1"><a class="btn" id="button1" role="button" ><i class="fa fa-plus-square" id="icons"></i></a></div>';
+echo'<div class="hinzu1">
+<a class="btn" id="button1" role="button">
+<i class="fa fa-plus-square" id="icons"></i>
+</a>
+<a class="btn" id="buttonLegend" role="button" ><i class="fas fa-info-circle" id="icons"></i></a>
+</div>';
 if (isUserEst($login_connection) == true) {
 	echo'<div class="hinzu2"><a class="btn" style="visibility: hidden;" id="buttondefault" role="button" >
 	<span class="fa-stack fa-lg">

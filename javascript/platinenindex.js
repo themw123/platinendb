@@ -536,6 +536,10 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
   }});
 });
 
+//wenn auf buttonLegend geklickt wird
+$('#buttonLegend').on( 'click', function () {
+  $('#dataModal3').modal("show"); 
+})
 
 //wenn auf buttondefault geklickt wird
 $('#buttondefault').on( 'click', function () {

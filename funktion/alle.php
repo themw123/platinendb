@@ -365,6 +365,54 @@ function lagenBefehl($a) {
 }
 
 
+function modal4($currentpage) {
+
+	echo'	
+		<div id="dataModal3" style=" padding-right:0!important" class="modal fade">  
+		<div class="modal-dialog" role="document">
+	
+
+			 <div class="modal-content">  
+				  <div class="modal-header">   
+					   <h4 class="modal-title">Legende</h4>  
+				  </div>  
+				  <div class="modal-body" id="modalbody3">  
+				 	';
+
+					 if ($currentpage == "platinenindex") {
+						echo'
+						<p style="text-align:center;font-size:20px;font-weight:600;">Zeilenfarbe:</p> 
+						<p><span style="color:#005ea9">Blau</span> = mindestens eine Platine im Nutzen-Zustand neu/post </p> 
+						<p><span style="color:#e89b02">Orange</span> = mindestens eine Platine im Nutzen-Zustand Fertigung </p> 
+						<p><span style="color:green">Grün</span> = alle Platinen sind abgeschlossen </p>
+						<p style="text-align:center;font-size:20px;font-weight:600;">Warnfarbe:</p> 
+						
+						<p><i class="fas fa-exclamation-triangle red"></i> = älter als 15 Tage</p>
+						<p><i class="fas fa-exclamation-triangle orange"></i> = älter als 10 Tage</p>
+						';
+					 }
+					 else {
+						echo'
+						<p style="text-align:center;font-size:20px;font-weight:600;">Warnfarbe:</p> 
+						<p><i class="fas fa-exclamation-triangle red"></i> = älter als 5 Tage</p>
+						';	
+					 }
+
+				  echo' 
+				  </div>  
+				  <div class="modal-footer">  
+				  <button id="button5" type="button" class="btn btn-primary" data-dismiss="modal">schließen</button>  
+				  </div>  
+			 </div>  
+		</div>  
+	</div> 
+	
+	';
+	
+}
+
+
+
 
 //modal für einfügen und bearbeiten
 //der modal-title wird durch javascript eingefügt
@@ -512,3 +560,4 @@ echo"
 </div>		
 ";
 }
+
