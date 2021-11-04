@@ -30,7 +30,7 @@ echo'<div class="hinzu1">
 <a class="btn" id="button1" role="button">
 <i class="fa fa-plus-square" id="icons"></i>
 </a>
-<a class="btn" id="buttonLegend" role="button" ><i class="fas fa-info-circle" id="icons"></i></a>
+<a class="btn" style="visibility: hidden;" id="buttonLegend" role="button" ><i class="fas fa-info-circle" id="icons"></i></a>
 </div>';
 
 echo'<div class="hinzu2"><a class="btn" style="visibility: hidden;" id="buttondefault" role="button" >
