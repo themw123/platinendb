@@ -526,7 +526,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
                       buttondefault.style.visibility = "hidden"
 
                       var buttonLegend = document.getElementById("buttonLegend");
-                      buttonLegend.style.visibility = "visible"
+                      buttonLegend.style.visibility = "hidden"
                       
                       }
                       }, 1000)

@@ -643,7 +643,7 @@ $(document).ready(function(){
                           buttondefault.style.visibility = "hidden"
 
                           var buttonLegend = document.getElementById("buttonLegend");
-                          buttonLegend.style.visibility = "visible"
+                          buttonLegend.style.visibility = "hidden"
                         
                           }
                           }, 1000)
