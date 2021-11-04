@@ -107,6 +107,8 @@ function dostuff() {
         var button1knopf = document.getElementById("button1");
         var tabellecontainer = document.getElementById("tabellex");
         var buttondefault = document.getElementById("buttondefault");
+        var buttonLegend = document.getElementById("buttonLegend");
+
       }
 
 
@@ -207,6 +209,8 @@ function dostuff() {
 
                     buttondefault.style.visibility = "visible"
 
+                    buttonLegend.style.visibility = "visible"
+                
                     }, 1000);
                     }
               }

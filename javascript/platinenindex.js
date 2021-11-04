@@ -192,6 +192,9 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
         
           var buttondefault = document.getElementById("buttondefault");
           buttondefault.style.visibility = "visible"
+
+          var buttonLegend = document.getElementById("buttonLegend");
+          buttonLegend.style.visibility = "visible"
           }
 
           
@@ -521,6 +524,10 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
 
                       var buttondefault = document.getElementById("buttondefault");
                       buttondefault.style.visibility = "hidden"
+
+                      var buttonLegend = document.getElementById("buttonLegend");
+                      buttonLegend.style.visibility = "visible"
+                      
                       }
                       }, 1000)
 

@@ -246,6 +246,10 @@ $(document).ready(function(){
           
           var buttondefault = document.getElementById("buttondefault");
           buttondefault.style.visibility = "visible"
+
+          var buttonLegend = document.getElementById("buttonLegend");
+          buttonLegend.style.visibility = "visible"
+
           }
 
         if(pausieren == true) {
@@ -637,6 +641,10 @@ $(document).ready(function(){
 
                           var buttondefault = document.getElementById("buttondefault");
                           buttondefault.style.visibility = "hidden"
+
+                          var buttonLegend = document.getElementById("buttonLegend");
+                          buttonLegend.style.visibility = "visible"
+                        
                           }
                           }, 1000)
     
