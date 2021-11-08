@@ -240,9 +240,13 @@ function dostuff() {
 
 
 var aktionx = $(".modal-title").get(2).innerText;
+
+if(aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
+  $('#button8').css('margin-left','15px');
+}
+
+
 if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
-        
-  
         //upload überpruefen
         $('#uploadfeld').change(function () {
             var input = event.target;

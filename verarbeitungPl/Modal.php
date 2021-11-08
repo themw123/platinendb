@@ -260,6 +260,21 @@ if($bestanden == true) {
 
 
 
+        <div class='form-group'>
+        <label class='btn btn-primary' id='uploadData'>
+        <input id='uploadfeld' type='file' style='opacity:0'>
+        <p id='uploadDataText'>upload <i class='fas fa-file-upload'></i> .rar or .zip</p>
+        </label>
+        <span class='label label-info' id='upload-info' style='opacity:0'>
+        </span>
+        <i class='far fa-file-alt collapse' id='inputbild'></i>
+        <i class='fa fa-trash-alt collapse' id='delfile'></i>
+
+        <div class='alert alert-warning collapse' id='fehlerData'></div>
+        </div>
+        </div>
+        </div>
+
         <div class='buttonklasse'>
         <button type='submit' class='btn btn-primary' id='button8' name='fertig'>Fertig</button>
         </div>

@@ -1035,3 +1035,27 @@ testdaten haken farbe
       .tableInfo td {
         word-break: break-all;
       }
+
+      #uploadData {
+        background-color: #005ea9;
+        border-color:#005ea9;
+        outline: none !important;
+        box-shadow: none!important;
+      }
+      
+      #uploadData:hover{
+        background-color: #0000cc!important;
+        border-color:#0000cc!important;
+      }
+
+      #uploadData {
+        margin-top: 27px;
+        margin-bottom: 27px;
+        height: 40px;
+      }
+
+      #uploadDataText{
+        float: left;
+      }
+
+
