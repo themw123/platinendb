@@ -254,23 +254,26 @@ if($bestanden == true) {
 
 
         <div class='form-group'>
-        <label for='exampleFormControlTextarea1'>Kommentar</label>
+        <label for='exampleFormControlTextarea1'>Kommentar:</label>
         <textarea class='form-control' id='kommentar' rows='1' name='Kommentar'></textarea>
         </div>
 
 
 
         <div class='form-group'>
+        <p style='margin-bottom:0.5rem;'>Gerber-, Eagle- und Bohrdaten: <i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='' data-content='Die Datei muss eine rar oder zip Datei sein.'></i></p>
+        <div id='inlinetext'>
         <label class='btn btn-primary' id='uploadData'>
         <input id='uploadfeld' type='file' style='opacity:0'>
-        <p id='uploadDataText'>upload <i class='fas fa-file-upload'></i> .rar or .zip</p>
+        <p id='uploadDataText'>upload</p>
         </label>
+        </div>
         <span class='label label-info' id='upload-info' style='opacity:0'>
         </span>
-        <i class='far fa-file-alt collapse' id='inputbild'></i>
+        <i class='fas fa-file-archive collapse' id='inputbild' style='opacity: 0; font-size: 16px;'></i>
         <i class='fa fa-trash-alt collapse' id='delfile'></i>
 
-        <div class='alert alert-warning collapse' id='fehlerData'></div>
+        <div class='alert alert-warning collapse' id='fehleraddlagen'></div>
         </div>
         </div>
         </div>

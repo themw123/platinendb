@@ -241,8 +241,73 @@ function dostuff() {
 
 var aktionx = $(".modal-title").get(2).innerText;
 
+
+function addUpload(fileName) {
+  $('#upload-info').text(fileName);
+  $('#upload-info').show();
+  $('#inputbild').show();
+  $('#upload-info').animate({opacity: 1,fontSize: '17px'},500);
+  $('#inputbild').animate({opacity: 1,fontSize: '16px'},500);
+  $('#delfile').show(); 
+  $('#lagen').prop( "disabled", true );
+  $('#fehleraddlagen').hide();
+  //infoicon
+  if($('#lagenid').hasClass('iconaus')) {
+    $('#lagenid').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Lagen können erst wieder bearbeitet werden, wenn keine Lagen.txt-Datei ausgewählt ist.'></i>");
+    $('#lagenid').removeClass('iconaus');
+  }
+  
+}
+
+
+function remUploadData(mel) {
+  $('#uploadfeld').val('');
+  $('#lagen').prop( "disabled", false);
+  if(mel != null) {
+    $('#fehleraddlagen').text(mel);
+    $('#fehleraddlagen').show();
+  }
+  $('#upload-info').animate({opacity: 0,fontSize: '0px'},500, function() {$('#upload-info').hide();} );
+  $('#inputbild').animate({opacity: 0,fontSize: '0px'},500, function() {$('#inputbild').hide();} );
+  $('#delfile').hide(); 
+  
+  if(aktionx == "Nutzen bearbeiten") {
+    $('#lagenid').text("Lagen: ");
+    $('#lagenid').addClass('iconaus');
+  }
+}
+
+function truncate(fileName, n){
+  return (fileName.length > n) ? fileName.substr(0, n-1) + '(...).txt' : fileName;
+};
+
+
+//Wenn auf delfile geklickt wird
+$("#delfile").click(function(ev){
+  remUploadData();
+})
+
+$("#infoicon").popover();
+
+
 if(aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
   $('#button8').css('margin-left','15px');
+  $('#button8').css('margin-top','112px');
+          //upload überpruefen
+          $('#uploadfeld').change(function () {
+            var input = event.target;
+            var name =  input.files[0].name;
+            if(name.includes(".rar") || name.includes(".zip")) {
+              let fileName = $('#uploadfeld').val().split('\\').pop();
+              fileName = truncate(fileName, 18);
+
+              addUpload(fileName);
+            }
+           else {
+            remUploadData("Es wurde keine rar oder zip Datei ausgewählt.");
+           }
+        });  
+
 }
 
 
@@ -282,20 +347,7 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                       let fileName = $('#uploadfeld').val().split('\\').pop();
                       fileName = truncate(fileName, 11);
 
-
-                      $('#upload-info').text(fileName);
-                      $('#upload-info').show();
-                      $('#inputbild').show();
-                      $('#upload-info').animate({opacity: 1,fontSize: '17px'},500);
-                      $('#inputbild').animate({opacity: 1,fontSize: '16px'},500);
-                      $('#delfile').show(); 
-                      $('#lagen').prop( "disabled", true );
-                      $('#fehleraddlagen').hide();
-                      //infoicon
-                      if($('#lagenid').hasClass('iconaus')) {
-                        $('#lagenid').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Lagen können erst wieder bearbeitet werden, wenn keine Lagen.txt-Datei ausgewählt ist.'></i>");
-                        $('#lagenid').removeClass('iconaus');
-                      }
+                      addUpload(fileName);
                       $("#infoicon").popover();
                     }
                   }
@@ -310,45 +362,10 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
         });  
 
 
-    
-        function truncate(fileName, n){
-          return (fileName.length > n) ? fileName.substr(0, n-1) + '(...).txt' : fileName;
-        };
-
-
-
-        //Wenn auf delfile geklickt wird
-        $("#delfile").click(function(ev){
-          remUploadData();
-        })
-
-
-        function remUploadData(mel) {
-          $('#uploadfeld').val('');
-          $('#lagen').prop( "disabled", false);
-          if(mel != null) {
-            $('#fehleraddlagen').text(mel);
-            $('#fehleraddlagen').show();
-          }
-          $('#upload-info').animate({opacity: 0,fontSize: '0px'},500, function() {$('#upload-info').hide();} );
-          $('#inputbild').animate({opacity: 0,fontSize: '0px'},500, function() {$('#inputbild').hide();} );
-          $('#delfile').hide();  
-          $('#lagenid').text("Lagen: ");
-          $('#lagenid').addClass('iconaus');
-        }
-
-
-
-
-
-
-
-
-
-
 
         $(document).ready(function(){ 
-
+  
+          
 
         //anfangsstatus auslesen und reagieren
         $('#lagen').prop( "disabled", true );
@@ -371,7 +388,6 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
         if(getselected != "neu") {
           $('#lagenid').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Lagen können erst wieder bearbeitet werden, wenn der Status des Nutzen in den Zustand neu überführt wird.'></i>");
-          $("#infoicon").popover();
         }
 
         });

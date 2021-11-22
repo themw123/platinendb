@@ -1041,6 +1041,7 @@ testdaten haken farbe
         border-color:#005ea9;
         outline: none !important;
         box-shadow: none!important;
+        height: 40px;
       }
       
       #uploadData:hover{
@@ -1048,14 +1049,11 @@ testdaten haken farbe
         border-color:#0000cc!important;
       }
 
-      #uploadData {
-        margin-top: 27px;
-        margin-bottom: 27px;
-        height: 40px;
-      }
-
       #uploadDataText{
         float: left;
       }
 
 
+      #inlinetext {
+        display: inline;
+      }
