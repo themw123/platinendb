@@ -171,7 +171,7 @@ if($bestanden == true) {
 
           //Bearbeiten und Layer Daten hinzufügen
           if(!empty($_FILES)) {
-            uploadSecurity();
+            uploadSecurity("text");
             $a = readfiledata();
             $lagenHinzufuegen = lagenBefehl($a);
             $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[ID],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',$lagenHinzufuegen,Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";

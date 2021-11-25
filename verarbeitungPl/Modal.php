@@ -101,7 +101,7 @@ if($bestanden == true) {
         $output .= "
 
 
-        <form method='post' id='edit'>
+        <form method='post' enctype='multipart/form-data' id='edit'>
         <div class='container-fluid'>
 
 
@@ -272,11 +272,10 @@ if($bestanden == true) {
         </span>
         <i class='fas fa-file-archive collapse' id='inputbild' style='opacity: 0; font-size: 16px;'></i>
         <i class='fa fa-trash-alt collapse' id='delfile'></i>
-
+        
         <div class='alert alert-warning collapse' id='fehleraddlagen'></div>
         </div>
-        </div>
-        </div>
+
 
         <div class='buttonklasse'>
         <button type='submit' class='btn btn-primary' id='button8' name='fertig'>Fertig</button>

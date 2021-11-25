@@ -287,20 +287,35 @@ echo'</div>';
 }
 
 
-function uploadSecurity(){
+function uploadSecurity($toCheck){
 	//check type
-	$finfo = finfo_open(FILEINFO_MIME_TYPE);// return mime-type extension
+	$fileInfo = finfo_open(FILEINFO_MIME_TYPE);// return mime-type extension
 	$filePath = $_FILES['file']['tmp_name'];
-	$type = finfo_file($finfo, $filePath);
-	finfo_close($finfo);
-	if($type != "text/plain") {
-		die();
+	$fileSize = filesize($filePath);
+	$fileType = finfo_file($fileInfo, $filePath);
+	finfo_close($fileInfo);
+
+	if($toCheck == "text") {
+		if($fileType != "text/plain") {
+			die();
+		}
+		
+		//check file size(ungefähr > 1,5kb)
+		if ($fileSize > 1500) {
+			die();
+		}	
 	}
-	
-	//check file size
-	if ($_FILES['file']['size'] > 1500) {
-		die();
-	}	
+
+	else if($toCheck == "archive") {
+		if($fileType != "application/zip" && $fileType != "application/x-rar") {
+			die();
+		}
+		
+		//check file size(ungefähr > 2mb)
+		if ($fileSize > 2000000) {
+			die();
+		}	
+	}
 
 }
 
