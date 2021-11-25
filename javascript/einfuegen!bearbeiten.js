@@ -277,8 +277,8 @@ function remUploadData(mel) {
   }
 }
 
-function truncate(fileName, n){
-  return (fileName.length > n) ? fileName.substr(0, n-1) + '(...).txt' : fileName;
+function truncate(fileName, n, type){
+  return (fileName.length > n) ? fileName.substr(0, n-1) + '(...).' + type : fileName;
 };
 
 
@@ -297,9 +297,16 @@ if(aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
           $('#uploadfeld').change(function () {
             var input = event.target;
             var name =  input.files[0].name;
+            var type = "error";
             if(name.includes(".rar") || name.includes(".zip")) {
+              if(name.includes(".rar")) {
+                type = "rar";
+              }
+              else if(name.includes("zip")) {
+                type = "zip";
+              }
               let fileName = $('#uploadfeld').val().split('\\').pop();
-              fileName = truncate(fileName, 18);
+              fileName = truncate(fileName, 18, type);
 
               addUpload(fileName);
             }
