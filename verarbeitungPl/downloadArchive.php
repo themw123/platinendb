@@ -26,23 +26,25 @@ $bestanden = $sicherheit->ergebnis();
 
 if($bestanden == true) {
 
+
+    $size = 422444;
+    $type = "application/x-zip-compressed";
+    $name = "CAM_Spielfeld.zip";
+
     $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
-    $query = "SELECT ID,  " .
-            "FROM platinen WHERE id = '$id'";
-    $result = mysqli_query($platinendb_connection,$query) or die('Error, query failed');
-    list($id, $file, $type, $size,$content) = mysqli_fetch_array($result);
-                   //echo $id . $file . $type . $size;
-                   //echo 'sampath';
+    $query = "SELECT ID, archive FROM platinen WHERE ID = '$id'";
+
+    $result = mysqli_query($platinendb_connection,$query);
+    $row = mysqli_fetch_array($result);
+    $archive = $row['archive'];
+
     header("Content-length: $size");
     header("Content-type: $type");
-    header("Content-Disposition: attachment; filename=$file");
-    ob_clean();
-    flush();
-            $content = stripslashes($content);
-    echo $content;
-    mysqli_close($platinendb_connection);
-    exit;
+    header("Content-Type: application/force-download"); 
+    header("Content-Disposition: attachment; filename=$name");
+    header("Content-Type: application/octet-stream;");
 
+    echo $archive; 
 }
 
 
