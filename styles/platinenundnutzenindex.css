@@ -1027,6 +1027,10 @@ testdaten haken farbe
         color: orange!important;
       }
 
+      .grey{
+        color: grey!important;
+      }
+
       .tableInfo{
         border-collapse: separate;
         border-spacing: 1em;
@@ -1056,4 +1060,18 @@ testdaten haken farbe
 
       #inlinetext {
         display: inline;
+      }
+
+
+      #iconklasse4 {
+        color: #005ea9;
+        padding-right: 9px;
+        padding-left: 9px;
+        font-size: 18px;
+      }
+      
+      
+      
+      #iconklasse4:hover {
+        color: #0000cc;
       }

@@ -94,11 +94,11 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
          "targets": [0] ,
          "data": null,
          "className": "ohnedetail",
-         "defaultContent": "<i class='fa fa-edit iconx' id='iconklasse2'></i><i class='fa fa-trash-alt iconx' id='iconklasse'></i><i class='fas fa-exclamation-triangle ohnedetail' id='iconklasse3'></i>"
+         "defaultContent": "<i class='fa fa-edit iconx' id='iconklasse2'></i><i class='fa fa-trash-alt iconx' id='iconklasse'></i> <i class='fas fa-download ohnedetail' id='iconklasse4'></i>   <i class='fas fa-exclamation-triangle ohnedetail' id='iconklasse3'></i>"
          },
 
          {
-          "targets": [15,16,17,18,19,20,21],
+          "targets": [15,16,17,18,19,20,21,22],
           "visible": false
          },
 
@@ -109,15 +109,16 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
           "createdRow": function( row, data){
             //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
             if(est == "ja") {
+
               if(data[17] == 0){
                 $(row).attr('id', 'blue');
 
                 if(data[16] == 0) {
                   if(data[20] == 2) {
-                    $(row).find('i:nth-child(3)').addClass("red").css("opacity", 1);
+                    $(row).find('i:nth-child(4)').addClass("red").css("opacity", 1);
                   }
                   else if(data[20] == 1) {
-                    $(row).find('i:nth-child(3)').addClass("orange").css("opacity", 1);
+                    $(row).find('i:nth-child(4)').addClass("orange").css("opacity", 1);
                   }
                 }
 
@@ -130,6 +131,11 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                   $(row).attr('id', 'green');
                 }
               }
+
+              if(data[22] === "") {
+                $(row).find('i:nth-child(3)').addClass("grey").prop('disabled', true);
+              }
+
             }
             
  
@@ -542,6 +548,23 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
   }
   }});
 });
+
+//wenn auf downloadArchive geklickt wird
+$('#tabelle1 tbody').on( 'click', '#iconklasse4', function () {
+  ziel = "platinen";
+  var aktion = "download";
+  Id = table.api().row($(this).closest('tr')).data()[0]; 
+  var archiv = table.api().row($(this).closest('tr')).data()[22];
+
+  $.ajax({  
+                  url:"verarbeitungPl/downloadArchive.php",  
+                  method:"post",  
+                  data:{ziel:ziel, aktion:aktion, Id:Id, archiv:archiv},  
+                  success:function(data){  
+                    
+                  }  
+            }); 
+})
 
 //wenn auf buttonLegend geklickt wird
 $('#buttonLegend').on( 'click', function () {

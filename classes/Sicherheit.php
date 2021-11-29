@@ -214,7 +214,7 @@ class Sicherheit {
        }
 
 
-        if($this->aktion == "platinen" || $this->aktion == "modaleinfuegen" || $this->aktion == "einfuegen" || $this->aktion == "auftraggeber") {
+        if($this->aktion == "platinen" || $this->aktion == "modaleinfuegen" || $this->aktion == "einfuegen" || $this->aktion == "auftraggeber" || $this->aktion == "download") {
             $this->bestanden = true;
         }
 
