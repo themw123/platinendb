@@ -142,13 +142,42 @@ if($bestanden == true) {
           
 
           if(!empty($_FILES)) {
+            /*
             uploadSecurity("archive");
             $filePath = $_FILES['file']['tmp_name'];
             //$filePath = substr($filePath, 2);
             //$filePath = "'" . $filePath . "'";
             //$file = file_get_contents($_FILES['file']['tmp_name']);
             $eintrag = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, archive, ignorieren) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', LOAD_FILE('$filePath'), '0')";
+            */
+
+            $filePath = $_FILES['file']['tmp_name'];
+            $blob = fopen($filePath);
+            //$sql = "INSERT INTO files(mime,data) VALUES(:mime,:data,:)";
+            $sql = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, archive, ignorieren) VALUES (:Name,:Auftraggeber_ID,:Anzahl,:Material_ID,:Endkupfer,:Staerke,:Lagen,:Groeße,:Oberflaeche,:Loetstopp,:erstelltam,:Wunschdatum,:Kommentar,:archive,:ignorieren)";
+            $stmt = $this->pdo->prepare($sql);
+            //$stmt->bindParam(':mime', $mime);
+            $stmt->bindParam(':Name',$Name);
+            $stmt->bindParam(':Auftraggeber_ID',$row[user_id]);         
+            $stmt->bindParam(':Anzahl',$Anzahl);          
+            $stmt->bindParam(':Material_ID',$row2[ID]);          
+            $stmt->bindParam(':Endkupfer',$Endkupfer); 
+            $stmt->bindParam(':Staerke',$Staerke); 
+            $stmt->bindParam(':Lagen',$Lagen); 
+            $stmt->bindParam(':Groesse',$Groeße); 
+            $stmt->bindParam(':Oberflaeche',$Oberflaeche); 
+            $stmt->bindParam(':Loetstopp',$Loetstopp); 
+            $stmt->bindParam(':erstelltam',$erstelltam); 
+            $stmt->bindParam(':wunschDatum',$Wunschdatum); 
+            $stmt->bindParam(':Kommentar',$Kommentar); 
+            $stmt->bindParam(':archive',$blob); 
+            $stmt->bindParam(':ignorieren',$ignorieren); 
+
+            $stmt->execute();
+
+          
           }
+
           else {
             $eintrag = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, archive, ignorieren) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', null, '0')";
           }
