@@ -27,24 +27,25 @@ $bestanden = $sicherheit->ergebnis();
 if($bestanden == true) {
 
 
-    $size = 422444;
-    $type = "application/x-zip-compressed";
-    $name = "CAM_Spielfeld.zip";
+  $size = 422444;
+  $type = "application/zip";
+  $name = "CAM_Spielfeld.zip";
 
-    $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
-    $query = "SELECT ID, archive FROM platinen WHERE ID = '$id'";
+  $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
+  $query = "SELECT ID, archive FROM platinen WHERE ID = '$id'";
 
-    $result = mysqli_query($platinendb_connection,$query);
-    $row = mysqli_fetch_array($result);
-    $archive = $row['archive'];
+  $result = mysqli_query($platinendb_connection,$query);
+  $row = mysqli_fetch_array($result);
 
-    header("Content-length: $size");
-    header("Content-type: $type");
-    header("Content-Type: application/force-download"); 
-    header("Content-Disposition: attachment; filename=$name");
-    header("Content-Type: application/octet-stream;");
 
-    echo $archive; 
+  header("Pragma: public");
+  header("Expires: 0");
+  header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+  header("Content-length: $size");
+  header("Content-type: $type");
+  header("Content-Disposition: attachment; filename=$name");
+  header("Content-Transfer-Encoding: binary");
+  echo $row['archive']; 
 }
 
 
