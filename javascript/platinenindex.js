@@ -132,7 +132,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                 }
               }
 
-              if(data[22] === "") {
+              if(data[22] == 0) {
                 $(row).find('i:nth-child(3)').addClass("grey").prop('disabled', true);
               }
 
@@ -554,12 +554,12 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse4', function () {
   ziel = "platinen";
   var aktion = "download";
   Id = table.api().row($(this).closest('tr')).data()[0]; 
-  var archiv = table.api().row($(this).closest('tr')).data()[22];
+  //var archiv = table.api().row($(this).closest('tr')).data()[22];
 
   $.ajax({  
                   url:"verarbeitungPl/downloadArchive.php",  
                   method:"post",  
-                  data:{ziel:ziel, aktion:aktion, Id:Id, archiv:archiv},  
+                  data:{ziel:ziel, aktion:aktion, Id:Id},  
                   success:function(data){  
                     
                   }  

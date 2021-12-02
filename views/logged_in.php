@@ -84,7 +84,7 @@ echo'<table id="tabelle1"  style="width:100%" class="table text-center table-hov
 		echo'<th>14Tage</th>';
 		echo'<th>dringlichkeitPost</th>';
 		echo'<th>abgeschlossenFertigung</th>';
-		echo'<th>archive</th>';
+		echo'<th>archive1or0</th>';
 
 		echo'</thead>';
 		echo'</table>';	
