@@ -24,34 +24,35 @@ $bestanden = $sicherheit->ergebnis();
 
 
 
-if($bestanden == true) {
-
-
-  $size = 422444;
-  $type = "application/zip";
-  $name = "CAM_Spielfeld.zip";
+if($bestanden == true && isUserEst($login_connection) == true) {
 
   $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
-  $query = "SELECT ID, archive FROM platinen WHERE ID = '$id'";
+  $download_id = "SELECT Downloads_ID FROM platinen WHERE ID = '$id'";
+  $download_id = mysqli_query($platinendb_connection,$download_id);
+  $download_id = mysqli_fetch_array($download_id);
+  $download_id = $download_id['Downloads_ID']; 
 
-  $result = mysqli_query($platinendb_connection,$query);
-  $row = mysqli_fetch_array($result);
+  if($download_id != null) {
+    $query = "SELECT download,name,size,type FROM downloads WHERE id = '$download_id'";
 
+    $result = mysqli_query($platinendb_connection,$query);
+    $row = mysqli_fetch_array($result);
 
-  header("Pragma: public");
-  header("Expires: 0");
-  header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-  header("Content-length: $size");
-  header("Content-type: $type");
-  header("Content-Disposition: attachment; filename=$name");
-  ob_clean();
-  flush();
+    $download = $row['download'];
+    $name = $row['name'];
+    $size = $row['size'];
+    $type = $row['type'];
 
-  //$data = array("data" => $row['archive'],"name" => $name);
-  //echo json_encode($data);
-  echo $row['archive']; 
-  //echo json_encode(array('data'=> $row['archive'], 'name'=> $name));
-
+    header("Pragma: public");
+    header("Expires: 0");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Content-length: $size");
+    header("Content-type: $type");
+    header("Content-Disposition: attachment; filename=$name");
+    ob_clean();
+    flush();
+    echo $download;
+  } 
 }
 
 

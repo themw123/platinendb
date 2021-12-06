@@ -207,7 +207,9 @@ function dostuff() {
 
                     tabellecontainer.style.visibility = "visible" 
 
-                    buttondefault.style.visibility = "visible"
+                    if(buttondefault !== null && buttondefault !== undefined) {
+                      buttondefault.style.visibility = "visible"
+                    }
 
                     buttonLegend.style.visibility = "visible"
                 

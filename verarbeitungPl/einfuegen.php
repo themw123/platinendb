@@ -140,24 +140,34 @@ if($bestanden == true) {
           Ergebnis>( inserten )
           */
           
-
           if(!empty($_FILES)) {
             uploadSecurity("archive");
-            $filePath = $_FILES['file']['tmp_name'];
+            $fileName = $_FILES['file']['name'];
+            $size = $_FILES['file']['size'];
+            $type = $_FILES['file']['type'];
             $file = $_FILES['file']['tmp_name'];
             $blob = addslashes(fread(fopen($file, "r"), filesize($file)));
-            $eintrag = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, archive, ignorieren) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', '$blob', '0')";
+           
+            $maxid = "select max(ID)+1 as ID from downloads"; 
+            $maxid = mysqli_query($platinendb_connection,$maxid);
+            $maxid = mysqli_fetch_array($maxid);
+            $maxid = $maxid['ID']; 
+
+            $downloads = "INSERT INTO downloads (id, download, name, size, type) VALUES ('$maxid', '$blob', '$fileName', '$size', '$type')";
+
+            $platinen = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, Downloads_ID, ignorieren) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', '$maxid', '0')";
+
           }
           else {
-            $eintrag = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, archive, ignorieren) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', null, '0')";
+            $platinen = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, Downloads_ID, ignorieren) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', null, '0')";
           }
 
 
-          mysqli_query($platinendb_connection, $eintrag);
+          mysqli_query($platinendb_connection, $downloads);
 
+          mysqli_query($platinendb_connection, $platinen);
 
           $sicherheit->checkQuery($platinendb_connection);
-
           
           mysqli_close($platinendb_connection); 
           

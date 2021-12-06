@@ -600,6 +600,7 @@ testdaten haken farbe
   padding-right: 9px;
   padding-left: 9px;
   font-size: 19px;
+  display: none;
 }
 
 
@@ -1068,6 +1069,7 @@ testdaten haken farbe
         padding-right: 9px;
         padding-left: 9px;
         font-size: 18px;
+        display: none;
       }
       
       

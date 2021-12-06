@@ -110,7 +110,11 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
             //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
             if(est == "ja") {
 
+              $(row).find('i:nth-child(4)').css("display", "inline");
+              $(row).find('i:nth-child(3)').css("display", "inline")
+
               if(data[17] == 0){
+                
                 $(row).attr('id', 'blue');
 
                 if(data[16] == 0) {
@@ -197,7 +201,9 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
           button1knopf.style.visibility = "visible"
         
           var buttondefault = document.getElementById("buttondefault");
-          buttondefault.style.visibility = "visible"
+          if(buttondefault !== null && buttondefault !== undefined) {
+            buttondefault.style.visibility = "visible"
+          }
 
           var buttonLegend = document.getElementById("buttonLegend");
           buttonLegend.style.visibility = "visible"
@@ -529,7 +535,9 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
                       filterknopf.style.visibility = "hidden"
 
                       var buttondefault = document.getElementById("buttondefault");
-                      buttondefault.style.visibility = "hidden"
+                      if(buttondefault !== null && buttondefault !== undefined) {
+                        buttondefault.style.visibility = "hidden"
+                      }
 
                       var buttonLegend = document.getElementById("buttonLegend");
                       buttonLegend.style.visibility = "hidden"
