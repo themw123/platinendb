@@ -549,6 +549,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
   }});
 });
 
+/*
 //wenn auf downloadArchive geklickt wird
 $('#tabelle1 tbody').on( 'click', '#iconklasse4', function () {
   ziel = "platinen";
@@ -559,12 +560,49 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse4', function () {
   $.ajax({  
                   url:"verarbeitungPl/downloadArchive.php",  
                   method:"post",  
-                  data:{ziel:ziel, aktion:aktion, Id:Id},  
-                  success:function(data){  
-                    
-                  }  
+                  data:{ziel:ziel, aktion:aktion, Id:Id}, 
+                  complete: function (data) {
+                    $("body").append("<iframe src='" + data.message + "' style='display: none;' ></iframe>");
+                  } 
+
             }); 
 })
+*/
+
+$('#tabelle1 tbody').on( 'click', '#iconklasse4', function () {
+  ziel = "platinen";
+  var aktion = "download";
+  Id = table.api().row($(this).closest('tr')).data()[0]; 
+  
+  
+  $.ajax({
+        url:"verarbeitungPl/downloadArchive.php",  
+        method: 'post',
+        data:{ziel:ziel, aktion:aktion, Id:Id},
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function (data) {
+            var a = document.createElement('a');
+            var url = window.URL.createObjectURL(data);
+            a.href = url;
+            a.download = 'myfile.pdf';
+            document.body.append(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        }
+  });
+
+  
+
+
+
+})
+
+
+
+
 
 //wenn auf buttonLegend geklickt wird
 $('#buttonLegend').on( 'click', function () {

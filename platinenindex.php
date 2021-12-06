@@ -156,8 +156,6 @@ else {
 
     <script src="plugins/dataTables.liveAjax.js" language="JavaScript"></script>
 
-
-
     <script src="javascript/platinenindex.js"></script>
 
   </body>

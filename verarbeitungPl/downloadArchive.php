@@ -44,8 +44,14 @@ if($bestanden == true) {
   header("Content-length: $size");
   header("Content-type: $type");
   header("Content-Disposition: attachment; filename=$name");
-  header("Content-Transfer-Encoding: binary");
+  ob_clean();
+  flush();
+
+  //$data = array("data" => $row['archive'],"name" => $name);
+  //echo json_encode($data);
   echo $row['archive']; 
+  //echo json_encode(array('data'=> $row['archive'], 'name'=> $name));
+
 }
 
 
