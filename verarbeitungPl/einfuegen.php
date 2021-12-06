@@ -153,6 +153,10 @@ if($bestanden == true) {
             $maxid = mysqli_fetch_array($maxid);
             $maxid = $maxid['ID']; 
 
+            if($maxid == null) {
+              $maxid = 1;
+            }
+
             $downloads = "INSERT INTO downloads (id, download, name, size, type) VALUES ('$maxid', '$blob', '$fileName', '$size', '$type')";
 
             $platinen = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, Downloads_ID, ignorieren) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', '$maxid', '0')";
