@@ -549,26 +549,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
   }});
 });
 
-/*
 //wenn auf downloadArchive geklickt wird
-$('#tabelle1 tbody').on( 'click', '#iconklasse4', function () {
-  ziel = "platinen";
-  var aktion = "download";
-  Id = table.api().row($(this).closest('tr')).data()[0]; 
-  //var archiv = table.api().row($(this).closest('tr')).data()[22];
-
-  $.ajax({  
-                  url:"verarbeitungPl/downloadArchive.php",  
-                  method:"post",  
-                  data:{ziel:ziel, aktion:aktion, Id:Id}, 
-                  complete: function (data) {
-                    $("body").append("<iframe src='" + data.message + "' style='display: none;' ></iframe>");
-                  } 
-
-            }); 
-})
-*/
-
 $('#tabelle1 tbody').on( 'click', '#iconklasse4', function () {
   ziel = "platinen";
   var aktion = "download";
@@ -582,17 +563,26 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse4', function () {
         xhrFields: {
             responseType: 'blob'
         },
-        success: function (data) {
+        success: function (data, status, xhr) {
+            var filename = "";
+            var disposition = xhr.getResponseHeader('Content-Disposition');
+            if (disposition && disposition.indexOf('attachment') !== -1) {
+                var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                var matches = filenameRegex.exec(disposition);
+                if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+            }
+
             var a = document.createElement('a');
             var url = window.URL.createObjectURL(data);
             a.href = url;
-            a.download = 'myfile.pdf';
+            a.download = filename;
             document.body.append(a);
             a.click();
             a.remove();
             window.URL.revokeObjectURL(url);
         }
   });
+  
 
   
 
