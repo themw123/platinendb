@@ -595,22 +595,24 @@ testdaten haken farbe
 }
 
 
-#iconklasse3 {
+#iconklasse33 {
   color: #005ea9;
   padding-right: 9px;
   padding-left: 9px;
   font-size: 19px;
+  visibility: hidden;
+  opacity: 0;
   display: none;
 }
 
 
 
-#iconklasse3:hover {
+#iconklasse33:hover {
   color: #0000cc;
 }
 
 
-#iconklasse4 {
+#iconklasse6 {
   color: grey;
   padding-right: 9px;
   padding-left: 9px;
@@ -619,7 +621,7 @@ testdaten haken farbe
 
 
 
-#iconklasse4:hover {
+#iconklasse6:hover {
   color: red;
   cursor: pointer;
 }
@@ -1069,6 +1071,7 @@ testdaten haken farbe
         padding-right: 9px;
         padding-left: 9px;
         font-size: 18px;
+        visibility: hidden;
         display: none;
       }
       

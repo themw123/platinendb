@@ -27,10 +27,15 @@ if($bestanden == true) {
         $anzahl = mysqli_real_escape_string($platinendb_connection, $_POST['anzahl']);
 
         $anzahlupdate = "UPDATE nutzenplatinen SET platinenaufnutzen = '$anzahl'  WHERE id=$id";
-
-        
       
         mysqli_query($platinendb_connection, $anzahlupdate);
+
+
+        $PlatinenID = "select Platinen_ID from nutzenplatinen where ID = $id"; 
+        $PlatinenID = mysqli_query($platinendb_connection,$PlatinenID);
+        $PlatinenID = mysqli_fetch_array($PlatinenID);
+        $PlatinenID = $PlatinenID['Platinen_ID']; 
+        deleteDownload($PlatinenID, $platinendb_connection);
 
 
         $sicherheit->checkQuery($platinendb_connection);

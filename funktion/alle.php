@@ -380,6 +380,29 @@ function lagenBefehl($a) {
 }
 
 
+function deleteDownload($PlatinenID, $platinendb_connection) {
+	//wenn platine im zustand abgeschlossenPost = 1 ist, dann lösche Download_ID und den download
+	$abgeschlossenPost = "select abgeschlossenPost from platinenviewest where id = '$PlatinenID'";
+	$abgeschlossenPost = mysqli_query($platinendb_connection,$abgeschlossenPost);
+	$abgeschlossenPost = mysqli_fetch_array($abgeschlossenPost);
+	$abgeschlossenPost = $abgeschlossenPost['abgeschlossenPost']; 
+		  
+		
+	if($abgeschlossenPost == 1) {
+		$deleteDownload_IDInPlatinen = "update platinen set Downloads_ID = null where ID = '$PlatinenID'";
+	
+		$download_id = "SELECT Downloads_ID FROM platinen WHERE ID = '$PlatinenID'";
+		$download_id = mysqli_query($platinendb_connection,$download_id);
+		$download_id = mysqli_fetch_array($download_id);
+		$download_id = $download_id['Downloads_ID']; 
+		$deleteDownload = "delete from downloads where ID = '$download_id'";
+		mysqli_query($platinendb_connection, $deleteDownload_IDInPlatinen);
+		mysqli_query($platinendb_connection, $deleteDownload);
+	}
+}
+
+
+
 function modal4($currentpage) {
 
 	echo'	

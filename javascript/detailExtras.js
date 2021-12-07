@@ -1,6 +1,6 @@
   
     //wenn bei detail auf löschen geklickt wird
-    $('#dataModal1').on( 'click', '#iconklasse4', function () {
+    $('#dataModal1').on( 'click', '#iconklasse6', function () {
       
 
 

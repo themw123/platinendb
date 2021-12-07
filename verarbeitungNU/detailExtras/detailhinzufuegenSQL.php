@@ -31,21 +31,19 @@ if($bestanden == true) {
 
 
       if($Anzahl > 0) {
-  
 
 
-      $hinzufuegen = "INSERT INTO nutzenplatinen (Platinen_ID, Nutzen_ID, platinenaufnutzen) VALUES ('$PlatinenID', '$NutzenID', '$Anzahl')";
+          $hinzufuegen = "INSERT INTO nutzenplatinen (Platinen_ID, Nutzen_ID, platinenaufnutzen) VALUES ('$PlatinenID', '$NutzenID', '$Anzahl')";
 
-      
-      mysqli_query($platinendb_connection, $hinzufuegen);
+          mysqli_query($platinendb_connection, $hinzufuegen);
 
+          deleteDownload($PlatinenID, $platinendb_connection);
 
-      $sicherheit->checkQuery($platinendb_connection);
-
-      
-      mysqli_close($platinendb_connection);
-       
-      mysqli_close($login_connection);  
+          $sicherheit->checkQuery($platinendb_connection);
+          
+          mysqli_close($platinendb_connection);
+          
+          mysqli_close($login_connection);  
 
       }
       else {

@@ -28,11 +28,20 @@ if($bestanden == true) {
 
 		$id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
+		$download_id = "SELECT Downloads_ID FROM platinen WHERE ID = '$id'";
+		$download_id = mysqli_query($platinendb_connection,$download_id);
+		$download_id = mysqli_fetch_array($download_id);
+		$download_id = $download_id['Downloads_ID']; 
 
-		$loeschen = "DELETE FROM platinen WHERE id=$id";
 
+		$loeschen1 = "DELETE FROM platinen WHERE id=$id";
 
-		mysqli_query($platinendb_connection, $loeschen);
+		mysqli_query($platinendb_connection, $loeschen1);
+
+		if($download_id != null) {
+			$loeschen2 = "DELETE FROM downloads WHERE id=$download_id";
+			mysqli_query($platinendb_connection, $loeschen2);
+		}
 
 		$sicherheit->checkQuery($platinendb_connection); 
 

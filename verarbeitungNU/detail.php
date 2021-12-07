@@ -74,7 +74,7 @@ if($bestanden == true) {
                                    
                                    <td>
                                    <a id= '.$row["nuplid"].'></i>
-                                   <i class="fas fa-minus-circle iconx" id="iconklasse4"></i>
+                                   <i class="fas fa-minus-circle iconx" id="iconklasse6"></i>
                                    </td>
 
                                    <td> '.$row["Name"].'</td>
@@ -103,7 +103,7 @@ if($bestanden == true) {
 
                                    <td>
                                    <a id= '.$row["nuplid"].'></i>
-                                   <i class="fas fa-minus-circle iconx" id="iconklasse4"></i>
+                                   <i class="fas fa-minus-circle iconx" id="iconklasse6"></i>
                                    </td>
 
                                    <td> '.$row["Name"].'</td>

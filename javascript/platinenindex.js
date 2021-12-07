@@ -94,7 +94,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
          "targets": [0] ,
          "data": null,
          "className": "ohnedetail",
-         "defaultContent": "<i class='fa fa-edit iconx' id='iconklasse2'></i><i class='fa fa-trash-alt iconx' id='iconklasse'></i> <i class='fas fa-download ohnedetail' id='iconklasse4'></i>   <i class='fas fa-exclamation-triangle ohnedetail' id='iconklasse3'></i>"
+         "defaultContent": "<i class='fa fa-edit iconx' id='iconklasse2'></i><i class='fa fa-trash-alt iconx' id='iconklasse'></i> <i class='fas fa-download ohnedetail' id='iconklasse4'></i>   <i class='fas fa-exclamation-triangle ohnedetail' id='iconklasse33'></i>"
          },
 
          {
@@ -110,11 +110,15 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
             //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
             if(est == "ja") {
 
+              $(row).find('i:nth-child(3)').css("display", "inline");
               $(row).find('i:nth-child(4)').css("display", "inline");
-              $(row).find('i:nth-child(3)').css("display", "inline")
+
 
               if(data[17] == 0){
-                
+
+                $(row).find('i:nth-child(3)').css("visibility", "visible");
+                $(row).find('i:nth-child(4)').css("visibility", "visible");
+
                 $(row).attr('id', 'blue');
 
                 if(data[16] == 0) {
