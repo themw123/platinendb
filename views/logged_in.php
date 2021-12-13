@@ -31,15 +31,15 @@ echo'<div class="hinzu1">
 </a>
 <a class="btn" style="visibility: hidden;" id="buttonLegend" role="button" ><i class="fas fa-info-circle" id="icons"></i></a>
 </div>';
-if (isUserEst($login_connection) == true) {
-	echo'<div class="hinzu2"><a class="btn" style="visibility: hidden;" id="buttondefault" role="button" >
-	<span class="fa-stack fa-lg">
-	<i class="fas fa-filter fa-stack-1x"></i>
-	<i class="fas fa-ban fa-stack-2x"></i>
-	</span>
-	</i></a>
-	</div>';
-}
+
+echo'<div class="hinzu2"><a class="btn" style="visibility: hidden;" id="buttondefault" role="button" >
+<span class="fa-stack fa-lg">
+<i class="fas fa-filter fa-stack-1x"></i>
+<i class="fas fa-ban fa-stack-2x"></i>
+</span>
+</i></a>
+</div>';
+
 echo'
 <div class="hinzu3">
 <a class="btn btn-primary" style="visibility: hidden;" id="button3" href="#" role="button" data-toggle="collapse" data-target="#spCont" aria-expanded="false" aria-controls="collapseExample">

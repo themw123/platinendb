@@ -235,8 +235,10 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
         $('input[placeholder="Ausstehend"]').attr('placeholder', 'Filter');
 
 
-        //wenn est searchpane button verstecken
+        //wenn est searchpane button, info button und filter button verstecken
         if(est == "nein") {
+          $('#buttonLegend').hide();
+          $('#buttondefault').hide();
           $('#button3').hide();
         }
 
