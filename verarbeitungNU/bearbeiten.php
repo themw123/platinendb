@@ -202,16 +202,12 @@ if($bestanden == true) {
             $allePlaufNutzen = "SELECT Platinen_ID FROM nutzenplatinen WHERE Nutzen_ID ='$id'";
             $allePlaufNutzen = mysqli_query($platinendb_connection,$allePlaufNutzen);
             
-
             foreach ($allePlaufNutzen as $row) {
               $pl = $row['Platinen_ID'];
               deleteDownload($pl, $platinendb_connection);
             }
-  
 
           }
-
-
 
           $sicherheit->checkQuery($platinendb_connection);
 
