@@ -382,13 +382,13 @@ function lagenBefehl($a) {
 
 function deleteDownload($PlatinenID, $platinendb_connection) {
 	//wenn platine im zustand abgeschlossenPost = 1 ist, dann lösche Download_ID und den download
-	$abgeschlossenPost = "select abgeschlossenPost from platinenviewest where id = '$PlatinenID'";
-	$abgeschlossenPost = mysqli_query($platinendb_connection,$abgeschlossenPost);
-	$abgeschlossenPost = mysqli_fetch_array($abgeschlossenPost);
-	$abgeschlossenPost = $abgeschlossenPost['abgeschlossenPost']; 
+	$abgeschlossenFertigung = "select abgeschlossenFertigung from platinenviewest where id = '$PlatinenID'";
+	$abgeschlossenFertigung = mysqli_query($platinendb_connection,$abgeschlossenFertigung);
+	$abgeschlossenFertigung = mysqli_fetch_array($abgeschlossenFertigung);
+	$abgeschlossenFertigung = $abgeschlossenFertigung['abgeschlossenFertigung']; 
 		  
 		
-	if($abgeschlossenPost == 1) {
+	if($abgeschlossenFertigung == 1) {
 		$deleteDownload_IDInPlatinen = "update platinen set Downloads_ID = null where ID = '$PlatinenID'";
 	
 		$download_id = "SELECT Downloads_ID FROM platinen WHERE ID = '$PlatinenID'";

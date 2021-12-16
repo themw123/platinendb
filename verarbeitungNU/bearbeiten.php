@@ -166,7 +166,6 @@ if($bestanden == true) {
           Inputs auslesen Kommentar
           */
           $Kommentar = mysqli_real_escape_string($platinendb_connection, $_POST["Kommentar"]);
-        
 
 
           //Bearbeiten und Layer Daten hinzufügen
@@ -191,8 +190,27 @@ if($bestanden == true) {
 
           }
 
+          $ursprungStatus = "SELECT Status1 FROM nutzen WHERE ID='$id'";
+          $ursprungStatus =  mysqli_query($platinendb_connection, $ursprungStatus);
+          $ursprungStatus = mysqli_fetch_array($ursprungStatus);
+          $ursprungStatus = $ursprungStatus['Status1'];
 
           mysqli_query($platinendb_connection, $bearbeiten);
+
+          if($ursprungStatus == "Fertigung" && $Status == "abgeschlossen") {
+
+            $allePlaufNutzen = "SELECT Platinen_ID FROM nutzenplatinen WHERE Nutzen_ID ='$id'";
+            $allePlaufNutzen = mysqli_query($platinendb_connection,$allePlaufNutzen);
+            
+
+            foreach ($allePlaufNutzen as $row) {
+              $pl = $row['Platinen_ID'];
+              deleteDownload($pl, $platinendb_connection);
+            }
+  
+
+          }
+
 
 
           $sicherheit->checkQuery($platinendb_connection);

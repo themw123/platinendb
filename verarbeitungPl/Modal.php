@@ -261,7 +261,7 @@ if($bestanden == true) {
 
 
         <div class='form-group'>
-        <p style='margin-bottom:0.5rem;'>Gerber-, Eagle- und Bohrdaten: <i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='' data-content='Die Datei muss eine rar oder zip Datei sein.'></i></p>
+        <p style='margin-bottom:0.5rem;'>Eagle-, Gerber- und Bohrdaten: <i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='' data-content='Die Datei muss eine rar oder zip Datei sein.'></i></p>
         <div id='inlinetext'>
         <label class='btn btn-primary' id='uploadData'>
         <input id='uploadfeld' type='file' style='opacity:0'>

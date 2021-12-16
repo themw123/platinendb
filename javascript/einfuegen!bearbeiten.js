@@ -293,6 +293,11 @@ $("#infoicon").popover();
 
 
 if(aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
+
+  if(est == "nein") {
+    $("#uploadfeld").prop('required',true);
+  }
+
   $('#button8').css('margin-top','112px');
           //upload überpruefen
           $('#uploadfeld').change(function () {

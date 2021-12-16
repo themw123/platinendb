@@ -113,10 +113,12 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
               $(row).find('i:nth-child(3)').css("display", "inline");
               $(row).find('i:nth-child(4)').css("display", "inline");
 
+              if(data[21] == 0) {
+                $(row).find('i:nth-child(3)').css("visibility", "visible");
+              }
 
               if(data[17] == 0){
 
-                $(row).find('i:nth-child(3)').css("visibility", "visible");
                 $(row).find('i:nth-child(4)').css("visibility", "visible");
 
                 $(row).attr('id', 'blue');
@@ -143,6 +145,9 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
               if(data[22] == 0) {
                 $(row).find('i:nth-child(3)').addClass("grey").prop('disabled', true);
               }
+
+
+
 
             }
             
