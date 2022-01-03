@@ -611,8 +611,6 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse4', function () {
 
 
 
-
-
 //wenn auf buttonLegend geklickt wird
 $('#buttonLegend').on( 'click', function () {
   $('#dataModal3').modal("show"); 

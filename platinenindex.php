@@ -81,6 +81,7 @@
     ?>
 
 
+
     <h2>Platinenaufträge</h2>
 
    </head>
@@ -117,8 +118,9 @@ else {
   header("location: index.php");
 }
 
+
 ?>
-    
+
     <script src="plugins/jquery3.5.1/dist/jquery.min.js" type="text/javascript"></script>
 
     <script src="plugins/popper1.14.7/dist/umd/popper.min.js"></script>
@@ -157,6 +159,7 @@ else {
     <script src="plugins/dataTables.liveAjax.js" language="JavaScript"></script>
 
     <script src="javascript/platinenindex.js"></script>
+
 
   </body>
 </html>

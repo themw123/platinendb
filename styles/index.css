@@ -19,7 +19,8 @@ Meldungen (errors oder succes nachrichten, mittig anzeigen lassen)
   /*-- Navigationsleiste --*/
   .navbar {
     background:#005ea9;
-    margin-bottom: -24px;
+    /*margin-bottom: -24px;
+    */
   }
   .nav-link,
   .navbar-brand {
