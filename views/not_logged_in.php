@@ -27,7 +27,6 @@ if (isset($login)) {
 ?>
 
 
-
 <!--
 Hier folgt das einfliegende Login     
 -->

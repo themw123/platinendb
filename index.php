@@ -93,6 +93,5 @@ if ($login->isUserLoggedIn() == true) {
 
     
   <script src='plugins/fontawesome-free-5.15.1-web/a076d05399.js'></script>
- 
   </body>
 </html>
