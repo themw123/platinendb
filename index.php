@@ -13,7 +13,9 @@
 
     <link rel="stylesheet" type="text/css" href="styles/index.css">
 
-    
+    <link rel="stylesheet" type="text/css" href="../cssbugIndex.css">
+
+
     <title>Loginseite</title>
 
     
