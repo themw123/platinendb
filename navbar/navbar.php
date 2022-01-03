@@ -7,7 +7,7 @@ if ($currentpage == "index") {
       $style="style=\"margin-bottom:-24px;\"";
     }
     else {
-      $style = "0";
+      $style = "";
     }
 
     echo'
@@ -28,7 +28,7 @@ if ($currentpage == "registrierindex") {
       $style="style=\"margin-bottom:-24px;\"";
     }
     else {
-      $style = "0";
+      $style = "";
     }
 
     echo'
@@ -51,7 +51,7 @@ if ($currentpage == "password_reset") {
       $style="style=\"margin-bottom:-24px;\"";
     }
     else {
-      $style = "0";
+      $style = "";
     }
 
     echo'
@@ -72,7 +72,7 @@ if ($currentpage == "platinenindex") {
       $style="style=\"margin-top:-24px;\"";
     }
     else {
-      $style = "0";
+      $style = "";
     }
   
     echo'
@@ -122,7 +122,7 @@ if ($currentpage == "nutzenindex") {
         $style="style=\"margin-top:-24px;\"";
       }
       else {
-        $style = "0";
+        $style = "";
       }
 
       echo'
