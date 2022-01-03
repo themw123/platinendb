@@ -119,7 +119,7 @@ if ($currentpage == "platinenindex") {
 if ($currentpage == "nutzenindex") {
       $hostname = $host= gethostname();
       if($hostname == "DESKTOP-4HFA8OJ") {
-        $style="style=\"margin-bottom:-24px;\"";
+        $style="style=\"margin-top:-24px;\"";
       }
       else {
         $style = "0";
