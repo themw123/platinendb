@@ -1,8 +1,17 @@
 <?php
 
 if ($currentpage == "index") {
+
+    $hostname = $host= gethostname();
+    if($hostname == "DESKTOP-4HFA8OJ") {
+      $style="style=\"margin-bottom:-24px;\"";
+    }
+    else {
+      $style = "0";
+    }
+
     echo'
-    <nav class="navbar navbar-expand-md">
+    <nav class="navbar navbar-expand-md" '.$style.'">
     <a href="https://www.est.ruhr-uni-bochum.de/home/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
     <span class="navbar-toggler-icon"></span>
@@ -14,8 +23,16 @@ if ($currentpage == "index") {
 
 
 if ($currentpage == "registrierindex") {
+    $hostname = $host= gethostname();
+    if($hostname == "DESKTOP-4HFA8OJ") {
+      $style="style=\"margin-bottom:-24px;\"";
+    }
+    else {
+      $style = "0";
+    }
+
     echo'
-    <nav class="navbar navbar-expand-md">
+    <nav class="navbar navbar-expand-md" '.$style.'">
     <a href="https://www.est.ruhr-uni-bochum.de/home/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
     <span class="navbar-toggler-icon"></span>
@@ -29,20 +46,37 @@ if ($currentpage == "registrierindex") {
 }
 
 if ($currentpage == "password_reset") {
-  echo'
-  <nav class="navbar navbar-expand-md">
-  <a href="https://www.est.ruhr-uni-bochum.de/home/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
-  <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
-  <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="main-navigation">
-  <ul class="navbar-nav">
-  ';
+    $hostname = $host= gethostname();
+    if($hostname == "DESKTOP-4HFA8OJ") {
+      $style="style=\"margin-bottom:-24px;\"";
+    }
+    else {
+      $style = "0";
+    }
+
+    echo'
+    <nav class="navbar navbar-expand-md" '.$style.'">
+    <a href="https://www.est.ruhr-uni-bochum.de/home/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
+    <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="main-navigation">
+    <ul class="navbar-nav">
+    ';
 }
 
 if ($currentpage == "platinenindex") {
+    
+    $hostname = $host= gethostname();
+    if($hostname == "DESKTOP-4HFA8OJ") {
+      $style="style=\"margin-top:-24px;\"";
+    }
+    else {
+      $style = "0";
+    }
+  
     echo'
-    <nav class="navbar navbar-expand-md">
+    <nav class="navbar navbar-expand-md" '.$style.'">
     <a href="https://www.est.ruhr-uni-bochum.de/home/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
       <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
       <span class="navbar-toggler-icon"></span>
@@ -83,8 +117,16 @@ if ($currentpage == "platinenindex") {
 }
 
 if ($currentpage == "nutzenindex") {
-    echo'
-       <nav class="navbar navbar-expand-md">
+      $hostname = $host= gethostname();
+      if($hostname == "DESKTOP-4HFA8OJ") {
+        $style="style=\"margin-bottom:-24px;\"";
+      }
+      else {
+        $style = "0";
+      }
+
+      echo'
+      <nav class="navbar navbar-expand-md" '.$style.'">
        <a href="https://www.est.ruhr-uni-bochum.de/home/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
         <span class="navbar-toggler-icon"></span>
