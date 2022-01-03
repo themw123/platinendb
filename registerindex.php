@@ -16,7 +16,8 @@
     
     <link rel="stylesheet" type="text/css" href="styles/registerindex.css">
 
-    
+    <link rel="stylesheet" type="text/css" href="../cssbugRegister.css">
+
   
     
     <title>Registerseite</title>
