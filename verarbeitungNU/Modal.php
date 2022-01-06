@@ -231,6 +231,7 @@ if($bestanden == true) {
           <option>mittel</option>
           <option>groß</option>
           <option>spezial</option>
+          <option>individuell</option>
           </select>
           </div>
 
@@ -471,6 +472,7 @@ if($bestanden == true) {
           <option>mittel</option>
           <option>groß</option>
           <option>spezial</option>
+          <option>individuell</option>
           </select>
           </div>
 

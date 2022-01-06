@@ -46,6 +46,8 @@ $bestanden = $sicherheit->ergebnis();
 
 if($bestanden == true) {
 
+        $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
+
         /*
         Auftraggeber vorbereitung
         */
@@ -465,8 +467,18 @@ if($bestanden == true) {
               <div class='custom-control custom-checkbox form-group'>
               <input name='Ignorieren' type='checkbox' class='custom-control-input' id='checkbox-2' $check>
               <label class='custom-control-label' for='checkbox-2' style='margin-top: 10px;margin-bottom: 10px;'>ignorieren</label>
+              <i class='fas fa-info-circle' id='infoicon2' data-toggle='popover' title='Hinweis' data-content='Lagen können erst wieder bearbeitet werden, wenn keine Lagen.txt-Datei ausgewählt ist.'></i>
               </div>
               ";
+              
+              if(!isInFertigung($id, $platinendb_connection) && !isOnNutzen($id, $platinendb_connection)){
+                $output .= "
+                <div class='custom-control custom-checkbox form-group'>
+                <input name='Fertigung' type='checkbox' class='custom-control-input' id='checkbox-3' $check>
+                <label class='custom-control-label' for='checkbox-3' style='margin-top: 10px;margin-bottom: 10px;'>Fertigung</label>
+                </div>
+                ";
+              }
             }
             
 

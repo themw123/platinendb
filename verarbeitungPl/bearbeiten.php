@@ -138,12 +138,26 @@ if($bestanden == true) {
             $Ignorieren = 0;
           }
 
-
+          /*
+          Input auslesen Fertigung
+          */
+          if (isset($_POST['Fertigung'])) {
+            $Fertigung = 1;
+          }
+          else{
+            $Fertigung = 0;
+          }
 
           
           //bearbeitung durchführen
           if(isUserEst($platinendb_connection)) {
             $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar', ignorieren = '$Ignorieren' WHERE ID = $id";
+            
+            if($Fertigung == 1 && !isInFertigung($id, $platinendb_connection) && !isOnNutzen($id, $platinendb_connection)) {
+              //In Fertigung überführen. Erst Nutzen erstellen und Platine da drauf packen und diesen in Fertigung versetzten.
+              ueberfuehren($id, $Anzahl, $row2['ID'], $Endkupfer, $Staerke, $Lagen, $platinendb_connection);
+            }
+
           }
           else {
             $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl,Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar' WHERE ID = $id";

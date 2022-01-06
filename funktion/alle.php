@@ -403,6 +403,98 @@ function deleteDownload($PlatinenID, $platinendb_connection) {
 
 
 
+function isInFertigung($id, $platinendb_connection) {
+	$abgeschlossenPost = "select abgeschlossenPost from platinenviewest where ID = $id";
+	$abgeschlossenPost = mysqli_query($platinendb_connection,$abgeschlossenPost);
+	$abgeschlossenPost = mysqli_fetch_array($abgeschlossenPost);
+	$abgeschlossenPost = $abgeschlossenPost['abgeschlossenPost']; 
+
+	if($abgeschlossenPost == 1) {
+		return true;
+	}
+	else {
+		return false;
+	}
+
+}
+
+function isOnNutzen($id, $platinendb_connection) {
+	$anzahl = "select Anzahl from platinenviewest where ID = $id";
+	$anzahl = mysqli_query($platinendb_connection,$anzahl);
+	$anzahl = mysqli_fetch_array($anzahl);
+	$anzahl = $anzahl['Anzahl']; 
+
+	$ausstehend = "select ausstehend from platinenviewest where ID = $id";
+	$ausstehend = mysqli_query($platinendb_connection,$ausstehend);
+	$ausstehend = mysqli_fetch_array($ausstehend);
+	$ausstehend = $ausstehend['ausstehend']; 
+
+	if($anzahl == $ausstehend) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+
+function ueberfuehren($id, $Anzahl, $Material_ID, $Endkupfer, $Staerke, $Lagen, $platinendb_connection) {
+	//Neuen Nutzen anlegen
+	
+	$nr = "select max(Nr)+1 as Nr from nutzen";
+	$nr = mysqli_query($platinendb_connection,$nr);
+	$nr = mysqli_fetch_array($nr);
+	$nr = $nr['Nr']; 
+	
+
+	//Bearbeiter ermitteln
+	$bearbeiter = "select bearbeiterName from bearbeiter";
+	$bearbeiter = mysqli_query($platinendb_connection,$bearbeiter);
+	while($row = $bearbeiter->fetch_assoc()) {
+		if($row['bearbeiterName'] == "est") {
+			$estVorhanden = true;
+		}
+	} 
+	//Bearbeiter est gitb es, also id ermitteln
+	if($estVorhanden) {
+		$estId = "select ID from bearbeiter where BearbeiterName = 'est'";
+		$estId = mysqli_query($platinendb_connection,$estId);
+		$estId = mysqli_fetch_array($estId);
+		$estId = $estId['ID'];
+	}
+	//Gibt es nicht also anlegen und id ermitteln
+	else {
+		$bearbeiter = "INSERT INTO bearbeiter (BearbeiterName) VALUES ('est')";
+		mysqli_query($platinendb_connection, $bearbeiter);
+		$estId = "select ID from bearbeiter where BearbeiterName = 'est'";
+		$estId = mysqli_query($platinendb_connection,$estId);
+		$estId = mysqli_fetch_array($estId);
+		$estId = $estId['ID'];
+	}
+
+
+	//Datum
+	$Erstellt = date('Y-m-d H:i:s', time());
+
+	//Nutzen anlegen
+	$nutzen = "INSERT INTO nutzen (Nr, Bearbeiter_ID, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Datum, intoderext, Status1, Testdaten, Kommentar) VALUES ('$nr', '$estId', '$Material_ID', '$Endkupfer', '$Staerke', '$Lagen', 'individuell', '$Erstellt', 'ext', 'Fertigung', '0', '')";
+	mysqli_query($platinendb_connection, $nutzen);
+
+
+
+	//Platine auf Nutzen packen
+
+	//Id von nutzen
+	$nutzenId = "select ID from nutzen where Nr = $nr";
+	$nutzenId = mysqli_query($platinendb_connection,$nutzenId);
+	$nutzenId = mysqli_fetch_array($nutzenId);
+	$nutzenId = $nutzenId['ID'];
+
+	$PlaufNutzen = "INSERT INTO nutzenplatinen (Platinen_ID, Nutzen_ID, platinenaufnutzen) VALUES ($id, $nutzenId, $Anzahl)";
+	mysqli_query($platinendb_connection, $PlaufNutzen);
+}
+
+
 function modal4($currentpage) {
 
 	echo'	

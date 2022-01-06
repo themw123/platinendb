@@ -25,7 +25,6 @@
 
     <link href="styles/platinenundnutzenindex.css" rel="stylesheet" type="text/css">
  
-    <link href="../cssbugPlundNu.css" rel="stylesheet" type="text/css">
 
 
 

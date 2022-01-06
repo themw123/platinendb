@@ -233,11 +233,7 @@ function dostuff() {
 
 
 
-
-
-
-
-
+$('[data-toggle="popover"]').popover();
 
 
 
@@ -289,7 +285,7 @@ $("#delfile").click(function(ev){
   remUploadData();
 })
 
-$("#infoicon").popover();
+//$("#infoicon").popover();
 
 
 if(aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
@@ -322,6 +318,7 @@ if(aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
         });  
 
 }
+
 
 
 if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
@@ -361,7 +358,7 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                       fileName = truncate(fileName, 11);
 
                       addUpload(fileName);
-                      $("#infoicon").popover();
+                      //$("#infoicon").popover();
                     }
                   }
 

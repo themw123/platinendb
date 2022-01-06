@@ -12,7 +12,6 @@
 
     <link rel="stylesheet" type="text/css" href="styles/password_reset.css">
     
-    <link rel="stylesheet" type="text/css" href="../cssbugPassword.css">
 
     
     <title>Passwort zurücksetzen</title>
