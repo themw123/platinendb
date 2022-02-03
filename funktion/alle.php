@@ -445,7 +445,9 @@ function ueberfuehren($id, $Anzahl, $Material_ID, $Endkupfer, $Staerke, $Lagen, 
 	$nr = mysqli_query($platinendb_connection,$nr);
 	$nr = mysqli_fetch_array($nr);
 	$nr = $nr['Nr']; 
-	
+	if($nr == null) {
+		$nr = 1;
+	}
 
 	//Bearbeiter ermitteln
 	$bearbeiter = "select bearbeiterName from bearbeiter";
