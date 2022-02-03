@@ -40,7 +40,6 @@ if($bestanden == true) {
           */ 
           if(isUserEst($platinendb_connection) == true) {
             $Auftraggeber2 = mysqli_real_escape_string($login_connection, $_POST["Auftraggeber"]);
-
           }
           else {
             $Auftraggeber2 = mysqli_real_escape_string($platinendb_connection, $_SESSION['user_name']);
