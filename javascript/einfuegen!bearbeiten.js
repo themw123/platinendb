@@ -285,8 +285,6 @@ $("#delfile").click(function(ev){
   remUploadData();
 })
 
-//$("#infoicon").popover();
-
 
 if(aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
 
@@ -358,7 +356,7 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                       fileName = truncate(fileName, 11);
 
                       addUpload(fileName);
-                      //$("#infoicon").popover();
+                      $('[data-toggle="popover"]').popover();
                     }
                   }
 
@@ -398,6 +396,7 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
         if(getselected != "neu") {
           $('#lagenid').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Lagen können erst wieder bearbeitet werden, wenn der Status des Nutzen in den Zustand neu überführt wird.'></i>");
+          $('[data-toggle="popover"]').popover();
         }
 
         });

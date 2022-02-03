@@ -467,7 +467,7 @@ if($bestanden == true) {
               <div class='custom-control custom-checkbox form-group'>
               <input name='Ignorieren' type='checkbox' class='custom-control-input' id='checkbox-2' $check>
               <label class='custom-control-label' for='checkbox-2' style='margin-top: 10px;margin-bottom: 10px;'>ignorieren</label>
-              <i class='fas fa-info-circle' id='infoicon2' data-toggle='popover' title='Hinweis' data-content='Lagen können erst wieder bearbeitet werden, wenn keine Lagen.txt-Datei ausgewählt ist.'></i>
+              <i class='fas fa-info-circle' id='infoicon2' data-toggle='popover' title='Hinweis' data-content='Die Platine wird innerhalb ihres Zustandes(Neu, Fertigung oder Abgeschlossen) nach ganz unten angefügt. Achtung: Die Platine wird nicht mehr beim Hinzufügen einer Platine auf einen Nutzen angezeigt!'></i>
               </div>
               ";
               
@@ -476,6 +476,7 @@ if($bestanden == true) {
                 <div class='custom-control custom-checkbox form-group'>
                 <input name='Fertigung' type='checkbox' class='custom-control-input' id='checkbox-3' $check>
                 <label class='custom-control-label' for='checkbox-3' style='margin-top: 10px;margin-bottom: 10px;'>Fertigung</label>
+                <i class='fas fa-info-circle' id='infoicon3' data-toggle='popover' title='Hinweis' data-content='Die Platine wird in den Zustand Fertigung versetzt. Dafür wird ein neuer Nutzen im Zustand Fertigung erstellt und die Platine hinzugefügt.'></i>
                 </div>
                 ";
               }

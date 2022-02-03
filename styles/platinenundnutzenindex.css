@@ -834,12 +834,16 @@ testdaten haken farbe
       border-color:#0000cc!important;
     }
 
-    #infoicon, #infoicon2{
+    #infoicon, #infoicon2, #infoicon3{
       color: #005ea9;
       cursor: pointer; 
     }
-    #infoicon:hover, #infoicon2:hover{
+    #infoicon:hover, #infoicon2:hover, #infoicon3:hover{
       color: #0000cc!important;
+    }
+
+    #infoicon2, #infoicon3 {
+      margin-top: 14px;
     }
 
     #warnungStatus{
