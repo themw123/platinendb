@@ -22,27 +22,31 @@
 
                             if (zustand == 'erfolgreich') {
                               
-                            Id = NutzenId;
-                            ziel = "nutzen"
-  
-                           
-                            getDetailEinmal(false);
-                       
-                            setTimeout(function() {
-                              getHinzufuegenEinmal(false);
-                            }, 500);
+                              Id = NutzenId;
+                              ziel = "nutzen"
+    
+                            
+                              getDetailEinmal(false);
+                        
+                              setTimeout(function() {
+                                getHinzufuegenEinmal(false);
+                              }, 500);
+                            }
+                            else {
+                              if(zustand == 'dberror') {
+                                $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Datenbankfehler: ' + error +'</div>');
+                                    
+                              }
+                              else if(zustand == 'nichterlaubt') {
+                                $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Nutzen muss im Zustand neu sein, um Platinen löschen zu können.</div>');
+                              }
                             }
 
-                            else if(zustand == 'dberror') {
-                              $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Datenbankfehler: ' + error +'</div>');
-                                    
-                              window.setTimeout(function() {
+                            window.setTimeout(function() {
                               $(".resultalert").fadeTo(500, 0).slideUp(500, function(){
                               $(this).remove();
                               });  
-                              }, 5000);
-                            }
-  
+                            }, 5000);
       
                           }   
        
@@ -90,25 +94,22 @@
   
                                   else if (zustand == 'fehlerhaft'){
                                     $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-warning resultalert p-1">Anzahl größer null erforderlich.</div>');
-                                    
-                                    window.setTimeout(function() {
-                                    $(".resultalert").fadeTo(500, 0).slideUp(500, function(){
-                                    $(this).remove();
-                                    });  
-                                    }, 5000);
-                                    
                                   }
 
                                   else if(zustand == "dberror") {
-                                    $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Datenbankfehler: ' + error +'</div>');
-                                    
-                                    window.setTimeout(function() {
+                                    $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Datenbankfehler: ' + error +'</div>');                             
+                                  }
+
+                                  
+                                  else if(zustand == "nichterlaubt") {
+                                    $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Nutzen muss im Zustand neu sein, um Platinen hinzufügen zu können.</div>');      
+                                  }
+
+                                  window.setTimeout(function() {
                                     $(".resultalert").fadeTo(500, 0).slideUp(500, function(){
                                     $(this).remove();
                                     });  
-                                    }, 5000);
-                                  }
-
+                                  }, 5000);
                             
           
                                 }
@@ -171,15 +172,21 @@
                     warte = 0;
                     }, 1000);
 
-                    $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Datenbankfehler: ' + error +'</div>');
-                                    
-                    window.setTimeout(function() {
+                    if(zustand == "dberror") {
+                      $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Datenbankfehler: ' + error +'</div>');
+                    }
+                    else if(zustand == "nichterlaubt") {
+                      $('#resultanzahl').hide().fadeIn(1000).html('<div class="alert alert-danger resultalert p-1">Nutzen muss im Zustand neu sein, um Platinenanzahl ändern zu können.</div>');
+                    }
+                  }
+                
+
+                  window.setTimeout(function() {
                     $(".resultalert").fadeTo(500, 0).slideUp(500, function(){
                     $(this).remove();
                     });  
                     }, 5000);
-                  }
-                
+
                 }  
                  
     

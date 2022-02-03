@@ -24,6 +24,24 @@ $bestanden = $sicherheit->ergebnis();
 if($bestanden == true) {
 
         $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
+        
+        $nutzenID = "SELECT Nutzen_ID FROM nutzenplatinen WHERE ID=$id";
+        $nutzenID = mysqli_query($platinendb_connection, $nutzenID);
+        $nutzenID = mysqli_fetch_array($nutzenID);
+        $nutzenID = $nutzenID['Nutzen_ID'];
+  
+  
+        $getZustand = "SELECT Status1 FROM nutzen WHERE ID=$nutzenID";
+        $getZustand = mysqli_query($platinendb_connection, $getZustand);
+        $getZustand = mysqli_fetch_array($getZustand);
+        $getZustand = $getZustand['Status1'];
+        
+        //nur Anzahl aktualisieren wenn Nutzen im Zustand neu ist. Ansonnsten abbruch ab hier.
+        if($getZustand != "neu") {
+          $sicherheit->checkQuery4();
+        }
+        
+        
         $anzahl = mysqli_real_escape_string($platinendb_connection, $_POST['anzahl']);
 
         $anzahlupdate = "UPDATE nutzenplatinen SET platinenaufnutzen = '$anzahl'  WHERE id=$id";

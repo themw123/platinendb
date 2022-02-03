@@ -29,8 +29,17 @@ if($bestanden == true) {
       $NutzenID = mysqli_real_escape_string($platinendb_connection, $_POST['NutzenId']);
       $Anzahl = mysqli_real_escape_string($platinendb_connection, $_POST['anzahl']);
 
-
+      $getZustand = "SELECT Status1 FROM nutzen WHERE ID=$NutzenID";
+      $getZustand = mysqli_query($platinendb_connection, $getZustand);
+      $getZustand = mysqli_fetch_array($getZustand);
+      $getZustand = $getZustand['Status1'];
+      
       if($Anzahl > 0) {
+
+          //nur Platine hinzufügen wenn Nutzen im Zustand neu ist. Ansonnsten abbruch ab hier.
+          if($getZustand != "neu") {
+            $sicherheit->checkQuery4();
+          }
 
 
           $hinzufuegen = "INSERT INTO nutzenplatinen (Platinen_ID, Nutzen_ID, platinenaufnutzen) VALUES ('$PlatinenID', '$NutzenID', '$Anzahl')";

@@ -74,6 +74,11 @@ class Sicherheit {
         }
     }
 
+    public function checkQuery4() {
+        header('Content-Type: application/json');
+        echo json_encode(array('data'=> 'nichterlaubt'));
+        die();
+    }
 
 
     private function nutzen(){   
