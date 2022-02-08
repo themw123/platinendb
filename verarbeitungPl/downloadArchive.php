@@ -59,7 +59,6 @@ if($bestanden == true && isUserEst($login_connection) == true) {
 else {
   header('Content-Type: application/json');
   echo json_encode(array('data'=> "fehlerhaft"));
-  die();
 }
 
 

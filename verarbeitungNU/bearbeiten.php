@@ -195,13 +195,23 @@ if($bestanden == true) {
           $ursprungStatus = mysqli_fetch_array($ursprungStatus);
           $ursprungStatus = $ursprungStatus['Status1'];
 
+          $allePlaufNutzen = "SELECT Platinen_ID FROM nutzenplatinen WHERE Nutzen_ID ='$id'";
+          $allePlaufNutzen = mysqli_query($platinendb_connection,$allePlaufNutzen);
+
+          //Nutzen nur in Fertigung überführt wenn Platinen drauf sind
+          if($ursprungStatus == "neu" && $Status != "neu") {
+            if($allePlaufNutzen->num_rows <= 0) {
+              header('Content-Type: application/json');
+              echo json_encode(array('data'=> 'keineplatineaufnutzen')); 
+              die();
+            }
+          }
+
+          
           mysqli_query($platinendb_connection, $bearbeiten);
 
-          if($ursprungStatus == "Fertigung" && $Status == "abgeschlossen") {
-
-            $allePlaufNutzen = "SELECT Platinen_ID FROM nutzenplatinen WHERE Nutzen_ID ='$id'";
-            $allePlaufNutzen = mysqli_query($platinendb_connection,$allePlaufNutzen);
-            
+          //Wenn Nutzen von Fertigung in abgeschlossen überführt wurde soll
+          if($ursprungStatus == "Fertigung" && $Status == "abgeschlossen") {      
             foreach ($allePlaufNutzen as $row) {
               $pl = $row['Platinen_ID'];
               deleteDownload($pl, $platinendb_connection);
@@ -225,7 +235,6 @@ if($bestanden == true) {
 else {
   header('Content-Type: application/json');
   echo json_encode(array('data'=> "fehlerhaft"));
-  die();
 }
 
 ?>

@@ -38,6 +38,7 @@ if($bestanden == true) {
       if(zustandNeu($platinendb_connection, $NutzenID) == false) {
         mysqli_close($platinendb_connection); 
         mysqli_close($login_connection); 
+        header('Content-Type: application/json');
         echo json_encode(array('data'=> 'nichterlaubt')); 
         die();
       }

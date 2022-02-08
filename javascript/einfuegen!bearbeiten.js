@@ -153,9 +153,10 @@ function dostuff() {
             
               $('#dataModal2').modal('hide');
               $('#tabelle1').DataTable().liveAjax.reload(); 
-            
-              var zustand = data.data;
 
+              
+              var zustand = data.data;
+              
 
               if (zustand == 'erfolgreich') {
                 $('#result').hide().fadeIn(1000).html('<div class="alert alert-success alertm">'+aktionText2+' wurde erfolgreich '+aktionText+'.</div>');
@@ -165,6 +166,9 @@ function dostuff() {
               }
               else if(zustand == 'nichtveraenderbar'){
                 $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Folgende Eigenschaften '+aktionText3+' dürfen nicht verändert werden, da bereits Abhängigkeiten bestehen: Material, Endkupfer, Stärke und Lagen.</div>');
+              }
+              else if(zustand == 'keineplatineaufnutzen'){
+                $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Nutzen kann nicht in die Fertigung, da sich mindestens eine Platine drauf befinden muss.</div>');
               }
               else if(zustand == 'fehlerLagen'){
                 $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">'+aktionText2+' konnte nicht '+aktionText+' werden. Die Anzahl der Lagen stimmt nicht überein.</div>');

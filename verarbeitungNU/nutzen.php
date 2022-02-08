@@ -116,7 +116,6 @@ else {
 	$datax[1] = "fehlerhaft";
 	header('Content-Type: application/json');
 	echo json_encode(array('data'=> $datax));
-	die();
 }
 
 
