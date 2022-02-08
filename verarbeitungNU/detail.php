@@ -36,23 +36,26 @@ if($bestanden == true) {
                     $result = mysqli_query($platinendb_connection, $query);  
                     $zustand = $sicherheit->checkQuery2($platinendb_connection);
 
+                    $zudstandNeu = zustandNeu($platinendb_connection, $id);
+                    if(!$zudstandNeu) {
+                         echo'
+                         <div class="container-fluid">
+                         <div class="alert alert-warning container-fluid">Nutzen nicht im Zustand neu. Deshalb kann bezüglich Platinen nichts auf diesem Nutzen geändert werden.</div>
+                         <script>$(".hinzufuegen").hide();</script>
+                         </div>
+                         ';
+                    }
+                    else {
+                         echo'<script>$(".hinzufuegen").show();</script>';
+                    }
+
+                    
                     if($zustand == "erfolgreich") {
 
+
+                         
                          if ($result->num_rows > 0) {
                     
-                              $zudstandNeu = zustandNeu($platinendb_connection, $id);
-                              if(!$zudstandNeu) {
-                                   echo'
-                                   <div class="container-fluid">
-                                   <div class="alert alert-warning container-fluid">Nutzen nicht im Zustand neu. Deshalb kann bezüglich Platinen nichts auf diesem Nutzen geändert werden.</div>
-                                   <script>$(".hinzufuegen").hide();</script>
-                                   </div>
-                                   ';
-                              }
-                              else {
-                                   echo'<script>$(".hinzufuegen").show();</script>';
-                              }
-
                               $output .= '  
                                    
                               
