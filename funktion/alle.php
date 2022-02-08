@@ -611,37 +611,37 @@ echo'
 			  </div>
 
 
-			  <div class="hinzufuegen">
-			  		
 
-			  <div class="hinzufuegen">
-			  <div class="container-fluid nutzenplatinen">
-			  <a class="btn" id="button9" data-toggle="collapse" data-target="#collapse1" role="button">
-			  <i class="far fa-caret-square-down button9" id="icons">
-			  </i>
-			  </a>
-			  <div class="collapse" id="collapse1">  
-			  <p><span style="font-size:18pt">Platinen hinzufügen</span></p>
+				<div class="hinzufuegen">
+				<div class="hinzufuegen">
+				<div class="container-fluid nutzenplatinen">
+				<a class="btn" id="button9" data-toggle="collapse" data-target="#collapse1" role="button">
+				<i class="far fa-caret-square-down button9" id="icons">
+				</i>
+				</a>
+				<div class="collapse" id="collapse1">  
+				<p><span style="font-size:18pt">Platinen hinzufügen</span></p>
+  
+				<div class="zusammen d-flex">
+  
+				<div class="form-group anzahldiv">
+				<label for="usr">Anzahl:</label>
+				<input type="number" min="1" class="form-control" id="anzahl2" name="Anzahl">
+				</div>
+			  
+				</div>
+  
+				<div class="container-fluid platinenadd">
+				</div>
+				</div>
+				</div>
+				</div> 
+				</div>
+				</div>  
 
-			  <div class="zusammen d-flex">
-
-			  <div class="form-group anzahldiv">
-			  <label for="usr">Anzahl:</label>
-			  <input type="number" min="1" class="form-control" id="anzahl2" name="Anzahl">
-			  </div>
-			
-			  </div>
 
 
-			  <div class="container-fluid platinenadd">
-			  </div>
-			  </div>
-			  </div>  
-			  </div> 
 
-			  </div>
-
-			  </div>  
 			  <div class="modal-footer">  
 			  <button id="button5" type="button" class="btn btn-primary" data-dismiss="modal">schließen</button>  
 			  </div>  
