@@ -479,7 +479,7 @@ function ueberfuehren($id, $Anzahl, $Material_ID, $Endkupfer, $Staerke, $Lagen, 
 	$Erstellt = date('Y-m-d H:i:s', time());
 
 	//Nutzen anlegen
-	$nutzen = "INSERT INTO nutzen (Nr, Bearbeiter_ID, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Datum, intoderext, Status1, Testdaten, Kommentar) VALUES ('$nr', '$estId', '$Material_ID', '$Endkupfer', '$Staerke', '$Lagen', 'individuell', '$Erstellt', 'ext', 'Fertigung', '0', '')";
+	$nutzen = "INSERT INTO nutzen (Nr, Bearbeiter_ID, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Datum, intoderext, Status1, Testdaten, Datum1, Kommentar) VALUES ('$nr', '$estId', '$Material_ID', '$Endkupfer', '$Staerke', '$Lagen', 'individuell', '$Erstellt', 'ext', 'Fertigung', '0', '$Erstellt', '')";
 	mysqli_query($platinendb_connection, $nutzen);
 
 
