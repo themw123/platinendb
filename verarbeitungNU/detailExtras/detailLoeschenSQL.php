@@ -41,16 +41,16 @@ if($bestanden == true) {
       
       //nur von Nutzen entfernen wenn Nutzen im Zustand neu ist. Ansonnsten abbruch ab hier.
       if($getZustand != "neu") {
-        $sicherheit->checkQuery4();
+        mysqli_close($platinendb_connection); 
+        mysqli_close($login_connection); 
+        echo json_encode(array('data'=> 'nichterlaubt')); 
+        die();
       }
-
+      
       $loeschen = "DELETE FROM nutzenplatinen WHERE id=$id";
       mysqli_query($platinendb_connection, $loeschen);
-
-
       $sicherheit->checkQuery($platinendb_connection);
 
-      
       mysqli_close($platinendb_connection); 
       
       mysqli_close($login_connection);  

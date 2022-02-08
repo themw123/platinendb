@@ -38,29 +38,28 @@ if($bestanden == true) {
         
         //nur Anzahl aktualisieren wenn Nutzen im Zustand neu ist. Ansonnsten abbruch ab hier.
         if($getZustand != "neu") {
-          $sicherheit->checkQuery4();
+          mysqli_close($platinendb_connection); 
+          mysqli_close($login_connection); 
+          echo json_encode(array('data'=> 'nichterlaubt')); 
+          die();
         }
-        
-        
+
         $anzahl = mysqli_real_escape_string($platinendb_connection, $_POST['anzahl']);
 
         $anzahlupdate = "UPDATE nutzenplatinen SET platinenaufnutzen = '$anzahl'  WHERE id=$id";
-      
+        
         mysqli_query($platinendb_connection, $anzahlupdate);
-
-
+  
+  
         $PlatinenID = "select Platinen_ID from nutzenplatinen where ID = $id"; 
         $PlatinenID = mysqli_query($platinendb_connection,$PlatinenID);
         $PlatinenID = mysqli_fetch_array($PlatinenID);
         $PlatinenID = $PlatinenID['Platinen_ID']; 
         deleteDownload($PlatinenID, $platinendb_connection);
-
-
         $sicherheit->checkQuery($platinendb_connection);
-
-      
-        mysqli_close($platinendb_connection); 
         
+
+        mysqli_close($platinendb_connection); 
         mysqli_close($login_connection);  
 
             

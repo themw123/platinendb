@@ -41,12 +41,12 @@ class Sicherheit {
         {
           header('Content-Type: application/json');
           echo json_encode(array('data'=> 'dberror', 'error'=> $connection->error));
-          die();
+          //die();
         }
         else{
           header('Content-Type: application/json');
           echo json_encode(array('data'=> "erfolgreich"));
-          die();
+          //die();
         }
     }
 

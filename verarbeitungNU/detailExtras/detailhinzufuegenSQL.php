@@ -38,9 +38,11 @@ if($bestanden == true) {
 
           //nur Platine hinzufügen wenn Nutzen im Zustand neu ist. Ansonnsten abbruch ab hier.
           if($getZustand != "neu") {
-            $sicherheit->checkQuery4();
+            mysqli_close($platinendb_connection); 
+            mysqli_close($login_connection); 
+            echo json_encode(array('data'=> 'nichterlaubt')); 
+            die();
           }
-
 
           $hinzufuegen = "INSERT INTO nutzenplatinen (Platinen_ID, Nutzen_ID, platinenaufnutzen) VALUES ('$PlatinenID', '$NutzenID', '$Anzahl')";
 
@@ -49,7 +51,7 @@ if($bestanden == true) {
           deleteDownload($PlatinenID, $platinendb_connection);
 
           $sicherheit->checkQuery($platinendb_connection);
-          
+
           mysqli_close($platinendb_connection);
           
           mysqli_close($login_connection);  

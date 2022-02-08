@@ -141,7 +141,7 @@ if($bestanden == true) {
           <div class='auftraggeberdiv'>
           <form>
             <div class='form-group test'>
-            <input type='email' class='form-control' id='addBenutzer' aria-describedby='BenutzerHelp' placeholder='Auftraggebername'> 
+            <input type='text' class='form-control' id='addBenutzer' aria-describedby='BenutzerHelp' placeholder='Auftraggebername'> 
             <button class='btn btn-primary' id='add' type='button'>hinzufügen</button>
             <button class='btn btn-primary' id='rem' type='button'>Auswahl löschen</button>
             <div class='alert alert-warning collapse' id='fehleraddbenutzer'></div>
