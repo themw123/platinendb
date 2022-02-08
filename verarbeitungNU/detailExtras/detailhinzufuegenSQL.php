@@ -28,16 +28,10 @@ if($bestanden == true) {
       $PlatinenID = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
       $NutzenID = mysqli_real_escape_string($platinendb_connection, $_POST['NutzenId']);
       $Anzahl = mysqli_real_escape_string($platinendb_connection, $_POST['anzahl']);
-
-      $getZustand = "SELECT Status1 FROM nutzen WHERE ID=$NutzenID";
-      $getZustand = mysqli_query($platinendb_connection, $getZustand);
-      $getZustand = mysqli_fetch_array($getZustand);
-      $getZustand = $getZustand['Status1'];
       
       if($Anzahl > 0) {
-
           //nur Platine hinzufügen wenn Nutzen im Zustand neu ist. Ansonnsten abbruch ab hier.
-          if($getZustand != "neu") {
+          if(zustandNeu($platinendb_connection, $NutzenID) == false) {
             mysqli_close($platinendb_connection); 
             mysqli_close($login_connection); 
             echo json_encode(array('data'=> 'nichterlaubt')); 

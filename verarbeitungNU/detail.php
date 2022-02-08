@@ -35,6 +35,10 @@ if($bestanden == true) {
                     
                     $result = mysqli_query($platinendb_connection, $query);  
                     $zustand = $sicherheit->checkQuery2($platinendb_connection);
+                    
+  
+                    
+                    
                     mysqli_close($platinendb_connection); 
                     mysqli_close($login_connection);  
 

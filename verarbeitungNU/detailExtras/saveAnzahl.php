@@ -25,19 +25,13 @@ if($bestanden == true) {
 
         $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
         
-        $nutzenID = "SELECT Nutzen_ID FROM nutzenplatinen WHERE ID=$id";
-        $nutzenID = mysqli_query($platinendb_connection, $nutzenID);
-        $nutzenID = mysqli_fetch_array($nutzenID);
-        $nutzenID = $nutzenID['Nutzen_ID'];
-  
-  
-        $getZustand = "SELECT Status1 FROM nutzen WHERE ID=$nutzenID";
-        $getZustand = mysqli_query($platinendb_connection, $getZustand);
-        $getZustand = mysqli_fetch_array($getZustand);
-        $getZustand = $getZustand['Status1'];
+        $NutzenID = "SELECT Nutzen_ID FROM nutzenplatinen WHERE ID=$id";
+        $NutzenID = mysqli_query($platinendb_connection, $NutzenID);
+        $NutzenID = mysqli_fetch_array($NutzenID);
+        $NutzenID = $NutzenID['Nutzen_ID'];
         
         //nur Anzahl aktualisieren wenn Nutzen im Zustand neu ist. Ansonnsten abbruch ab hier.
-        if($getZustand != "neu") {
+        if(zustandNeu($platinendb_connection, $NutzenID) == false) {
           mysqli_close($platinendb_connection); 
           mysqli_close($login_connection); 
           echo json_encode(array('data'=> 'nichterlaubt')); 

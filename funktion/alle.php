@@ -497,6 +497,21 @@ function ueberfuehren($id, $Anzahl, $Material_ID, $Endkupfer, $Staerke, $Lagen, 
 }
 
 
+function zustandNeu($platinendb_connection, $NutzenID) {
+	$getZustand = "SELECT Status1 FROM nutzen WHERE ID=$NutzenID";
+	$getZustand = mysqli_query($platinendb_connection, $getZustand);
+	$getZustand = mysqli_fetch_array($getZustand);
+	$getZustand = $getZustand['Status1'];
+
+	if($getZustand == "neu") {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+
 function modal4($currentpage) {
 
 	echo'	
