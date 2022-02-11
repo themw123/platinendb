@@ -204,7 +204,7 @@ class Registration
                     if ($query_new_user_insert) {
                         $this->messages[] = "Der Benutzer wurde erfolgreich angelegt. Du wirst jetzt weitergeleitet.";
                         $art = "userNotification";
-                        sendMail($art, $user_name, $user_email);
+                        sendMail($art, $user_name, $user_email, $x1, $x2);
                         if($this->errors) {
                             header('Refresh:5; url=index.php');
                         }
