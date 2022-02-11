@@ -176,7 +176,7 @@ if($bestanden == true) {
             $art = "newPlatineNotification";
             $user_name = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
             $user_email = mysqli_real_escape_string($login_connection, $_SESSION['user_email']);
-            sendMail($art, $user_name, $user_email, $x3, $x4);
+            sendMail($art, $user_name, $user_email, "", "");
           }
 
           mysqli_close($platinendb_connection); 
