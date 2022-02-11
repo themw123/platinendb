@@ -172,6 +172,11 @@ if($bestanden == true) {
 
           $sicherheit->checkQuery($platinendb_connection);
           
+          if(!mysqli_error($platinendb_connection)) {
+            $art = "newPlatineNotification";
+            sendMail($art, $x1, $x2, $x3, $x4);
+          }
+
           mysqli_close($platinendb_connection); 
           
           mysqli_close($login_connection); 

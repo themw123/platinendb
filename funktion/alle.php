@@ -512,6 +512,9 @@ function zustandNeu($platinendb_connection, $NutzenID) {
 }
 
 function sendMail($art, $user_name, $user_email, $user_password_hash, $user_standort) {
+	require_once('../libraries/PHPMailer.php');
+
+	
 	$mail = new PHPMailer;
 
 	//damit Umlaute richtig angezeigt werden
@@ -560,10 +563,20 @@ function sendMail($art, $user_name, $user_email, $user_password_hash, $user_stan
 
 		$mail->Body = NOTIFICATION_CONTENT . '' . $benutzername;
 	}
+
+	else if($art == "newPlatineNotification")  {
+		$mail->AddAddress($user_email);
+		
+		$benutzername = "\n\n Benutzername: " . $user_name;
+
+		$mail->Body = NOTIFICATION_CONTENT . '' . $benutzername;
+	}
 	
 
 	if(!$mail->Send()) {
-		$this->errors[] = MESSAGE_PASSWORD_RESET_MAIL_FAILED . $mail->ErrorInfo;
+		if($art != "newPlatineNotification") {
+			//$this->errors[] = MESSAGE_PASSWORD_RESET_MAIL_FAILED . $mail->ErrorInfo;
+		}
 		return false;
 	} else {
 		return true;

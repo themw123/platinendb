@@ -116,6 +116,7 @@ class Registration
                     //send email with user's data
                     $art = "validation";
                     $zustand = sendMail($art, $user_name, $user_email, $user_password_hash, $user_standort);
+                    
                     //$zustand = true;
                     if($zustand) {
                         // if user has been send successfully
@@ -204,8 +205,8 @@ class Registration
                     if ($query_new_user_insert) {
                         $this->messages[] = "Der Benutzer wurde erfolgreich angelegt. Du wirst jetzt weitergeleitet.";
                         $art = "userNotification";
-                        sendMail($art, $user_name, $user_email, $x1, $x2);
-                        if($this->errors) {
+                        $zustand = sendMail($art, $user_name, $user_email, $x1, $x2);
+                        if(!$zustand) {
                             header('Refresh:5; url=index.php');
                         }
                         else {
