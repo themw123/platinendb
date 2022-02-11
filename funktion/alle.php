@@ -539,11 +539,12 @@ function sendMail($art, $user_name, $user_email, $user_password_hash, $user_stan
 		$mail->IsMail();
 	}
 
+	$mail->From = EMAIL_PASSWORDRESET_FROM;
+	$mail->FromName = EMAIL_PASSWORDRESET_FROM_NAME;
+	$mail->Subject = ACCOUNT_VALIDATE_SUBJECT;
+
 	if($art == "validation") {
-		$mail->From = EMAIL_PASSWORDRESET_FROM;
-		$mail->FromName = EMAIL_PASSWORDRESET_FROM_NAME;
 		$mail->AddAddress(ACCOUNT_VALIDATE_TO);
-		$mail->Subject = ACCOUNT_VALIDATE_SUBJECT;
 
 		$accountinfo = "Benutzername: " . $user_name . "\n" . "E-Mail-Adresse: " . $user_email . "\n" . "Standort: " . $user_standort;
 
@@ -553,11 +554,8 @@ function sendMail($art, $user_name, $user_email, $user_password_hash, $user_stan
 		$mail->Body = ACCOUNT_VALIDATE_CONTENT . '' . $link . '' . $accountinfo;
 	}
 	else if($art == "userNotification")  {
-		$mail->From = EMAIL_PASSWORDRESET_FROM;
-		$mail->FromName = EMAIL_PASSWORDRESET_FROM_NAME;
 		$mail->AddAddress($user_email);
-		$mail->Subject = NOTIFICATION_VALIDATE_SUBJECT;
-
+		
 		$benutzername = "\n\n Benutzername: " . $user_name;
 
 		$mail->Body = NOTIFICATION_CONTENT . '' . $benutzername;
