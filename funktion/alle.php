@@ -512,8 +512,9 @@ function zustandNeu($platinendb_connection, $NutzenID) {
 }
 
 function sendMail($art, $user_name, $user_email, $user_password_hash, $user_standort) {
-	require_once('../libraries/PHPMailer.php');
-
+	if($art == "newPlatineNotification") {
+		require_once('../libraries/PHPMailer.php');
+	}
 	
 	$mail = new PHPMailer;
 
