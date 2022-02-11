@@ -545,9 +545,10 @@ function sendMail($art, $user_name, $user_email, $user_password_hash, $user_stan
 
 	$mail->From = EMAIL_PASSWORDRESET_FROM;
 	$mail->FromName = EMAIL_PASSWORDRESET_FROM_NAME;
-	$mail->Subject = ACCOUNT_VALIDATE_SUBJECT;
+
 
 	if($art == "validation") {
+		$mail->Subject = ACCOUNT_VALIDATE_SUBJECT;
 		$mail->AddAddress(ACCOUNT_VALIDATE_TO);
 
 		$accountinfo = "Benutzername: " . $user_name . "\n" . "E-Mail-Adresse: " . $user_email . "\n" . "Standort: " . $user_standort;
@@ -558,6 +559,7 @@ function sendMail($art, $user_name, $user_email, $user_password_hash, $user_stan
 		$mail->Body = ACCOUNT_VALIDATE_CONTENT . '' . $link . '' . $accountinfo;
 	}
 	else if($art == "userNotification")  {
+		$mail->Subject = NOTIFICATION_SUBJECT;
 		$mail->AddAddress($user_email);
 		
 		$benutzername = "\n\n Benutzername: " . $user_name;
@@ -566,11 +568,12 @@ function sendMail($art, $user_name, $user_email, $user_password_hash, $user_stan
 	}
 
 	else if($art == "newPlatineNotification")  {
+		$mail->Subject = NEWPLATINE_SUBJECT;
 		$mail->AddAddress($user_email);
 		
 		$benutzername = "\n\n Benutzername: " . $user_name;
 
-		$mail->Body = NOTIFICATION_CONTENT . '' . $benutzername;
+		$mail->Body = NEWPLATINE_CONTENT . '' . $benutzername;
 	}
 	
 

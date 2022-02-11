@@ -123,6 +123,10 @@ class Registration
                         $this->messages[] = "Du wirst jetzt zur Loginseite weitergeleitet";
                         header('Refresh:2.5; url=index.php?wait');
                     }
+                    else {
+                        $this->messages[] = "Registrierung fehlgeschlagen (Es konnte keine Mail an EST gesendet werden.)";
+                        header('Refresh:2.5; url=index.php');
+                    }
 
                 }
             } else {
@@ -206,12 +210,6 @@ class Registration
                         $this->messages[] = "Der Benutzer wurde erfolgreich angelegt. Du wirst jetzt weitergeleitet.";
                         $art = "userNotification";
                         $zustand = sendMail($art, $user_name, $user_email, $x1, $x2);
-                        if(!$zustand) {
-                            header('Refresh:5; url=index.php');
-                        }
-                        else {
-                            header('Refresh:2.5; url=index.php');
-                        }
                     } else {
                         $this->errors[] = "Die Registrierung ist fehlgeschlagen";
                     }

@@ -172,9 +172,11 @@ if($bestanden == true) {
 
           $sicherheit->checkQuery($platinendb_connection);
           
-          if(!mysqli_error($platinendb_connection)) {
+          if(!isUserEst($platinendb_connection) && !mysqli_error($platinendb_connection)) {
             $art = "newPlatineNotification";
-            sendMail($art, $x1, $x2, $x3, $x4);
+            $user_name = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
+            $user_email = mysqli_real_escape_string($login_connection, $_SESSION['user_email']);
+            sendMail($art, $user_name, $user_email, $x3, $x4);
           }
 
           mysqli_close($platinendb_connection); 
