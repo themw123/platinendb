@@ -114,7 +114,8 @@ class Registration
                     $this->errors[] = "Der Benutzername/E-Mail-Adresse ist bereits vergeben";
                 } else {
                     //send email with user's data
-                    $zustand = sendRegisterMail($user_name, $user_email, $user_password_hash, $user_standort);
+                    $art = "validation";
+                    $zustand = sendMail($art, $user_name, $user_email, $user_password_hash, $user_standort);
                     //$zustand = true;
                     if($zustand) {
                         // if user has been send successfully
@@ -202,7 +203,8 @@ class Registration
                     // if user has been added successfully
                     if ($query_new_user_insert) {
                         $this->messages[] = "Der Benutzer wurde erfolgreich angelegt. Du wirst jetzt weitergeleitet.";
-                        sendNotificationMail($user_name, $user_email);
+                        $art = "userNotification";
+                        sendMail($art, $user_name, $user_email);
                         if($this->errors) {
                             header('Refresh:5; url=index.php');
                         }
