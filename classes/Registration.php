@@ -132,57 +132,6 @@ class Registration
     }
 
 
-    private function sendRegisterMail($user_name, $user_email, $user_password_hash, $user_standort) {
-        $mail = new PHPMailer;
-
-        //damit Umlaute richtig angezeigt werden
-        $mail->CharSet = 'utf-8'; 
-
-        // please look into the config/config.php for much more info on how to use this!
-        // use SMTP or use mail()
-        if (EMAIL_USE_SMTP) {
-            // Set mailer to use SMTP
-            $mail->IsSMTP();
-            //useful for debugging, shows full SMTP errors
-            //$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
-            // Enable SMTP authentication
-            $mail->SMTPAuth = EMAIL_SMTP_AUTH;
-            // Enable encryption, usually SSL/TLS
-            if (defined(EMAIL_SMTP_ENCRYPTION)) {
-                $mail->SMTPSecure = EMAIL_SMTP_ENCRYPTION;
-            }
-            // Specify host server
-            $mail->Host = EMAIL_SMTP_HOST;
-            $mail->Username = EMAIL_SMTP_USERNAME;
-            $mail->Password = EMAIL_SMTP_PASSWORD;
-            $mail->Port = EMAIL_SMTP_PORT;
-        } else {
-            $mail->IsMail();
-        }
-
-        
-        $mail->From = EMAIL_PASSWORDRESET_FROM;
-        $mail->FromName = EMAIL_PASSWORDRESET_FROM_NAME;
-        $mail->AddAddress(ACCOUNT_VALIDATE_TO);
-        $mail->Subject = ACCOUNT_VALIDATE_SUBJECT;
-        
-
-        $accountinfo = "Benutzername: " . $user_name . "\n" . "E-Mail-Adresse: " . $user_email . "\n" . "Standort: " . $user_standort;
-
-        //$link = ACCOUNT_VALIDATE_URL;
-        $link = ACCOUNT_VALIDATE_URL.'&user_name='.urlencode($user_name).'&user_email='.urlencode($user_email).'&user_password='.urlencode($user_password_hash).'&user_standort='.urlencode($user_standort) . "\n \n \n" ;
-
-        $mail->Body = ACCOUNT_VALIDATE_CONTENT . '' . $link . '' . $accountinfo;
-
-        if(!$mail->Send()) {
-            $this->errors[] = MESSAGE_PASSWORD_RESET_MAIL_FAILED . $mail->ErrorInfo;
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
 
     /**
      * handles the entire registration process. checks all error possibilities
@@ -272,50 +221,4 @@ class Registration
         }
     }
 
-    private function sendNotificationMail($user_name, $user_email) {
-        $mail = new PHPMailer;
-
-        //damit Umlaute richtig angezeigt werden
-        $mail->CharSet = 'utf-8'; 
-
-        // please look into the config/config.php for much more info on how to use this!
-        // use SMTP or use mail()
-        if (EMAIL_USE_SMTP) {
-            // Set mailer to use SMTP
-            $mail->IsSMTP();
-            //useful for debugging, shows full SMTP errors
-            //$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
-            // Enable SMTP authentication
-            $mail->SMTPAuth = EMAIL_SMTP_AUTH;
-            // Enable encryption, usually SSL/TLS
-            if (defined(EMAIL_SMTP_ENCRYPTION)) {
-                $mail->SMTPSecure = EMAIL_SMTP_ENCRYPTION;
-            }
-            // Specify host server
-            $mail->Host = EMAIL_SMTP_HOST;
-            $mail->Username = EMAIL_SMTP_USERNAME;
-            $mail->Password = EMAIL_SMTP_PASSWORD;
-            $mail->Port = EMAIL_SMTP_PORT;
-        } else {
-            $mail->IsMail();
-        }
-
-        
-        $mail->From = EMAIL_PASSWORDRESET_FROM;
-        $mail->FromName = EMAIL_PASSWORDRESET_FROM_NAME;
-        $mail->AddAddress($user_email);
-        $mail->Subject = NOTIFICATION_VALIDATE_SUBJECT;
-        
-
-        $benutzername = "\n\n Benutzername: " . $user_name;
-
-        $mail->Body = NOTIFICATION_CONTENT . '' . $benutzername;
-
-        if(!$mail->Send()) {
-            $this->errors[] = MESSAGE_PASSWORD_RESET_MAIL_FAILED . $mail->ErrorInfo;
-            return false;
-        } else {
-            return true;
-        }
-    }
 }
