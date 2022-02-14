@@ -35,19 +35,19 @@ class Registration
         }
         else if(isset($_GET["Validation"]) || isset($_POST["reg"])) {
             $this->login = new Login();
-            //if($this->login->isUserLoggedIn() == true) {
-                //if(isUserEst($this->login->getlogin_connection()) == true) {
+            if($this->login->isUserLoggedIn() == true) {
+                if(isUserEst($this->login->getlogin_connection()) == true) {
                     if(isset($_POST["reg"])) {
                         $this->registerNewUserEst();
                     }
-                //}
-                //else {
-                  //  header("location: platinenindex.php");
-               // }
-            //}
-            //else {
-             //   header("location: index.php?Validation"); 
-           // }
+                }
+                else {
+                    header("location: platinenindex.php");
+                }
+            }
+            else {
+                header("location: index.php?Validation"); 
+            }
         }
 
     }
