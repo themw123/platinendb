@@ -5,7 +5,10 @@ styles für platinenindex.php (view: logged_in.php)
 body,html {
   height: 100%;
   zoom: 75%;
+  /*
+  musste weg für fixed headers plugin
   overflow: auto!important;
+  */
 }
 
 
@@ -85,6 +88,7 @@ h2 {
   max-width: 100%;
   margin-bottom: 20px;
 }
+
 
 .table.text-center.table-hover tr{
   cursor: pointer;
@@ -1091,3 +1095,5 @@ testdaten haken farbe
       .link-primary {
         color: #005ea9;
       }
+
+  

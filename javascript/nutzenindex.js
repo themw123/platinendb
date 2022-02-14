@@ -19,7 +19,10 @@ $(document).ready(function(){
     
       liveAjax: true,
     
+      fixedHeader: true,
     
+      //fixedColumns: true,
+      
       searchPanes: {
                 viewTotal: true,
                 controls: false,

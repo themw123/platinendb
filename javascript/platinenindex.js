@@ -21,12 +21,18 @@ var table = $('#tabelle1').DataTable({
 
   liveAjax: true,
 
+  fixedHeader: true,
+  
+  //fixedColumns: true,
+
+  //"scrollY": "600px",
   
   searchPanes: {
             viewTotal: true,
             controls: false,
             columns: [3]
-        },
+  },
+
 
 
   language: {
@@ -61,13 +67,10 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
      "stateSave": true, "scrollX": true,  "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "alle"]] , "info": false, "order":[],
      
-          "columnDefs": [{ 
-          
-    
-          
-            
+          "columnDefs": [
+  
+          { 
           "targets": [3],
-
           searchPanes:{
                 options:[
                     {
@@ -87,15 +90,13 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
            
           },
 
-          
-
-
+        
           { 
          "targets": [0] ,
          "data": null,
          "className": "ohnedetail",
          "defaultContent": "<i class='fa fa-edit iconx' id='iconklasse2'></i><i class='fa fa-trash-alt iconx' id='iconklasse'></i> <i class='fas fa-download ohnedetail' id='iconklasse4'></i>   <i class='fas fa-exclamation-triangle ohnedetail' id='iconklasse33'></i>"
-         },
+        },
 
          {
           "targets": [15,16,17,18,19,20,21,22],
@@ -252,8 +253,6 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
 
 });
-
-
 
 
 

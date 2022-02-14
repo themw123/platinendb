@@ -22,6 +22,8 @@
     <link href="plugins/datatable/searchpanes/SearchPanes-1.2.1/css/searchPanes.bootstrap4.min.css" rel="stylesheet" type="text/css">
     <link href="plugins/datatable/select/Select-1.3.1/css/select.dataTables.min.css" rel="stylesheet" type="text/css">
 
+    <link href="plugins/fixedHeaders/datatables.min.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="plugins/fixedColumns/datatables.min.css" rel="stylesheet" type="text/css"/>-->
 
     <link href="styles/platinenundnutzenindex.css" rel="stylesheet" type="text/css">
  
@@ -166,6 +168,9 @@ else {
 
 
     <script src="plugins/dataTables.liveAjax.js" language="JavaScript"></script>
+
+    <script src="plugins/fixedHeaders/datatables.min.js" type="text/javascript"></script>
+    <!--<script src="plugins/fixedColumns/datatables.min.js" type="text/javascript"></script>-->
 
     <script src="javascript/nutzenindex.js"></script>
    
