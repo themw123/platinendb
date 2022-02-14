@@ -1,4 +1,4 @@
-
+//# sourceURL=formEditor.js
 //Wenn Bei Nutzen oder Platine auf add Bearbeiter bzw Auftraggeber geklickt wird
 $(document).ready(function(){ 
 
@@ -175,13 +175,19 @@ $('#rem').on( 'click', function () {
                 $('#collapse'+col).collapse("hide");
               }
               else {
-                if(error.indexOf("foreign") >= 0) {
-                  document.getElementById("fehleraddbenutzer").innerHTML="Der Auftraggeber ist bereits einer Platine zugewiesen.";
+                if(zustand == "nichtest") {
+                  document.getElementById("fehleraddbenutzer").innerHTML="EST kann nicht gelöscht werden.";
                 }
                 else {
-                  document.getElementById("fehleraddbenutzer").innerHTML="Datenbankfehler: " + error;
+                  if(error.indexOf("foreign") >= 0) {
+                    document.getElementById("fehleraddbenutzer").innerHTML="Der Auftraggeber ist bereits einer Platine zugewiesen.";
+                  }
+                  else {
+                    document.getElementById("fehleraddbenutzer").innerHTML="Datenbankfehler: " + error;
+                  }
                 }
                 $('#fehleraddbenutzer').show();
+
               }
       } 
     });

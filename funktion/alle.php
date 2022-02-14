@@ -762,9 +762,8 @@ echo "
 	  	<td>
 		"; 
 		if (isUserEst ($login_connection) == true) { 
-			echo 'Admin';
+				echo 'Admin';
 			}
-			
 			else { 
 			  echo 'Standardbenutzer';
 		}

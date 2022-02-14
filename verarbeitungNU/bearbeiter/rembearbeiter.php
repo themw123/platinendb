@@ -24,11 +24,17 @@ $bestanden = $sicherheit->ergebnis();
 if($bestanden == true) {
   
       $bearbeiter = mysqli_real_escape_string($platinendb_connection, $_POST['Text']);
+
+      if($bearbeiter == "est") {
+        header('Content-Type: application/json');
+        echo json_encode(array('data'=> 'nichtest'));
+        die();
+      }
+
       $bearbeiter2query = "SELECT ID FROM bearbeiter WHERE BearbeiterName='$bearbeiter'"; 
       $bearbeiterid =  mysqli_query($platinendb_connection, $bearbeiter2query);
       $Bearbeiter = mysqli_fetch_assoc($bearbeiterid ); 
       $BearbeiterId = $Bearbeiter['ID'];
-
 
 
       $del = "DELETE FROM bearbeiter WHERE id=$BearbeiterId";

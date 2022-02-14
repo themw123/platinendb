@@ -2,7 +2,7 @@
 
 
 // modal Benutzerinformationen zur verfügung stellen
-modal1($link);
+modal1($login_connection);
 
 
 // modal detail zur verfügung stellen

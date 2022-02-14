@@ -25,6 +25,14 @@ $bestanden = $sicherheit->ergebnis();
 if($bestanden == true) {
   
       $auftraggeber = mysqli_real_escape_string($login_connection, $_POST['Text']);
+
+      
+      if($auftraggeber == "est") {
+        header('Content-Type: application/json');
+        echo json_encode(array('data'=> 'nichtest'));
+        die();
+      }
+
       $auftraggeber2query = "SELECT user_id FROM users WHERE user_name='$auftraggeber'"; 
       $auftraggeberid =  mysqli_query($login_connection, $auftraggeber2query);
       $Auftraggeber = mysqli_fetch_assoc($auftraggeberid ); 

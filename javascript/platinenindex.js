@@ -25,7 +25,7 @@ var table = $('#tabelle1').DataTable({
   
   //fixedColumns: true,
 
-  //"scrollY": "600px",
+  //"scrollY": "800px",
   
   searchPanes: {
             viewTotal: true,
