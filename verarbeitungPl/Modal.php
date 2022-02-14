@@ -113,14 +113,24 @@ if($bestanden == true) {
         <input type='hidden' class='form-control' id='auftraggeber' name='Auftraggeber' value='$auftraggeber' required>
         </div>
         -->
+        ";
 
+        if(!isUserEst($platinendb_connection)) {
+          $output .= "
+          <div class='form-group'>
+          <label for='usr'>Anleitung:</label>
+          <a target='_blank' href='https://homepage.ruhr-uni-bochum.de/tobias.solowjew/Share/Plakat.pdf' class='link-primary'>Designregeln, maximale Leiterplattengröße und Lagenaufbau beachten! (Link)</a>
+          </div>
+          ";
+        }
 
-
+        $output .= "
         <div class='form-group'>
         <label for='usr'>Name:</label>
         <input type='text' class='form-control' id='name' name='Name' required>
         </div>
         ";
+        
 
         if(isUserEst($platinendb_connection) == true) {
           $output .= "

@@ -29,7 +29,7 @@ $(document).ready(function(){
               }
 
               if(aktionx.includes("hinzufügen")) {
-                $('select option:contains("est")').prop('selected',true);
+                $('select option[value="est"]').prop('selected',true);
               } 
       } 
     });

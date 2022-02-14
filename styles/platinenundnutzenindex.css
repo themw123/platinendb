@@ -1087,3 +1087,7 @@ testdaten haken farbe
       #iconklasse4:hover {
         color: #0000cc;
       }
+
+      .link-primary {
+        color: #005ea9;
+      }
