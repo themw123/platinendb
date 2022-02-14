@@ -1,3 +1,4 @@
+//# sourceURL=formEditor.js
 
 //Wenn Bei Nutzen oder Platine auf add Bearbeiter bzw Auftraggeber geklickt wird
 $(document).ready(function(){ 
@@ -20,12 +21,15 @@ $(document).ready(function(){
           success: function(response){
             
               $("#"+aktion).empty();
-              $("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');
+              $("#"+aktion).append('<option value="est">est</option>');
+              //$("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');
               
 
               for(var i=0; i<response.length; i++){
                   name = response[i];
-                  $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')
+                  if(name != "est") {
+                    $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')
+                  }
               }
 
               if(aktionx.includes("hinzufügen")) {
@@ -66,9 +70,12 @@ function refresh1() {
 
           $("#"+aktion).empty();
           $("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');
+          $("#"+aktion).append('<option value="est">est</option>');
           for(var i=0; i<response.length; i++){
               name = response[i];
-              $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')
+              if(name != "est") {
+                $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')
+              }
           }
     } 
   });
@@ -148,40 +155,40 @@ $('#rem').on( 'click', function () {
 
   var Objekt = document.getElementById(aktion);
   var Text = Objekt.options[Objekt.selectedIndex].text;
-  var index = Objekt.options[Objekt.selectedIndex].index;
+  //var index = Objekt.options[Objekt.selectedIndex].index;
 
 
-  if (index != 0) {
-  $("#rem").attr("disabled", true);
-  $.ajax({  
-        url:"verarbeitung"+ziel+"/"+aktion+"/rem"+aktion+".php",  
-        method:"post",
-        data:{Text:Text, aktion:aktion},
-        dataType: 'JSON',
-        success: function(data){
+  if (Text != "Option wählen") {
+    $("#rem").attr("disabled", true);
+    $.ajax({  
+          url:"verarbeitung"+ziel+"/"+aktion+"/rem"+aktion+".php",  
+          method:"post",
+          data:{Text:Text, aktion:aktion},
+          dataType: 'JSON',
+          success: function(data){
 
-            var zustand = data.data; 
-            var error = data.error;
-            if(zustand == "erfolgreich") {
-              Objekt.remove(Objekt.selectedIndex);
-              Objekt.selectedIndex = "0";
-              refresh1();
-              $('#collapse'+col).collapse("hide");
-            }
-            else {
-              if(error.indexOf("foreign") >= 0) {
-                document.getElementById("fehleraddbenutzer").innerHTML="Der Auftraggeber ist bereits einer Platine zugewiesen.";
+              var zustand = data.data; 
+              var error = data.error;
+              if(zustand == "erfolgreich") {
+                Objekt.remove(Objekt.selectedIndex);
+                Objekt.selectedIndex = "0";
+                refresh1();
+                $('#collapse'+col).collapse("hide");
               }
               else {
-                document.getElementById("fehleraddbenutzer").innerHTML="Datenbankfehler: " + error;
+                if(error.indexOf("foreign") >= 0) {
+                  document.getElementById("fehleraddbenutzer").innerHTML="Der Auftraggeber ist bereits einer Platine zugewiesen.";
+                }
+                else {
+                  document.getElementById("fehleraddbenutzer").innerHTML="Datenbankfehler: " + error;
+                }
+                $('#fehleraddbenutzer').show();
               }
-              $('#fehleraddbenutzer').show();
-            }
-    } 
-  });
-  setTimeout(function(){
-    $("#rem").attr("disabled", false);
-}, 500);
+      } 
+    });
+    setTimeout(function(){
+      $("#rem").attr("disabled", false);
+  }, 500);
 }
   
 
