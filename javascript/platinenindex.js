@@ -515,9 +515,8 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
 
 
                       window.setTimeout(function() {
-                       $(".alertm").fadeTo(500, 0).slideUp(500, function(){
-                       $(this).remove();
-                      });  
+                        $(".alertm").fadeTo(500, 0);
+                        $(this).remove();
                       }, 5000);
 
                       setTimeout(function(){

@@ -183,11 +183,11 @@ function dostuff() {
                   
               window.setTimeout(function() {
                 $(".alertm").fadeTo(500, 0);
-                  $(this).remove();
-                  /*
-                  var table = $('#tabelle1').DataTable();
-                  table.fixedHeader.headerOffset(0);
-                  */
+                $(this).remove();
+                /*
+                var table = $('#tabelle1').DataTable();
+                table.fixedHeader.headerOffset(0);
+                */
               }, 5000);
 
 

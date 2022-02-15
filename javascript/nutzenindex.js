@@ -617,9 +617,8 @@ $(document).ready(function(){
                           }
 
                           window.setTimeout(function() {
-                           $(".alertm").fadeTo(500, 0).slideUp(500, function(){
-                           $(this).remove();
-                          });  
+                            $(".alertm").fadeTo(500, 0);
+                            $(this).remove();
                           }, 5000);
     
                           setTimeout(function(){
