@@ -16,8 +16,10 @@ modal3();
 // modal Legende zur verfügung stellen
 modal4($currentpage);
 
-echo'<div class="container-fluid">';
-echo'<center><div id="result"></div></center>';
+echo'<div class="container-fluid sticky-top">';
+echo'<center><div class="sticky-top" id="result">
+<div class="alert alert-success alertm" style="visibility:hidden">Platzhalter</div>
+</div></center>';
 echo'</div>';
 
 echo'<div class="container-fluid">';

@@ -693,6 +693,29 @@ $(document).ready(function(){
     
     //weitere eigene functionen
 
+
+    window.onscroll = function() {
+      if($(".alertm").is(":visible")) {
+        scrollFunction()
+      }
+    };
+    
+    function scrollFunction() {
+      if (document.body.scrollTop > 350 || document.documentElement.scrollTop > 350) {
+        $('.alertm').css("top", "50px");
+        /*
+        if($(".alertm").is(":visible")) {
+          var table = $('#tabelle1').DataTable();
+          table.fixedHeader.headerOffset(49);
+        }
+        */
+      } else {
+        $('.alertm').css("top", "0px");
+        //$('.alertm').css("color", "green");
+      }
+    }
+
+    
     //damit modal Hintergründe noch stimmen wenn zwei geöffnet werden
     $(document).on('show.bs.modal', '.modal', function (event) {
       var zIndex = 1040 + (10 * $('.modal:visible').length);

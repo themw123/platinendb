@@ -258,9 +258,6 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
 
 
-
-
-
 //wenn reihe geklickt wird und klasse nicht ohnedetail ist, dann schick id von reihe an details.php und öffne detail modal
 //außerdem wiederhole ajax anfrage alle 5 sek, solange modal geöffnet ist
 //versehentliche klicks auf zwei verschiedene Reihen schnell nacheinander mit einbezogen
@@ -639,6 +636,28 @@ table.searchPanes.container().insertAfter('#leiste').addClass('collapse').attr("
 
 
 //weitere eigene functionen
+
+
+window.onscroll = function() {
+  if($(".alertm").is(":visible")) {
+    scrollFunction()
+  }
+};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 350 || document.documentElement.scrollTop > 350) {
+    $('.alertm').css("top", "50px");
+    /*
+    if($(".alertm").is(":visible")) {
+      var table = $('#tabelle1').DataTable();
+      table.fixedHeader.headerOffset(49);
+    }
+    */
+  } else {
+    $('.alertm').css("top", "0px");
+    //$('.alertm').css("color", "green");
+  }
+}
 
 //wenn um edit und bearbeiten geklickt wird, markierung bzw. auswahl der reihe verhindern
 $(document).on('click','td.ohnedetail',function(event){

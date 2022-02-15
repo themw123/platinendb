@@ -3,11 +3,12 @@ styles für platinenindex.php (view: logged_in.php)
 */
 
 body,html {
-  height: 100%;
+  
   zoom: 75%;
   /*
   musste weg für fixed headers plugin
   overflow: auto!important;
+  high:100%
   */
 }
 
@@ -15,7 +16,7 @@ body,html {
 h2 {
   text-align: center;
   line-height: 129px; 
-  height: 120px;
+  height: 80px;
 }
 
 
@@ -1095,4 +1096,6 @@ testdaten haken farbe
       .link-primary {
         color: #005ea9;
       }
+  
 
+  

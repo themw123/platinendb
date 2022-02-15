@@ -1,3 +1,5 @@
+//# sourceURL=formEditor.js
+
 $(function(){
     $('#edit').submit(function(event){
       event.preventDefault();  
@@ -180,10 +182,15 @@ function dostuff() {
               }
                   
               window.setTimeout(function() {
-              $(".alertm").fadeTo(500, 0).slideUp(500, function(){
-              $(this).remove();
-              });  
+                $(".alertm").fadeTo(500, 0);
+                  $(this).remove();
+                  /*
+                  var table = $('#tabelle1').DataTable();
+                  table.fixedHeader.headerOffset(0);
+                  */
               }, 5000);
+
+
 
               setTimeout(function(){
               table = $(tabelle1).dataTable();
