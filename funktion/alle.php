@@ -438,7 +438,7 @@ function isOnNutzen($id, $platinendb_connection) {
 }
 
 
-function ueberfuehren($id, $Anzahl, $Material_ID, $Endkupfer, $Staerke, $Lagen, $platinendb_connection) {
+function ueberfuehren($id, $Anzahl, $Bearbeiter, $Material_ID, $Endkupfer, $Staerke, $Lagen, $platinendb_connection) {
 	//Neuen Nutzen anlegen
 	
 	$nr = "select max(Nr)+1 as Nr from nutzen";
@@ -449,6 +449,7 @@ function ueberfuehren($id, $Anzahl, $Material_ID, $Endkupfer, $Staerke, $Lagen, 
 		$nr = 1;
 	}
 
+	/*
 	//Bearbeiter ermitteln
 	$bearbeiter = "select bearbeiterName from bearbeiter";
 	$bearbeiter = mysqli_query($platinendb_connection,$bearbeiter);
@@ -473,13 +474,18 @@ function ueberfuehren($id, $Anzahl, $Material_ID, $Endkupfer, $Staerke, $Lagen, 
 		$estId = mysqli_fetch_array($estId);
 		$estId = $estId['ID'];
 	}
+	*/
 
+	$bearbeiterId = "select ID from bearbeiter where BearbeiterName = '$Bearbeiter'";
+	$bearbeiterId = mysqli_query($platinendb_connection,$bearbeiterId);
+	$bearbeiterId = mysqli_fetch_array($bearbeiterId);
+	$bearbeiterId = $bearbeiterId['ID'];
 
 	//Datum
 	$Erstellt = date('Y-m-d H:i:s', time());
 
 	//Nutzen anlegen
-	$nutzen = "INSERT INTO nutzen (Nr, Bearbeiter_ID, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Datum, intoderext, Status1, Testdaten, Datum1, Kommentar) VALUES ('$nr', '$estId', '$Material_ID', '$Endkupfer', '$Staerke', '$Lagen', 'individuell', '$Erstellt', 'ext', 'Fertigung', '0', '$Erstellt', '')";
+	$nutzen = "INSERT INTO nutzen (Nr, Bearbeiter_ID, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Datum, intoderext, Status1, Testdaten, Datum1, Kommentar) VALUES ('$nr', '$bearbeiterId', '$Material_ID', '$Endkupfer', '$Staerke', '$Lagen', 'individuell', '$Erstellt', 'ext', 'Fertigung', '0', '$Erstellt', '')";
 	mysqli_query($platinendb_connection, $nutzen);
 
 

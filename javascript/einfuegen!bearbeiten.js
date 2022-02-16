@@ -302,7 +302,8 @@ if(aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
     $("#uploadfeld").prop('required',true);
   }
 
-  $('#button8').css('margin-top','112px');
+  //$('#button8').css('margin-top','112px');
+
           //upload überpruefen
           $('#uploadfeld').change(function () {
             var input = event.target;
@@ -324,6 +325,22 @@ if(aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
             remUploadData("Es wurde keine rar oder zip Datei ausgewählt.");
            }
         });  
+
+}
+
+if(aktion == "modalbearbeiten" && aktionx.includes("Platine")) {
+
+  $('#checkbox-3').change(function() {
+    if(this.checked) {
+      $('#bearbeiter').attr("required", true);
+      //$('.fertigungcheck').css('margin-bottom', '0rem');
+    }
+    else {
+      $('#bearbeiter').attr("required", false);
+      //$('.fertigungcheck').css('margin-bottom', '1rem');
+    }
+
+  });
 
 }
 

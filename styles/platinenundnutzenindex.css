@@ -696,11 +696,11 @@ testdaten haken farbe
 
 
 
-
+/*
 #bearbeiter {
   -webkit-appearance: none;
 }
-
+*/
 #bearbeiterbutton {
   color: #005ea9;
   font-size: 18px;
@@ -1097,5 +1097,14 @@ testdaten haken farbe
         color: #005ea9;
       }
   
+      #form-group-bearbeiter {
+        margin-top: -7px
+      }
 
-  
+      #alertcontainer{
+        margin-right: 0px!important;
+      }
+
+      #result{
+        padding-right: 0px!important;
+      }
