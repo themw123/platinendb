@@ -441,7 +441,7 @@ modal button anpassen
   display: flex !important;
   align-items: center;
   justify-content: center;
-  margin-left: -8px!important;
+  margin-left: -19px!important;
 }
 
 
@@ -919,7 +919,7 @@ testdaten haken farbe
     }
 
 
-
+    /*
     @media screen and (max-width: 3000px) {
       .bootbox {
         margin-left: 0px;
@@ -929,11 +929,12 @@ testdaten haken farbe
 
     @media screen and (max-width: 577px) {
       .bootbox {
-        margin-left: -1px!important;
+        margin-left: -9px !important;
         
       }
     }
-
+    */  
+    
     .alert {
       display: flex;
       justify-content: center;
@@ -1108,3 +1109,4 @@ testdaten haken farbe
       #result{
         padding-right: 0px!important;
       }
+
