@@ -160,13 +160,13 @@ if($bestanden == true) {
 
             $platinen = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, Downloads_ID, ignorieren) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', '$maxid', '0')";
 
+            mysqli_query($platinendb_connection, $downloads);
+
           }
           else {
             $platinen = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, Downloads_ID, ignorieren) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', null, '0')";
           }
-
-
-          mysqli_query($platinendb_connection, $downloads);
+          
 
           mysqli_query($platinendb_connection, $platinen);
 
