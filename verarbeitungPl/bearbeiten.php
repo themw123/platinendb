@@ -120,7 +120,6 @@ if($bestanden == true) {
         
           
           
-        
           /*
           Inputs auslesen Kommentar
           */
