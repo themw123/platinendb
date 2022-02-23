@@ -79,14 +79,15 @@ echo'<table id="tabelle1"  style="width:100%" class="table text-center table-hov
 		echo'<th>erstellt</th>';
 		echo'<th>Wunschdatum</th>';
 		echo'<th>Kommentar</th>';
-		echo'<th>ignorieren</th>';
-		echo'<th>downloads1or0</th>';
-
-		echo'<th>statusNeu</th>';
-		echo'<th>statusFertigung</th>'; 
-		echo'<th>abgeschlossenPost</th>';
-		echo'<th>abgeschlossenFertigung</th>';
 		
+		echo'<th>Status</th>';
+		echo'<th>ignorieren</th>';
+		echo'<th>abgeschlossenPost</th>';
+		echo'<th>10Tage</th>';
+		echo'<th>14Tage</th>';
+		echo'<th>dringlichkeitPost</th>';
+		echo'<th>abgeschlossenFertigung</th>';
+		echo'<th>downloads1or0</th>';
 
 		echo'</thead>';
 		echo'</table>';	
