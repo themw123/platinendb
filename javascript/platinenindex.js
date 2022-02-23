@@ -9,6 +9,13 @@ $.fn.dataTable.moment( 'DD-MM-YYYY' );
 var table = $('#tabelle1').DataTable({
 
   
+  "processing": true,
+  "serverSide": true,
+  "ajax": {
+    "url": "verarbeitungPl/serverside.php",
+    "type": "POST"
+  },
+  /*
 					"ajax":{
 						url :"verarbeitungPl/platinen.php", // json datasource
 						type: "post",  // method  , by default get 
@@ -16,10 +23,10 @@ var table = $('#tabelle1').DataTable({
             error: function(){  // error handling
               $(".tabelle1-error").html("");
             }
-					},
+					}, 
+  */
 
-
-  liveAjax: true,
+  //liveAjax: true,
 
   fixedHeader: true,
   
@@ -65,7 +72,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
        }
      },
 
-     "stateSave": true, "scrollX": true,  "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "alle"]] , "info": false, "order":[],
+     "stateSave": true, "scrollX": true,  /*"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "alle"]]*/ "lengthMenu": [10, 25, 50, 100, 1000] , "info": false, "order":[],
      
           "columnDefs": [
   
@@ -82,7 +89,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                     {
                       label: 'ignorierte',
                       value: function(rowData, rowIdx) {
-                          return rowData[16] == 1;
+                          return rowData[15] == 1;
                       }
                   }
                 ]
@@ -99,7 +106,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
         },
 
          {
-          "targets": [15,16,17,18,19,20,21,22],
+          "targets": [15,16,17,18,19,20],
           "visible": false
          },
 
@@ -111,6 +118,9 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
             //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
             if(est == "ja") {
 
+
+
+              /*
               $(row).find('i:nth-child(3)').css("display", "inline");
               $(row).find('i:nth-child(4)').css("display", "inline");
 
@@ -148,7 +158,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
               }
 
 
-
+              */
 
             }
             
@@ -221,10 +231,16 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
           
         if(pausieren == true) {
-          //live pausieren
-          setTimeout(function(){
-            table.api().liveAjax.pause();
-          }, 1000) 
+          try {
+            //live pausieren
+            setTimeout(function(){
+              table.api().liveAjax.pause();
+            }, 1000)
+          }
+          catch (e) {
+            // Anweisungen für jeden Fehler
+            //logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
+          } 
         }
 
         //tabellencontainerladen, weil in css display:none;, damit nicht vor datne da sind geladen wird
@@ -332,8 +348,16 @@ $('#tabelle1 tbody').on( 'click', 'td', function () {
 
   if ( !$(this).hasClass('ohnedetail') ) {
 
-    //platinen reload pausieren
-    table.api().liveAjax.pause();
+    try {
+      //live pausieren
+      setTimeout(function(){
+        table.api().liveAjax.pause();
+      }, 1000)
+    }
+    catch (e) {
+      // Anweisungen für jeden Fehler
+      //logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
+    } 
 
          
     Id = table.api().row($(this).closest('tr')).data()[0]; 
@@ -532,7 +556,16 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
 
                       $('#leer').hide().fadeIn(1000).html('<div class="alert alert-info leer2">Es sind keine Platinen vorhanden. Drücke auf das Plus-Symbol, um eine Platine hinzuzufügen.</div>');
 
-                      table.api().liveAjax.pause();
+                      try {
+                        //live pausieren
+                        setTimeout(function(){
+                          table.api().liveAjax.pause();
+                        }, 1000)
+                      }
+                      catch (e) {
+                        // Anweisungen für jeden Fehler
+                        //logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
+                      } 
 
                       var tabellecontainer = document.getElementById("tabellex");
                       tabellecontainer.style.visibility = "hidden"
@@ -637,6 +670,8 @@ table.searchPanes.container().insertAfter('#leiste').addClass('collapse').attr("
 //weitere eigene functionen
 
 
+
+
 window.onscroll = function() {
   if($(".alertm").is(":visible")) {
     scrollFunction()
@@ -688,8 +723,17 @@ $('#tabelle1').on('click', 'tr', function(event) {
     
   $(reihe).removeClass('klick');
   clearTimeout(timeOutId);
-  table.api().liveAjax.resume();
-  table.api().liveAjax.reload();
+  try {
+    //live pausieren
+    setTimeout(function(){
+      table.api().liveAjax.resume();
+      table.api().liveAjax.reload();
+    }, 1000)
+  }
+  catch (e) {
+    // Anweisungen für jeden Fehler
+    //logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
+  } 
   clicked = false; 
   picked = false; 
 

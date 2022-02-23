@@ -153,7 +153,17 @@ function dostuff() {
         success:function(data){
             
               $('#dataModal2').modal('hide');
-              $('#tabelle1').DataTable().liveAjax.reload(); 
+
+              try {
+                //live pausieren
+                setTimeout(function(){
+                  $('#tabelle1').DataTable().liveAjax.reload(); 
+                }, 1000)
+              }
+              catch (e) {
+                // Anweisungen für jeden Fehler
+                //logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
+              } 
 
               
               var zustand = data.data;
@@ -205,9 +215,17 @@ function dostuff() {
                     if ( ! table.api().data().any() ) {
                     setTimeout(function() {
                       
-                    table.api().liveAjax.resume(); 
-                        
-                    table.api().liveAjax.reload();   
+                    try {
+                      //live pausieren
+                      setTimeout(function(){
+                      table.api().liveAjax.resume();
+                      table.api().liveAjax.reload();
+                      }, 1000)
+                    }
+                    catch (e) {
+                      // Anweisungen für jeden Fehler
+                      //logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
+                    }    
 
                     filterknopf.style.visibility = "visible"
 
