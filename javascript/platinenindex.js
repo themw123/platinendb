@@ -30,7 +30,6 @@ var table = $('#tabelle1').DataTable({
 					},
   */
 
-  //liveAjax: true,
 
   fixedHeader: true,
   
@@ -252,19 +251,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
           }
 
           
-        if(pausieren == true) {
-          clearTimeout(timeOutId);
-          try {
-            //live pausieren
-            setTimeout(function(){
-              table.api().liveAjax.pause();
-            }, 1000)
-          }
-          catch (e) {
-            // Anweisungen für jeden Fehler
-            //logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
-          }
-        }
+
 
         //tabellencontainerladen, weil in css display:none;, damit nicht vor datne da sind geladen wird
         $("#tabellecontainer").show();
@@ -371,17 +358,7 @@ $('#tabelle1 tbody').on( 'click', 'td', function () {
 
   if ( !$(this).hasClass('ohnedetail') ) {
 
-    //platinen reload pausieren
-    try {
-      //live pausieren
-      setTimeout(function(){
-        table.api().liveAjax.pause();
-      }, 1000)
-    }
-    catch (e) {
-      // Anweisungen für jeden Fehler
-      //logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
-    }
+
          
     Id = table.api().row($(this).closest('tr')).data()[0]; 
     ziel = "platinen";
@@ -532,7 +509,12 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
                     data:{Id:Id, ziel:ziel, aktion:aktion},
                     success:function(data){  
 
-                      $('#tabelle1').DataTable().ajax.reload();
+                     
+                      table = $(tabelle1).dataTable();
+                      table.fnDraw(false);
+                 
+
+                      //$('#tabelle1').DataTable().ajax.reload();
                       var zustand = data.data; 
                       var error = data.error;
                       
@@ -566,11 +548,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
                         $(this).remove();
                       }, 5000);
 
-                      setTimeout(function(){
-                      table = $(tabelle1).dataTable();
-                      table.fnDraw(false);
-                      }, 6000);
-
+                      
 
                       //es wird geguckt ob tabelle leer ist, um dann darüber eine meldung auszugeben und tabellencontainer versteckt und live wird pausiert
                       setTimeout(function(){
@@ -579,16 +557,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
 
                       $('#leer').hide().fadeIn(1000).html('<div class="alert alert-info leer2">Es sind keine Platinen vorhanden. Drücke auf das Plus-Symbol, um eine Platine hinzuzufügen.</div>');
 
-                      try {
-                        //live pausieren
-                        setTimeout(function(){
-                          table.api().liveAjax.pause();
-                        }, 1000)
-                      }
-                      catch (e) {
-                        // Anweisungen für jeden Fehler
-                        //logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
-                      }
+
 
                       var tabellecontainer = document.getElementById("tabellex");
                       tabellecontainer.style.visibility = "hidden"
@@ -744,17 +713,7 @@ $('#tabelle1').on('click', 'tr', function(event) {
     
   $(reihe).removeClass('klick');
   clearTimeout(timeOutId);
-  try {
-    //live pausieren
-    setTimeout(function(){
-      table.api().liveAjax.resume();
-      table.api().liveAjax.reload();    
-    }, 1000)
-  }
-  catch (e) {
-    // Anweisungen für jeden Fehler
-    //logMyErrors(e); // Fehler-Objekt an die Error-Funktion geben
-  }
+
   clicked = false; 
   picked = false; 
 
