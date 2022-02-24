@@ -4,6 +4,9 @@ $(document).ready(function(){
 //Datumformat angeben, damit sorting funktioniert
 $.fn.dataTable.moment( 'DD-MM-YYYY' );
 
+var d = new Date();
+t1 = moment(d).format('YYYY-MM-DD');
+
 
 
 var table = $('#tabelle1').DataTable({
@@ -99,7 +102,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
         },
 
          {
-          "targets": [15,16,17,18,19,20,21,22],
+          "targets": [15,16,17,18,19],
           "visible": false
          },
 
@@ -111,10 +114,19 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
             //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
             if(est == "ja") {
 
+              var erstelltam = data[12].toString();
+              var t2 = erstelltam.split('-');
+              t2 = t2[2] + "-" + t2[1] + "-" + t2[0];
+
+              var start = moment(t2);      
+              var end = moment(t1);
+              $daysbetween = end.diff(start, "days");
+
+
               $(row).find('i:nth-child(3)').css("display", "inline");
               $(row).find('i:nth-child(4)').css("display", "inline");
 
-              if(data[21] == 0) {
+              if(data[18] == 0) {
                 $(row).find('i:nth-child(3)').css("visibility", "visible");
               }
 
@@ -125,17 +137,25 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                 $(row).attr('id', 'blue');
 
                 if(data[16] == 0) {
+                  if($daysbetween > 15) {
+                    $(row).find('i:nth-child(4)').addClass("red").css("opacity", 1);
+                  }
+                  else if($daysbetween > 10) {
+                    $(row).find('i:nth-child(4)').addClass("orange").css("opacity", 1);
+                  }
+                  /*
                   if(data[20] == 2) {
                     $(row).find('i:nth-child(4)').addClass("red").css("opacity", 1);
                   }
                   else if(data[20] == 1) {
                     $(row).find('i:nth-child(4)').addClass("orange").css("opacity", 1);
                   }
+                  */
                 }
 
               }
               else {
-                if(data[21] == 0) {
+                if(data[18] == 0) {
                   $(row).attr('id', 'orange');
                 }
                 else {
@@ -143,7 +163,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                 }
               }
 
-              if(data[22] == 0) {
+              if(data[19] == 0) {
                 $(row).find('i:nth-child(3)').addClass("grey").prop('disabled', true);
               }
 

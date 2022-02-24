@@ -64,7 +64,7 @@ if($bestanden == true) {
          $output = '';   
          $query = "SELECT ID, Name, user_name, erstelltam, ausstehend, ignorieren  FROM detailplatineadd WHERE MaterialName = '$MaterialName' AND Endkupfer = '$EndkupferName' AND Staerke = '$StaerkeZahl' AND Lagen = '$LagenAnzahl' AND (ausstehend <0 OR ausstehend >0) AND ignorieren = 0"; 
          $add = mysqli_query($platinendb_connection, $query);  
-
+         //zu groß
 
          $query2 = "SELECT Platinen_ID FROM nutzenplatinen WHERE Nutzen_ID = '$id'"; 
          $platinenaufnutzen = mysqli_query($platinendb_connection, $query2);  
@@ -153,6 +153,7 @@ if($bestanden == true) {
 
           //Platinen zum hinzufügen holen
           $query3 = "SELECT ID, NAME, user_name, erstelltam, ausstehend, dringlichkeitPost  FROM detailplatineadd $WhereAnweisung"; 
+          //SEHR langsam bei vielen Platinen 
           $finalquery = mysqli_query($platinendb_connection, $query3);  
 
      
