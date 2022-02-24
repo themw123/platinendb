@@ -76,7 +76,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
        }
      },
 
-     "stateSave": true, "scrollX": true,  /*"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "alle"]]*/ "lengthMenu": [10, 25, 50, 100, 1000], "info": false, "order":[],
+     "stateSave": true, "scrollX": true,  /*"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "alle"]]*/ "lengthMenu": [10, 25, 50, 100, 1000], "info": false, "order": [],
      
           "columnDefs": [
   
@@ -109,12 +109,14 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
          "defaultContent": "<i class='fa fa-edit iconx' id='iconklasse2'></i><i class='fa fa-trash-alt iconx' id='iconklasse'></i> <i class='fas fa-download ohnedetail' id='iconklasse4'></i>   <i class='fas fa-exclamation-triangle ohnedetail' id='iconklasse33'></i>"
         },
         
+        /*
+        muss aus bei serverside
          {
           "targets": [15,16,17,18,19],
           "visible": false
          },
-         
-          ], 
+        */ 
+        ], 
 
 
         
@@ -197,6 +199,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
 //"initComplete": function(){ = wenn tabelle vollständig geladen ist
 "initComplete": function(data){
+
 
     //ajax antwort überprüfen
     var zustand = data.json.data[1];

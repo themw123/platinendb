@@ -81,12 +81,13 @@ echo'<table id="tabelle1"  style="width:100%" class="table text-center table-hov
 		echo'<th>Wunschdatum</th>';
 		echo'<th>Kommentar</th>';
 
-		echo'<th>Status</th>';
-		echo'<th>ignorieren</th>';
-		echo'<th>abgeschlossenPost</th>';
-		echo'<th>abgeschlossenFertigung</th>';
-		echo'<th>downloads1or0</th>';
-
+		if (isUserEst($platinendb_connection) == true) {
+			echo'<th>Status</th>';
+			echo'<th>ignorieren</th>';
+			echo'<th>abgeschlossenPost</th>';
+			echo'<th>abgeschlossenFertigung</th>';
+			echo'<th>downloads1or0</th>';
+		}
 		
 
 

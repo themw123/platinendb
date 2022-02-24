@@ -37,26 +37,43 @@ $bestanden = $sicherheit->ergebnis();
 
 if($bestanden == true) {
     
-    
-    // DB table to use
-    $table = 'plviewestmirror';
-    
-    $order = "   
-    order by
 
-    abgeschlossenPost asc,
 
-    abgeschlossenFertigung asc,
+    if (isUserEst($platinendb_connection) == true) {
+        // DB table to use
+        $table = 'plviewestmirror';
+        
+        $myOrder = "   
+        ORDER BY
+        abgeschlossenPost asc,
 
-    ignorieren asc,
+        abgeschlossenFertigung asc,
 
-    case when (abgeschlossenFertigung) = 1 then 
-    (erstelltam)
-    end desc,
+        ignorieren asc,
 
-    erstelltam asc
-    ";
-    
+        case when (abgeschlossenFertigung) = 1 then 
+        (erstelltam)
+        end desc,
+
+        erstelltam asc
+        ";
+    }
+    else {
+        //für where anweisung in abfrage
+	    $auftraggeber1 = mysqli_real_escape_string($platinendb_connection, $_SESSION['user_name']);
+
+        // DB table to use
+        $table = 'plviewmirror';
+        
+        $myOrder = "   
+        ORDER BY
+        erstelltam desc
+        ";
+
+        $whereResult = "Auftraggeber = '$auftraggeber1'";
+    }
+
+   
 
     // Table's primary key
     $primaryKey = 'ID';
@@ -96,15 +113,17 @@ if($bestanden == true) {
         ),
         array( 'db' => 'Kommentar', 'dt' => 14 ),
 
-        array( 'db' => 'Status', 'dt' => 15 ),
-        array( 'db' => 'ignorieren', 'dt' => 16 ),
-        array( 'db' => 'abgeschlossenPost', 'dt' => 17 ),
-        array( 'db' => 'abgeschlossenFertigung', 'dt' => 18 ),
-        array( 'db' => 'downloads1or0', 'dt' => 19 )
-
-
     );
 
+    if (isUserEst($platinendb_connection) == true) {
+        array_push($columns,
+            array( 'db' => 'Status', 'dt' => 15 ),
+            array( 'db' => 'ignorieren', 'dt' => 16 ),
+            array( 'db' => 'abgeschlossenPost', 'dt' => 17 ),
+            array( 'db' => 'abgeschlossenFertigung', 'dt' => 18 ),
+            array( 'db' => 'downloads1or0', 'dt' => 19 )
+        );
+    }
 
     
     // SQL server connection information
@@ -123,7 +142,7 @@ if($bestanden == true) {
     require( '../libraries/ssp.class.php' );
     
     echo json_encode(
-        SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns, $order)
+        SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns, $whereResult, $whereAll, $myOrder)
     );
 
 }
