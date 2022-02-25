@@ -62,25 +62,29 @@ if($bestanden == true) {
 
 
          $output = '';   
-         $query = "SELECT ID, Name, user_name, erstelltam, ausstehend, ignorieren  FROM detailplatineadd WHERE MaterialName = '$MaterialName' AND Endkupfer = '$EndkupferName' AND Staerke = '$StaerkeZahl' AND Lagen = '$LagenAnzahl' AND (ausstehend <0 OR ausstehend >0) AND ignorieren = 0"; 
+         $query = "SELECT ID, Name, user_name, erstelltam, ausstehend FROM detailplatineadd WHERE MaterialName = '$MaterialName' AND Endkupfer = '$EndkupferName' AND Staerke = '$StaerkeZahl' AND Lagen = '$LagenAnzahl' AND (ausstehend <0 OR ausstehend >0) AND ignorieren = 0"; 
          $add = mysqli_query($platinendb_connection, $query);  
-         //zu groß
+
 
          $query2 = "SELECT Platinen_ID FROM nutzenplatinen WHERE Nutzen_ID = '$id'"; 
          $platinenaufnutzen = mysqli_query($platinendb_connection, $query2);  
 
 
-         //$einmal = mysqli_real_escape_string($link, $_POST['einmal']);
-         
-         
          
 
 
          $counter = 0;
          $arrayAdd = array();
+         $rowArray = array();
          if ($add->num_rows > 0) {
                while($row = $add->fetch_assoc())  {
-                    $arrayAdd[$counter] = $row["ID"];
+                    $rowArray[0] = $row["ID"];
+                    $rowArray[1] = $row["Name"];
+                    $rowArray[2] = $row["user_name"];
+                    $rowArray[3] = $row["erstelltam"];
+                    $rowArray[4] = $row["ausstehend"];
+
+                    $arrayAdd[$counter] = $rowArray;
                     $counter = $counter+1;
                }
          }
@@ -105,7 +109,7 @@ if($bestanden == true) {
           while($counter < count($arrayAdd)) {
                $hinzufuegen = true;
                while($counter2 < count($arrayAufNutzen)) {
-                    if($arrayAdd[$counter] == $arrayAufNutzen[$counter2]) { 
+                    if($arrayAdd[$counter][0] == $arrayAufNutzen[$counter2]) { 
                          $hinzufuegen = false;
                          break;
                     }
@@ -125,122 +129,88 @@ if($bestanden == true) {
 
 
 
-
-
-
-         if (count($platinenzumhinzufuegen) > 0) {
-
-          //Where Anweisung erstellen
-          $WhereAnweisung = " WHERE ID = ";
-          $counter = 0;
-          $warschondrin = false;
-          while ($counter < count($platinenzumhinzufuegen)) {
-               $idpl = $platinenzumhinzufuegen[$counter];
-               if($warschondrin == false) {
-                    $WhereAnweisung .= $idpl ;
-                    $warschondrin = true;
-               }
-
-               else {
-                    $WhereAnweisung .= " OR ID = " ;
-                    $WhereAnweisung .= $idpl;
-               }
-
-               $counter = $counter+1;
-
-          }
-
-
-          //Platinen zum hinzufügen holen
-          $query3 = "SELECT ID, NAME, user_name, erstelltam, ausstehend  FROM detailplatineadd $WhereAnweisung"; 
-          //SEHR langsam bei vielen Platinen 
-          $finalquery = mysqli_query($platinendb_connection, $query3);  
-
-     
-          $result = mysqli_query($platinendb_connection, $finalquery);
           $zustand = $sicherheit->checkQuery2($platinendb_connection);
           mysqli_close($platinendb_connection); 
-          mysqli_close($login_connection);  
+          mysqli_close($login_connection); 
 
-          if($zustand == "erfolgreich") {
-
-
-                    $output .= '  
-
-                    
-                    <div class="table-responsive">
           
-                    <table id="tabelle3" class="table text-center table-hover border">
+         if (count($platinenzumhinzufuegen) > 0) { 
 
-                    <thead class="thead-light">
-                    <th>Aktion</th>
-                    <th>Name</th>
-                    <th>Auftraggeber</th>
-                    <th>erstellt</th>
-                    <th>Ausstehend</th>
-                    </thead>
+               if($zustand == "erfolgreich") {
+
+
+                         $output .= '  
+
                          
-                    <tbody>
-                    ';
+                         <div class="table-responsive">
+               
+                         <table id="tabelle3" class="table text-center table-hover border">
+
+                         <thead class="thead-light">
+                         <th>Aktion</th>
+                         <th>Name</th>
+                         <th>Auftraggeber</th>
+                         <th>erstellt</th>
+                         <th>Ausstehend</th>
+                         </thead>
+                              
+                         <tbody>
+                         ';
 
 
-                    while($row = $finalquery->fetch_assoc())  {
+                         $counter = count($platinenzumhinzufuegen);
+                         for ($i = 0; $i < $counter; $i++) {
+     
+                              $creation_time = date('d-m-Y', strtotime($platinenzumhinzufuegen[$i][3]));
 
+                              $output .= '  
 
+                              <tr>  
 
+                              <td>
+                              <a id= '.$platinenzumhinzufuegen[$i][0].'></i>
+                              <i class="fas fa-plus-circle iconx" id="iconklasse5"></i>
+                              <i class="fas fa-exclamation-triangle" id="iconklasse3"></i>
+                              </td>
 
+                              <td> '.$platinenzumhinzufuegen[$i][1].'</td>
+                              <td> '.$platinenzumhinzufuegen[$i][2].'</td>
+                              <td> '.$creation_time.'</td> 
+                              <td>' .$platinenzumhinzufuegen[$i][4].'</td>
+                              </tr>  
+                              ';     
+                         
+                         
+                         }
 
+                         $output .= "</table>
 
-                    $creation_time = date('d-m-Y', strtotime($row['erstelltam']));
-
-                    $output .= '  
-
-                    <tr>  
-
-                    <td>
-                    <a id= '.$row["ID"].'></i>
-                    <i class="fas fa-plus-circle iconx" id="iconklasse5"></i>
-                    <i class="fas fa-exclamation-triangle" id="iconklasse3"></i>
-                    </td>
-
-                    <td> '.$row["NAME"].'</td>
-                    <td> '.$row["user_name"].'</td>
-                    <td> '.$creation_time.'</td> 
-                    <td>' .$row["ausstehend"].'</td>
-                    </tr>  
-                    ';     
+                         </div>
+                         <script>
+                         $('.anzahldiv').show();
+                         </script>
+                         ";
+                         echo $output;
                     
 
                     }
+                    else {
+                         echo "
+                         </div>
+                         <script>
+                         $('.anzahldiv').hide();
+                         </script>
+                         ";
 
-                    $output .= "</table>
+                         echo'<div>';
+                    
+                         echo"
+                         <div class='alert alert-warning'> Datenbankfehler: $zustand 
+                         </div>";
+                    
+                         echo'</div>';
 
-                    </div>
-                    <script>
-                    $('.anzahldiv').show();
-                    </script>
-                    ";
-                    echo $output;
-               
-
-               }
-               else {
-                    echo "
-                    </div>
-                    <script>
-                    $('.anzahldiv').hide();
-                    </script>
-                    ";
-
-                    echo'<div>';
-               
-                    echo"
-                    <div class='alert alert-warning'> Datenbankfehler: $zustand 
-                    </div>";
-               
-                    echo'</div>';
-
-                }
+                    }
 
          }
 
