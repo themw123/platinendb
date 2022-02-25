@@ -152,14 +152,10 @@ function dostuff() {
         processData: processData,
         success:function(data){
             
-
-
               $('#dataModal2').modal('hide');
+              $('#tabelle1').DataTable().liveAjax.reload(); 
 
-              table = $(tabelle1).dataTable();
-              table.fnDraw(false);
-        
-
+              
               var zustand = data.data;
               
 
@@ -196,6 +192,12 @@ function dostuff() {
 
 
 
+              setTimeout(function(){
+              table = $(tabelle1).dataTable();
+              table.fnDraw(false);
+              }, 6000);
+
+
               if(aktion == "einfuegen") {
                     $(".leer2").remove();
 
@@ -203,6 +205,9 @@ function dostuff() {
                     if ( ! table.api().data().any() ) {
                     setTimeout(function() {
                       
+                    table.api().liveAjax.resume(); 
+                        
+                    table.api().liveAjax.reload();   
 
                     filterknopf.style.visibility = "visible"
 

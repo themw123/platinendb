@@ -10,16 +10,8 @@ t1 = moment(d).format('YYYY-MM-DD');
 
 
 var table = $('#tabelle1').DataTable({
- 
-  "processing": true,
-  "serverSide": true,
-  "ajax": {
-    "url": "verarbeitungPl/serverside.php",
-    "type": "POST"
-  },
 
-
- /* 
+  
 					"ajax":{
 						url :"verarbeitungPl/platinen.php", // json datasource
 						type: "post",  // method  , by default get 
@@ -28,8 +20,9 @@ var table = $('#tabelle1').DataTable({
               $(".tabelle1-error").html("");
             }
 					},
-  */
 
+
+  liveAjax: true,
 
   fixedHeader: true,
   
@@ -75,7 +68,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
        }
      },
 
-     "stateSave": true, "scrollX": true,  /*"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "alle"]]*/ "lengthMenu": [10, 25, 50, 100, 1000], "info": false, "order": [],
+     "stateSave": true, "scrollX": true,  "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "alle"]] , "info": false, "order":[],
      
           "columnDefs": [
   
@@ -107,24 +100,20 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
          "className": "ohnedetail",
          "defaultContent": "<i class='fa fa-edit iconx' id='iconklasse2'></i><i class='fa fa-trash-alt iconx' id='iconklasse'></i> <i class='fas fa-download ohnedetail' id='iconklasse4'></i>   <i class='fas fa-exclamation-triangle ohnedetail' id='iconklasse33'></i>"
         },
-        
-        /*
-        muss aus bei serverside
+
          {
           "targets": [15,16,17,18,19],
           "visible": false
          },
-        */ 
-        ], 
+
+          ], 
 
 
         
           "createdRow": function( row, data){
             //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
-           
             if(est == "ja") {
 
-            
               var erstelltam = data[12].toString();
               var t2 = erstelltam.split('-');
               t2 = t2[2] + "-" + t2[1] + "-" + t2[0];
@@ -154,14 +143,14 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                   else if($daysbetween > 10) {
                     $(row).find('i:nth-child(4)').addClass("orange").css("opacity", 1);
                   }
-                  
-                  //if(data[20] == 2) {
-                   // $(row).find('i:nth-child(4)').addClass("red").css("opacity", 1);
-                  //}
-                  //else if(data[20] == 1) {
-                   // $(row).find('i:nth-child(4)').addClass("orange").css("opacity", 1);
-                  //}
-                  
+                  /*
+                  if(data[20] == 2) {
+                    $(row).find('i:nth-child(4)').addClass("red").css("opacity", 1);
+                  }
+                  else if(data[20] == 1) {
+                    $(row).find('i:nth-child(4)').addClass("orange").css("opacity", 1);
+                  }
+                  */
                 }
 
               }
@@ -178,7 +167,8 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                 $(row).find('i:nth-child(3)').addClass("grey").prop('disabled', true);
               }
 
-              
+
+
 
             }
             
@@ -198,7 +188,6 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
 //"initComplete": function(){ = wenn tabelle vollständig geladen ist
 "initComplete": function(data){
-
 
     //ajax antwort überprüfen
     var zustand = data.json.data[1];
@@ -251,7 +240,12 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
           }
 
           
-
+        if(pausieren == true) {
+          //live pausieren
+          setTimeout(function(){
+            table.api().liveAjax.pause();
+          }, 1000) 
+        }
 
         //tabellencontainerladen, weil in css display:none;, damit nicht vor datne da sind geladen wird
         $("#tabellecontainer").show();
@@ -358,6 +352,8 @@ $('#tabelle1 tbody').on( 'click', 'td', function () {
 
   if ( !$(this).hasClass('ohnedetail') ) {
 
+    //platinen reload pausieren
+    table.api().liveAjax.pause();
 
          
     Id = table.api().row($(this).closest('tr')).data()[0]; 
@@ -509,12 +505,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
                     data:{Id:Id, ziel:ziel, aktion:aktion},
                     success:function(data){  
 
-                     
-                      table = $(tabelle1).dataTable();
-                      table.fnDraw(false);
-                 
-
-                      //$('#tabelle1').DataTable().ajax.reload();
+                      $('#tabelle1').DataTable().ajax.reload();
                       var zustand = data.data; 
                       var error = data.error;
                       
@@ -548,7 +539,11 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
                         $(this).remove();
                       }, 5000);
 
-                      
+                      setTimeout(function(){
+                      table = $(tabelle1).dataTable();
+                      table.fnDraw(false);
+                      }, 6000);
+
 
                       //es wird geguckt ob tabelle leer ist, um dann darüber eine meldung auszugeben und tabellencontainer versteckt und live wird pausiert
                       setTimeout(function(){
@@ -557,7 +552,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
 
                       $('#leer').hide().fadeIn(1000).html('<div class="alert alert-info leer2">Es sind keine Platinen vorhanden. Drücke auf das Plus-Symbol, um eine Platine hinzuzufügen.</div>');
 
-
+                      table.api().liveAjax.pause();
 
                       var tabellecontainer = document.getElementById("tabellex");
                       tabellecontainer.style.visibility = "hidden"
@@ -713,7 +708,8 @@ $('#tabelle1').on('click', 'tr', function(event) {
     
   $(reihe).removeClass('klick');
   clearTimeout(timeOutId);
-
+  table.api().liveAjax.resume();
+  table.api().liveAjax.reload();
   clicked = false; 
   picked = false; 
 

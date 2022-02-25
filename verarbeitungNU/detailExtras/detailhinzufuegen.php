@@ -152,7 +152,7 @@ if($bestanden == true) {
 
 
           //Platinen zum hinzufügen holen
-          $query3 = "SELECT ID, NAME, user_name, erstelltam, ausstehend, dringlichkeitPost  FROM detailplatineadd $WhereAnweisung"; 
+          $query3 = "SELECT ID, NAME, user_name, erstelltam, ausstehend  FROM detailplatineadd $WhereAnweisung"; 
           //SEHR langsam bei vielen Platinen 
           $finalquery = mysqli_query($platinendb_connection, $query3);  
 
@@ -178,7 +178,6 @@ if($bestanden == true) {
                     <th>Auftraggeber</th>
                     <th>erstellt</th>
                     <th>Ausstehend</th>
-                    <th style="display:none">dringlichkeitPost</th>
                     </thead>
                          
                     <tbody>
@@ -208,7 +207,6 @@ if($bestanden == true) {
                     <td> '.$row["user_name"].'</td>
                     <td> '.$creation_time.'</td> 
                     <td>' .$row["ausstehend"].'</td>
-                    <td style="display:none">' .$row["dringlichkeitPost"].'</td>
                     </tr>  
                     ';     
                     

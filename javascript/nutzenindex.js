@@ -4,7 +4,10 @@ $(document).ready(function(){
     //Datumformat angeben, damit sorting funktioniert
     $.fn.dataTable.moment( 'DD-MM-YYYY' );
     
-    
+    var d = new Date();
+    t1 = moment(d).format('YYYY-MM-DD');
+
+
     var table = $('#tabelle1').DataTable({
     
       
@@ -359,16 +362,23 @@ $(document).ready(function(){
 
             $('#tabelle3 tbody tr').each(function(){
               
+              var erstelltam = $(':nth-child(4)',this).text().trim();
+              var t2 = erstelltam.split('-');
+              t2 = t2[2] + "-" + t2[1] + "-" + t2[0];
+              
+              var start = moment(t2);      
+              var end = moment(t1);
+              $daysbetween = end.diff(start, "days");
+
+              
               $(this).attr('id', 'blue');
-
-              var dringlichkeit = $(':nth-child(6)',this).text();
-
-              if(dringlichkeit == 2) {
+              if($daysbetween > 15) {
                 $(this).find('i:nth-child(2)').addClass("red").css("opacity", 1);
               }
-              else if(dringlichkeit == 1) {
+              else if($daysbetween > 10) {
                 $(this).find('i:nth-child(2)').addClass("orange").css("opacity", 1);
               }
+              
             });
 
        
