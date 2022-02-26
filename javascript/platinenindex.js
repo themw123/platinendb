@@ -11,7 +11,16 @@ t1 = moment(d).format('YYYY-MM-DD');
 
 var table = $('#tabelle1').DataTable({
 
-  
+  "processing": true,
+  "serverSide": true,
+  "ajax": {
+    "url": "verarbeitungPl/serverside.php",
+    "type": "POST"
+  },
+
+
+
+ /* 
 					"ajax":{
 						url :"verarbeitungPl/platinen.php", // json datasource
 						type: "post",  // method  , by default get 
@@ -20,9 +29,9 @@ var table = $('#tabelle1').DataTable({
               $(".tabelle1-error").html("");
             }
 					},
+  */
 
-
-  liveAjax: true,
+  //liveAjax: true,
 
   fixedHeader: true,
   
@@ -239,13 +248,14 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
           buttonLegend.style.visibility = "visible"
           }
 
-          
+        /*
         if(pausieren == true) {
           //live pausieren
           setTimeout(function(){
             table.api().liveAjax.pause();
           }, 1000) 
         }
+        */
 
         //tabellencontainerladen, weil in css display:none;, damit nicht vor datne da sind geladen wird
         $("#tabellecontainer").show();
@@ -352,9 +362,10 @@ $('#tabelle1 tbody').on( 'click', 'td', function () {
 
   if ( !$(this).hasClass('ohnedetail') ) {
 
+    /*
     //platinen reload pausieren
     table.api().liveAjax.pause();
-
+    */
          
     Id = table.api().row($(this).closest('tr')).data()[0]; 
     ziel = "platinen";
@@ -552,7 +563,9 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
 
                       $('#leer').hide().fadeIn(1000).html('<div class="alert alert-info leer2">Es sind keine Platinen vorhanden. Drücke auf das Plus-Symbol, um eine Platine hinzuzufügen.</div>');
 
+                      /*
                       table.api().liveAjax.pause();
+                      */
 
                       var tabellecontainer = document.getElementById("tabellex");
                       tabellecontainer.style.visibility = "hidden"
@@ -708,8 +721,10 @@ $('#tabelle1').on('click', 'tr', function(event) {
     
   $(reihe).removeClass('klick');
   clearTimeout(timeOutId);
+  /*
   table.api().liveAjax.resume();
   table.api().liveAjax.reload();
+  */
   clicked = false; 
   picked = false; 
 
