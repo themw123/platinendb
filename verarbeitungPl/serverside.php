@@ -129,8 +129,8 @@ if($bestanden == true) {
     require( '../libraries/ssp.class.postgres.php' );
     
     echo json_encode(
-        //SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns)
-        SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns)
+        SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns)
+        //SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns)
         
     );
 

@@ -41,9 +41,6 @@ class SSP {
 			$row = array();
 
 			for ( $j=0, $jen=count($columns) ; $j<$jen ; $j++ ) {
-				if($j==14) {
-					echo'';
-				}
 				
 				$column = $columns[$j];
 
@@ -237,7 +234,7 @@ class SSP {
 			"SELECT COUNT({$primaryKey})
 			 FROM   $table"
 		);
-		$recordsTotal = $resTotalLength[0][0];
+		$recordsTotal = $resTotalLength[0]["count"];
 
 
 		/*
@@ -309,13 +306,12 @@ class SSP {
 		// Data set length after filtering
 		$recordsFiltered = $data[0]["total_count"];
 
-
 		// Total data set length
 		$resTotalLength = SSP::sql_exec( $db,
 			"SELECT COUNT({$primaryKey})
-			FROM   $table"
+			 FROM   $table"
 		);
-		$recordsTotal = $resTotalLength[0][0];
+		$recordsTotal = $resTotalLength[0]["count"];
 
 
 		/*
