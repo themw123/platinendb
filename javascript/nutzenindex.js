@@ -405,13 +405,15 @@ $(document).ready(function(){
     
          
         Id = table.api().row($(this).closest('tr')).data()[0]; 
+        statuss = table.api().row($(this).closest('tr')).data()[3]; 
         NutzenId = Id;
         ziel = "nutzen";
            
         getDetailEinmal(true);
 
-        getHinzufuegenEinmal(true);
-
+        if(statuss == "neu") { 
+          getHinzufuegenEinmal(true);
+        }
     
       }
     }

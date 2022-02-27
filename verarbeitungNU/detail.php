@@ -26,7 +26,7 @@ $bestanden = $sicherheit->ergebnis();
 
 if($bestanden == true) {
     
-
+                    
                
                     $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 

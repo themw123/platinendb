@@ -153,9 +153,8 @@ function dostuff() {
         success:function(data){
             
               $('#dataModal2').modal('hide');
-              /*
               $('#tabelle1').DataTable().liveAjax.reload(); 
-              */
+
               
               var zustand = data.data;
               
@@ -206,11 +205,9 @@ function dostuff() {
                     if ( ! table.api().data().any() ) {
                     setTimeout(function() {
                       
-                    /*
                     table.api().liveAjax.resume(); 
                         
                     table.api().liveAjax.reload();   
-                    */
 
                     filterknopf.style.visibility = "visible"
 

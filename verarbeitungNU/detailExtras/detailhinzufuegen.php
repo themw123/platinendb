@@ -28,9 +28,20 @@ $bestanden = $sicherheit->ergebnis();
 
 if($bestanden == true) {
  
-    
+
 
      $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
+
+     //Status Namen holen
+     $status = "SELECT Status1 FROM nutzen WHERE ID = '$id'";
+     $status = mysqli_query($platinendb_connection, $status);  
+     $row = mysqli_fetch_assoc($status);  
+     $status = $row['Status1'];
+
+     if($status != "neu") {
+          die();
+     }
+
 
      //Material Namen holen
      $materialname = "SELECT Name FROM material WHERE ID = (SELECT Material_ID FROM nutzen WHERE ID = '$id')";
