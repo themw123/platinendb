@@ -157,6 +157,16 @@ if($bestanden == true) {
           if(isUserEst($platinendb_connection)) {
             $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar', ignorieren = '$Ignorieren' WHERE ID = $id";
             
+
+            $host = '127.0.0.1';
+            $dbname = 'platinendb';
+            $username = 'est';
+            $password = '***REMOVED***';
+            // make a database connection
+            $con = "pgsql:host=$host;port=5432;dbname=$dbname;user=$username;password=$password";
+            $conn = new PDO($con);
+            
+
             if($Fertigung == 1 && !isInFertigung($id, $platinendb_connection) && !isOnNutzen($id, $platinendb_connection)) {
               //In Fertigung überführen. Erst Nutzen erstellen und Platine da drauf packen und diesen in Fertigung versetzten.
               ueberfuehren($id, $Anzahl, $Bearbeiter, $row2['ID'], $Endkupfer, $Staerke, $Lagen, $platinendb_connection);
@@ -167,8 +177,8 @@ if($bestanden == true) {
             $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl,Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar' WHERE ID = $id";
           }
         
-
-          mysqli_query($platinendb_connection, $bearbeiten);
+          $conn->query ($bearbeiten);
+          //mysqli_query($platinendb_connection, $bearbeiten);
           
           $sicherheit->checkQuery($platinendb_connection);
 

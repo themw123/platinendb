@@ -41,6 +41,10 @@ class SSP {
 			$row = array();
 
 			for ( $j=0, $jen=count($columns) ; $j<$jen ; $j++ ) {
+				if($j==14) {
+					echo'';
+				}
+				
 				$column = $columns[$j];
 
 				// Is there a formatter?
@@ -318,12 +322,10 @@ class SSP {
 		 * Output
 		 */
 		return array(
-			"draw"            => isset ( $request['draw'] ) ?
-				intval( $request['draw'] ) :
-				0,
+			"draw"            => intval( $request['draw'] ),
 			"recordsTotal"    => intval( $recordsTotal ),
 			"recordsFiltered" => intval( $recordsFiltered ),
-			"data"            => self::data_output( $columns, $data )
+			"data"            => SSP::data_output( $columns, $data )
 		);
 	}
 
@@ -395,11 +397,11 @@ class SSP {
 			$stmt->execute();
 		}
 		catch (PDOException $e) {
-			SSP::fatal( "An SQL error occurred: ".$e->getMessage()." [with] '".$sql."'" );
+			self::fatal( "An SQL error occurred: ".$e->getMessage() );
 		}
 
 		// Return all
-		return $stmt->fetchAll();
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 

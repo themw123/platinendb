@@ -66,18 +66,18 @@ if($bestanden == true) {
 
 
     $columns = array(
-        array( 'db' => 'ID',  'dt' => 0 ),
-        array( 'db' => 'Name',  'dt' => 1 ),
-        array( 'db' => 'Auftraggeber',  'dt' => 2 ),
+        array( 'db' => 'id',  'dt' => 0 ),
+        array( 'db' => 'name',  'dt' => 1 ),
+        array( 'db' => 'auftraggeber',  'dt' => 2 ),
         array( 'db' => 'ausstehend',  'dt' => 3 ),
-        array( 'db' => 'Anzahl',     'dt' => 4 ),
-        array( 'db' => 'Material', 'dt' => 5 ),
-        array( 'db' => 'Endkupfer',  'dt' => 6 ),
-        array( 'db' => 'Staerke',   'dt' => 7 ),
-        array( 'db' => 'Lagen',     'dt' => 8 ),
-        array( 'db' => 'Groesse', 'dt' => 9 ),
-        array( 'db' => 'Oberflaeche',  'dt' => 10 ),
-        array( 'db' => 'Loetstopp',   'dt' => 11 ),     
+        array( 'db' => 'anzahl',     'dt' => 4 ),
+        array( 'db' => 'material', 'dt' => 5 ),
+        array( 'db' => 'endkupfer',  'dt' => 6 ),
+        array( 'db' => 'staerke',   'dt' => 7 ),
+        array( 'db' => 'lagen',     'dt' => 8 ),
+        array( 'db' => 'groesse', 'dt' => 9 ),
+        array( 'db' => 'oberflaeche',  'dt' => 10 ),
+        array( 'db' => 'loetstopp',   'dt' => 11 ),     
         array(
             'db'        => 'erstelltam',
             'dt'        => 12,
@@ -86,22 +86,22 @@ if($bestanden == true) {
             }
         ),
         array(
-            'db'        => 'wunschDatum',
+            'db'        => 'wunschdatum',
             'dt'        => 13,
             'formatter' => function( $d, $row ) {
                 return date( 'd-m-Y', strtotime($d));
             }
         ),
-        array( 'db' => 'Kommentar', 'dt' => 14 ),
+        array( 'db' => 'kommentar', 'dt' => 14 ),
 
     );
 
     if (isUserEst($platinendb_connection) == true) {
         array_push($columns,
-            array( 'db' => 'Status', 'dt' => 15 ),
+            array( 'db' => 'status', 'dt' => 15 ),
             array( 'db' => 'ignorieren', 'dt' => 16 ),
-            array( 'db' => 'abgeschlossenPost', 'dt' => 17 ),
-            array( 'db' => 'abgeschlossenFertigung', 'dt' => 18 ),
+            array( 'db' => 'abgeschlossenpost', 'dt' => 17 ),
+            array( 'db' => 'abgeschlossenfertigung', 'dt' => 18 ),
             array( 'db' => 'downloads1or0', 'dt' => 19 )
         );
     }
@@ -120,11 +120,18 @@ if($bestanden == true) {
     * server-side, there is no need to edit below this line.
     */
     
-    //require( '../libraries/ssp.class.php' );
-    require( '../libraries/ssp.class.postgres.php' );
+    /*
+    //mit mysql
+    require( '../libraries/ssp.class.php' );
+    */
 
+    //mit postgres
+    require( '../libraries/ssp.class.postgres.php' );
+    
     echo json_encode(
-        SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns)
+        //SSP::complex( $_POST, $sql_details, $table, $primaryKey, $columns)
+        SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns)
+        
     );
 
 }

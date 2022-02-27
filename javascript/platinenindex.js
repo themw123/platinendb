@@ -10,7 +10,7 @@ t1 = moment(d).format('YYYY-MM-DD');
 
 
 var table = $('#tabelle1').DataTable({
-
+  
   "processing": true,
   "serverSide": true,
   "ajax": {
