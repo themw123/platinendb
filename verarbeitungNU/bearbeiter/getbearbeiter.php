@@ -29,15 +29,28 @@ if($bestanden == true) {
          $result = mysqli_query($platinendb_connection, $query);  
          $namen = array();
          $counter = 0;
+
+         $estvorhanden = false;
+
          if ($result->num_rows > 0) {
    
             while($row = $result->fetch_assoc()){
+
+                if($row['BearbeiterName'] == "est") {
+                  $estvorhanden = true;
+                }
                 
                 $namen[$counter] = $row['BearbeiterName'];
                 $counter = $counter + 1;
             }
+            if(!$estvorhanden) {
+              $sql = "INSERT INTO bearbeiter (BearbeiterName) values('est')";
+              mysqli_query($platinendb_connection, $sql);
+            }
+            
             echo json_encode($namen);
         }
+       
         
         mysqli_close($platinendb_connection); 
       
