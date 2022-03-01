@@ -69,7 +69,7 @@
     //stellt nur session un datenbankverbindungen wiederher wenn schon eingeloggt
     $login = new Login();
 
-    //für logged_in.php
+
     $login_connection = $login->getlogin_connection();
 
 

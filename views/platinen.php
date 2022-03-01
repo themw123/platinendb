@@ -1,5 +1,5 @@
-<?php
 
+<?php
 
 // modal Benutzerinformationen zur verfügung stellen
 modal1($login_connection);
@@ -12,22 +12,23 @@ modal2();
 // modal einfügen/bearbeiten zur verfügung stellen
 modal3();
 
-
 // modal Legende zur verfügung stellen
 modal4($currentpage);
 
 echo'
+
 	<div id="alertcontainer" class="container-fluid sticky-top">
 	<center><div class="sticky-top" id="result">
 	<div class="alert alert-success alertm" style="visibility:hidden">Platzhalter</div>
 	</div></center>
 	</div>
 
+
 	<div class="container-fluid">
 	<center><div id="leer"></div></center>
 	</div>
 
-	<div id="containerleiste" class="container-fluid" style="visibility: hidden;">
+	<div id="containerleiste" class="container-fluid" style="visibility: hidden;">	
 	<div id="leiste" class=" my-3 bg-light">
 	<div class="hinzu1">
 	<a class="btn" id="button1" role="button">
@@ -66,28 +67,48 @@ echo'
 			
 
 			<th class="no-sort":>&nbsp; &nbsp; Aktion</th>
-			<th>Nr</th>
-			<th>Bearbeiter</th>
-			<th>Status</th>
-			<th>erstellt</th>
-			<th>Fertigung</th>
-			<th>abgeschlossen</th>
+			<th>Leiterkartenname</th>
+			<th>Auftraggeber</th>
+			<th>Ausstehend</th>
+			<th>Anzahl</th>
 			<th>Material</th>
-			<th>Endkupfer</th>
+			<th>Endkupfer(µ)</th>
 			<th>Stärke(mm)</th>
 			<th>Lagen</th>
-			<th>Größe</th>
-			<th>int/ext</th>
-			<th>Testdaten</th>
-			<th>Kommentare</th>
-			<th>dringlichkeitFertigung</th>
+			<th>Größe(mm)</th>
+			<th>Oberfläche</th>
+			<th>Lötstopp</th>
+			<th>erstellt</th>
+			<th>Wunschdatum</th>
+			<th>Kommentar</th>
 			
+			<th>Status</th>
+			<th>ignorieren</th>
+			<th>abgeschlossenPost</th>
+			
+
+			
+			<th>abgeschlossenFertigung</th>
+			<th>downloads1or0</th>
+
 			</thead>
 			</table>
 
 		</div>
 		</div>
 ';
+
+	if (isUserEst($login_connection) == true) { 
+		echo'
+		<script>est = "ja";</script>
+		';
+	}
+	else {
+		echo'
+		<script>est = "nein";</script>
+		';
+	}
+
 
 ?>	
 

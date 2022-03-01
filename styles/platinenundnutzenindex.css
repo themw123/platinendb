@@ -958,7 +958,7 @@ testdaten haken farbe
     }
     
     
-    #tabelle2 tr {
+    #tabelle2 tr, #tabelle3 tr{
     cursor: default;
     }
     
