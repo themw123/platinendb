@@ -12,7 +12,7 @@ if ($currentpage == "index") {
 
     echo'
     <nav class="navbar navbar-expand-md" '.$style.'">
-    <a href="https://www.est.ruhr-uni-bochum.de/home/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
+    <a href="https://etit.ruhr-uni-bochum.de/est/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,7 +33,7 @@ if ($currentpage == "registrierindex") {
 
     echo'
     <nav class="navbar navbar-expand-md" '.$style.'">
-    <a href="https://www.est.ruhr-uni-bochum.de/home/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
+    <a href="https://etit.ruhr-uni-bochum.de/est/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
@@ -56,7 +56,7 @@ if ($currentpage == "password_reset") {
 
     echo'
     <nav class="navbar navbar-expand-md" '.$style.'">
-    <a href="https://www.est.ruhr-uni-bochum.de/home/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
+    <a href="https://etit.ruhr-uni-bochum.de/est/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
@@ -77,7 +77,7 @@ if ($currentpage == "platinenindex") {
   
     echo'
     <nav class="navbar navbar-expand-md" '.$style.'">
-    <a href="https://www.est.ruhr-uni-bochum.de/home/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
+    <a href="https://etit.ruhr-uni-bochum.de/est/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
       <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
@@ -127,7 +127,7 @@ if ($currentpage == "nutzenindex") {
 
       echo'
       <nav class="navbar navbar-expand-md" '.$style.'">
-       <a href="https://www.est.ruhr-uni-bochum.de/home/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
+       <a href="https://etit.ruhr-uni-bochum.de/est/" title=""><img src="bilder/est.png"alt="" width="50" height="35"></a>
        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
         <span class="navbar-toggler-icon"></span>
         </button>

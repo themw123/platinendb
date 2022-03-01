@@ -617,14 +617,14 @@ function modal4($currentpage) {
 						<p><span style="color:green">Grün</span> = alle Platinen sind abgeschlossen </p>
 						<p style="text-align:center;font-size:20px;font-weight:600;">Warnfarbe:</p> 
 						
-						<p><i class="fas fa-exclamation-triangle red"></i> = älter als 15 Tage</p>
-						<p><i class="fas fa-exclamation-triangle orange"></i> = älter als 10 Tage</p>
+						<p><i class="fas fa-exclamation-triangle red"></i> = Platine länger als 15 Tage im Zustand Neu</p>
+						<p><i class="fas fa-exclamation-triangle orange"></i> = Platine länger als 10 Tage im Zustand Neu</p>
 						';
 					 }
 					 else {
 						echo'
 						<p style="text-align:center;font-size:20px;font-weight:600;">Warnfarbe:</p> 
-						<p><i class="fas fa-exclamation-triangle red"></i> = älter als 5 Tage</p>
+						<p><i class="fas fa-exclamation-triangle red"></i> = Nutzen länger als 5 Tage im Zustand Fertigung</p>
 						';	
 					 }
 
