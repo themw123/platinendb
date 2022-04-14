@@ -38,7 +38,7 @@ if($bestanden == true) {
           /*
           Inputs auslesen Auftraggeber
           */ 
-          if(isUserEst($platinendb_connection) == true) {
+          if(isUserAdmin($platinendb_connection) == true) {
             $Auftraggeber2 = mysqli_real_escape_string($login_connection, $_POST["Auftraggeber"]);
           }
           else {
@@ -172,7 +172,7 @@ if($bestanden == true) {
 
           $sicherheit->checkQuery($platinendb_connection);
           
-          if(!isUserEst($platinendb_connection) && !mysqli_error($platinendb_connection)) {
+          if(!isUserAdmin($platinendb_connection) && !mysqli_error($platinendb_connection)) {
             $art = "newPlatineNotification";
             $user_name = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
             $user_email = mysqli_real_escape_string($login_connection, $_SESSION['user_email']);

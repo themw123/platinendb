@@ -1,20 +1,20 @@
 <?php
 
 //gucken ob eingeloggter benutzer est ist
-function isUserEst ($login_connection) {
+function isUserAdmin ($login_connection) {
 
+	//eingeloggter user holen
+	//$user = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
 
-//eingeloggter user
-$user = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
+	$userPriv = mysqli_real_escape_string($login_connection, $_SESSION['admin']);
+	
+	if ($userPriv == 1) {
+		return true;
+	}
 
-//gucken ob es est ist
-if ($user == "est") {
-return true;
-}
-
-else {
-return false;
-}
+	else {
+		return false;
+	}
 
 }
 
@@ -154,7 +154,7 @@ function veraenderbarPlatine ($platinendb_connection) {
 	if ($anzahlaufnutzen3 !== null) {
 		
 
-		if(isUserEst($platinendb_connection) == true) {
+		if(isUserAdmin($platinendb_connection) == true) {
 
 			$aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 			if($aktion != "loeschen") { 
@@ -767,7 +767,7 @@ echo "
 	  	<th>Berechtigung:</th>
 	  	<td>
 		"; 
-		if (isUserEst ($login_connection) == true) { 
+		if (isUserAdmin ($login_connection) == true) { 
 				echo 'Admin';
 			}
 			else { 

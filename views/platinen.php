@@ -98,14 +98,14 @@ echo'
 		</div>
 ';
 
-	if (isUserEst($login_connection) == true) { 
+	if (isUserAdmin($login_connection) == true) { 
 		echo'
-		<script>est = "ja";</script>
+		<script>admin = "ja";</script>
 		';
 	}
 	else {
 		echo'
-		<script>est = "nein";</script>
+		<script>admin = "nein";</script>
 		';
 	}
 

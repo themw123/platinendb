@@ -112,7 +112,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
         
           "createdRow": function( row, data){
             //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
-            if(est == "ja") {
+            if(admin == "ja") {
 
               var erstelltam = data[12].toString();
               var t2 = erstelltam.split('-');
@@ -262,7 +262,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
 
         //wenn est searchpane button, info button und filter button verstecken
-        if(est == "nein") {
+        if(admin == "nein") {
           $('#buttonLegend').hide();
           $('#buttondefault').hide();
           $('#button3').hide();

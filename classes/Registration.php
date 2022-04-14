@@ -36,7 +36,7 @@ class Registration
         else if(isset($_GET["Validation"]) || isset($_POST["reg"])) {
             $this->login = new Login();
             if($this->login->isUserLoggedIn() == true) {
-                if(isUserEst($this->login->getlogin_connection()) == true) {
+                if(isUserAdmin($this->login->getlogin_connection()) == true) {
                     if(isset($_POST["reg"])) {
                         $this->registerNewUserEst();
                     }
@@ -200,8 +200,8 @@ class Registration
                     $this->errors[] = "Der Benutzername/E-Mail-Adresse ist bereits vergeben";
                 } else {
                     // write new user's data into database
-                    $sql = "INSERT INTO users (user_name, user_password_hash, user_email, intoderext)
-                            VALUES('" . $user_name . "', '" . $user_password . "', '" . $user_email . "', '" . $user_standort . "');";
+                    $sql = "INSERT INTO users (user_name, admin, user_password_hash, user_email, intoderext)
+                            VALUES('" . $user_name . "', 0, '" . $user_password . "', '" . $user_email . "', '" . $user_standort . "');";
                     $query_new_user_insert = $this->db_connection->query($sql);
 
                     // if user has been added successfully

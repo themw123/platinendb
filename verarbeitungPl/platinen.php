@@ -29,7 +29,7 @@ if($bestanden == true) {
 			*/
 
 			
-			if (isUserEst($platinendb_connection) == true) {
+			if (isUserAdmin($platinendb_connection) == true) {
 			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Status, ignorieren, abgeschlossenPost, abgeschlossenFertigung, downloads1or0 FROM platinenviewest";
 			}
 
@@ -96,7 +96,7 @@ if($bestanden == true) {
 					$nestedData[] = $creation_time;
 					$nestedData[] = $creation_time2;
 					$nestedData[] = $row["Kommentar"];
-					if (isUserEst($platinendb_connection) == true) {
+					if (isUserAdmin($platinendb_connection) == true) {
 						$nestedData[] = $row["Status"];
 						$nestedData[] = $row["ignorieren"];
 						$nestedData[] = $row["abgeschlossenPost"];

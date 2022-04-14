@@ -85,7 +85,7 @@ class Sicherheit {
 
         $fromajax = $this->fromJavascript();
         $eingeloggt = $this->login->isUserLoggedIn();
-        $est = isUserEst($this->login_connection);
+        $est = isUserAdmin($this->login_connection);
  
  
         if($eingeloggt == false) {

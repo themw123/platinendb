@@ -24,7 +24,7 @@ $bestanden = $sicherheit->ergebnis();
 
 
 
-if($bestanden == true && isUserEst($login_connection) == true) {
+if($bestanden == true && isUserAdmin($login_connection) == true) {
 
   $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
   $download_id = "SELECT Downloads_ID FROM platinen WHERE ID = '$id'";

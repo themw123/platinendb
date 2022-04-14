@@ -98,7 +98,7 @@ if ($login->isUserLoggedIn() == true) {
     // for demonstration purposes, we simply show the "you are logged in" view.
 
     //gucken ob es est ist
-    if (isUserEst($login_connection) == true) {
+    if (isUserAdmin($login_connection) == true) {
 
      //gucken ob Datenbankverbindung zu platinendb (bzw auch login) besteht, sonnst abbruch
     if (isset($login)) {

@@ -85,7 +85,7 @@ if ($currentpage == "platinenindex") {
 
       ';
 
-      if (isUserEst($login_connection) == true) {
+      if (isUserAdmin($login_connection) == true) {
       echo'
       <ul class="navbar-nav mr-auto navbar1">
       <li class="nav-item">

@@ -51,7 +51,7 @@ if($bestanden == true) {
         /*
         Auftraggeber vorbereitung
         */
-        if(isUserEst($platinendb_connection) == true) {
+        if(isUserAdmin($platinendb_connection) == true) {
 
           $auftraggeber = 'SELECT user_name FROM users';
           
@@ -115,7 +115,7 @@ if($bestanden == true) {
         -->
         ";
 
-        if(!isUserEst($platinendb_connection)) {
+        if(!isUserAdmin($platinendb_connection)) {
           $output .= "
           <div class='form-group'>
           <label for='usr'>Anleitung:</label>
@@ -132,7 +132,7 @@ if($bestanden == true) {
         ";
         
 
-        if(isUserEst($platinendb_connection) == true) {
+        if(isUserAdmin($platinendb_connection) == true) {
           $output .= "
           <label for='usr'>Auftraggeber:</label>
           <div class='input-group ipg1'>
@@ -354,7 +354,7 @@ if($bestanden == true) {
             ";
 
 
-            if(isUserEst($platinendb_connection) == true) {
+            if(isUserAdmin($platinendb_connection) == true) {
               $output .= "
               <div class='form-group'>
               <label for='usr'>Auftraggeber:</label>
@@ -473,7 +473,7 @@ if($bestanden == true) {
             ";
             
             
-            if(isUserEst($platinendb_connection)) {
+            if(isUserAdmin($platinendb_connection)) {
               $output .= "
               <div class='custom-control custom-checkbox form-group'>
               <input name='Ignorieren' type='checkbox' class='custom-control-input' id='checkbox-2' $check>
