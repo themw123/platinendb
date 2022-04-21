@@ -51,15 +51,14 @@ if($bestanden == true) {
           Bearbeiter vorbereitung
           */
 
-          $bearbeiter = 'SELECT BearbeiterName FROM bearbeiter';
-
-          $bearbeiterabfrage = mysqli_query($platinendb_connection, $bearbeiter);
+          $bearbeiter = "SELECT user_name FROM users WHERE admin = '1' ORDER BY user_name asc"; 
+          $bearbeiterabfrage = mysqli_query($login_connection, $bearbeiter);  
 
           $option = '';
 
           while($row2 = mysqli_fetch_assoc($bearbeiterabfrage))
           {
-            $option .= '<option value = "'.$row2['BearbeiterName'].'">'.$row2['BearbeiterName'].'</option>';
+            $option .= '<option value = "'.$row2['user_name'].'">'.$row2['user_name'].'</option>';
           }
 
 
@@ -137,31 +136,10 @@ if($bestanden == true) {
 
           <select class='form-control' id='bearbeiter' name='Bearbeiter' required>
           <!-- <option value='' disabled selected>Option wählen</option> -->
-          <option value='est'>est</option>
-
           </select>
-          <div class='input-group-append'>
-          <button data-toggle='collapse' data-target='#collapse2' class='btn btn-primary bearbeiterbutton' type='button'><i id='bearbeiterbutton' class='far fa-caret-square-up'></i></button>
+
+          
           </div>
-
-          </div>
-
-          <div class='collapse' id='collapse2'>  
-          <div class='bearbeiterdiv'>
-          <form>
-            <div class='form-group test'>
-            <input type='text' class='form-control' id='addBenutzer' aria-describedby='BenutzerHelp' placeholder='Bearbeitername'> 
-            <button class='btn btn-primary' id='add' type='button'>hinzufügen</button>
-            <button class='btn btn-primary' id='rem' type='button'>Auswahl löschen</button>
-            <div class='alert alert-warning collapse' id='fehleraddbenutzer'></div>
-            </div>
-          </form>
-          </div>
-          </div>
-
-
-
-
 
 
 

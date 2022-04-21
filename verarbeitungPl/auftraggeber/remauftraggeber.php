@@ -26,10 +26,11 @@ if($bestanden == true) {
   
       $auftraggeber = mysqli_real_escape_string($login_connection, $_POST['Text']);
 
+      $admin = mysqli_real_escape_string($login_connection, $_SESSION['admin']);
       
-      if($auftraggeber == "est") {
+      if(isThisUserAdmin($login_connection, $auftraggeber)) {
         header('Content-Type: application/json');
-        echo json_encode(array('data'=> 'nichtest'));
+        echo json_encode(array('data'=> 'nichtadmin'));
         die();
       }
 

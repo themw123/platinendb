@@ -18,7 +18,33 @@ function isUserAdmin ($login_connection) {
 
 }
 
+function isThisUserAdmin ($login_connection, $username) {
 
+	//eingeloggter user holen
+	//$user = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
+
+	$admin = 
+	"SELECT
+	users.admin
+	FROM login.users
+	WHERE user_name = '$username'";
+
+
+
+	$admin =  mysqli_query($login_connection, $admin);
+	$admin = mysqli_fetch_assoc($admin);
+	$admin = $admin["admin"];
+	
+
+	if ($admin == "1") {
+		return true;
+	}
+
+	else {
+		return false;
+	}
+
+}
 
 // gucken ob zu bearbeitende oder detail anschauende Platine  dem eingeloggten Benutzer gehört
 

@@ -24,32 +24,31 @@ $bestanden = $sicherheit->ergebnis();
 
 if($bestanden == true) {
  
-  
-         $query = "SELECT BearbeiterName FROM bearbeiter order by ID asc"; 
-         $result = mysqli_query($platinendb_connection, $query);  
+         $bearbeiter = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
+
+
+         $query = "SELECT user_name FROM users WHERE admin = '1' ORDER BY user_name asc"; 
+         $result = mysqli_query($login_connection, $query);  
          $namen = array();
          $counter = 0;
-
-         $estvorhanden = false;
-
+         
          if ($result->num_rows > 0) {
    
-            while($row = $result->fetch_assoc()){
+          while($row = $result->fetch_assoc()){
+              
+              $namen[$counter][0] = $row['user_name'];
+              
+              if($row['user_name'] == $bearbeiter) {
+                $namen[$counter][1] = 1;
+              }
+              else {
+                $namen[$counter][1] = 0;
+              }
 
-                if($row['BearbeiterName'] == "est") {
-                  $estvorhanden = true;
-                }
-                
-                $namen[$counter] = $row['BearbeiterName'];
-                $counter = $counter + 1;
-            }
-            if(!$estvorhanden) {
-              $sql = "INSERT INTO bearbeiter (BearbeiterName) values('est')";
-              mysqli_query($platinendb_connection, $sql);
-            }
-            
-            echo json_encode($namen);
-        }
+              $counter = $counter + 1;
+          }
+          echo json_encode($namen);
+      }
        
         
         mysqli_close($platinendb_connection); 

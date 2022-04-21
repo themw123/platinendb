@@ -35,10 +35,10 @@ if($bestanden == true) {
             Bearbeiter
             */
             $bearbeiter = mysqli_real_escape_string($platinendb_connection, $_POST["Bearbeiter"]);
-            $bearbeiterquery = "SELECT ID FROM bearbeiter WHERE BearbeiterName='$bearbeiter'"; 
-            $Bearbeiterquery =  mysqli_query($platinendb_connection, $bearbeiterquery);
+            $bearbeiterquery = "SELECT user_id FROM login.users WHERE user_name='$bearbeiter'"; 
+            $Bearbeiterquery =  mysqli_query($login_connection, $bearbeiterquery);
             $Bearbeiterx = mysqli_fetch_assoc($Bearbeiterquery);
-            $Bearbeiter = $Bearbeiterx['ID']; 
+            $Bearbeiter = $Bearbeiterx['user_id']; 
 
             /*
             Inputs auslesen Status

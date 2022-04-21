@@ -1,3 +1,5 @@
+//# sourceURL=formEditor.js
+
 //Wenn Bei Nutzen oder Platine auf add Bearbeiter bzw Auftraggeber geklickt wird
 $(document).ready(function(){ 
 
@@ -19,30 +21,24 @@ $(document).ready(function(){
           success: function(response){
             
               $("#"+aktion).empty();
-              $("#"+aktion).append('<option value="est">est</option>');
               //$("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');
-              
 
               for(var i=0; i<response.length; i++){
-                  name = response[i];
-                  if(name != "est") {
-                    $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')
+                  name = response[i][0];
+                  defaultt = response[i][1];
+
+                  if(defaultt == 1) {
+                    $("#"+aktion).append('<option value="' + name + '" selected=selected   >' + name + '</option>')    
+
+                  }
+                  else {
+                    $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')    
                   }
               }
-
-              if(aktionx.includes("hinzufügen")) {
-                $('select option[value="est"]').prop('selected',true);
-              } 
       } 
     });
 });
 
-
-//Wenn auf Bearbeiterbutton geklickt wird
-$('.bearbeiterbutton').on( 'click', function () {
-  $("#bearbeiterbutton").toggleClass("far fa-caret-square-down far fa-caret-square-up");
-  $('#fehleraddbenutzer').hide();
-});
 
 
 
@@ -50,14 +46,10 @@ function refresh1() {
   //Liste aktualisieren
   var aktionx = $(".modal-title").get(2).innerText;
   var name;
-  if(aktionx.includes("Nutzen")) {
-    aktion = "bearbeiter";
-    var ziel = "NU";
-  }
-  else {
-    aktion = "auftraggeber";
-    var ziel = "Pl";
-  }
+  
+  aktion = "auftraggeber";
+  var ziel = "Pl";
+  
 
   $.ajax({  
         url:"verarbeitung"+ziel+"/"+aktion+"/get"+aktion+".php",  
@@ -68,13 +60,18 @@ function refresh1() {
 
           $("#"+aktion).empty();
           $("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');
-          $("#"+aktion).append('<option value="est">est</option>');
           for(var i=0; i<response.length; i++){
-              name = response[i];
-              if(name != "est") {
-                $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')
-              }
-          }
+            name = response[i][0];
+            defaultt = response[i][1];
+
+            if(defaultt == 1) {
+              $("#"+aktion).append('<option value="' + name + '" selected=selected   >' + name + '</option>')    
+
+            }
+            else {
+              $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')    
+            }
+        }
     } 
   });
   }
@@ -88,16 +85,11 @@ $('#add').on( 'click', function () {
     var aktionx = $(".modal-title").get(2).innerText;
     var bearOderAuftr = document.getElementById("addBenutzer").value; 
 
-    if(aktionx.includes("Nutzen")) {
-      var aktion = "bearbeiter";
-      var ziel = "NU";
-      var col = "2";
-    }
-    else {
-      var aktion = "auftraggeber";
-      var ziel = "Pl";
-      var col = "3";
-    }
+  
+    var aktion = "auftraggeber";
+    var ziel = "Pl";
+    var col = "3";
+    
 
     if(bearOderAuftr.length > 0) {
       $("#add").attr("disabled", true);
@@ -139,16 +131,11 @@ $('#rem').on( 'click', function () {
     
   var aktionx = $(".modal-title").get(2).innerText;
 
-  if(aktionx.includes("Nutzen")) {
-    var aktion = "bearbeiter";
-    var ziel = "NU";
-    var col = "2";
-  }
-  else {
-    var aktion = "auftraggeber";
-    var ziel = "Pl";
-    var col = "3";
-  }
+
+  var aktion = "auftraggeber";
+  var ziel = "Pl";
+  var col = "3";
+  
 
 
   var Objekt = document.getElementById(aktion);
@@ -174,8 +161,8 @@ $('#rem').on( 'click', function () {
                 $('#collapse'+col).collapse("hide");
               }
               else {
-                if(zustand == "nichtest") {
-                  document.getElementById("fehleraddbenutzer").innerHTML="EST kann nicht gelöscht werden.";
+                if(zustand == "nichtadmin") {
+                  document.getElementById("fehleraddbenutzer").innerHTML="Ein Admin kann nicht gelöscht werden.";
                 }
                 else {
                   if(error.indexOf("foreign") >= 0) {

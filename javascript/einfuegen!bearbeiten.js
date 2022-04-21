@@ -1,4 +1,3 @@
-//# sourceURL=formEditor.js
 
 $(function(){
     $('#edit').submit(function(event){
@@ -298,7 +297,7 @@ $("#delfile").click(function(ev){
 
 if(aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
 
-  if(est == "nein") {
+  if(admin == "nein") {
     $("#uploadfeld").prop('required',true);
   }
 

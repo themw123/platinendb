@@ -53,7 +53,16 @@ if($bestanden == true) {
         */
         if(isUserAdmin($platinendb_connection) == true) {
 
-          $auftraggeber = 'SELECT user_name FROM users';
+          $auftraggeber = "
+          SELECT 
+            user_name,
+            case when admin = 0 then 0 when admin is null then 1 when admin = 1 then 2 end as 'sortierung'
+          FROM 
+            users
+          order by 
+            sortierung asc, 
+            user_name asc
+          "; 
           
           $auftraggeberabfrage = mysqli_query($login_connection, $auftraggeber);
 
@@ -139,9 +148,9 @@ if($bestanden == true) {
 
           <select class='form-control' id='auftraggeber' name='Auftraggeber' required>
           <!-- <option value='' disabled selected>Option wählen</option> -->
-          <option value='est'>est</option>
-
           </select>
+
+          
           <div class='input-group-append'>
           <button data-toggle='collapse' data-target='#collapse3' class='btn btn-primary bearbeiterbutton' type='button'><i id='bearbeiterbutton' class='far fa-caret-square-up'></i></button>
           </div>

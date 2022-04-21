@@ -43,8 +43,8 @@ if($bestanden == true) {
           Inputs auslesen Bearbeiter
           */
           $bearbeiter2 = mysqli_real_escape_string($platinendb_connection, $_POST["Bearbeiter"]);
-          $bearbeiter2query = "SELECT ID FROM bearbeiter WHERE BearbeiterName='$bearbeiter2'"; 
-          $bearbeiterid =  mysqli_query($platinendb_connection, $bearbeiter2query);
+          $bearbeiter2query = "SELECT user_id FROM login.users WHERE user_name='$bearbeiter2'"; 
+          $bearbeiterid =  mysqli_query($login_connection, $bearbeiter2query);
           $Bearbeiter = mysqli_fetch_assoc($bearbeiterid);   
 
 
@@ -185,7 +185,7 @@ if($bestanden == true) {
             }
             //Nur bearbeiten
             else {
-              $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[ID],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
+              $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
             }
 
           }

@@ -21,11 +21,21 @@ $von = "platine";
 $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
+$auftraggeber = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
 
 if($bestanden == true) {
  
   
-         $query = "SELECT user_name FROM users"; 
+         $query = "
+         SELECT 
+           user_name,
+           case when admin = 0 then 0 when admin is null then 1 when admin = 1 then 2 end as 'sortierung'
+         FROM 
+           users
+         order by 
+           sortierung asc, 
+           user_name asc
+         "; 
          $result = mysqli_query($login_connection, $query);  
          $namen = array();
          $counter = 0;
@@ -33,7 +43,15 @@ if($bestanden == true) {
    
             while($row = $result->fetch_assoc()){
                 
-                $namen[$counter] = $row['user_name'];
+                $namen[$counter][0] = $row['user_name'];
+                
+                if($row['user_name'] == $auftraggeber) {
+                  $namen[$counter][1] = 1;
+                }
+                else {
+                  $namen[$counter][1] = 0;
+                }
+
                 $counter = $counter + 1;
             }
             echo json_encode($namen);
