@@ -47,7 +47,7 @@ function legitimierung ($login_connection) {
 	
 	
 
-	if ($VariableAuftraggeber == $_SESSION['user_name'] || "est" == $_SESSION['user_name'] ) {
+	if ($VariableAuftraggeber == $_SESSION['user_name'] || "1" == $_SESSION['admin'] ) {
 
 		return true;
 	}

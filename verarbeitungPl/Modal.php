@@ -115,14 +115,14 @@ if($bestanden == true) {
         -->
         ";
 
-        if(!isUserAdmin($platinendb_connection)) {
+        //if(!isUserAdmin($platinendb_connection)) {
           $output .= "
           <div class='form-group'>
           <label for='usr'>Anleitung:</label>
-          <a target='_blank' href='https://homepage.ruhr-uni-bochum.de/tobias.solowjew/Share/Plakat.pdf' class='link-primary'>Designregeln, maximale Leiterplattengröße und Lagenaufbau beachten! (Link)</a>
+          <a target='_blank' href='https://homepage.ruhr-uni-bochum.de/tobias.solowjew/Share/Plakat.pdf' class='link-primary'>Designregeln</a>
           </div>
           ";
-        }
+        //}
 
         $output .= "
         <div class='form-group'>
