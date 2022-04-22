@@ -173,14 +173,14 @@ if($bestanden == true) {
             uploadSecurity("text");
             $a = readfiledata();
             $lagenHinzufuegen = lagenBefehl($a);
-            $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[ID],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',$lagenHinzufuegen,Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
+            $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',$lagenHinzufuegen,Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
           }
           else {
             //Bearbeiten und Layer Daten löschen
             if(isset($_POST['layerLoeschen'])) {
               if($_POST['layerLoeschen'] == "true") {
                 $lagenLoeschen = "Top = null, L2 = null, L3 = null, L4 = null, L5 = null, Bottom = null, LagenSumme = null";
-                $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[ID],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',$lagenLoeschen,Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
+                $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',$lagenLoeschen,Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
               }
             }
             //Nur bearbeiten
