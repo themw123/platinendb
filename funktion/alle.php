@@ -612,9 +612,9 @@ function modal4($currentpage) {
 					 if ($currentpage == "platinenindex") {
 						echo'
 						<p style="text-align:center;font-size:20px;font-weight:600;">Zeilenfarbe:</p> 
-						<p><span style="color:#005ea9">Blau</span> = mindestens eine Platine im Nutzen-Zustand neu/post </p> 
-						<p><span style="color:#e89b02">Orange</span> = mindestens eine Platine im Nutzen-Zustand Fertigung </p> 
-						<p><span style="color:green">Grün</span> = alle Platinen sind abgeschlossen </p>
+						<p><span style="color:#005ea9">Blau</span> = Platine im Nutzen-Zustand neu/post </p> 
+						<p><span style="color:#e89b02">Orange</span> = Platine im Nutzen-Zustand Fertigung </p> 
+						<p><span style="color:green">Grün</span> = Platine im Nutzen-Zustand abgeschlossen </p>
 						<p style="text-align:center;font-size:20px;font-weight:600;">Warnfarbe:</p> 
 						
 						<p><i class="fas fa-exclamation-triangle red"></i> = Platine länger als 15 Tage im Zustand Neu</p>
