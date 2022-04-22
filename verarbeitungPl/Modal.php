@@ -492,7 +492,19 @@ if($bestanden == true) {
               ";
               
               if(!isInFertigung($id, $platinendb_connection) && !isOnNutzen($id, $platinendb_connection)){
-                $bearbeiter = 'SELECT BearbeiterName FROM bearbeiter';
+                
+                $output .= "
+                <div class='custom-control custom-checkbox form-group fertigungcheck'>
+                <input data-toggle='collapse' data-target='#collapse4' name='Fertigung' type='checkbox' class='custom-control-input' id='checkbox-3'>
+                <label class='custom-control-label' for='checkbox-3' style='margin-top: 10px;margin-bottom: 10px;'>Fertigung</label>
+                <i class='fas fa-info-circle' id='infoicon3' data-toggle='popover' title='Hinweis' data-content='Die Platine wird in den Zustand Fertigung versetzt. Dafür wird ein neuer Nutzen im Zustand Fertigung erstellt und die Platine hinzugefügt.'></i>
+                </div>
+                ";
+
+                /*
+                erfolgt jetzt automatisch
+                
+                $bearbeiter = 'SELECT user_name FROM login.users';
 
                 $bearbeiterabfrage = mysqli_query($platinendb_connection, $bearbeiter);
       
@@ -500,7 +512,7 @@ if($bestanden == true) {
       
                 while($row2 = mysqli_fetch_assoc($bearbeiterabfrage))
                 {
-                  $option .= '<option value = "'.$row2['BearbeiterName'].'">'.$row2['BearbeiterName'].'</option>';
+                  $option .= '<option value = "'.$row2['user_name'].'">'.$row2['user_name'].'</option>';
                 }
                 
                 $output .= "
@@ -518,11 +530,13 @@ if($bestanden == true) {
                 <option value='' disabled selected>Option wählen</option>
                 '$option'
                 </select>
-
+                
                 </div>
                 </div>
+                
 
                 ";
+                */
               }
             }
             

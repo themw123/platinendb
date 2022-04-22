@@ -475,37 +475,11 @@ function ueberfuehren($id, $Anzahl, $Bearbeiter, $Material_ID, $Endkupfer, $Stae
 		$nr = 1;
 	}
 
-	/*
-	//Bearbeiter ermitteln
-	$bearbeiter = "select bearbeiterName from bearbeiter";
-	$bearbeiter = mysqli_query($platinendb_connection,$bearbeiter);
-	while($row = $bearbeiter->fetch_assoc()) {
-		if($row['bearbeiterName'] == "est") {
-			$estVorhanden = true;
-		}
-	} 
-	//Bearbeiter est gitb es, also id ermitteln
-	if($estVorhanden) {
-		$estId = "select ID from bearbeiter where BearbeiterName = 'est'";
-		$estId = mysqli_query($platinendb_connection,$estId);
-		$estId = mysqli_fetch_array($estId);
-		$estId = $estId['ID'];
-	}
-	//Gibt es nicht also anlegen und id ermitteln
-	else {
-		$bearbeiter = "INSERT INTO bearbeiter (BearbeiterName) VALUES ('est')";
-		mysqli_query($platinendb_connection, $bearbeiter);
-		$estId = "select ID from bearbeiter where BearbeiterName = 'est'";
-		$estId = mysqli_query($platinendb_connection,$estId);
-		$estId = mysqli_fetch_array($estId);
-		$estId = $estId['ID'];
-	}
-	*/
 
-	$bearbeiterId = "select ID from bearbeiter where BearbeiterName = '$Bearbeiter'";
+	$bearbeiterId = "select user_id from login.users where user_name = '$Bearbeiter'";
 	$bearbeiterId = mysqli_query($platinendb_connection,$bearbeiterId);
 	$bearbeiterId = mysqli_fetch_array($bearbeiterId);
-	$bearbeiterId = $bearbeiterId['ID'];
+	$bearbeiterId = $bearbeiterId['user_id'];
 
 	//Datum
 	$Erstellt = date('Y-m-d H:i:s', time());
