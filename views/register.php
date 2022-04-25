@@ -25,7 +25,18 @@ if ist da, damit einfliegende registerform nicht erneut angezeigt wird, wenn reg
 
 if ($registration->messages == null ) {
 
-    if(isset($_GET["Validation"]) && isset($_GET["user_name"]) && isset($_GET["user_email"]) && isset($_GET["user_password"]) && isset($_GET["user_standort"])) {
+    if(isset($_GET["Validation"]) && isset($_GET["user_name"]) && isset($_GET["user_email"]) && isset($_GET["user_password"])) {
+        
+        $lehrstuhl = 'SELECT kuerzel FROM lehrstuhl';
+
+        $lehrstuhl = mysqli_query($platinendb_connection, $lehrstuhl);
+
+        while($row = mysqli_fetch_assoc($lehrstuhl))
+        {
+          $lehrstuhl .= '<option value = "'.$row['kuerzel'].'">'.$row['kuerzel'].'</option>';
+        }
+
+        
         echo
         '<div class="wrapper fadeInDown">
 
@@ -47,29 +58,14 @@ if ($registration->messages == null ) {
         <input value='.$_GET["user_password"].' id="login_input_password_new" class="login_input" type="hidden" name="user_password" pattern=".{6,}" placeholder="Passwort (min. 6 Zeichen)"  required autocomplete="off" />
     
     
-        <div class="containerintext">
-        <p>Standort?</p>
-        <label class="radio-inline" id="option1">
-
-        ';
-        if($_GET["user_standort"] == "int") {
-            echo'<input value="int" type="radio" name="user_standort" checked>intern';
-        }
-        else {
-            echo'<input value="int" type="radio" name="user_standort">intern';
-        }
-        echo'
-        </label>
-        <label class="radio-inline" id="option2">
-        ';
-        if($_GET["user_standort"] == "ext") {
-            echo'<input value="ext" type="radio" name="user_standort" checked>extern';
-        }
-        else {
-            echo'<input value="ext" type="radio" name="user_standort">extern';
-        }
-        echo'
-        </label>
+        <div class="containerlehrstuhl">
+        <div class="form-group">
+        <label for="usr">Lehrstuhl:</label>
+        <select class="form-control" id="lehrstuhl" name="Lehrstuhl" required>
+        <option value="" disabled selected>Option wählen</option>
+        '.$lehrstuhl.'
+        </select>
+        </div>
         </div>
 
         
@@ -103,15 +99,6 @@ if ($registration->messages == null ) {
         
         <input id="login_input_password_repeat" class="login_input" type="password" name="user_password_repeat" pattern=".{6,}" placeholder="Passwort wiederholen"  required autocomplete="off" />
     
-        <div class="containerintext">
-        <p>Standort?</p>
-        <label class="radio-inline" id="option1">
-        <input value="int" type="radio" name="user_standort" checked>intern
-        </label>
-        <label class="radio-inline" id="option2">
-        <input value="ext" type="radio" name="user_standort">extern
-        </label>
-        </div>
         
         <input id="registrierensubmit" type="submit" name="register" class="fadeIn second" value="registrieren">
 

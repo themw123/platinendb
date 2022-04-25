@@ -398,3 +398,8 @@ p {
                                
 }
 
+#lehrstuhl {
+  text-align: center;
+  text-align-last: center;
+  /* webkit*/
+}
