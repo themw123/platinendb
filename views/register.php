@@ -1,4 +1,3 @@
-
 <?php
 // show potential errors / feedback (from register object)
 if (isset($registration)) {
@@ -27,13 +26,20 @@ if ($registration->messages == null ) {
 
     if(isset($_GET["Validation"]) && isset($_GET["user_name"]) && isset($_GET["user_email"]) && isset($_GET["user_password"])) {
         
-        $lehrstuhl = 'SELECT kuerzel FROM lehrstuhl';
+
+
+
+        $lehrstuhl = "SELECT kuerzel FROM lehrstuhl";
+        
+        $platinendb_connection = $registration->getloginObj()->getplatinendb_connection();
 
         $lehrstuhl = mysqli_query($platinendb_connection, $lehrstuhl);
 
+        $optionen = '';
+
         while($row = mysqli_fetch_assoc($lehrstuhl))
         {
-          $lehrstuhl .= '<option value = "'.$row['kuerzel'].'">'.$row['kuerzel'].'</option>';
+          $optionen .= '<option value = "'.$row['kuerzel'].'">'.$row['kuerzel'].'</option>';
         }
 
         
@@ -61,9 +67,9 @@ if ($registration->messages == null ) {
         <div class="containerlehrstuhl">
         <div class="form-group">
         <label for="usr">Lehrstuhl:</label>
-        <select class="form-control" id="lehrstuhl" name="Lehrstuhl" required>
-        <option value="" disabled selected>Option wählen</option>
-        '.$lehrstuhl.'
+        <select class="form-control" id="lehrstuhl" name="user_lehrstuhl" required>
+        <option value="" selected disabled hidden>Option wählen</option>
+        '.$optionen.'
         </select>
         </div>
         </div>

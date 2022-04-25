@@ -29,6 +29,7 @@ class Registration
      */
     public function __construct()
     {
+
         if (isset($_POST["register"])) {
             //$this->registerNewUser();
             $this->registerNewUser();
@@ -99,7 +100,6 @@ class Registration
                 $user_name = $this->db_connection->real_escape_string(strip_tags($_POST['user_name'], ENT_QUOTES));
                 $user_email = $this->db_connection->real_escape_string(strip_tags($_POST['user_email'], ENT_QUOTES));
                 $user_password = $this->db_connection->real_escape_string(strip_tags($_POST['user_password_new'], ENT_QUOTES));
-                $user_standort = $this->db_connection->real_escape_string(strip_tags($_POST['user_standort'], ENT_QUOTES));
 
                 // crypt the user's password with PHP 5.5's password_hash() function, results in a 60 character
                 // hash string. the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using
@@ -115,7 +115,7 @@ class Registration
                 } else {
                     //send email with user's data
                     $art = "validation";
-                    $zustand = sendMail($art, $user_name, $user_email, $user_password_hash, $user_standort);
+                    $zustand = sendMail($art, $user_name, $user_email, $user_password_hash);
                     
                     //$zustand = true;
                     if($zustand) {
@@ -185,8 +185,14 @@ class Registration
                 $user_name = $this->db_connection->real_escape_string(strip_tags($_POST['user_name'], ENT_QUOTES));
                 $user_email = $this->db_connection->real_escape_string(strip_tags($_POST['user_email'], ENT_QUOTES));
                 $user_password = $this->db_connection->real_escape_string(strip_tags($_POST['user_password'], ENT_QUOTES));
-                $user_standort = $this->db_connection->real_escape_string(strip_tags($_POST['user_standort'], ENT_QUOTES));
+                $user_lehrstuhl = $this->db_connection->real_escape_string(strip_tags($_POST['user_lehrstuhl'], ENT_QUOTES));
 
+                $platinendb_connection = $this->login->getplatinendb_connection();
+
+                $user_lehrstuhl = "select id from lehrstuhl where kuerzel = '$user_lehrstuhl'";
+                $user_lehrstuhl = mysqli_query($platinendb_connection,$user_lehrstuhl);
+                $user_lehrstuhl = mysqli_fetch_array($user_lehrstuhl);
+                $user_lehrstuhl = $user_lehrstuhl['id'];
                 // crypt the user's password with PHP 5.5's password_hash() function, results in a 60 character
                 // hash string. the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using
                 // PHP 5.3/5.4, by the password hashing compatibility library
@@ -200,8 +206,8 @@ class Registration
                     $this->errors[] = "Der Benutzername/E-Mail-Adresse ist bereits vergeben";
                 } else {
                     // write new user's data into database
-                    $sql = "INSERT INTO users (user_name, admin, user_password_hash, user_email, intoderext)
-                            VALUES('" . $user_name . "', 0, '" . $user_password . "', '" . $user_email . "', '" . $user_standort . "');";
+                    $sql = "INSERT INTO users (user_name, admin, user_password_hash, user_email, lehrstuhl)
+                            VALUES('" . $user_name . "', 0, '" . $user_password . "', '" . $user_email . "', '" . $user_lehrstuhl . "');";
                     $query_new_user_insert = $this->db_connection->query($sql);
 
                     // if user has been added successfully
@@ -220,6 +226,10 @@ class Registration
         } else {
             $this->errors[] = "Ein unbekannter Fehler ist aufgetreten.";
         }
+    }
+
+    public function getloginObj() {
+        return $this->login;
     }
 
 }

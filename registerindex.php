@@ -72,11 +72,12 @@ require_once('libraries/PHPMailer.php');
 // load the login class
 require_once("classes/Login.php");
 
-$login = new Login();
-
 // create the registration object. when this object is created, it will do all registration stuff automatically
 // so this single line handles the entire registration process.
+
+
 $registration = new Registration();
+
 
 
 include("views/register.php");
