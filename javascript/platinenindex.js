@@ -423,17 +423,17 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse2', function () {
     var Leiterkartenname = table.api().row($(this).closest('tr')).data()[1];
     var Auftraggeber = table.api().row($(this).closest('tr')).data()[2];
 
-    var Anzahl = table.api().row($(this).closest('tr')).data()[4];
-    var Material = table.api().row($(this).closest('tr')).data()[5];
-    var Endkupfer = table.api().row($(this).closest('tr')).data()[6];
-    var Staerke = table.api().row($(this).closest('tr')).data()[7];
-    var Lagen = table.api().row($(this).closest('tr')).data()[8];
-    var Groesse = table.api().row($(this).closest('tr')).data()[9];
-    var Oberflaeche = table.api().row($(this).closest('tr')).data()[10];
-    var Loetstopp = table.api().row($(this).closest('tr')).data()[11];
-    var Wunschdatum = table.api().row($(this).closest('tr')).data()[13];
-    var Kommentar = table.api().row($(this).closest('tr')).data()[14];
-    var Ignorieren = table.api().row($(this).closest('tr')).data()[16];
+    var Anzahl = table.api().row($(this).closest('tr')).data()[5];
+    var Material = table.api().row($(this).closest('tr')).data()[6];
+    var Endkupfer = table.api().row($(this).closest('tr')).data()[7];
+    var Staerke = table.api().row($(this).closest('tr')).data()[8];
+    var Lagen = table.api().row($(this).closest('tr')).data()[9];
+    var Groesse = table.api().row($(this).closest('tr')).data()[10];
+    var Oberflaeche = table.api().row($(this).closest('tr')).data()[11];
+    var Loetstopp = table.api().row($(this).closest('tr')).data()[12];
+    var Wunschdatum = table.api().row($(this).closest('tr')).data()[14];
+    var Kommentar = table.api().row($(this).closest('tr')).data()[15];
+    var Ignorieren = table.api().row($(this).closest('tr')).data()[17];
 
     $.ajax({  
                     url:"verarbeitungPl/Modal.php",  
