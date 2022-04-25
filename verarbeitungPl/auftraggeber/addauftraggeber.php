@@ -26,7 +26,7 @@ if($bestanden == true) {
       $auftraggeber = mysqli_real_escape_string($platinendb_connection, $_POST['bearOderAuftr']);
 
 
-      $add = "INSERT INTO users(user_name, admin) VALUE('$auftraggeber', '0')";
+      $add = "INSERT INTO users(user_name, admin, lehrstuhl) VALUE('$auftraggeber', '0', '1')";
 
 
       mysqli_query($login_connection, $add);
