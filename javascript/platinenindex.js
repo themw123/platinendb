@@ -33,7 +33,7 @@ var table = $('#tabelle1').DataTable({
   searchPanes: {
             viewTotal: true,
             controls: false,
-            columns: [3]
+            columns: [4]
   },
 
 
@@ -57,9 +57,9 @@ var table = $('#tabelle1').DataTable({
 dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12 col-md-5'l><'col-sm-12 col-md-7'p>>", buttons: {
       buttons: [
-            { extend: 'csv', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], modifier: {page: 'current'}} , className: 'btn btn-aktion' },
-            { extend: 'excel', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], modifier: {page: 'current'}} , className: 'btn btn-aktion' },
-            { extend: 'pdf', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], modifier: {page: 'current'}} , orientation: 'landscape', pageSize: 'LEGAL' , className: 'btn btn-aktion' },
+            { extend: 'csv', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], modifier: {page: 'current'}} , className: 'btn btn-aktion' },
+            { extend: 'excel', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], modifier: {page: 'current'}} , className: 'btn btn-aktion' },
+            { extend: 'pdf', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], modifier: {page: 'current'}} , orientation: 'landscape', pageSize: 'LEGAL' , className: 'btn btn-aktion' },
             ],
        dom: {
 		  button: {
@@ -73,19 +73,19 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
           "columnDefs": [
   
           { 
-          "targets": [3],
+          "targets": [4],
           searchPanes:{
                 options:[
                     {
                         label: 'offene',
                         value: function(rowData, rowIdx) {
-                            return rowData[17] == 0;
+                            return rowData[18] == 0;
                         }
                     },
                     {
                       label: 'ignorierte',
                       value: function(rowData, rowIdx) {
-                          return rowData[16] == 1;
+                          return rowData[17] == 1;
                       }
                   }
                 ]
@@ -102,7 +102,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
         },
 
          {
-          "targets": [15,16,17,18,19],
+          "targets": [16,17,18,19,20],
           "visible": false
          },
 
@@ -114,7 +114,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
             //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
             if(admin == "ja") {
 
-              var erstelltam = data[12].toString();
+              var erstelltam = data[13].toString();
               var t2 = erstelltam.split('-');
               t2 = t2[2] + "-" + t2[1] + "-" + t2[0];
 
@@ -126,21 +126,21 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
               $(row).find('i:nth-child(3)').css("display", "inline");
               $(row).find('i:nth-child(4)').css("display", "inline");
 
-              if(data[18] == 0) {
+              if(data[19] == 0) {
                 $(row).find('i:nth-child(3)').css("visibility", "visible");
               }
 
-              if(data[17] == 0){
+              if(data[18] == 0){
 
                 $(row).find('i:nth-child(4)').css("visibility", "visible");
 
                 $(row).attr('id', 'blue');
 
-                if(data[16] == 0) {
-                  if($daysbetween > 15) {
+                if(data[17] == 0) {
+                  if($daysbetween > 16) {
                     $(row).find('i:nth-child(4)').addClass("red").css("opacity", 1);
                   }
-                  else if($daysbetween > 10) {
+                  else if($daysbetween > 11) {
                     $(row).find('i:nth-child(4)').addClass("orange").css("opacity", 1);
                   }
                   /*
@@ -155,7 +155,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
               }
               else {
-                if(data[18] == 0) {
+                if(data[19] == 0) {
                   $(row).attr('id', 'orange');
                 }
                 else {
@@ -163,7 +163,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                 }
               }
 
-              if(data[19] == 0) {
+              if(data[20] == 0) {
                 $(row).find('i:nth-child(3)').addClass("grey").prop('disabled', true);
               }
 
@@ -422,6 +422,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse2', function () {
 
     var Leiterkartenname = table.api().row($(this).closest('tr')).data()[1];
     var Auftraggeber = table.api().row($(this).closest('tr')).data()[2];
+
     var Anzahl = table.api().row($(this).closest('tr')).data()[4];
     var Material = table.api().row($(this).closest('tr')).data()[5];
     var Endkupfer = table.api().row($(this).closest('tr')).data()[6];

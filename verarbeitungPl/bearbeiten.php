@@ -40,13 +40,13 @@ if($bestanden == true) {
 
 
           if(isUserAdmin($platinendb_connection) == true) {
-          /*
-          Inputs auslesen Auftraggeber
-          */
-          $auftraggeber = mysqli_real_escape_string($platinendb_connection, $_POST["Auftraggeber"]);
-          $auftraggeberquery = "SELECT user_id FROM users WHERE user_name='$auftraggeber'"; 
-          $auftraggeberid =  mysqli_query($login_connection, $auftraggeberquery);
-          $Auftraggeber = mysqli_fetch_assoc($auftraggeberid);   
+            /*
+            Inputs auslesen Auftraggeber
+            */
+            $auftraggeber = mysqli_real_escape_string($platinendb_connection, $_POST["Auftraggeber"]);
+            $auftraggeberquery = "SELECT user_id FROM users WHERE user_name='$auftraggeber'"; 
+            $auftraggeberid =  mysqli_query($login_connection, $auftraggeberquery);
+            $Auftraggeber = mysqli_fetch_assoc($auftraggeberid);   
           }
 
 

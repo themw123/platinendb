@@ -49,6 +49,7 @@ if($bestanden == true) {
           $Auftraggeber2id =  mysqli_query($login_connection, $Auftraggeber2query);
           $row = mysqli_fetch_assoc($Auftraggeber2id);
 
+
           /*
           Inputs auslesen Anzahl
           */
