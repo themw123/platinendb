@@ -175,7 +175,7 @@ if($bestanden == true) {
           if(!isUserAdmin($platinendb_connection) && !mysqli_error($platinendb_connection)) {
             $art = "newPlatineNotification";
             $user_name = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
-            $user_email = mysqli_real_escape_string($login_connection, $_SESSION['user_email']);
+            $user_email = ACCOUNT_VALIDATE_TO;
             sendMail($art, $user_name, $user_email, "", "");
           }
 
