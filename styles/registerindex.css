@@ -132,7 +132,7 @@ Meldungen (errors oder succes nachrichten, mittig anzeigen lassen)
     transform: scale(0.95);
   }
   
-  input[type=text] {
+  input[type=text]:not(#addLehrstuhl) {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
@@ -196,7 +196,7 @@ Meldungen (errors oder succes nachrichten, mittig anzeigen lassen)
   }
   
   
-  input[type=text]:focus {
+  input[type=text]:not(#addLehrstuhl):focus {
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
   }
@@ -399,7 +399,63 @@ p {
 }
 
 #lehrstuhl {
-  text-align: center;
-  text-align-last: center;
+  text-align: center!important;
+  text-align-last: center!important;
   /* webkit*/
 }
+
+#lehrstuhlbutton {
+  color: #005ea9!important;
+  font-size: 18px!important;
+  
+}
+
+#lehrstuhlbutton:hover {
+  color: #0000cc!important;
+  
+}
+
+.lehrstuhlbutton {
+  background-color: white!important;
+  border: 1px solid #ced4da!important;
+  border-radius: .25rem!important;  
+  box-shadow: none!important;
+}
+
+.lehrstuhlbutton:hover {
+  border: 1px solid #ced4da!important;
+}
+
+:not(output):-moz-ui-invalid {
+  box-shadow: 0 0 1.5px 1px white!important;
+}
+
+.ipg1 {
+  margin-bottom: 7px!important;
+}
+
+#add {
+  background-color: #005ea9!important;
+  border-color:#005ea9!important;
+  outline: none !important;
+  box-shadow: none!important;
+  margin-top: 6px!important;
+  }
+  
+  #add:hover{
+  background-color: #0000cc!important;
+  border-color:#0000cc!important;
+  }
+
+  #rem {
+    background-color: #005ea9!important;
+    border-color:#005ea9!important;
+    outline: none !important;
+    box-shadow: none!important;
+    margin-top: 6px!important;
+    }
+    
+    #rem:hover{
+    background-color: #0000cc!important;
+    border-color:#0000cc!important;
+    }

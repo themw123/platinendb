@@ -87,6 +87,12 @@ include("views/register.php");
 
 ?>
 
+<script src="plugins/jquery3.5.1/dist/jquery.min.js" type="text/javascript"></script>
+
+<script src="plugins/popper1.14.7/dist/umd/popper.min.js"></script>
+
+<script src="plugins/bootstrap-4.5.3-dist/js/bootstrap.min.js" type="text/javascript"></script>
+
 
 
   </body>

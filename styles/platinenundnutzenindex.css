@@ -719,7 +719,7 @@ testdaten haken farbe
   box-shadow: none!important;
 }
 
-.bearbeiterbutton:hover {
+.bearbeiterbutton:hover{
   border: 1px solid #ced4da;
 }
 

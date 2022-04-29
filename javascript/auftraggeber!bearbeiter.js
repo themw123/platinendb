@@ -42,6 +42,7 @@ $(document).ready(function(){
 
 //Wenn auf Bearbeiterbutton geklickt wird
 $('.bearbeiterbutton').on( 'click', function () {
+  
   $("#bearbeiterbutton").toggleClass("far fa-caret-square-down far fa-caret-square-up");
   $('#fehleraddbenutzer').hide();
 });
