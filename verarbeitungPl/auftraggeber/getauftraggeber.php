@@ -23,7 +23,7 @@ $bestanden = $sicherheit->ergebnis();
 
 $auftraggeber = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
 
-if($bestanden == true) {
+if($bestanden == true && $aktion == "auftraggeber") {
  
   
          $query = "

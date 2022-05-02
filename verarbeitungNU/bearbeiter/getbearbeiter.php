@@ -22,7 +22,7 @@ $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinen
 $bestanden = $sicherheit->ergebnis();
 
 
-if($bestanden == true) {
+if($bestanden == true && $aktion == "bearbeiter") {
  
          $bearbeiter = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
 

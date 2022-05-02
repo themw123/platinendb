@@ -219,11 +219,13 @@ class Sicherheit {
        }
 
 
-        if($this->aktion == "platinen" || $this->aktion == "modaleinfuegen" || $this->aktion == "einfuegen" || $this->aktion == "auftraggeber" || $this->aktion == "download") {
+        if($this->aktion == "platinen" || $this->aktion == "modaleinfuegen" || $this->aktion == "einfuegen") {
             $this->bestanden = true;
         }
 
-        elseif($this->aktion == "lehrstuhl") {
+
+        
+        elseif($this->aktion == "lehrstuhl" || $this->aktion == "download" || $this->aktion == "auftraggeber") {
             $admin = isUserAdmin($this->login_connection);
             
             if($admin) {
@@ -231,6 +233,7 @@ class Sicherheit {
             }
 
         }
+
 
         elseif($this->aktion == "modalbearbeiten") {
                 $existens = existens($this->platinendb_connection);

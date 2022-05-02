@@ -36,7 +36,7 @@ else {
 
 if($aktion == "modaleinfuegen") {
   echo'
-  <script src="javascript/auftraggeber.js"></script>
+  <script src="javascript/auftraggeber!bearbeiter.js"></script>
   ';
 }
 
@@ -44,7 +44,7 @@ $von = "platine";
 $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
-if($bestanden == true) {
+if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbeiten")) {
 
         $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 

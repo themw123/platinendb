@@ -22,7 +22,7 @@ $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinen
 $bestanden = $sicherheit->ergebnis();
 
 
-if($bestanden == true) {
+if($bestanden == true && $aktion == "einfuegen") {
 
   
             /*

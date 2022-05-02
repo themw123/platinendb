@@ -3,7 +3,17 @@
 //Wenn Bei Nutzen oder Platine auf add Bearbeiter bzw Auftraggeber geklickt wird
 $(document).ready(function(){ 
 
-  getAuftraggeber(true);
+  if(aktionx.includes("Nutzen")) {
+    aktion = "bearbeiter";
+    ziel = "NU";
+  }
+  else {
+    aktion = "auftraggeber";
+    ziel = "Pl";
+  }
+
+
+  getAuftraggeberOrBearbeiter(true);
 
 });
 
@@ -16,12 +26,9 @@ $('.bearbeiterbutton').on( 'click', function () {
 });
 
 
-function getAuftraggeber(firstTime) {
+function getAuftraggeberOrBearbeiter(firstTime) {
   //Liste aktualisieren
   var name;
-  
-  aktion = "auftraggeber";
-  var ziel = "Pl";
   
 
   $.ajax({  
@@ -59,7 +66,6 @@ function getAuftraggeber(firstTime) {
 $('#add').on( 'click', function () {
     
     //hinzufügen
-    var aktionx = $(".modal-title").get(2).innerText;
     var bearOderAuftr = document.getElementById("addBenutzer").value; 
 
   
@@ -86,7 +92,7 @@ $('#add').on( 'click', function () {
                 if(zustand == "erfolgreich") {
                   inputfeld.value = '';
                   Objekt.selectedIndex = "0";
-                  getAuftraggeber();
+                  getAuftraggeberOrBearbeiter();
                   $('#collapse'+col).collapse("hide");
                   //$("#addbearbeiter").text("hinzufügen");
                 }
@@ -108,9 +114,6 @@ $('#add').on( 'click', function () {
 
 
 $('#rem').on( 'click', function () {
-    
-  var aktionx = $(".modal-title").get(2).innerText;
-
 
   var aktion = "auftraggeber";
   var ziel = "Pl";
@@ -137,7 +140,7 @@ $('#rem').on( 'click', function () {
               if(zustand == "erfolgreich") {
                 Objekt.remove(Objekt.selectedIndex);
                 Objekt.selectedIndex = "0";
-                getAuftraggeber();
+                getAuftraggeberOrBearbeiter();
                 $('#collapse'+col).collapse("hide");
               }
               else {

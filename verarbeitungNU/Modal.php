@@ -35,7 +35,7 @@ else {
 
 if($aktion == "modaleinfuegen") {
   echo'
-  <script src="javascript/auftraggeber.js"></script>
+  <script src="javascript/auftraggeber!bearbeiter.js"></script>
   ';
 }
 
@@ -44,7 +44,7 @@ $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinen
 $bestanden = $sicherheit->ergebnis();
  
 
-if($bestanden == true) {
+if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbeiten")) {
 
 
           /*

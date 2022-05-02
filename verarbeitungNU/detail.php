@@ -24,7 +24,7 @@ $bestanden = $sicherheit->ergebnis();
 
 
 
-if($bestanden == true) {
+if($bestanden == true && $aktion == "detail") {
     
                     
                

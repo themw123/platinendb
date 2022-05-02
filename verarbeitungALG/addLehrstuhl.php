@@ -21,7 +21,7 @@ $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinen
 $bestanden = $sicherheit->ergebnis();
 
 
-if($bestanden == true) {
+if($bestanden == true && $aktion == "lehrstuhl") {
 
       $lehrstuhl = mysqli_real_escape_string($platinendb_connection, $_POST['addLehrstuhl']);
 
