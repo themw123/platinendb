@@ -418,7 +418,6 @@ p {
 .lehrstuhlbutton {
   background-color: white!important;
   border: 1px solid #ced4da!important;
-  border-radius: .25rem!important;  
   box-shadow: none!important;
 }
 
@@ -459,3 +458,20 @@ p {
     background-color: #0000cc!important;
     border-color:#0000cc!important;
     }
+
+
+    #lehrstuhl option[disabled]:first-child {
+    display: none;
+  }
+
+  #fehleraddlehrstuhl{
+    margin-top: 6px;
+  }
+
+  .input-group {
+    margin-bottom: 1rem;
+  }
+
+  .ipg1 {
+    margin-bottom: 7px;
+  }

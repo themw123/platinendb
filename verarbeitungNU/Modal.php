@@ -35,7 +35,7 @@ else {
 
 if($aktion == "modaleinfuegen") {
   echo'
-  <script src="javascript/auftraggeber!bearbeiter.js"></script>
+  <script src="javascript/auftraggeber.js"></script>
   ';
 }
 

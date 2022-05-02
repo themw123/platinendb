@@ -3,40 +3,8 @@
 //Wenn Bei Nutzen oder Platine auf add Bearbeiter bzw Auftraggeber geklickt wird
 $(document).ready(function(){ 
 
-    var aktion2= "";
-    if(aktionx.includes("Nutzen")) {
-      var aktion = "bearbeiter";
-      var ziel = "NU";
-    }
-    else {
-      var aktion = "auftraggeber";
-      var ziel = "Pl";
-    }
-    
-    $.ajax({  
-          url:"verarbeitung"+ziel+"/"+aktion+"/get"+aktion+".php",  
-          method:"post",
-          dataType: 'JSON',
-          data:{aktion:aktion},
-          success: function(response){
-            
-              $("#"+aktion).empty();
-              //$("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');
+  getAuftraggeber(true);
 
-              for(var i=0; i<response.length; i++){
-                  name = response[i][0];
-                  defaultt = response[i][1];
-
-                  if(defaultt == 1) {
-                    $("#"+aktion).append('<option value="' + name + '" selected=selected   >' + name + '</option>')    
-
-                  }
-                  else {
-                    $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')    
-                  }
-              }
-      } 
-    });
 });
 
 
@@ -48,9 +16,8 @@ $('.bearbeiterbutton').on( 'click', function () {
 });
 
 
-function refresh1() {
+function getAuftraggeber(firstTime) {
   //Liste aktualisieren
-  var aktionx = $(".modal-title").get(2).innerText;
   var name;
   
   aktion = "auftraggeber";
@@ -70,9 +37,13 @@ function refresh1() {
             name = response[i][0];
             defaultt = response[i][1];
 
-            if(defaultt == 1) {
-              $("#"+aktion).append('<option value="' + name + '" selected=selected   >' + name + '</option>')    
-
+            if(firstTime) {
+              if(defaultt == 1) {
+                $("#"+aktion).append('<option value="' + name + '" selected=selected   >' + name + '</option>')    
+              }
+              else {
+                $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')    
+              }
             }
             else {
               $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')    
@@ -95,7 +66,9 @@ $('#add').on( 'click', function () {
     var aktion = "auftraggeber";
     var ziel = "Pl";
     var col = "3";
-    
+
+    var Objekt = document.getElementById(aktion);
+
 
     if(bearOderAuftr.length > 0) {
       $("#add").attr("disabled", true);
@@ -112,7 +85,8 @@ $('#add').on( 'click', function () {
                 var inputfeld = document.getElementById("addBenutzer");
                 if(zustand == "erfolgreich") {
                   inputfeld.value = '';
-                  refresh1();
+                  Objekt.selectedIndex = "0";
+                  getAuftraggeber();
                   $('#collapse'+col).collapse("hide");
                   //$("#addbearbeiter").text("hinzufügen");
                 }
@@ -163,7 +137,7 @@ $('#rem').on( 'click', function () {
               if(zustand == "erfolgreich") {
                 Objekt.remove(Objekt.selectedIndex);
                 Objekt.selectedIndex = "0";
-                refresh1();
+                getAuftraggeber();
                 $('#collapse'+col).collapse("hide");
               }
               else {

@@ -8,13 +8,14 @@
 
     <link href="#" rel="shortcut icon" />
     
+    <link href="plugins/fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
+
     <link href="plugins/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <script src='plugins/fontawesome-free-5.15.1-web/a076d05399.js'></script>
-
-    <script src="plugins/jquery3.5.1/dist/jquery.min.js" type="text/javascript"></script>
-    
     <link rel="stylesheet" type="text/css" href="styles/registerindex.css">
+
+
+
 
 
   
@@ -87,12 +88,17 @@ include("views/register.php");
 
 ?>
 
+
+
 <script src="plugins/jquery3.5.1/dist/jquery.min.js" type="text/javascript"></script>
 
 <script src="plugins/popper1.14.7/dist/umd/popper.min.js"></script>
 
 <script src="plugins/bootstrap-4.5.3-dist/js/bootstrap.min.js" type="text/javascript"></script>
 
+<script src='plugins/fontawesome-free-5.15.1-web/a076d05399.js'></script>
+
+<script src="javascript/lehrstuhl.js"></script>
 
 
   </body>

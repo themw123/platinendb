@@ -223,6 +223,15 @@ class Sicherheit {
             $this->bestanden = true;
         }
 
+        elseif($this->aktion == "lehrstuhl") {
+            $admin = isUserAdmin($this->login_connection);
+            
+            if($admin) {
+                $this->bestanden = true;
+            }
+
+        }
+
         elseif($this->aktion == "modalbearbeiten") {
                 $existens = existens($this->platinendb_connection);
 

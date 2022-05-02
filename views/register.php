@@ -1,4 +1,10 @@
+
+
+
 <?php
+
+
+
 // show potential errors / feedback (from register object)
 if (isset($registration)) {
     if ($registration->errors) {
@@ -29,26 +35,6 @@ if ($registration->messages == null ) {
 
 
 
-        $lehrstuhl = "SELECT kuerzel FROM lehrstuhl";
-        
-        $platinendb_connection = $registration->getloginObj()->getplatinendb_connection();
-
-        $lehrstuhl = mysqli_query($platinendb_connection, $lehrstuhl);
-
-        $optionen = '';
-
-        while($row = mysqli_fetch_assoc($lehrstuhl))
-        {
-          $optionen .= '<option value = "'.$row['kuerzel'].'">'.$row['kuerzel'].'</option>';
-        }
-
-        
-
-
-
-
-
-
         echo
         '<div class="wrapper fadeInDown">
 
@@ -71,32 +57,33 @@ if ($registration->messages == null ) {
     
     
         <div class="containerlehrstuhl">
+        <label for="usr">Lehrstuhl:</label>
+
                 <div class="input-group ipg1">
-                        <label for="usr">Lehrstuhl:</label>
                         <select class="form-control" id="lehrstuhl" name="user_lehrstuhl" required>
                         <option value="" selected disabled hidden>Option wählen</option>
-                        '.$optionen.'
+                        
                         </select>
 
                         <div class="input-group-append">
                         <button data-toggle="collapse" data-target="#collapse4" class="btn btn-primary lehrstuhlbutton" type="button"><i id="lehrstuhlbutton" class="far fa-caret-square-up"></i></button>
-                        </div>
-
-
-                        <div class="collapse" id="collapse4">  
-                        <div class="lehrstuhldiv">
-                        <form>
-                        <div class="form-group test">
-                        <input type="text" class="form-control" id="addLehrstuhl" aria-describedby="BenutzerHelp" placeholder="Lehrstuhlkürzel"> 
-                        <button class="btn btn-primary" id="add" type="button">hinzufügen</button>
-                        <button class="btn btn-primary" id="rem" type="button">Auswahl löschen</button>
-                        <div class="alert alert-warning collapse" id="fehleraddlehrstuhl"></div>
-                        </div>
-                        </form>
-                        </div>
                         </div>        
 
                 </div>
+            
+        <div class="collapse" id="collapse4"> 
+
+        <div class="lehrstuhldiv">
+        <form>
+        <div class="form-group test">
+        <input type="text" class="form-control" id="addLehrstuhl" aria-describedby="BenutzerHelp" placeholder="Lehrstuhlkürzel"> 
+        <button class="btn btn-primary" id="add" type="button">hinzufügen</button>
+        <button class="btn btn-primary" id="rem" type="button">Auswahl löschen</button>
+        <div class="alert alert-warning collapse" id="fehleraddlehrstuhl"></div>
+        </div>
+        </form>
+        </div>
+        </div>
         </div>
 
         
@@ -158,6 +145,7 @@ if ($registration->messages == null ) {
     ';
 
      }
+     
 
  ?>
 
