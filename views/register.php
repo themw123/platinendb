@@ -41,9 +41,7 @@ if ($registration->messages == null ) {
         <div id="formContent">
 
         <div class="fadeIn first"> 
-        
-        <i class="fas fa-user-alt" id = icon1></i>
-    
+            <i class="fas fa-user-alt" id = icon1></i>
         </div> 
         
 
@@ -57,37 +55,33 @@ if ($registration->messages == null ) {
     
     
         <div class="containerlehrstuhl">
-        <label for="usr">Lehrstuhl:</label>
+            <label for="usr">Lehrstuhl:</label>
 
-                <div class="input-group ipg1">
-                        <select class="form-control" id="lehrstuhl" name="user_lehrstuhl" required>
-                        <option value="" selected disabled hidden>Option wählen</option>
-                        
-                        </select>
+                    <div class="input-group ipg1">
+                            <select class="form-control" id="lehrstuhl" name="user_lehrstuhl" required>
+                                <option value="" selected disabled hidden>Option wählen</option>
+                            </select>
 
-                        <div class="input-group-append">
-                        <button data-toggle="collapse" data-target="#collapse4" class="btn btn-primary lehrstuhlbutton" type="button"><i id="lehrstuhlbutton" class="far fa-caret-square-up"></i></button>
-                        </div>        
-
+                            <div class="input-group-append">
+                                <button data-toggle="collapse" data-target="#collapse4" class="btn btn-primary lehrstuhlbutton" type="button"><i id="lehrstuhlbutton" class="far fa-caret-square-up"></i></button>
+                            </div>        
+                    </div>
+                
+            <div class="collapse" id="collapse4"> 
+                <div class="lehrstuhldiv">
+                    <div class="form-group test">
+                        <input type="text" class="form-control" id="addLehrstuhl" aria-describedby="BenutzerHelp" placeholder="Lehrstuhlkürzel"> 
+                        <button class="btn btn-primary" id="add" type="button">hinzufügen</button>
+                        <button class="btn btn-primary" id="rem" type="button">Auswahl löschen</button>
+                        <div class="alert alert-warning collapse" id="fehleraddlehrstuhl"></div>
+                    </div>
                 </div>
-            
-        <div class="collapse" id="collapse4"> 
+            </div>
 
-        <div class="lehrstuhldiv">
-        <form>
-        <div class="form-group test">
-        <input type="text" class="form-control" id="addLehrstuhl" aria-describedby="BenutzerHelp" placeholder="Lehrstuhlkürzel"> 
-        <button class="btn btn-primary" id="add" type="button">hinzufügen</button>
-        <button class="btn btn-primary" id="rem" type="button">Auswahl löschen</button>
-        <div class="alert alert-warning collapse" id="fehleraddlehrstuhl"></div>
-        </div>
-        </form>
-        </div>
-        </div>
         </div>
 
-        
         <input id="registrierensubmit" type="submit" name="reg" class="fadeIn second" value="anlegen/bestätigen">
+
 
         ';
 
