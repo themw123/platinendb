@@ -165,8 +165,6 @@ else {
     <script src="plugins/fixedHeaders/datatables.min.js" type="text/javascript"></script>
     <!--<script src="plugins/fixedColumns/datatables.min.js" type="text/javascript"></script>-->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
-
     
     <script src="javascript/platinenindex.js"></script>
 

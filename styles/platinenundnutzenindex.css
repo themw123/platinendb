@@ -1129,9 +1129,14 @@ testdaten haken farbe
 
 
       .auftraggeberdiv, .lehrstuhldiv {
-        margin-left: 27px;
+        border-color: #005ea9;
+        border-width: 4px;
+        border-style: solid;
+        padding: 10px;
       }
 
       #rem1, #rem2 {
         margin-bottom: 15px;
       }
+
+      
