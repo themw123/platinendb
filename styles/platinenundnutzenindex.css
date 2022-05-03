@@ -701,25 +701,25 @@ testdaten haken farbe
   -webkit-appearance: none;
 }
 */
-#bearbeiterbutton {
+#bearbeiterbutton, #lehrstuhlbutton {
   color: #005ea9;
   font-size: 18px;
   
 }
 
-#bearbeiterbutton:hover {
+#bearbeiterbutton:hover, #lehrstuhlbutton:hover {
   color: #0000cc;
   
 }
 
-.bearbeiterbutton {
+.bearbeiterbutton, .lehrstuhlbutton {
   background-color: white!important;
   border: 1px solid #ced4da;
   border-radius: .25rem;  
   box-shadow: none!important;
 }
 
-.bearbeiterbutton:hover{
+.bearbeiterbutton:hover, .lehrstuhlbutton:hover{
   border: 1px solid #ced4da;
 }
 
@@ -734,41 +734,58 @@ testdaten haken farbe
 
 
 .ipg1 {
-  margin-bottom: 7px;
+  margin-bottom: -3px;
 }
 
+.ipg2 {
+  margin-bottom: -3px;
+}
 
-#add {
+#add1, #add2 {
   background-color: #005ea9;
   border-color:#005ea9;
   outline: none !important;
   box-shadow: none!important;
   margin-top: 6px;
+  font-size: 12px;
   }
   
-  #add:hover{
+  #add1:hover, #add2:hover {
   background-color: #0000cc!important;
   border-color:#0000cc!important;
   }
 
-  #rem {
+  #add1 {
+    margin-top: 15px;
+  }
+
+  #rem1, #rem2 {
     background-color: #005ea9;
     border-color:#005ea9;
     outline: none !important;
     box-shadow: none!important;
     margin-top: 6px;
+    font-size: 12px;
     }
     
-    #rem:hover{
+    #rem1:hover, #rem2:hover{
     background-color: #0000cc!important;
     border-color:#0000cc!important;
+    }
+
+    #lehrstuhl option[disabled]:first-child {
+      display: none;
+    }
+
+    #fehleraddlehrstuhl{
+      margin-top: 6px;
     }
 
     #matlbl {
       margin-top: 8px;
     }
 
-    .bearbeiterbutton {
+    .bearbeiterbutton, .lehrstuhlbutton {
       border-color: #ced4da!important;
     }
 
@@ -1110,3 +1127,11 @@ testdaten haken farbe
         padding-right: 0px!important;
       }
 
+
+      .auftraggeberdiv, .lehrstuhldiv {
+        margin-left: 27px;
+      }
+
+      #rem1, #rem2 {
+        margin-bottom: 15px;
+      }

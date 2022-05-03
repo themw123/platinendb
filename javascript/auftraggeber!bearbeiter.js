@@ -63,10 +63,11 @@ function getAuftraggeberOrBearbeiter(firstTime) {
 
 
 
-$('#add').on( 'click', function () {
+$('#add1').on( 'click', function () {
     
     //hinzufügen
-    var bearOderAuftr = document.getElementById("addBenutzer").value; 
+    var auftr = document.getElementById("addBenutzer").value; 
+    var lehr = document.getElementById("lehrstuhl").value; 
 
   
     var aktion = "auftraggeber";
@@ -75,14 +76,15 @@ $('#add').on( 'click', function () {
 
     var Objekt = document.getElementById(aktion);
 
+    
 
-    if(bearOderAuftr.length > 0) {
-      $("#add").attr("disabled", true);
+    if(auftr.length > 0 && !(lehr == null || lehr =='')) {
+      $("#add1").attr("disabled", true);
       //$("#addbearbeiter").text("Bitte warten...");
       $.ajax({  
           url:"verarbeitung"+ziel+"/"+aktion+"/add"+aktion+".php",  
           method:"post",
-          data:{bearOderAuftr:bearOderAuftr, aktion:aktion},
+          data:{auftr:auftr, lehr:lehr, aktion:aktion},
           dataType: 'JSON',
           success: function(data){
 
@@ -103,8 +105,18 @@ $('#add').on( 'click', function () {
         } 
       });
       setTimeout(function(){
-        $("#add").attr("disabled", false);
-    }, 500);
+        $("#add1").attr("disabled", false);
+      }, 500);
+    }
+    else {
+      if(auftr == null || auftr =='') {
+        document.getElementById("fehleraddbenutzer").innerHTML="Bitte gib einen Auftraggebernamen ein";
+        $('#fehleraddbenutzer').show();
+      }
+      else if (lehr == null || lehr ==''){
+        document.getElementById("fehleraddbenutzer").innerHTML="Bitte wähle einen Lehrstuhl aus";
+        $('#fehleraddbenutzer').show();
+      }
     }
 });
   
@@ -113,7 +125,7 @@ $('#add').on( 'click', function () {
 
 
 
-$('#rem').on( 'click', function () {
+$('#rem1').on( 'click', function () {
 
   var aktion = "auftraggeber";
   var ziel = "Pl";
@@ -127,7 +139,7 @@ $('#rem').on( 'click', function () {
 
 
   if (Text != "Option wählen") {
-    $("#rem").attr("disabled", true);
+    $("#rem1").attr("disabled", true);
     $.ajax({  
           url:"verarbeitung"+ziel+"/"+aktion+"/rem"+aktion+".php",  
           method:"post",
@@ -161,7 +173,7 @@ $('#rem').on( 'click', function () {
       } 
     });
     setTimeout(function(){
-      $("#rem").attr("disabled", false);
+      $("#rem1").attr("disabled", false);
   }, 500);
 }
   

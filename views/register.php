@@ -71,8 +71,8 @@ if ($registration->messages == null ) {
                 <div class="lehrstuhldiv">
                     <div class="form-group test">
                         <input type="text" class="form-control" id="addLehrstuhl" aria-describedby="BenutzerHelp" placeholder="Lehrstuhlkürzel"> 
-                        <button class="btn btn-primary" id="add" type="button">hinzufügen</button>
-                        <button class="btn btn-primary" id="rem" type="button">Auswahl löschen</button>
+                        <button class="btn btn-primary" id="add2" type="button">hinzufügen</button>
+                        <button class="btn btn-primary" id="rem2" type="button">Auswahl löschen</button>
                         <div class="alert alert-warning collapse" id="fehleraddlehrstuhl"></div>
                     </div>
                 </div>

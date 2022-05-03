@@ -1,4 +1,4 @@
-//# sourceURL=formEditor.js
+
 
 $(document).ready(function(){ 
 
@@ -42,7 +42,7 @@ function getLehrstuhl() {
 
 
 
-$('#add').on( 'click', function () {
+$('#add2').on( 'click', function () {
     
     //hinzufügen
     var aktion = "lehrstuhl";
@@ -51,7 +51,7 @@ $('#add').on( 'click', function () {
     var col = "4";
     
     if(addLehrstuhl.length > 0) {
-      $("#add").attr("disabled", true);
+      $("#add2").attr("disabled", true);
       //$("#addbearbeiter").text("Bitte warten...");
       $.ajax({  
           url:"verarbeitungALG/addLehrstuhl.php",  
@@ -76,9 +76,16 @@ $('#add').on( 'click', function () {
         } 
       });
       setTimeout(function(){
-        $("#add").attr("disabled", false);
-    }, 500);
+        $("#add2").attr("disabled", false);
+      }, 500);
     }
+    else {
+      if (addLehrstuhl == null || addLehrstuhl ==''){
+        document.getElementById("fehleraddlehrstuhl").innerHTML="Bitte gibt ein Lehrstuhlkürzel ein";
+        $('#fehleraddlehrstuhl').show();
+      }
+    }
+
 });
   
 
@@ -86,7 +93,7 @@ $('#add').on( 'click', function () {
 
 
 
-$('#rem').on( 'click', function () {
+$('#rem2').on( 'click', function () {
     
   var aktion = "lehrstuhl";
   var col = "4";
@@ -99,7 +106,7 @@ $('#rem').on( 'click', function () {
 
 
   if (Text != "Option wählen") {
-    $("#rem").attr("disabled", true);
+    $("#rem2").attr("disabled", true);
     $.ajax({  
       url:"verarbeitungALG/remLehrstuhl.php",  
       method:"post",
@@ -129,7 +136,7 @@ $('#rem').on( 'click', function () {
       } 
     });
     setTimeout(function(){
-      $("#rem").attr("disabled", false);
+      $("#rem2").attr("disabled", false);
   }, 500);
 }
   
