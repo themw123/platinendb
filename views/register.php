@@ -57,7 +57,7 @@ if ($registration->messages == null ) {
         <div class="containerlehrstuhl">
             <label for="usr">Lehrstuhl:</label>
 
-                    <div class="input-group ipg1">
+                    <div class="input-group ipg2">
                             <select class="form-control" id="lehrstuhl" name="user_lehrstuhl" required>
                                 <option value="" selected disabled hidden>Option wählen</option>
                             </select>

@@ -433,7 +433,7 @@ p {
   margin-bottom: 7px!important;
 }
 
-#add {
+#add2 {
   background-color: #005ea9!important;
   border-color:#005ea9!important;
   outline: none !important;
@@ -441,12 +441,12 @@ p {
   margin-top: 6px!important;
   }
   
-  #add:hover{
+  #add2:hover{
   background-color: #0000cc!important;
   border-color:#0000cc!important;
   }
 
-  #rem {
+  #rem2 {
     background-color: #005ea9!important;
     border-color:#005ea9!important;
     outline: none !important;
@@ -454,7 +454,7 @@ p {
     margin-top: 6px!important;
     }
     
-    #rem:hover{
+    #rem2:hover{
     background-color: #0000cc!important;
     border-color:#0000cc!important;
     }
@@ -472,6 +472,6 @@ p {
     margin-bottom: 1rem;
   }
 
-  .ipg1 {
+  .ipg2 {
     margin-bottom: 7px;
   }
