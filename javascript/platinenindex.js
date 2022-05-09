@@ -600,13 +600,18 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse4', function () {
         },
         success: function (data, status, xhr) {
             var filename = "";
+          
             var disposition = xhr.getResponseHeader('Content-Disposition');
+            filename = disposition.split(/;(.+)/)[1].split(/=(.+)/)[1];
+
             if (disposition && disposition.indexOf('attachment') !== -1) {
                 var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
                 var matches = filenameRegex.exec(disposition);
                 if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
             }
 
+            filename = decodeURIComponent(escape(filename));
+            
             var a = document.createElement('a');
             var url = window.URL.createObjectURL(data);
             a.href = url;

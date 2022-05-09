@@ -4,6 +4,7 @@ require_once("../classes/Login.php");
 require_once("../funktion/alle.php");
 require_once("../classes/Sicherheit.php");
 
+
 $login = new Login();
 
 $login_connection= $login->getlogin_connection();
@@ -42,6 +43,8 @@ if($bestanden == true  && $aktion == "download") {
     $name = $row['name'];
     $size = $row['size'];
     $type = $row['type'];
+
+
 
     header("Pragma: public");
     header("Expires: 0");

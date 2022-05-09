@@ -47,11 +47,11 @@ if ($registration->messages == null ) {
 
         <form method="post" action="registerindex.php" name="registerform">
     
-        <input value='.$_GET["user_name"].' id="login_input_username" class="login_input" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" placeholder="Benutzername" required >
+        <input value='.$_GET["user_name"].' id="login_input_username" class="login_input" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" placeholder="Benutzername" required  readonly>
     
-        <input value='.$_GET["user_email"].' id="login_input_email" class="login_input" type="email" name="user_email" placeholder="E-Mail-Adresse" required /> 
+        <input value='.$_GET["user_email"].' id="login_input_email" class="login_input" type="email" name="user_email" placeholder="E-Mail-Adresse" required readonly /> 
 
-        <input value='.$_GET["user_password"].' id="login_input_password_new" class="login_input" type="hidden" name="user_password" pattern=".{6,}" placeholder="Passwort (min. 6 Zeichen)"  required autocomplete="off" />
+        <input value='.$_GET["user_password"].' id="login_input_password_new" class="login_input" type="hidden" name="user_password" pattern=".{6,}" placeholder="Passwort (min. 6 Zeichen)"  required readonly autocomplete="off" />
     
     
         <div class="containerlehrstuhl">
