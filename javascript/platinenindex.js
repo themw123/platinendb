@@ -1,5 +1,6 @@
 $(document).ready(function(){ 
 
+  
 
 //Datumformat angeben, damit sorting funktioniert
 $.fn.dataTable.moment( 'DD-MM-YYYY' );
@@ -377,6 +378,7 @@ $('#tabelle1 tbody').on( 'click', 'td', function () {
 
 $('#button1').on( 'click', function () {
 
+
 var modal =  $('#dataModal2') 
 modal.find('.modal-title').text('Platine hinzufügen');
 aktion = "modaleinfuegen";
@@ -389,6 +391,10 @@ aktion = "modaleinfuegen";
                     success:function(data){  
                         $('#modalbody2').html(data);
 
+                        $('.selectpicker').selectpicker({
+                          size: 5
+                        });
+
                         //datepicker übergeben
                         $('#datepicker').datepicker({
                           locale: 'de-de',
@@ -400,10 +406,12 @@ aktion = "modaleinfuegen";
                         $("#reset-date").click(function(){
                         $('#datepicker').val("").datepicker("update");
                         })
-   
-                  
+
                         $('#dataModal2').modal("show");  
+
+                          
                     }  
+
               }); 
 
   

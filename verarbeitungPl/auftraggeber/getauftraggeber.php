@@ -45,6 +45,7 @@ if($bestanden == true && $aktion == "auftraggeber") {
                 
                 $namen[$counter][0] = $row['user_name'];
                 
+
                 if($row['user_name'] == $auftraggeber) {
                   $namen[$counter][1] = 1;
                 }
@@ -52,6 +53,15 @@ if($bestanden == true && $aktion == "auftraggeber") {
                   $namen[$counter][1] = 0;
                 }
 
+                /*
+                if($row['sortierung'] == 2) {
+                  $namen[$counter][2] = 1;
+                }
+                else {
+                  $namen[$counter][2] = 0;
+                }
+                */
+                
                 $counter = $counter + 1;
             }
             echo json_encode($namen);

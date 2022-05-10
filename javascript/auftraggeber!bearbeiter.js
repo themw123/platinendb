@@ -3,6 +3,8 @@
 //Wenn Bei Nutzen oder Platine auf add Bearbeiter bzw Auftraggeber geklickt wird
 $(document).ready(function(){ 
 
+
+  
   if(aktionx.includes("Nutzen")) {
     aktion = "bearbeiter";
     ziel = "NU";
@@ -14,6 +16,7 @@ $(document).ready(function(){
 
 
   getAuftraggeberOrBearbeiter(true);
+
 
 });
 
@@ -39,10 +42,11 @@ function getAuftraggeberOrBearbeiter(firstTime) {
         success: function(response){
 
           $("#"+aktion).empty();
-          $("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');
+          //$("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');
           for(var i=0; i<response.length; i++){
             name = response[i][0];
             defaultt = response[i][1];
+            //admin = response[i][2];
 
             if(firstTime) {
               if(defaultt == 1) {
@@ -56,8 +60,11 @@ function getAuftraggeberOrBearbeiter(firstTime) {
               $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')    
             }
         }
+        $(".selectpicker").selectpicker("refresh");
     } 
+    
   });
+  
   }
 
 

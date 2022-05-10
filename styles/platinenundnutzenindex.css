@@ -635,9 +635,7 @@ testdaten haken farbe
 }
 
 
-.selectpicker {
-  display: unset!important;
-}
+
 
 #button9 {
   outline: none !important;
@@ -1140,3 +1138,39 @@ testdaten haken farbe
       }
 
       
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #52525E!important;
+}
+
+
+.dropdown {
+ border: 1px solid #ced4da!important;
+ border-radius: .25rem!important;
+
+}
+.dropdown-menu {
+  border: 1px solid #ced4da!important;
+  border-radius: .25rem!important;
+ }
+
+.btn-light {
+  background-color: #fff!important;
+  border-color: #fff!important;
+  cursor: default !important;
+}
+
+.btn-light:hover {
+  background-color: #fff!important;
+  border-color: #fff!important;
+}
+
+.btn.dropdown-toggle.btn-light {
+  outline: 0px !important;
+  -webkit-appearance: none!important;
+  box-shadow: none !important;
+  
+}
+
+.bs-searchbox .form-control {
+  margin-bottom: 6px;
+}
