@@ -739,7 +739,7 @@ testdaten haken farbe
   margin-bottom: -3px;
 }
 
-#add1, #add2 {
+#add1 {
   background-color: #005ea9;
   border-color:#005ea9;
   outline: none !important;
@@ -747,17 +747,32 @@ testdaten haken farbe
   margin-top: 6px;
   font-size: 12px;
   }
+
   
-  #add1:hover, #add2:hover {
+#add2 {
+  background-color: #89c2f1;
+  border-color:#89c2f1;
+  outline: none !important;
+  box-shadow: none!important;
+  margin-top: 6px;
+  font-size: 12px;
+  }
+  
+  #add1:hover {
   background-color: #0000cc!important;
   border-color:#0000cc!important;
+  }
+
+  #add2:hover {
+    background-color: #6262ec!important;
+    border-color:#6262ec!important;
   }
 
   #add1 {
     margin-top: 15px;
   }
 
-  #rem1, #rem2 {
+  #rem1{
     background-color: #005ea9;
     border-color:#005ea9;
     outline: none !important;
@@ -765,10 +780,23 @@ testdaten haken farbe
     margin-top: 6px;
     font-size: 12px;
     }
+
+     #rem2 {
+      background-color: #89c2f1;
+      border-color:#89c2f1;
+      outline: none !important;
+      box-shadow: none!important;
+      margin-top: 6px;
+      font-size: 12px;
+    }
     
-    #rem1:hover, #rem2:hover{
-    background-color: #0000cc!important;
-    border-color:#0000cc!important;
+    #rem1:hover{
+      background-color: #0000cc!important;
+      border-color:#0000cc!important;
+    }
+    #rem2:hover{
+      background-color: #6262ec!important;
+      border-color:#6262ec!important;
     }
 
     #lehrstuhl option[disabled]:first-child {
@@ -1126,12 +1154,41 @@ testdaten haken farbe
       }
 
 
-      .auftraggeberdiv, .lehrstuhldiv {
-        border-color: #005ea9;
-        border-width: 4px;
-        border-style: solid;
+
+      .auftraganiAn {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
         padding: 10px;
+        border-radius: 11px;
+        box-shadow: 
+          0 0 0 0px rgba(0,0,0,0),
+          0 0 22px -6px rgb(0,0,0,1);
       }
+      .auftraganiAus {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 0px;
+        border-radius: 0px;
+        box-shadow: 
+            0 0 0 0px rgba(0,0,0,0),
+      }
+
+
+
+      .lehrstuhlaniAn {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 10px;
+        border-radius: 11px;
+        box-shadow: 
+          0 0 0 0px rgba(0,0,0,0),
+          0 0 22px -6px rgb(0,0,0,1);
+      }
+      .lehrstuhlaniAus {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 0px;
+        border-radius: 0px;
+        box-shadow: 
+            0 0 0 0px rgba(0,0,0,0),
+      }
+
 
       #rem1, #rem2 {
         margin-bottom: 15px;

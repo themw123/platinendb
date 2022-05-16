@@ -86,64 +86,61 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         $auftraggeberForm .= "
         <div class='form-group'>
           <label for='usr'>Auftraggeber:</label>
-          <div class='input-group ipg1'>
 
-          <select class='form-control $auftraggeberDeufault' data-live-search='true' id='auftraggeber' name='Auftraggeber' required>     
-          </select>
+          <div class='auftraggeberdiv'>
 
-          
-          <div class='input-group-append'>
-          <button data-toggle='collapse' data-target='#collapse3' class='btn btn-primary bearbeiterbutton' type='button'><i id='bearbeiterbutton' class='far fa-caret-square-up'></i></button>
-          </div>
+            <div class='input-group ipg1'>
 
-          </div>
+            <select class='form-control $auftraggeberDeufault' data-live-search='true' id='auftraggeber' name='Auftraggeber' required>     
+            </select>
 
-
-
-
-          <div class='collapse' id='collapse3'>
-            <button class='btn btn-primary' id='rem1' type='button'>Auftraggeber löschen</button>
-            <div class='auftraggeberdiv'>
-              <form>
-
-                <div class='form-group test'>
-                  <label for='usr'>Neuer Auftraggeber:</label>
-                  <input type='text' class='form-control' id='addBenutzer' aria-describedby='BenutzerHelp' placeholder='Auftraggebername'> 
-                  
-                            <div class='lehrstuhlgesammtdiv'>
-                            <label for='usr'>zugehöriger Lehrstuhl:</label>
-                            <div class='input-group ipg2'>
-                              <select class='form-control' id='lehrstuhl' name='user_lehrstuhl'>
-                                  <option value='' selected disabled hidden>Option wählen</option>
-                              </select>   
-                              <div class='input-group-append'>
-                                <button data-toggle='collapse' data-target='#collapse4' class='btn btn-primary lehrstuhlbutton' type='button'><i id='lehrstuhlbutton' class='far fa-caret-square-up'></i></button>
-                              </div>       
-                            </div>
-              
-                            <div class='collapse' id='collapse4'>
-                              <button class='btn btn-primary' id='rem2' type='button'>Lehrstuhl löschen</button>
-                              <div class='lehrstuhldiv'>
-                                <form>
-                                  <div class='form-group test'>
-                                    <label for='usr'>Neuer Lehrstuhl:</label>
-                                    <input type='text' class='form-control' id='addLehrstuhl' aria-describedby='BenutzerHelp' placeholder='Lehrstuhlkürzel'> 
-                                    <button class='btn btn-primary' id='add2' type='button'>Lehrstuhl hinzufügen</button>
-                                  </div>
-                                </form>
-                              </div>
-                              <div class='alert alert-warning collapse' id='fehleraddlehrstuhl'></div>
-                            </div>
-                          </div>
-                  
-                  <button class='btn btn-primary' id='add1' type='button'>Auftraggeber hinzufügen</button>
-                </div>
-
-
-              </form>
+            
+            <div class='input-group-append'>
+            <button data-toggle='collapse' data-target='#collapse3' class='btn btn-primary bearbeiterbutton' type='button'><i id='bearbeiterbutton' class='far fa-caret-square-up'></i></button>
             </div>
 
-            <div class='alert alert-warning collapse' id='fehleraddbenutzer'></div>
+            </div>
+
+
+
+
+            <div class='collapse' id='collapse3'>
+                <button class='btn btn-primary' id='rem1' type='button'>Auftraggeber löschen</button>
+                <form>
+                  <div class='form-group test'>
+                    <label for='usr'>Neuer Auftraggeber:</label>
+                    <input type='text' class='form-control' id='addBenutzer' aria-describedby='BenutzerHelp' placeholder='Auftraggebername'> 
+                    
+                              <label for='usr'>zugehöriger Lehrstuhl:</label>
+                              <div class='lehrstuhldiv'>
+                                <div class='input-group ipg2'>
+                                  <select class='form-control' id='lehrstuhl' name='user_lehrstuhl'>
+                                      <option value='' selected disabled hidden>Option wählen</option>
+                                  </select>   
+                                  <div class='input-group-append'>
+                                    <button data-toggle='collapse' data-target='#collapse4' class='btn btn-primary lehrstuhlbutton' type='button'><i id='lehrstuhlbutton' class='far fa-caret-square-up'></i></button>
+                                  </div>       
+                                </div>
+                  
+                                <div class='collapse' id='collapse4'>                             
+                                    <button class='btn btn-primary' id='rem2' type='button'>Lehrstuhl löschen</button>
+                                    <form>
+                                      <div class='form-group test'>
+                                        <label for='usr'>Neuer Lehrstuhl:</label>
+                                        <input type='text' class='form-control' id='addLehrstuhl' aria-describedby='BenutzerHelp' placeholder='Lehrstuhlkürzel'> 
+                                        <button class='btn btn-primary' id='add2' type='button'>Lehrstuhl hinzufügen</button>
+                                      </div>
+                                    </form>
+                                    <div class='alert alert-warning collapse' id='fehleraddlehrstuhl'></div>
+                                </div>
+                            </div>                  
+                    <button class='btn btn-primary' id='add1' type='button'>Auftraggeber hinzufügen</button>
+                  </div>
+
+                </form>
+                <div class='alert alert-warning collapse' id='fehleraddbenutzer'></div>
+            </div>
+
 
           </div>
         </div>

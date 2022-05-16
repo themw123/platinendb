@@ -54,7 +54,7 @@ if ($registration->messages == null ) {
         <input value='.$_GET["user_password"].' id="login_input_password_new" class="login_input" type="hidden" name="user_password" pattern=".{6,}" placeholder="Passwort (min. 6 Zeichen)"  required readonly autocomplete="off" />
     
     
-        <div class="containerlehrstuhl">
+        <div class="containerlehrstuhl lehrstuhldiv">
             <label for="usr">Lehrstuhl:</label>
 
                     <div class="input-group ipg2">
@@ -68,14 +68,12 @@ if ($registration->messages == null ) {
                     </div>
                 
             <div class="collapse" id="collapse4"> 
-                <div class="lehrstuhldiv">
                     <div class="form-group test">
                         <input type="text" class="form-control" id="addLehrstuhl" aria-describedby="BenutzerHelp" placeholder="Lehrstuhlkürzel"> 
                         <button class="btn btn-primary" id="add2" type="button">hinzufügen</button>
                         <button class="btn btn-primary" id="rem2" type="button">Auswahl löschen</button>
                         <div class="alert alert-warning collapse" id="fehleraddlehrstuhl"></div>
                     </div>
-                </div>
             </div>
 
         </div>

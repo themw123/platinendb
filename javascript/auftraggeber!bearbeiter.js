@@ -1,4 +1,3 @@
-//# sourceURL=formEditor.js
 
 //Wenn Bei Nutzen oder Platine auf add Bearbeiter bzw Auftraggeber geklickt wird
 $(document).ready(function(){ 
@@ -27,6 +26,25 @@ $('.bearbeiterbutton').on( 'click', function () {
   
   $("#bearbeiterbutton").toggleClass("far fa-caret-square-down far fa-caret-square-up");
   $('#fehleraddbenutzer').hide();
+
+  /*
+  $("#auftraggeberdiv").hide().fadeIn(1000).css( box-shadow: 0px 0px 22px -6px rgb(0, 0, 0, 1);
+  );
+  box-shadow: 0px 0px 22px -6px rgb(0, 0, 0, 1);
+  */  		
+
+  if(!$("#collapse3").hasClass("show")) {
+    $('.auftraggeberdiv').addClass('auftraganiAn');
+    $('.auftraggeberdiv').removeClass('auftraganiAus');
+  }
+  else {
+    $('.auftraggeberdiv').removeClass('auftraganiAn');
+    $('.auftraggeberdiv').addClass('auftraganiAus');
+    
+    $('#collapse4').collapse('hide');
+    $('.lehrstuhldiv').removeClass('lehrstuhlaniAn');
+    $('.lehrstuhldiv').addClass('lehrstuhlaniAus');
+  }
 });
 
 
@@ -157,6 +175,8 @@ $('#add1').on( 'click', function () {
                 if(zustand == "erfolgreich") {
                   inputfeld.value = '';
                   Objekt.selectedIndex = "0";
+                  $('.auftraggeberdiv').removeClass('auftraganiAn');
+                  $('.auftraggeberdiv').addClass('auftraganiAus');
                   getAuftraggeberOrBearbeiter();
                   $('#collapse'+col).collapse("hide");
                   //$("#addbearbeiter").text("hinzufügen");
@@ -216,6 +236,8 @@ $('#rem1').on( 'click', function () {
               if(zustand == "erfolgreich") {
                 Objekt.remove(Objekt.selectedIndex);
                 Objekt.selectedIndex = "0";
+                $('.auftraggeberdiv').removeClass('auftraganiAn');
+                $('.auftraggeberdiv').addClass('auftraganiAus');
                 getAuftraggeberOrBearbeiter();
                 $('#collapse'+col).collapse("hide");
               }

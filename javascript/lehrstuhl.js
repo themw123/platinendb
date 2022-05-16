@@ -1,3 +1,4 @@
+//# sourceURL=formEditor.js
 
 
 $(document).ready(function(){ 
@@ -11,6 +12,15 @@ $(document).ready(function(){
 $('.lehrstuhlbutton').on( 'click', function () {
   $("#lehrstuhlbutton").toggleClass("far fa-caret-square-down far fa-caret-square-up");
   $('#fehleraddlehrstuhl').hide();
+
+  if(!$("#collapse4").hasClass("show")) {
+    $('.lehrstuhldiv').addClass('lehrstuhlaniAn');
+    $('.lehrstuhldiv').removeClass('lehrstuhlaniAus');
+  }
+  else {
+    $('.lehrstuhldiv').removeClass('lehrstuhlaniAn');
+    $('.lehrstuhldiv').addClass('lehrstuhlaniAus');
+  }
 });
 
 
@@ -65,6 +75,8 @@ $('#add2').on( 'click', function () {
                 var inputfeld = document.getElementById("addLehrstuhl");
                 if(zustand == "erfolgreich") {
                   inputfeld.value = '';
+                  $('.lehrstuhldiv').removeClass('lehrstuhlaniAn');
+                  $('.lehrstuhldiv').addClass('lehrstuhlaniAus');
                   getLehrstuhl();
                   $('#collapse'+col).collapse("hide");
                   //$("#addbearbeiter").text("hinzufügen");
@@ -119,6 +131,8 @@ $('#rem2').on( 'click', function () {
               if(zustand == "erfolgreich") {
                 Objekt.remove(Objekt.selectedIndex);
                 Objekt.selectedIndex = "0";
+                $('.lehrstuhldiv').removeClass('lehrstuhlaniAn');
+                $('.lehrstuhldiv').addClass('lehrstuhlaniAus');
                 getLehrstuhl();
                 $('#collapse'+col).collapse("hide");
               }
