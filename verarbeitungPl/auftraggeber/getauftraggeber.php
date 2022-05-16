@@ -53,14 +53,14 @@ if($bestanden == true && $aktion == "auftraggeber") {
                   $namen[$counter][1] = 0;
                 }
 
-                /*
+                
                 if($row['sortierung'] == 2) {
                   $namen[$counter][2] = 1;
                 }
                 else {
                   $namen[$counter][2] = 0;
                 }
-                */
+                
                 
                 $counter = $counter + 1;
             }

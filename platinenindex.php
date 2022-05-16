@@ -26,7 +26,7 @@
     <!--<link href="plugins/fixedColumns/datatables.min.css" rel="stylesheet" type="text/css"/>-->
 
     <!-- selectpicker -->
-    <link rel="stylesheet" href="plugins/bootstrap-select-1.14.0-beta2/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="plugins/bootstrap-select-1.14.0-beta3/css/bootstrap-select.css">
 
     <link href="styles/platinenundnutzenindex.css" rel="stylesheet" type="text/css">
 
@@ -168,7 +168,7 @@ else {
     <!--<script src="plugins/fixedColumns/datatables.min.js" type="text/javascript"></script>-->
 
     <!-- selectpicker -->
-    <script src="plugins/bootstrap-select-1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
+    <script src="plugins/bootstrap-select-1.14.0-beta3/js/bootstrap-select.js"></script>
     
 
     <script src="javascript/platinenindex.js"></script>

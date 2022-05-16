@@ -392,7 +392,7 @@ aktion = "modaleinfuegen";
                         $('#modalbody2').html(data);
 
                         $('.selectpicker').selectpicker({
-                          size: 5
+                          size: 10
                         });
 
                         //datepicker übergeben

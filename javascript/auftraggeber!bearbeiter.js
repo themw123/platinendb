@@ -31,8 +31,7 @@ $('.bearbeiterbutton').on( 'click', function () {
 
 function getAuftraggeberOrBearbeiter(firstTime) {
   //Liste aktualisieren
-  var name;
-  
+
 
   $.ajax({  
         url:"verarbeitung"+ziel+"/"+aktion+"/get"+aktion+".php",  
@@ -42,24 +41,47 @@ function getAuftraggeberOrBearbeiter(firstTime) {
         success: function(response){
 
           $("#"+aktion).empty();
-          //$("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');
+
+
+
+          var $optgroup1 = $('<optgroup id="auftragopt" label="Auftraggeber">');
+          var $optgroup2 = $('<optgroup id="adminoptc" label="Admin">');
+
+    
           for(var i=0; i<response.length; i++){
-            name = response[i][0];
+            namee = response[i][0];
             defaultt = response[i][1];
-            //admin = response[i][2];
+            admin = response[i][2];
 
             if(firstTime) {
-              if(defaultt == 1) {
-                $("#"+aktion).append('<option value="' + name + '" selected=selected   >' + name + '</option>')    
+              
+              if(admin != 1) {
+                var op1 = "<option value='" + namee + "'>" + namee + "</option>";
+                $optgroup1.append(op1);
               }
               else {
-                $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')    
+                if(defaultt == 1) {
+                  var op2 = "<option value='" + namee + "' selected>" + namee + "</option>";
+                }
+                else {
+                  var op2 = "<option value='" + namee + "'>" + namee + "</option>";
+                }
+                $optgroup2.append(op2);
               }
             }
+
             else {
-              $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')    
+              if(admin != 1) {
+                var op1 = "<option value='" + namee + "'>" + namee + "</option>";
+                $optgroup1.append(op1);
+              }
+              else {
+                var op2 = "<option value='" + namee + "'>" + namee + "</option>";
+                $optgroup2.append(op2);
+              }
             }
         }
+        $("#"+aktion).append($optgroup1,$optgroup2);
         $(".selectpicker").selectpicker("refresh");
     } 
     
