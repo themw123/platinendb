@@ -149,7 +149,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
             <label for='usr'>Auftraggeber:</label>
             <div class='input-group ipg1'>
 
-            <select class='selectpicker form-control' data-live-search='true' id='auftraggeber' name='Auftraggeber' required>
+            <select class='form-control' data-live-search='true' id='auftraggeber' name='Auftraggeber' required>
             <!--<optgroup id='auftragopt' label='Auftraggeber'>-->
             <!--</optgroup>-->
             <!--<optgroup id='adminopt' label='Admin'>-->

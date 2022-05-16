@@ -391,9 +391,11 @@ aktion = "modaleinfuegen";
                     success:function(data){  
                         $('#modalbody2').html(data);
 
-                        $('.selectpicker').selectpicker({
+                        /*
+                        $('#auftraggeber').selectpicker({
                           size: 10
                         });
+                        */
 
                         //datepicker übergeben
                         $('#datepicker').datepicker({

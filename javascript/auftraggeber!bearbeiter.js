@@ -39,10 +39,19 @@ function getAuftraggeberOrBearbeiter(firstTime) {
         dataType: 'JSON',
         data:{aktion:aktion},
         success: function(response){
+         
+
+
+          
+          //$("#auftraggeber").selectpicker("destroy");
+          
+          /*
+          $('#auftraggeber').selectpicker({
+            size: 10
+          });
+          */
 
           $("#"+aktion).empty();
-
-
 
           var $optgroup1 = $('<optgroup id="auftragopt" label="Auftraggeber">');
           var $optgroup2 = $('<optgroup id="adminoptc" label="Admin">');
@@ -71,6 +80,7 @@ function getAuftraggeberOrBearbeiter(firstTime) {
             }
 
             else {
+              
               if(admin != 1) {
                 var op1 = "<option value='" + namee + "'>" + namee + "</option>";
                 $optgroup1.append(op1);
@@ -79,10 +89,23 @@ function getAuftraggeberOrBearbeiter(firstTime) {
                 var op2 = "<option value='" + namee + "'>" + namee + "</option>";
                 $optgroup2.append(op2);
               }
+              
             }
         }
+
+        
         $("#"+aktion).append($optgroup1,$optgroup2);
-        $(".selectpicker").selectpicker("refresh");
+        
+        //$("#auftraggeber").selectpicker("refresh");
+        //selectpicker hat einen bug, refresh führt zu doppelten einträgen
+        //deshalb muss refresh wie folgt selber ausgelöst werden
+        $("#auftraggeber").selectpicker("destroy");
+        $('#auftraggeber').selectpicker({
+          size: 10
+        });
+          
+
+        
     } 
     
   });
@@ -123,7 +146,7 @@ $('#add1').on( 'click', function () {
                 if(zustand == "erfolgreich") {
                   inputfeld.value = '';
                   Objekt.selectedIndex = "0";
-                  getAuftraggeberOrBearbeiter();
+                  getAuftraggeberOrBearbeiter(false);
                   $('#collapse'+col).collapse("hide");
                   //$("#addbearbeiter").text("hinzufügen");
                 }
@@ -181,7 +204,7 @@ $('#rem1').on( 'click', function () {
               if(zustand == "erfolgreich") {
                 Objekt.remove(Objekt.selectedIndex);
                 Objekt.selectedIndex = "0";
-                getAuftraggeberOrBearbeiter();
+                getAuftraggeberOrBearbeiter(false);
                 $('#collapse'+col).collapse("hide");
               }
               else {
