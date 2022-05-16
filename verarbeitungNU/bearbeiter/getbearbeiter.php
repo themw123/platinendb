@@ -36,14 +36,7 @@ if($bestanden == true && $aktion == "bearbeiter") {
    
           while($row = $result->fetch_assoc()){
               
-              $namen[$counter][0] = $row['user_name'];
-              
-              if($row['user_name'] == $bearbeiter) {
-                $namen[$counter][1] = 1;
-              }
-              else {
-                $namen[$counter][1] = 0;
-              }
+              $namen[$counter] = $row['user_name'];            
 
               $counter = $counter + 1;
           }

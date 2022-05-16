@@ -45,20 +45,11 @@ if($bestanden == true && $aktion == "auftraggeber") {
                 
                 $namen[$counter][0] = $row['user_name'];
                 
-
-                if($row['user_name'] == $auftraggeber) {
+                if($row['sortierung'] == 2) {
                   $namen[$counter][1] = 1;
                 }
                 else {
                   $namen[$counter][1] = 0;
-                }
-
-                
-                if($row['sortierung'] == 2) {
-                  $namen[$counter][2] = 1;
-                }
-                else {
-                  $namen[$counter][2] = 0;
                 }
                 
                 

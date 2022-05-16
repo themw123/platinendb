@@ -34,12 +34,12 @@ else {
 }
 
 
-if($aktion == "modaleinfuegen") {
+//if($aktion == "modaleinfuegen") {
   echo'
   <script src="javascript/auftraggeber!bearbeiter.js"></script>
   <script src="javascript/lehrstuhl.js"></script>
   ';
-}
+//}
 
 $von = "platine";
 $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
@@ -52,29 +52,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         /*
         Auftraggeber vorbereitung
         */
-        if(isUserAdmin($platinendb_connection) == true) {
 
-          $auftraggeber = "
-          SELECT 
-            user_name,
-            case when admin = 0 then 0 when admin is null then 1 when admin = 1 then 2 end as 'sortierung'
-          FROM 
-            users
-          order by 
-            sortierung asc, 
-            user_name asc
-          "; 
-          
-          $auftraggeberabfrage = mysqli_query($login_connection, $auftraggeber);
-
-          $option = '';
-
-          while($row2 = mysqli_fetch_assoc($auftraggeberabfrage))
-          {
-            $option .= '<option value = "'.$row2['user_name'].'">'.$row2['user_name'].'</option>';
-          }
-
-        }
 
 
         /*
@@ -98,6 +76,83 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         */
         $auftraggeber = $_SESSION['user_name'];
 
+        if($aktion == "modaleinfuegen") {
+          $auftraggeberDeufault = $_SESSION['user_name'];
+        }
+        else {
+          $auftraggeberDeufault = $_POST['Auftraggeber'];
+        }
+
+        $auftraggeberForm .= "
+        <div class='form-group'>
+          <label for='usr'>Auftraggeber:</label>
+          <div class='input-group ipg1'>
+
+          <select class='form-control $auftraggeberDeufault' data-live-search='true' id='auftraggeber' name='Auftraggeber' required>     
+          </select>
+
+          
+          <div class='input-group-append'>
+          <button data-toggle='collapse' data-target='#collapse3' class='btn btn-primary bearbeiterbutton' type='button'><i id='bearbeiterbutton' class='far fa-caret-square-up'></i></button>
+          </div>
+
+          </div>
+
+
+
+
+          <div class='collapse' id='collapse3'>
+            <button class='btn btn-primary' id='rem1' type='button'>Auftraggeber löschen</button>
+            <div class='auftraggeberdiv'>
+              <form>
+
+                <div class='form-group test'>
+                  <label for='usr'>Neuer Auftraggeber:</label>
+                  <input type='text' class='form-control' id='addBenutzer' aria-describedby='BenutzerHelp' placeholder='Auftraggebername'> 
+                  
+                            <div class='lehrstuhlgesammtdiv'>
+                            <label for='usr'>zugehöriger Lehrstuhl:</label>
+                            <div class='input-group ipg2'>
+                              <select class='form-control' id='lehrstuhl' name='user_lehrstuhl'>
+                                  <option value='' selected disabled hidden>Option wählen</option>
+                              </select>   
+                              <div class='input-group-append'>
+                                <button data-toggle='collapse' data-target='#collapse4' class='btn btn-primary lehrstuhlbutton' type='button'><i id='lehrstuhlbutton' class='far fa-caret-square-up'></i></button>
+                              </div>       
+                            </div>
+              
+                            <div class='collapse' id='collapse4'>
+                              <button class='btn btn-primary' id='rem2' type='button'>Lehrstuhl löschen</button>
+                              <div class='lehrstuhldiv'>
+                                <form>
+                                  <div class='form-group test'>
+                                    <label for='usr'>Neuer Lehrstuhl:</label>
+                                    <input type='text' class='form-control' id='addLehrstuhl' aria-describedby='BenutzerHelp' placeholder='Lehrstuhlkürzel'> 
+                                    <button class='btn btn-primary' id='add2' type='button'>Lehrstuhl hinzufügen</button>
+                                  </div>
+                                </form>
+                              </div>
+                              <div class='alert alert-warning collapse' id='fehleraddlehrstuhl'></div>
+                            </div>
+                          </div>
+                  
+                  <button class='btn btn-primary' id='add1' type='button'>Auftraggeber hinzufügen</button>
+                </div>
+
+
+              </form>
+            </div>
+
+            <div class='alert alert-warning collapse' id='fehleraddbenutzer'></div>
+
+          </div>
+        </div>
+
+
+
+
+        ";
+        echo '<script> $("#anz").css({"margin-top":"8px"});</script>';
 
 
 
@@ -144,81 +199,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
         if(isUserAdmin($platinendb_connection) == true) {
 
-          $output .= "
-          <div class='form-group'>
-            <label for='usr'>Auftraggeber:</label>
-            <div class='input-group ipg1'>
-
-            <select class='form-control' data-live-search='true' id='auftraggeber' name='Auftraggeber' required>
-            <!--<optgroup id='auftragopt' label='Auftraggeber'>-->
-            <!--</optgroup>-->
-            <!--<optgroup id='adminopt' label='Admin'>-->
-            <!--</optgroup>-->
-            <!-- <option value='' disabled selected>Option wählen</option> -->      
-            </select>
-
-            
-            <div class='input-group-append'>
-            <button data-toggle='collapse' data-target='#collapse3' class='btn btn-primary bearbeiterbutton' type='button'><i id='bearbeiterbutton' class='far fa-caret-square-up'></i></button>
-            </div>
-
-            </div>
-
-
-
-
-            <div class='collapse' id='collapse3'>
-              <button class='btn btn-primary' id='rem1' type='button'>Auftraggeber löschen</button>
-              <div class='auftraggeberdiv'>
-                <form>
-
-                  <div class='form-group test'>
-                    <label for='usr'>Neuer Auftraggeber:</label>
-                    <input type='text' class='form-control' id='addBenutzer' aria-describedby='BenutzerHelp' placeholder='Auftraggebername'> 
-                    
-                              <div class='lehrstuhlgesammtdiv'>
-                              <label for='usr'>zugehöriger Lehrstuhl:</label>
-                              <div class='input-group ipg2'>
-                                <select class='form-control' id='lehrstuhl' name='user_lehrstuhl'>
-                                    <option value='' selected disabled hidden>Option wählen</option>
-                                </select>   
-                                <div class='input-group-append'>
-                                  <button data-toggle='collapse' data-target='#collapse4' class='btn btn-primary lehrstuhlbutton' type='button'><i id='lehrstuhlbutton' class='far fa-caret-square-up'></i></button>
-                                </div>       
-                              </div>
-                
-                              <div class='collapse' id='collapse4'>
-                                <button class='btn btn-primary' id='rem2' type='button'>Lehrstuhl löschen</button>
-                                <div class='lehrstuhldiv'>
-                                  <form>
-                                    <div class='form-group test'>
-                                      <label for='usr'>Neuer Lehrstuhl:</label>
-                                      <input type='text' class='form-control' id='addLehrstuhl' aria-describedby='BenutzerHelp' placeholder='Lehrstuhlkürzel'> 
-                                      <button class='btn btn-primary' id='add2' type='button'>Lehrstuhl hinzufügen</button>
-                                    </div>
-                                  </form>
-                                </div>
-                                <div class='alert alert-warning collapse' id='fehleraddlehrstuhl'></div>
-                              </div>
-                            </div>
-                    
-                    <button class='btn btn-primary' id='add1' type='button'>Auftraggeber hinzufügen</button>
-                  </div>
-
-
-                </form>
-              </div>
-
-              <div class='alert alert-warning collapse' id='fehleraddbenutzer'></div>
-
-            </div>
-          </div>
-
-
-
-
-          ";
-          echo '<script> $("#anz").css({"margin-top":"8px"});</script>';
+          $output .= $auftraggeberForm;
         }
 
 
@@ -412,15 +393,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
 
             if(isUserAdmin($platinendb_connection) == true) {
-              $output .= "
-              <div class='form-group'>
-              <label for='usr'>Auftraggeber:</label>
-              <select class='form-control' id='auftraggeber' name='Auftraggeber' required>
-              <option style='display: none;' >$_POST[Auftraggeber]</option>
-              '$option'
-              </select>
-              </div>
-              ";
+              $output .= $auftraggeberForm;
             }
 
 

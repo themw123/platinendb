@@ -14,8 +14,9 @@ $(document).ready(function(){
     ziel = "Pl";
   }
 
+  
 
-  getAuftraggeberOrBearbeiter(true);
+  getAuftraggeberOrBearbeiter();
 
 
 });
@@ -29,7 +30,7 @@ $('.bearbeiterbutton').on( 'click', function () {
 });
 
 
-function getAuftraggeberOrBearbeiter(firstTime) {
+function getAuftraggeberOrBearbeiter() {
   //Liste aktualisieren
 
 
@@ -39,58 +40,53 @@ function getAuftraggeberOrBearbeiter(firstTime) {
         dataType: 'JSON',
         data:{aktion:aktion},
         success: function(response){
-         
 
-
-          
-          //$("#auftraggeber").selectpicker("destroy");
-          
-          /*
-          $('#auftraggeber').selectpicker({
-            size: 10
-          });
-          */
 
           $("#"+aktion).empty();
+          
+          if(aktion == "auftraggeber") {
+            getAuftraggeber(response);
+          }
+          else {
+            getBearbeiter(response);
+          }
 
-          var $optgroup1 = $('<optgroup id="auftragopt" label="Auftraggeber">');
-          var $optgroup2 = $('<optgroup id="adminoptc" label="Admin">');
-
+        
+    } 
     
+  });
+  
+  }
+
+
+function getAuftraggeber(response) {
+
+          var $optgroup1 =  $('<optgroup id="auftragopt" label="Auftraggeber">');
+          var $optgroup2 = $('<optgroup id="adminoptc" label="Admin">');
+          
+
+
           for(var i=0; i<response.length; i++){
             namee = response[i][0];
-            defaultt = response[i][1];
-            admin = response[i][2];
+            admin = response[i][1];
+            selected = "";
+            //wird geholt aus Modal -> #auftraggeber -> zweiter klassenname 
+            $auftraggeberDefault = $('#'+aktion).attr('class').split(' ')[1];
 
-            if(firstTime) {
-              
-              if(admin != 1) {
-                var op1 = "<option value='" + namee + "'>" + namee + "</option>";
-                $optgroup1.append(op1);
-              }
-              else {
-                if(defaultt == 1) {
-                  var op2 = "<option value='" + namee + "' selected>" + namee + "</option>";
-                }
-                else {
-                  var op2 = "<option value='" + namee + "'>" + namee + "</option>";
-                }
-                $optgroup2.append(op2);
-              }
+            if(namee == $auftraggeberDefault) {
+              selected = "selected";
             }
 
+
+            if(admin != 1) {
+               var op1 = "<option value='" + namee + "' "+selected+">" + namee + "</option>";
+               $optgroup1.append(op1);
+            }
             else {
-              
-              if(admin != 1) {
-                var op1 = "<option value='" + namee + "'>" + namee + "</option>";
-                $optgroup1.append(op1);
-              }
-              else {
-                var op2 = "<option value='" + namee + "'>" + namee + "</option>";
-                $optgroup2.append(op2);
-              }
-              
+              var op2 = "<option value='" + namee + "' "+selected+">" + namee + "</option>";
+              $optgroup2.append(op2);
             }
+
         }
 
         
@@ -103,20 +99,35 @@ function getAuftraggeberOrBearbeiter(firstTime) {
         $('#auftraggeber').selectpicker({
           size: 10
         });
+}
+
+
+function getBearbeiter(response) {
+        for(var i=0; i<response.length; i++){
+          namee = response[i];
+          selected = "";
+          //wird geholt aus Modal -> #auftraggeber -> zweiter klassenname 
+          $auftraggeberDefault = $('#'+aktion).attr('class').split(' ')[1];
+
+          if(namee == $auftraggeberDefault) {
+            selected = "selected";
+          }
+
+
+            
+ 
+          $("#"+aktion).append("<option value='" + namee + "' "+selected+">" + namee + "</option>");
           
 
         
-    } 
     
-  });
-  
-  }
+      }
 
-
+}
 
 
 $('#add1').on( 'click', function () {
-    
+  
     //hinzufügen
     var auftr = document.getElementById("addBenutzer").value; 
     var lehr = document.getElementById("lehrstuhl").value; 
@@ -146,7 +157,7 @@ $('#add1').on( 'click', function () {
                 if(zustand == "erfolgreich") {
                   inputfeld.value = '';
                   Objekt.selectedIndex = "0";
-                  getAuftraggeberOrBearbeiter(false);
+                  getAuftraggeberOrBearbeiter();
                   $('#collapse'+col).collapse("hide");
                   //$("#addbearbeiter").text("hinzufügen");
                 }
@@ -179,6 +190,7 @@ $('#add1').on( 'click', function () {
 
 $('#rem1').on( 'click', function () {
 
+
   var aktion = "auftraggeber";
   var ziel = "Pl";
   var col = "3";
@@ -204,7 +216,7 @@ $('#rem1').on( 'click', function () {
               if(zustand == "erfolgreich") {
                 Objekt.remove(Objekt.selectedIndex);
                 Objekt.selectedIndex = "0";
-                getAuftraggeberOrBearbeiter(false);
+                getAuftraggeberOrBearbeiter();
                 $('#collapse'+col).collapse("hide");
               }
               else {
