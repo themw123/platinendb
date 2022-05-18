@@ -48,6 +48,9 @@ $('.bearbeiterbutton').on( 'click', function () {
 });
 
 
+
+
+
 function getAuftraggeberOrBearbeiter() {
   //Liste aktualisieren
 

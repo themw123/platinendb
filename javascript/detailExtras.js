@@ -201,7 +201,33 @@
   
   
          //Wenn auf Buttton9 geklickt wird
-          $('#dataModal1').on( 'click', '#button9', function (e) {
-              $(".button9").toggleClass("far fa-caret-square-up far fa-caret-square-down");
+         $('#dataModal1').on( 'click', '#button9', function (e) {
+
+            $(".button9").toggleClass("far fa-caret-square-up far fa-caret-square-down");
+
+            /*
+            if($('#platinenhinzufuegen').hasClass("nutzenaufplatinenAn")) {
+              $('#platinenhinzufuegen').removeClass('nutzenaufplatinenAn');
+              $('#platinenhinzufuegen').addClass('nutzenaufplatinenAus');
+            }
+            else if($('#platinenhinzufuegen').hasClass("nutzenaufplatinenAus")) {
+                $('#platinenhinzufuegen').removeClass('nutzenaufplatinenAus');
+                $('#platinenhinzufuegen').addClass('nutzenaufplatinenAn');
+            }
+            else if(!$('#platinenhinzufuegen').hasClass("nutzenaufplatinenAn") && !$('#platinenhinzufuegen').hasClass("nutzenaufplatinenAus")){
+              $('#platinenhinzufuegen').addClass('nutzenaufplatinenAn');
+            }
+            */
+
+            if(!$("#collapse1").hasClass("show")) {
+              $('#platinenhinzufuegen').addClass('nutzenaufplatinenAn');
+              $('#platinenhinzufuegen').removeClass('nutzenaufplatinenAus');
+            }
+            else {
+              $('#platinenhinzufuegen').removeClass('nutzenaufplatinenAn');
+              $('#platinenhinzufuegen').addClass('nutzenaufplatinenAus');          
+            }
+
+
           });
   

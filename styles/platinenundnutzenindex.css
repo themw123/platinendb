@@ -1189,6 +1189,22 @@ testdaten haken farbe
             0 0 0 0px rgba(0,0,0,0),
       }
 
+      .nutzenaufplatinenAn {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 10px;
+        border-radius: 11px;
+        box-shadow: 
+          0 0 0 0px rgba(0,0,0,0),
+          0 0 22px -6px rgb(0,0,0,1);
+      }
+      .nutzenaufplatinenAus {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 0px;
+        border-radius: 0px;
+        box-shadow: 
+            0 0 0 0px rgba(0,0,0,0),
+      }
+
 
       #rem1, #rem2 {
         margin-bottom: 15px;
