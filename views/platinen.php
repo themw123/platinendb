@@ -101,12 +101,12 @@ echo'
 
 	if (isUserAdmin($login_connection) == true) { 
 		echo'
-		<script>admin = "ja";</script>
+		<script>adminn = "ja";</script>
 		';
 	}
 	else {
 		echo'
-		<script>admin = "nein";</script>
+		<script>adminn = "nein";</script>
 		';
 	}
 

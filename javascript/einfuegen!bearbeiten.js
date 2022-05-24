@@ -297,7 +297,7 @@ $("#delfile").click(function(ev){
 
 if(aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
 
-  if(admin == "nein") {
+  if(adminn == "nein") {
     $("#uploadfeld").prop('required',true);
   }
 
