@@ -483,7 +483,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
             <div class='wunschdatumdiv'>
             <label for='usr'>Wunschdatum:</label>
-            <input id='datepicker' class='form-control' name='Wunschdatum' value='$_POST[Wunschdatum]' onkeydown='return false'/>
+            <input id='datepicker' class='form-control' name='Wunschdatum' value='$_POST[Wunschdatum]'>
             </div>
 
             <div class='form-group'>
