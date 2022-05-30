@@ -762,6 +762,11 @@ echo "
 		<th>Name:</th>
 		<td> $_SESSION[user_name] </td>
 	  </tr>
+	  </td>
+	  <tr>
+		 <th>Lehrstuhl:</th>
+		 <td> $_SESSION[lehrstuhl] </td>
+	   </tr>
 	  <tr>
 		<th>E-Mail:</th>
 		<td> $_SESSION[user_email] </td>
@@ -777,10 +782,8 @@ echo "
 			  echo 'Standardbenutzer';
 		}
 		echo "
-		</td>
-	  </tr>
-	  </table>
-	  ";
+	</table>
+";
 
 echo"
 	  </div>
