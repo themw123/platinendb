@@ -219,7 +219,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           <label for='usr'>int/ext:</label>
           <select class='form-control' id='int' name='Int' required>
           <option>int</option>
-          <option>ext</option>
+          <option selected=selected>ext</option>
           </select>
           </div>
 
