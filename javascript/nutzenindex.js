@@ -521,6 +521,7 @@ $(document).ready(function(){
                             $('#datepicker').datepicker({
                               locale: 'de-de',
                               format: 'dd-mm-yyyy',
+                              
                               uiLibrary: 'bootstrap4'
                             });
                             //datepicker reset übergeben
