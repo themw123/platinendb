@@ -380,7 +380,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
           <div class='form-group'>
           <label for='usr'>abgeschlossen:</label>
-          <input id='datepicker3' class='form-control' name='Abgeschlossen value='$_POST[Abgeschlossen]'/>
+          <input id='datepicker3' class='form-control' name='Abgeschlossen' value='$_POST[Abgeschlossen]'/>
           </div>
 
           <div class='form-group'>
