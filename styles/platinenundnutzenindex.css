@@ -1247,3 +1247,10 @@ testdaten haken farbe
 .bs-searchbox .form-control {
   margin-bottom: 6px;
 }
+
+.scrollabledetail1 {
+  max-height: 335px;
+}
+.scrollabledetail2 {
+  max-height: 282px;
+}

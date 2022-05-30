@@ -61,7 +61,7 @@ if($bestanden == true && $aktion == "detail") {
                               
                     
                               <div class="container-fluid nutzenplatinen" id='.$id.'>
-                              <div class="table-responsive">
+                              <div class="table-responsive scrollabledetail1">
                     
                               <table id="tabelle2" class="table text-center table-hover border">
                     

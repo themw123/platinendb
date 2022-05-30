@@ -153,7 +153,7 @@ if($bestanden == true && $aktion == "detail") {
                          $output .= '  
 
                          
-                         <div class="table-responsive">
+                         <div class="table-responsive scrollabledetail2">
                
                          <table id="tabelle3" class="table text-center table-hover border">
 
