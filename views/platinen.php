@@ -43,13 +43,10 @@ echo'
 	<i class="fas fa-ban fa-stack-2x"></i>
 	</span>
 	</i></a>
-	</div>
-
-
-	<div class="hinzu3">
 	<a class="btn btn-primary" style="visibility: hidden;" id="button3" href="#" role="button" data-toggle="collapse" data-target="#spCont" aria-expanded="false" aria-controls="collapseExample">
 	<i class="fas fa-filter" id="icon2"></i></a>
 	</div>
+
 
 	</div>
 	</div>
