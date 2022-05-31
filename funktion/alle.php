@@ -658,7 +658,12 @@ function modal3() {
 				  <div class="modal-body" id="modalbody2">  
 				  </div>  
 				  <div class="modal-footer">  
-				  <button id="button5" type="button" class="btn btn-primary" data-dismiss="modal">abbrechen</button>  
+				  <button type="submit" form="edit" class="btn btn-primary" id="button8" name="insert" value="Insert">
+				  
+				  </button>
+				  <button id="button5" type="button" class="btn btn-primary" data-dismiss="modal">
+				  	abbrechen &nbsp <i class="fas fa-times error"></i>
+				  </button>  
 				  </div>  
 			 </div>  
 		</div>  

@@ -324,10 +324,6 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         <div class='alert alert-warning collapse' id='fehleraddlagen'></div>
         </div>
 
-
-        <div class='buttonklasse'>
-        <button type='submit' class='btn btn-primary' id='button8' name='fertig'>Fertig</button>
-        </div>
         </form>
 
 
@@ -560,9 +556,6 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
             
 
             $output .= "
-            <div class='buttonklasse'>
-            <button type='submit' class='btn btn-primary' id='button8' name='insert' value='Insert'>Fertig</button>
-            </div>
             </form>
 
 

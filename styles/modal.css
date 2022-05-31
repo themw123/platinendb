@@ -9,10 +9,7 @@ select option[disabled]:first-child {
 	display: none;
 }
 
-.buttonklasse {
-  margin-bottom: 2rem;
-  margin-top: -2rem;
-}
+
 
 /*--reset wunschdatum button --*/
 
@@ -105,7 +102,7 @@ border-color:#0000cc!important;
   border-color:#005ea9;
   outline: none !important;
   box-shadow: none!important;
-  margin-top: 112px;
+  margin-right: auto;
   }
   
   #button8:hover{
@@ -148,4 +145,13 @@ border-color:#0000cc!important;
 .ausschalten {
   pointer-events: none!important;
   background-color: #E9ECEF;
+}
+
+
+.modal-footer{
+  margin-top: 20px;
+}
+
+.greener{
+  color: #18de7b;
 }

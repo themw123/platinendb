@@ -238,10 +238,6 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           <textarea class='form-control' id='kommentar' rows='1' name='Kommentar'></textarea>
           </div>
 
-
-          <div class='buttonklasse'>
-          <button type='submit' class='btn btn-primary' id='button8' name='fertig'>Fertig</button>
-          </div>
           </form>
 
 
@@ -482,9 +478,6 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           </div>
 
 
-          <div class='buttonklasse'>
-          <button type='submit' class='btn btn-primary' id='button8' name='insert' value='Insert'>Fertig</button>
-          </div>
           </form>
 
 

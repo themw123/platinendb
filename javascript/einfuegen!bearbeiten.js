@@ -1,3 +1,4 @@
+//# sourceURL=formEditor.js
 
 $(function(){
     $('#edit').submit(function(event){
@@ -249,6 +250,9 @@ $('[data-toggle="popover"]').popover();
 var aktionx = $(".modal-title").get(2).innerText;
 
 
+
+
+
 function addUpload(fileName) {
   $('#upload-info').text(fileName);
   $('#upload-info').show();
@@ -288,6 +292,15 @@ function truncate(fileName, n, type){
   return (fileName.length > n) ? fileName.substr(0, n-1) + '(...).' + type : fileName;
 };
 
+
+
+
+
+
+
+
+$("#button8").html("fertig &nbsp <i class='fas fa-check greener'></i>");
+$("#button8").attr("disabled", false);
 
 //Wenn auf delfile geklickt wird
 $("#delfile").click(function(ev){
@@ -345,6 +358,11 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Platine")) {
 
 
 
+
+
+
+
+
 if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
         //upload überpruefen
         $('#uploadfeld').change(function () {
@@ -396,10 +414,8 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
         });  
 
 
-
         $(document).ready(function(){ 
-  
-          
+                    
 
         //anfangsstatus auslesen und reagieren
         $('#lagen').prop( "disabled", true );
