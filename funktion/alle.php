@@ -598,8 +598,8 @@ function sendMail($art, $user_name, $user_email, $user_password_hash) {
 function modal4($currentpage) {
 
 	echo'	
-		<div id="dataModal3" style=" padding-right:0!important" class="modal fade">  
-		<div class="modal-dialog" role="document">
+		<div id="dataModal3" tabindex="-1" style=" padding-right:0!important" class="modal fade">  
+		<div class="modal-dialog">
 	
 
 			 <div class="modal-content">  
@@ -647,9 +647,9 @@ function modal4($currentpage) {
 //modal für einfügen und bearbeiten
 //der modal-title wird durch javascript eingefügt
 function modal3() {
-
+//data-backdrop="static" data-keyboard="false" damit modal nur mit abbrechen geschlossen wird
 	echo'	
-		<div id="dataModal2" style=" padding-right:0!important" class="modal fade">  
+		<div id="dataModal2" tabindex="-1" style=" padding-right:0!important" class="modal fade" data-backdrop="static" data-keyboard="false">  
 		<div id=modalbearbeiten class="modal-dialog modal-dialog-centered modal-xl">  
 			 <div class="modal-content">  
 				  <div class="modal-header">   
@@ -674,7 +674,7 @@ function modal3() {
 function modal2() {
 
 echo'	
-	<div id="dataModal1" class="modal fade">  
+	<div id="dataModal1" tabindex="-1" class="modal fade">  
 	<div class="modal-dialog modal-dialog-centered modal-lg">  
 		 <div class="modal-content">  
 			  <div class="modal-header">   
@@ -749,7 +749,7 @@ function modal1($login_connection) {
 	
 echo "
 <!-- Modal -->
-<div class='modal fade' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+<div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
   <div class='modal-dialog' role='document'>
 	<div class='modal-content'>
 	  <div class='modal-header'>

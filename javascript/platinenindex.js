@@ -379,7 +379,7 @@ $('#tabelle1 tbody').on( 'click', 'td', function () {
 $('#button1').on( 'click', function () {
 
 
-var modal =  $('#dataModal2') 
+var modal =  $('#dataModal2');
 modal.find('.modal-title').text('Platine hinzufügen');
 aktion = "modaleinfuegen";
 
@@ -389,6 +389,7 @@ aktion = "modaleinfuegen";
                     method:"post",
                     data:{aktion:aktion},
                     success:function(data){  
+
                         $('#modalbody2').html(data);
 
                         /*
@@ -487,7 +488,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
 
     size: "small",
     message: "Platine wirklich löschen?",
-
+    backdrop: true,
 
     buttons: {
         cancel: {
@@ -673,6 +674,7 @@ table.searchPanes.container().insertAfter('#leiste').addClass('collapse').attr("
 //weitere eigene functionen
 
 
+
 window.onscroll = function() {
   if($(".alertm").is(":visible")) {
     scrollFunction()
@@ -705,6 +707,8 @@ if ( $(event.target).hasClass('ohnedetail') ) {
 
 
 
+
+
 var picked = false; 
 $('#tabelle1').on('click', 'tr', function(event) {
 
@@ -731,8 +735,9 @@ $('#tabelle1').on('click', 'tr', function(event) {
 
   })
 
+
   $('#dataModal2').on('hidden.bs.modal', function (e) {
-    
+
     $(reihe).removeClass('klick');
     clicked = false;
     picked = false; 
@@ -750,9 +755,7 @@ $('#tabelle1').on('click', 'tr', function(event) {
 
 
 
-
 });
-
 
 
 

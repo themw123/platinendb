@@ -587,7 +587,8 @@ $(document).ready(function(){
       bootbox.confirm({
         size: "small",
         message: "Nutzen wirklich löschen?",
-    
+        backdrop: true,
+
     
         buttons: {
             cancel: {
