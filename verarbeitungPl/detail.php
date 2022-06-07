@@ -121,7 +121,7 @@ if($bestanden == true && $aktion == "detail") {
                          echo'<div class="container-fluid">';
                
                          echo"
-                         <div class='alert alert-warning'>  Momentan befindet sich Ihre Platine auf keinem Nutzen. Dementsprechend wurden die Fertigungen Ihrer Platinen noch nicht gestartet.
+                         <div class='alert alert-warning'>  Momentan befindet sich die Platine auf keinem Nutzen. Dementsprechend wurden die Fertigungen der Platinen noch nicht gestartet.
                          </div>";
                     
                          echo'</div>';
