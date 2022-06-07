@@ -394,14 +394,44 @@ function readfiledata() {
 	
 
 
-function lagenBefehl($a) {
-	$befehl = "";
+function lagenAnlegen($a, $platinendb_connection) {
+	
+	$aNeu = array(
+		array("Top", "null"),
+		array("L2", "null"),
+		array("L3", "null"),
+		array("L4", "null"),
+		array("L5", "null"),
+		array("Bottom", "null"),
+		array("LagenSumme", "null"),
+	);
 
-	foreach ($a as $wert) {
-		$befehl .= $wert[0] . " = " . "'" . $wert[1] . "'" . "," ;
+	$counter = 0;
+	foreach($aNeu as $valueNeu) {
+		foreach($a as $value) {
+			if($valueNeu[0] == $value[0]) {
+				$aNeu[$counter][1] = "'".$value[1]."'";
+				break;
+			}
+		}
+		$counter++;
 	}
-	$befehl = substr($befehl, 0, strlen($befehl)-1);
-	return $befehl;
+
+	$top = $aNeu[0][1];
+	$l2 = $aNeu[1][1];
+	$l3 = $aNeu[2][1];
+	$l4 = $aNeu[3][1];
+	$l5 = $aNeu[4][1];
+	$bottom = $aNeu[5][1];
+	$lagenSumme = $aNeu[6][1];
+
+	$lagen = "INSERT INTO lagen (Top, L2, L3, L4, L5, Bottom, LagenSumme) VALUES ($top, $l2, $l3, $l4, $l5, $bottom, $lagenSumme)";
+	mysqli_query($platinendb_connection, $lagen);
+
+	$Lagen_ID = mysqli_insert_id($platinendb_connection);
+
+	return $Lagen_ID;
+
 
 }
 

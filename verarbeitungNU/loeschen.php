@@ -27,12 +27,21 @@ if($bestanden == true && $aktion == "loeschen") {
 	
         $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
+        $lagen_ID = "SELECT Lagen_ID FROM nutzen WHERE ID = '$id'";
+        $lagen_ID = mysqli_query($platinendb_connection,$lagen_ID);
+        $lagen_ID = mysqli_fetch_row($lagen_ID);
+        $lagen_ID = $lagen_ID[0]; 
+
 
         $loeschen = "DELETE FROM nutzen WHERE id=$id";
 
 
         mysqli_query($platinendb_connection, $loeschen);
 
+        if($lagen_ID != null) {
+          $loeschen2 = "DELETE FROM lagen WHERE id=$lagen_ID";
+          mysqli_query($platinendb_connection, $loeschen2);
+        }
 
         $sicherheit->checkQuery($platinendb_connection);
 

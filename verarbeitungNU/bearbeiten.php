@@ -168,19 +168,30 @@ if($bestanden == true && $aktion == "bearbeiten") {
           $Kommentar = mysqli_real_escape_string($platinendb_connection, $_POST["Kommentar"]);
 
 
+
+          $lagen_ID = null;
+
           //Bearbeiten und Layer Daten hinzufügen
           if(!empty($_FILES)) {
             uploadSecurity("text");
             $a = readfiledata();
-            $lagenHinzufuegen = lagenBefehl($a);
-            $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',$lagenHinzufuegen,Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
+
+            $Lagen_ID = lagenAnlegen($a, $platinendb_connection);
+
+            $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen', Lagen_ID = '$Lagen_ID', Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
           }
+
           else {
             //Bearbeiten und Layer Daten löschen
             if(isset($_POST['layerLoeschen'])) {
               if($_POST['layerLoeschen'] == "true") {
-                $lagenLoeschen = "Top = null, L2 = null, L3 = null, L4 = null, L5 = null, Bottom = null, LagenSumme = null";
-                $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',$lagenLoeschen,Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
+
+                $lagen_ID = "SELECT Lagen_ID FROM nutzen WHERE ID = '$id'";
+                $lagen_ID = mysqli_query($platinendb_connection,$lagen_ID);
+                $lagen_ID = mysqli_fetch_row($lagen_ID);
+                $lagen_ID = $lagen_ID[0]; 
+
+                $bearbeiten= "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen', Lagen_ID = null, Groesse = '$Groesse',Datum = '$Erstellt',intoderext = '$Int',Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
               }
             }
             //Nur bearbeiten
@@ -209,6 +220,12 @@ if($bestanden == true && $aktion == "bearbeiten") {
 
           
           mysqli_query($platinendb_connection, $bearbeiten);
+
+          //Lagen_ID falls vorhanden löschen nachdem Nutzen gelöscht wurde
+          if($lagen_ID != null) {
+            $loeschen2 = "DELETE FROM lagen WHERE id=$lagen_ID";
+            mysqli_query($platinendb_connection, $loeschen2);
+          }
 
           //Wenn Nutzen von Fertigung in abgeschlossen überführt wurde soll
           if($ursprungStatus == "Fertigung" && $Status == "abgeschlossen") {      
