@@ -425,7 +425,7 @@ function lagenAnlegen($a, $platinendb_connection) {
 	$bottom = $aNeu[5][1];
 	$lagenSumme = $aNeu[6][1];
 
-	$lagen = "INSERT INTO lagen (Top, L2, L3, L4, L5, Bottom, LagenSumme) VALUES ($top, $l2, $l3, $l4, $l5, $bottom, $lagenSumme)";
+	$lagen = "INSERT INTO nutzenlagen (Top, L2, L3, L4, L5, Bottom, LagenSumme) VALUES ($top, $l2, $l3, $l4, $l5, $bottom, $lagenSumme)";
 	mysqli_query($platinendb_connection, $lagen);
 
 	$Lagen_ID = mysqli_insert_id($platinendb_connection);

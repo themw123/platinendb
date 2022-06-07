@@ -223,7 +223,7 @@ if($bestanden == true && $aktion == "bearbeiten") {
 
           //Lagen_ID falls vorhanden löschen nachdem Nutzen gelöscht wurde
           if($lagen_ID != null) {
-            $loeschen2 = "DELETE FROM lagen WHERE id=$lagen_ID";
+            $loeschen2 = "DELETE FROM nutzenlagen WHERE id=$lagen_ID";
             mysqli_query($platinendb_connection, $loeschen2);
           }
 
