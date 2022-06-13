@@ -66,6 +66,7 @@ echo'
 			<th class="no-sort":>&nbsp; &nbsp; Aktion</th>
 			<th>Leiterkartenname</th>
 			<th>Auftraggeber</th>
+			<th>Finanzstelle</th>
 			<th>Lehrstuhl</th>
 			<th>Ausstehend</th>
 			<th>Anzahl</th>

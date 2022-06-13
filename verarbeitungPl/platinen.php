@@ -30,11 +30,11 @@ if($bestanden == true && $aktion == "platinen") {
 
 			
 			if (isUserAdmin($platinendb_connection) == true) {
-			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, Lehrstuhl, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Status, ignorieren, abgeschlossenPost, abgeschlossenFertigung, downloads1or0 FROM platinenviewest";
+			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, Finanzstelle, Lehrstuhl, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Status, ignorieren, abgeschlossenPost, abgeschlossenFertigung, downloads1or0 FROM platinenviewest";
 			}
 
 			else {
-			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, Lehrstuhl, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar FROM platinenview WHERE platinenview.Auftraggeber = '$auftraggeber1' order by erstelltam desc";
+			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, Finanzstelle, Lehrstuhl, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar FROM platinenview WHERE platinenview.Auftraggeber = '$auftraggeber1' order by erstelltam desc";
 			}
 
 
@@ -84,6 +84,7 @@ if($bestanden == true && $aktion == "platinen") {
 
 					$nestedData[] = $row["Leiterkartenname"];
 					$nestedData[] = $row["Auftraggeber"];
+					$nestedData[] = $row["Finanzstelle"];
 					$nestedData[] = $row["Lehrstuhl"];
 					$nestedData[] = $row["ausstehend"];
 					$nestedData[] = $row["Anzahl"];

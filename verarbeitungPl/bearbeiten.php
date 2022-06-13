@@ -50,6 +50,16 @@ if($bestanden == true && $aktion == "bearbeiten") {
           }
 
 
+
+          /*
+          Inputs auslesen Finanzstelle
+          */
+          $finanz = mysqli_real_escape_string($platinendb_connection, $_POST["Finanz"]);
+          $finanz = "SELECT id FROM finanzstelle WHERE name='$finanz'"; 
+          $finanz =  mysqli_query($platinendb_connection,  $finanz);
+          $finanz = mysqli_fetch_assoc($finanz);   
+          $finanz = $finanz['id'];
+
           /*
           Inputs auslesen Anzahl
           */
@@ -155,7 +165,7 @@ if($bestanden == true && $aktion == "bearbeiten") {
           
           //bearbeitung durchführen
           if(isUserAdmin($platinendb_connection)) {
-            $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id],Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar', ignorieren = '$Ignorieren' WHERE ID = $id";
+            $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id], Finanzstelle_ID = $finanz, Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar', ignorieren = '$Ignorieren' WHERE ID = $id";
             $user = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
             
 
@@ -166,7 +176,7 @@ if($bestanden == true && $aktion == "bearbeiten") {
 
           }
           else {
-            $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl,Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar' WHERE ID = $id";
+            $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Finanzstelle_ID = $finanz,  Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar' WHERE ID = $id";
           }
         
 

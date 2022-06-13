@@ -85,19 +85,6 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           $auftraggeberDeufault = $_POST['Auftraggeber'];
         }
 
-        /*
-        finanzstelle vorbereitung
-        */
-        $fname = 'SELECT name FROM finanzstelle';
-
-        $fname = mysqli_query($platinendb_connection, $fname);
-
-        $fname = '';
-
-        while($fname = mysqli_fetch_assoc($fname))
-        {
-          $fname .= '<option value = "'.$fname['name'].'">'.$fname['name'].'</option>';
-        }
 
         $auftraggeberForm .= "
         <div class='form-group'>
@@ -167,6 +154,21 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         ";
 
 
+
+        
+        /*
+        Finanzstelle vorbereitung
+        */
+        $auftraggeber = $_SESSION['user_name'];
+
+        if($aktion == "modaleinfuegen") {
+          $finanzDeufault = "no";
+        }
+        else {
+          $finanzDeufault = $_POST['Finanzstelle'];
+        }
+
+
         $finanzForm .= "
         <div class='form-group'>
           <label for='usr'>Finanzstelle:</label>
@@ -175,7 +177,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
             <div class='input-group ipg1'>
 
-            <select class='form-control $fname' data-live-search='true' id='finanz' name='Finanz' required>     
+            <select class='form-control $finanzDeufault' data-live-search='true' id='finanz' name='Finanz' required>     
             </select>
 
             
@@ -196,7 +198,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
                     <label for='usr'>Neue Finanzstelle:</label>
                     <input type='text' class='form-control' id='addFinanz1' aria-describedby='FinanzHelp' placeholder='Name'>                   
 
-                    <input type='text' maxlength='10' class='form-control' id='addFinanz2' aria-describedby='FinanzHelp' placeholder='Nummer'>                   
+                    <input type='text' maxlength='10'  minlength='10' class='form-control' id='addFinanz2' aria-describedby='FinanzHelp' placeholder='Nummer(10-Stellig)'>                   
                     <button class='btn btn-primary' id='add3' type='button'>Finanzstelle hinzufügen</button>
 
                   </div>
@@ -454,6 +456,8 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
               $output .= $auftraggeberForm;
             }
 
+            $output .= $finanzForm;
+            
 
             $output .= "
             <div class='form-group'>

@@ -219,7 +219,7 @@ class Sicherheit {
        }
 
 
-        if($this->aktion == "platinen" || $this->aktion == "modaleinfuegen" || $this->aktion == "einfuegen") {
+        if($this->aktion == "platinen" || $this->aktion == "finanz" || $this->aktion == "modaleinfuegen" || $this->aktion == "einfuegen") {
             $this->bestanden = true;
         }
 

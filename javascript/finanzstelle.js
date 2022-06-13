@@ -1,4 +1,4 @@
-
+//# sourceURL=formEditor.js
 $(document).ready(function(){ 
 
   getFinanz();
@@ -24,14 +24,14 @@ $('.finanzbutton').on( 'click', function () {
 
 function getFinanz() {
   //Liste aktualisieren
-  var name;
+  var namee;
   
   var aktion = "finanz";
 
   
 
   $.ajax({  
-        url:"verarbeitungALG/getFinanz.php",  
+        url:"verarbeitungPl/finanzstelle/getFinanz.php",  
         method:"post",
         dataType: 'JSON',
         data:{aktion:aktion},
@@ -39,62 +39,100 @@ function getFinanz() {
 
           $("#"+aktion).empty();
           $("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');
+          
+        
+          //wird geholt aus Modal -> #finanz -> zweiter klassenname 
+          $auftraggeberDefault = $('#'+aktion).attr('class').split(' ')[1];
+
           for(var i=0; i<response.length; i++){
-            name = response[i];
-            $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')    
-        }
+            selected = "";
+
+            namee = response[i];
+
+            if(namee == $auftraggeberDefault) {
+              selected = "selected";
+            }
+            
+
+            $("#"+aktion).append("<option value='" + namee + "' "+selected+">" + namee + "</option>");
+          }
+
+        //$("#auftraggeber").selectpicker("refresh");
+        //selectpicker hat einen bug, refresh führt zu doppelten einträgen
+        //deshalb muss refresh wie folgt selber ausgelöst werden
+        $("#finanz").selectpicker("destroy");
+        $('#finanz').selectpicker({
+            size: 10
+        });
     } 
   });
+
+
   }
 
 
 
 
-$('#add2').on( 'click', function () {
+$('#add3').on( 'click', function () {
     
     //hinzufügen
-    var aktion = "lehrstuhl";
-    var addLehrstuhl = document.getElementById("addLehrstuhl").value; 
-  
-    var col = "4";
-    
-    if(addLehrstuhl.length > 0) {
-      $("#add2").attr("disabled", true);
-      //$("#addbearbeiter").text("Bitte warten...");
-      $.ajax({  
-          url:"verarbeitungALG/addLehrstuhl.php",  
-          method:"post",
-          data:{addLehrstuhl:addLehrstuhl, aktion:aktion},
-          dataType: 'JSON',
-          success: function(data){
+    var aktion = "finanz";
+    var addFinanz1 = document.getElementById("addFinanz1").value; 
+    var addFinanz2 = document.getElementById("addFinanz2").value; 
 
-                var zustand = data.data; 
-                var error = data.error;
-                var inputfeld = document.getElementById("addLehrstuhl");
-                if(zustand == "erfolgreich") {
-                  inputfeld.value = '';
-                  $('.lehrstuhldiv').removeClass('lehrstuhlaniAn');
-                  $('.lehrstuhldiv').addClass('lehrstuhlaniAus');
-                  getFinanz();
-                  $('#collapse'+col).collapse("hide");
-                  //$("#addbearbeiter").text("hinzufügen");
-                }
-                else{
-                  document.getElementById("fehleraddlehrstuhl").innerHTML="Datenbankfehler: " + error;
-                  $('#fehleraddlehrstuhl').show();
-                }
-        } 
-      });
-      setTimeout(function(){
-        $("#add2").attr("disabled", false);
-      }, 500);
+    var col = "5";
+    
+    if(addFinanz1.length <= 0 || addFinanz2.length <= 0) {
+      document.getElementById("fehleraddfinanz").innerHTML="Bitte gibt den Namen und die Nummer der Finanzstelle ein";
+      $('#fehleraddfinanz').show();
+      return;
     }
-    else {
-      if (addLehrstuhl == null || addLehrstuhl ==''){
-        document.getElementById("fehleraddlehrstuhl").innerHTML="Bitte gibt ein Lehrstuhlkürzel ein";
-        $('#fehleraddlehrstuhl').show();
-      }
+
+    if(addFinanz2.length < 10) {
+      document.getElementById("fehleraddfinanz").innerHTML="Die Nummer muss 10 Stellig sein.";
+      $('#fehleraddfinanz').show();
+      return;
     }
+
+    
+    if(addFinanz2.match(/^[0-9]+$/) == null) {
+      document.getElementById("fehleraddfinanz").innerHTML="Die Nummer darf nur Zahlen enthalten.";
+      $('#fehleraddfinanz').show();
+      return;
+    }
+    
+    $("#add3").attr("disabled", true);
+    //$("#addbearbeiter").text("Bitte warten...");
+    $.ajax({  
+        url:"verarbeitungPl/finanzstelle/addFinanz.php",  
+        method:"post",
+        data:{addFinanz1:addFinanz1, addFinanz2:addFinanz2, aktion:aktion},
+        dataType: 'JSON',
+        success: function(data){
+
+              var zustand = data.data; 
+              var error = data.error;
+              var inputfeld1 = document.getElementById("addFinanz1");
+              var inputfeld2 = document.getElementById("addFinanz2");
+
+              if(zustand == "erfolgreich") {
+                inputfeld1.value = '';
+                inputfeld2.value = '';
+                $('.finanzdiv').removeClass('finanzAn');
+                $('.finanzdiv').addClass('finanzAus');
+                getFinanz();
+                $('#collapse'+col).collapse("hide");
+                //$("#addbearbeiter").text("hinzufügen");
+              }
+              else{
+                document.getElementById("fehleraddfinanz").innerHTML="Datenbankfehler: " + error;
+                $('#fehleraddfinanz').show();
+              }
+      } 
+    });
+    setTimeout(function(){
+      $("#add3").attr("disabled", false);
+    }, 500);
 
 });
   
@@ -103,10 +141,10 @@ $('#add2').on( 'click', function () {
 
 
 
-$('#rem2').on( 'click', function () {
+$('#rem3').on( 'click', function () {
     
-  var aktion = "lehrstuhl";
-  var col = "4";
+  var aktion = "finanz";
+  var col = "5";
   
 
 
@@ -116,9 +154,9 @@ $('#rem2').on( 'click', function () {
 
 
   if (Text != "Option wählen") {
-    $("#rem2").attr("disabled", true);
+    $("#rem3").attr("disabled", true);
     $.ajax({  
-      url:"verarbeitungALG/remLehrstuhl.php",  
+      url:"verarbeitungPl/finanzstelle/remFinanz.php",  
       method:"post",
           data:{Text:Text, aktion:aktion},
           dataType: 'JSON',
@@ -129,27 +167,31 @@ $('#rem2').on( 'click', function () {
               if(zustand == "erfolgreich") {
                 Objekt.remove(Objekt.selectedIndex);
                 Objekt.selectedIndex = "0";
-                $('.lehrstuhldiv').removeClass('lehrstuhlaniAn');
-                $('.lehrstuhldiv').addClass('lehrstuhlaniAus');
+                $('.finanzdiv').removeClass('finanzAn');
+                $('.finanzdiv').addClass('finanzAus');
                 getFinanz();
                 $('#collapse'+col).collapse("hide");
               }
               else {
                 if(error.indexOf("foreign") >= 0) {
-                  document.getElementById("fehleraddlehrstuhl").innerHTML="Der Lehrstuhl ist bereits einem Auftraggeber zugewiesen.";
+                  document.getElementById("fehleraddfinanz").innerHTML="Die Finanzstelle ist bereits einer Platine zugewiesen.";
                 }
                 else {
-                  document.getElementById("fehleraddlehrstuhl").innerHTML="Datenbankfehler: " + error;
+                  document.getElementById("fehleraddfinanz").innerHTML="Datenbankfehler: " + error;
                 }
                 
-                $('#fehleraddlehrstuhl').show();
+                $('#fehleraddfinanz').show();
 
               }
       } 
     });
     setTimeout(function(){
-      $("#rem2").attr("disabled", false);
+      $("#rem3").attr("disabled", false);
   }, 500);
+}
+else {
+  document.getElementById("fehleraddfinanz").innerHTML="Bitte wähle eine Finanzstelle aus";
+  $('#fehleraddfinanz').show();
 }
   
 

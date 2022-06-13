@@ -1,8 +1,8 @@
 <?php
 require_once("/documents/config/db.php");
-require_once("../classes/Login.php");
-require_once("../funktion/alle.php");
-require_once("../classes/Sicherheit.php");
+require_once("../../classes/Login.php");
+require_once("../../funktion/alle.php");
+require_once("../../classes/Sicherheit.php");
 
 $login = new Login();
 
@@ -21,16 +21,16 @@ $von = "platine";
 $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
-if($bestanden == true && $aktion == "lehrstuhl") {
+if($bestanden == true && $aktion == "finanz") {
  
   
          $query = "
          SELECT 
-           kuerzel
+           name
          FROM 
-           lehrstuhl
+           finanzstelle
          order by 
-           kuerzel asc
+           name asc
          "; 
          $result = mysqli_query($platinendb_connection, $query);  
          $namen = array();
@@ -38,7 +38,7 @@ if($bestanden == true && $aktion == "lehrstuhl") {
          if ($result->num_rows > 0) {
    
             while($row = $result->fetch_assoc()){
-                $namen[$counter] = $row['kuerzel'];
+                $namen[$counter] = $row['name'];
                 $counter = $counter + 1;
             }
             echo json_encode($namen);

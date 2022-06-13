@@ -31,7 +31,7 @@ function getLehrstuhl() {
   
 
   $.ajax({  
-        url:"verarbeitungALG/getLehrstuhl.php",  
+        url:"verarbeitungPl/lehrstuhl/getLehrstuhl.php",  
         method:"post",
         dataType: 'JSON',
         data:{aktion:aktion},
@@ -46,6 +46,7 @@ function getLehrstuhl() {
     } 
   });
   }
+  
 
 
 
@@ -62,7 +63,7 @@ $('#add2').on( 'click', function () {
       $("#add2").attr("disabled", true);
       //$("#addbearbeiter").text("Bitte warten...");
       $.ajax({  
-          url:"verarbeitungALG/addLehrstuhl.php",  
+          url:"verarbeitungPl/lehrstuhl/addLehrstuhl.php",  
           method:"post",
           data:{addLehrstuhl:addLehrstuhl, aktion:aktion},
           dataType: 'JSON',
@@ -118,7 +119,7 @@ $('#rem2').on( 'click', function () {
   if (Text != "Option wählen") {
     $("#rem2").attr("disabled", true);
     $.ajax({  
-      url:"verarbeitungALG/remLehrstuhl.php",  
+      url:"verarbeitungPl/lehrstuhl/remLehrstuhl.php",  
       method:"post",
           data:{Text:Text, aktion:aktion},
           dataType: 'JSON',

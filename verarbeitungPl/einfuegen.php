@@ -50,6 +50,17 @@ if($bestanden == true && $aktion == "einfuegen") {
           $row = mysqli_fetch_assoc($Auftraggeber2id);
 
 
+
+          /*
+          Inputs auslesen Finanzstelle
+          */ 
+          $finanz = mysqli_real_escape_string($platinendb_connection, $_POST["Finanz"]);
+          
+          $finanz = "SELECT id FROM finanzstelle WHERE name='$finanz'"; 
+          $finanz =  mysqli_query($platinendb_connection, $finanz);
+          $finanz = mysqli_fetch_assoc($finanz);
+          $finanz = $finanz['id'];
+
           /*
           Inputs auslesen Anzahl
           */
@@ -159,13 +170,13 @@ if($bestanden == true && $aktion == "einfuegen") {
 
             $downloads = "INSERT INTO downloads (id, download, name, size, type) VALUES ('$maxid', '$blob', '$fileName', '$size', '$type')";
 
-            $platinen = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, Downloads_ID, ignorieren) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', '$maxid', '0')";
+            $platinen = "INSERT INTO platinen (Name, Auftraggeber_ID, Finanzstelle_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, Downloads_ID, ignorieren) VALUES ('$Name', '$row[user_id]', '$finanz', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', '$maxid', '0')";
 
             mysqli_query($platinendb_connection, $downloads);
 
           }
           else {
-            $platinen = "INSERT INTO platinen (Name, Auftraggeber_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, Downloads_ID, ignorieren) VALUES ('$Name', '$row[user_id]', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', null, '0')";
+            $platinen = "INSERT INTO platinen (Name, Auftraggeber_ID, Finanzstelle_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, erstelltam, wunschDatum, Kommentar, Downloads_ID, ignorieren) VALUES ('$Name', '$row[user_id]', '$finanz', '$Anzahl', '$row2[ID]', '$Endkupfer', '$Staerke', '$Lagen', '$Groeße', '$Oberflaeche', '$Loetstopp', '$erstelltam', $Wunschdatum, '$Kommentar', null, '0')";
           }
           
 

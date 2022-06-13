@@ -1,8 +1,8 @@
 <?php
 require_once("/documents/config/db.php");
-require_once("../classes/Login.php");
-require_once("../funktion/alle.php");
-require_once("../classes/Sicherheit.php");
+require_once("../../classes/Login.php");
+require_once("../../funktion/alle.php");
+require_once("../../classes/Sicherheit.php");
 
 $login = new Login();
 
@@ -22,19 +22,19 @@ $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinen
 $bestanden = $sicherheit->ergebnis();
 
 
-if($bestanden == true && $aktion == "lehrstuhl") {
+if($bestanden == true && $aktion == "finanz") {
   
-      $lehrstuhl = mysqli_real_escape_string($login_connection, $_POST['Text']);
+      $finanz = mysqli_real_escape_string($login_connection, $_POST['Text']);
       
 
-      $lehrstuhl = "SELECT id FROM lehrstuhl WHERE kuerzel='$lehrstuhl'"; 
-      $lehrstuhl =  mysqli_query($platinendb_connection, $lehrstuhl);
-      $lehrstuhl = mysqli_fetch_assoc($lehrstuhl ); 
-      $lehrstuhl = $lehrstuhl['id'];
+      $finanz = "SELECT id FROM finanzstelle WHERE name='$finanz'"; 
+      $finanz =  mysqli_query($platinendb_connection, $finanz);
+      $finanz = mysqli_fetch_assoc($finanz); 
+      $finanz = $finanz['id'];
 
 
 
-      $del = "DELETE FROM lehrstuhl WHERE id=$lehrstuhl";
+      $del = "DELETE FROM finanzstelle WHERE id=$finanz";
 
 
       mysqli_query($platinendb_connection, $del);

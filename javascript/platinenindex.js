@@ -34,7 +34,7 @@ var table = $('#tabelle1').DataTable({
   searchPanes: {
             viewTotal: true,
             controls: false,
-            columns: [4]
+            columns: [5]
   },
 
 
@@ -58,9 +58,9 @@ var table = $('#tabelle1').DataTable({
 dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12 col-md-5'l><'col-sm-12 col-md-7'p>>", buttons: {
       buttons: [
-            { extend: 'csv', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], modifier: {page: 'current'}} , className: 'btn btn-aktion' },
-            { extend: 'excel', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], modifier: {page: 'current'}} , className: 'btn btn-aktion' },
-            { extend: 'pdf', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], modifier: {page: 'current'}} , orientation: 'landscape', pageSize: 'TABLOID' , className: 'btn btn-aktion' },
+            { extend: 'csv', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], modifier: {page: 'current'}} , className: 'btn btn-aktion' },
+            { extend: 'excel', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], modifier: {page: 'current'}} , className: 'btn btn-aktion' },
+            { extend: 'pdf', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], modifier: {page: 'current'}} , orientation: 'landscape', pageSize: 'TABLOID' , className: 'btn btn-aktion' },
             ],
        dom: {
 		  button: {
@@ -74,19 +74,19 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
           "columnDefs": [
   
           { 
-          "targets": [4],
+          "targets": [5],
           searchPanes:{
                 options:[
                     {
                         label: 'offene',
                         value: function(rowData, rowIdx) {
-                            return rowData[18] == 0;
+                            return rowData[19] == 0;
                         }
                     },
                     {
                       label: 'ignorierte',
                       value: function(rowData, rowIdx) {
-                          return rowData[17] == 1;
+                          return rowData[18] == 1;
                       }
                   }
                 ]
@@ -103,7 +103,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
         },
 
          {
-          "targets": [16,17,18,19,20],
+          "targets": [3,17,18,19,20,21],
           "visible": false
          },
 
@@ -115,7 +115,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
             //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
             if(adminn == "ja") {
 
-              var erstelltam = data[13].toString();
+              var erstelltam = data[14].toString();
               var t2 = erstelltam.split('-');
               t2 = t2[2] + "-" + t2[1] + "-" + t2[0];
 
@@ -127,21 +127,21 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
               $(row).find('i:nth-child(3)').css("display", "inline");
               $(row).find('i:nth-child(4)').css("display", "inline");
 
-              if(data[19] == 0) {
+              if(data[20] == 0) {
                 $(row).find('i:nth-child(3)').css("visibility", "visible");
               }
 
-              if(data[18] == 0){
+              if(data[19] == 0){
 
                 $(row).find('i:nth-child(4)').css("visibility", "visible");
 
                 $(row).attr('id', 'blue');
 
-                if(data[17] == 0) {
-                  if($daysbetween > 16) {
+                if(data[18] == 0) {
+                  if($daysbetween > 17) {
                     $(row).find('i:nth-child(4)').addClass("red").css("opacity", 1);
                   }
-                  else if($daysbetween > 11) {
+                  else if($daysbetween > 12) {
                     $(row).find('i:nth-child(4)').addClass("orange").css("opacity", 1);
                   }
                   /*
@@ -156,7 +156,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
 
               }
               else {
-                if(data[19] == 0) {
+                if(data[20] == 0) {
                   $(row).attr('id', 'orange');
                 }
                 else {
@@ -164,7 +164,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                 }
               }
 
-              if(data[20] == 0) {
+              if(data[21] == 0) {
                 $(row).find('i:nth-child(3)').addClass("grey").prop('disabled', true);
               }
 
@@ -433,23 +433,23 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse2', function () {
 
     var Leiterkartenname = table.api().row($(this).closest('tr')).data()[1];
     var Auftraggeber = table.api().row($(this).closest('tr')).data()[2];
-
-    var Anzahl = table.api().row($(this).closest('tr')).data()[5];
-    var Material = table.api().row($(this).closest('tr')).data()[6];
-    var Endkupfer = table.api().row($(this).closest('tr')).data()[7];
-    var Staerke = table.api().row($(this).closest('tr')).data()[8];
-    var Lagen = table.api().row($(this).closest('tr')).data()[9];
-    var Groesse = table.api().row($(this).closest('tr')).data()[10];
-    var Oberflaeche = table.api().row($(this).closest('tr')).data()[11];
-    var Loetstopp = table.api().row($(this).closest('tr')).data()[12];
-    var Wunschdatum = table.api().row($(this).closest('tr')).data()[14];
-    var Kommentar = table.api().row($(this).closest('tr')).data()[15];
-    var Ignorieren = table.api().row($(this).closest('tr')).data()[17];
+    var Finanzstelle = table.api().row($(this).closest('tr')).data()[3];
+    var Anzahl = table.api().row($(this).closest('tr')).data()[6];
+    var Material = table.api().row($(this).closest('tr')).data()[7];
+    var Endkupfer = table.api().row($(this).closest('tr')).data()[8];
+    var Staerke = table.api().row($(this).closest('tr')).data()[9];
+    var Lagen = table.api().row($(this).closest('tr')).data()[10];
+    var Groesse = table.api().row($(this).closest('tr')).data()[11];
+    var Oberflaeche = table.api().row($(this).closest('tr')).data()[12];
+    var Loetstopp = table.api().row($(this).closest('tr')).data()[13];
+    var Wunschdatum = table.api().row($(this).closest('tr')).data()[15];
+    var Kommentar = table.api().row($(this).closest('tr')).data()[16];
+    var Ignorieren = table.api().row($(this).closest('tr')).data()[18];
 
     $.ajax({  
                     url:"verarbeitungPl/Modal.php",  
                     method:"post",  
-                    data:{aktion:aktion, ziel:ziel, Id:Id, Leiterkartenname:Leiterkartenname, Auftraggeber:Auftraggeber, Anzahl:Anzahl, Material:Material, Endkupfer:Endkupfer, Staerke:Staerke, Lagen:Lagen, Groesse:Groesse, Oberflaeche:Oberflaeche, Loetstopp:Loetstopp, Wunschdatum:Wunschdatum, Kommentar:Kommentar, Ignorieren:Ignorieren},  
+                    data:{aktion:aktion, ziel:ziel, Id:Id, Leiterkartenname:Leiterkartenname, Auftraggeber:Auftraggeber, Finanzstelle:Finanzstelle, Anzahl:Anzahl, Material:Material, Endkupfer:Endkupfer, Staerke:Staerke, Lagen:Lagen, Groesse:Groesse, Oberflaeche:Oberflaeche, Loetstopp:Loetstopp, Wunschdatum:Wunschdatum, Kommentar:Kommentar, Ignorieren:Ignorieren},  
                     success:function(data){  
                         $('#modalbody2').html(data);  
                         
