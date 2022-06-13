@@ -1,0 +1,163 @@
+
+$(document).ready(function(){ 
+
+  getFinanz();
+
+});
+
+
+//Wenn auf lehrstuhlbutton geklickt wird
+$('.finanzbutton').on( 'click', function () {
+  $("#finanzbutton").toggleClass("far fa-caret-square-down far fa-caret-square-up");
+  $('#fehleraddfinanz').hide();
+
+  if(!$("#collapse5").hasClass("show")) {
+    $('.finanzdiv').addClass('finanzAn');
+    $('.finanzdiv').removeClass('finanzAus');
+  }
+  else {
+    $('.finanzdiv').removeClass('finanzAn');
+    $('.finanzdiv').addClass('finanzAus');
+  }
+});
+
+
+function getFinanz() {
+  //Liste aktualisieren
+  var name;
+  
+  var aktion = "finanz";
+
+  
+
+  $.ajax({  
+        url:"verarbeitungALG/getFinanz.php",  
+        method:"post",
+        dataType: 'JSON',
+        data:{aktion:aktion},
+        success: function(response){
+
+          $("#"+aktion).empty();
+          $("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');
+          for(var i=0; i<response.length; i++){
+            name = response[i];
+            $("#"+aktion).append('<option value="' + name + '">' + name + '</option>')    
+        }
+    } 
+  });
+  }
+
+
+
+
+$('#add2').on( 'click', function () {
+    
+    //hinzufügen
+    var aktion = "lehrstuhl";
+    var addLehrstuhl = document.getElementById("addLehrstuhl").value; 
+  
+    var col = "4";
+    
+    if(addLehrstuhl.length > 0) {
+      $("#add2").attr("disabled", true);
+      //$("#addbearbeiter").text("Bitte warten...");
+      $.ajax({  
+          url:"verarbeitungALG/addLehrstuhl.php",  
+          method:"post",
+          data:{addLehrstuhl:addLehrstuhl, aktion:aktion},
+          dataType: 'JSON',
+          success: function(data){
+
+                var zustand = data.data; 
+                var error = data.error;
+                var inputfeld = document.getElementById("addLehrstuhl");
+                if(zustand == "erfolgreich") {
+                  inputfeld.value = '';
+                  $('.lehrstuhldiv').removeClass('lehrstuhlaniAn');
+                  $('.lehrstuhldiv').addClass('lehrstuhlaniAus');
+                  getFinanz();
+                  $('#collapse'+col).collapse("hide");
+                  //$("#addbearbeiter").text("hinzufügen");
+                }
+                else{
+                  document.getElementById("fehleraddlehrstuhl").innerHTML="Datenbankfehler: " + error;
+                  $('#fehleraddlehrstuhl').show();
+                }
+        } 
+      });
+      setTimeout(function(){
+        $("#add2").attr("disabled", false);
+      }, 500);
+    }
+    else {
+      if (addLehrstuhl == null || addLehrstuhl ==''){
+        document.getElementById("fehleraddlehrstuhl").innerHTML="Bitte gibt ein Lehrstuhlkürzel ein";
+        $('#fehleraddlehrstuhl').show();
+      }
+    }
+
+});
+  
+
+
+
+
+
+$('#rem2').on( 'click', function () {
+    
+  var aktion = "lehrstuhl";
+  var col = "4";
+  
+
+
+  var Objekt = document.getElementById(aktion);
+  var Text = Objekt.options[Objekt.selectedIndex].text;
+  //var index = Objekt.options[Objekt.selectedIndex].index;
+
+
+  if (Text != "Option wählen") {
+    $("#rem2").attr("disabled", true);
+    $.ajax({  
+      url:"verarbeitungALG/remLehrstuhl.php",  
+      method:"post",
+          data:{Text:Text, aktion:aktion},
+          dataType: 'JSON',
+          success: function(data){
+
+              var zustand = data.data; 
+              var error = data.error;
+              if(zustand == "erfolgreich") {
+                Objekt.remove(Objekt.selectedIndex);
+                Objekt.selectedIndex = "0";
+                $('.lehrstuhldiv').removeClass('lehrstuhlaniAn');
+                $('.lehrstuhldiv').addClass('lehrstuhlaniAus');
+                getFinanz();
+                $('#collapse'+col).collapse("hide");
+              }
+              else {
+                if(error.indexOf("foreign") >= 0) {
+                  document.getElementById("fehleraddlehrstuhl").innerHTML="Der Lehrstuhl ist bereits einem Auftraggeber zugewiesen.";
+                }
+                else {
+                  document.getElementById("fehleraddlehrstuhl").innerHTML="Datenbankfehler: " + error;
+                }
+                
+                $('#fehleraddlehrstuhl').show();
+
+              }
+      } 
+    });
+    setTimeout(function(){
+      $("#rem2").attr("disabled", false);
+  }, 500);
+}
+  
+
+});
+
+
+
+
+
+
+

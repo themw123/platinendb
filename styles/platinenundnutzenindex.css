@@ -705,25 +705,25 @@ testdaten haken farbe
   -webkit-appearance: none;
 }
 */
-#bearbeiterbutton, #lehrstuhlbutton {
+#bearbeiterbutton, #lehrstuhlbutton, #finanzbutton {
   color: #005ea9;
   font-size: 18px;
   
 }
 
-#bearbeiterbutton:hover, #lehrstuhlbutton:hover {
+#bearbeiterbutton:hover, #lehrstuhlbutton:hover, #finanzbutton:hover {
   color: #0000cc;
   
 }
 
-.bearbeiterbutton, .lehrstuhlbutton {
+.bearbeiterbutton, .lehrstuhlbutton, .finanzbutton {
   background-color: white!important;
   border: 1px solid #ced4da;
   border-radius: .25rem;  
   box-shadow: none!important;
 }
 
-.bearbeiterbutton:hover, .lehrstuhlbutton:hover{
+.bearbeiterbutton:hover, .lehrstuhlbutton:hover, .finanzbutton:hover{
   border: 1px solid #ced4da;
 }
 
@@ -745,7 +745,7 @@ testdaten haken farbe
   margin-bottom: -3px;
 }
 
-#add1 {
+#add1, #add3 {
   background-color: #005ea9;
   border-color:#005ea9;
   outline: none !important;
@@ -764,7 +764,7 @@ testdaten haken farbe
   font-size: 12px;
   }
   
-  #add1:hover {
+  #add1:hover, #add3:hover {
   background-color: #0000cc!important;
   border-color:#0000cc!important;
   }
@@ -778,7 +778,7 @@ testdaten haken farbe
     margin-top: 15px;
   }
 
-  #rem1{
+  #rem1, #rem3{
     background-color: #005ea9;
     border-color:#005ea9;
     outline: none !important;
@@ -796,7 +796,7 @@ testdaten haken farbe
       font-size: 12px;
     }
     
-    #rem1:hover{
+    #rem1:hover, #rem3:hover{
       background-color: #0000cc!important;
       border-color:#0000cc!important;
     }
@@ -817,7 +817,7 @@ testdaten haken farbe
       margin-top: 8px;
     }
 
-    .bearbeiterbutton, .lehrstuhlbutton {
+    .bearbeiterbutton, .lehrstuhlbutton, .finanzbutton{
       border-color: #ced4da!important;
     }
 
@@ -1192,6 +1192,23 @@ testdaten haken farbe
             0 0 0 0px rgba(0,0,0,0),
       }
 
+      .finanzAn {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 10px;
+        border-radius: 11px;
+        box-shadow: 
+          0 0 0 0px rgba(0,0,0,0),
+          0 0 22px -6px rgb(0,0,0,1);
+      }
+      .finanzAus {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 0px;
+        border-radius: 0px;
+        box-shadow: 
+            0 0 0 0px rgba(0,0,0,0),
+      }
+
+
       .nutzenaufplatinenAn {
         transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
         padding: 10px;
@@ -1209,7 +1226,9 @@ testdaten haken farbe
       }
 
 
-      #rem1, #rem2 {
+
+
+      #rem1, #rem2, #rem3{
         margin-bottom: 15px;
       }
 
@@ -1256,4 +1275,8 @@ testdaten haken farbe
 }
 .scrollabledetail2 {
   max-height: 282px;
+}
+
+#addFinanz1{
+  margin-bottom: 10px;
 }

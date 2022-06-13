@@ -38,6 +38,8 @@ else {
   echo'
   <script src="javascript/auftraggeber!bearbeiter.js"></script>
   <script src="javascript/lehrstuhl.js"></script>
+  <script src="javascript/finanzstelle.js"></script>
+
   ';
 //}
 
@@ -81,6 +83,20 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         }
         else {
           $auftraggeberDeufault = $_POST['Auftraggeber'];
+        }
+
+        /*
+        finanzstelle vorbereitung
+        */
+        $fname = 'SELECT name FROM finanzstelle';
+
+        $fname = mysqli_query($platinendb_connection, $fname);
+
+        $fname = '';
+
+        while($fname = mysqli_fetch_assoc($fname))
+        {
+          $fname .= '<option value = "'.$fname['name'].'">'.$fname['name'].'</option>';
         }
 
         $auftraggeberForm .= "
@@ -149,8 +165,53 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
 
         ";
-        echo '<script> $("#anz").css({"margin-top":"8px"});</script>';
 
+
+        $finanzForm .= "
+        <div class='form-group'>
+          <label for='usr'>Finanzstelle:</label>
+
+          <div class='finanzdiv'>
+
+            <div class='input-group ipg1'>
+
+            <select class='form-control $fname' data-live-search='true' id='finanz' name='Finanz' required>     
+            </select>
+
+            
+            <div class='input-group-append'>
+            <button data-toggle='collapse' data-target='#collapse5' class='btn btn-primary finanzbutton' type='button'><i id='finanzbutton' class='far fa-caret-square-up'></i></button>
+            </div>
+
+            </div>
+
+
+
+
+            <div class='collapse' id='collapse5'>
+                <button class='btn btn-primary' id='rem3' type='button'>Finanzstelle löschen</button>
+                <form>
+                  <div class='form-group test'>
+                    
+                    <label for='usr'>Neue Finanzstelle:</label>
+                    <input type='text' class='form-control' id='addFinanz1' aria-describedby='FinanzHelp' placeholder='Name'>                   
+
+                    <input type='text' maxlength='10' class='form-control' id='addFinanz2' aria-describedby='FinanzHelp' placeholder='Nummer'>                   
+                    <button class='btn btn-primary' id='add3' type='button'>Finanzstelle hinzufügen</button>
+
+                  </div>
+
+                </form>
+                <div class='alert alert-warning collapse' id='fehleraddfinanz'></div>
+            </div>
+
+
+          </div>
+        </div>
+
+        ";
+
+        echo '<script> $("#fin").css({"margin-top":"8px"});</script>';
 
 
         //gucken ob eingefügt oder bearbeitet werden soll. Wenn kein POST übergeben wurde, dann einfügen
@@ -197,18 +258,22 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         if(isUserAdmin($platinendb_connection) == true) {
 
           $output .= $auftraggeberForm;
+
         }
 
 
-
+        $output .= $finanzForm;
 
 
         $output .= "
+
 
         <div class='form-group'>
         <label id= 'anz' for='usr'>Anzahl:</label>
         <input type='number' min='1' class='form-control' id='anzahl' name='Anzahl' required>
         </div>
+
+
 
 
         <div class='form-group'>
