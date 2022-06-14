@@ -265,7 +265,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
         //wenn est searchpane button, info button und filter button verstecken
         if(adminn == "nein") {
           $('#buttonLegend').hide();
-          $('#buttondefault').hide();
+          //$('#buttondefault').hide();
           $('#button3').hide();
         }
 
