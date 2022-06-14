@@ -84,8 +84,8 @@ if($bestanden == true && $aktion == "platinen") {
 
 					$nestedData[] = $row["Leiterkartenname"];
 					$nestedData[] = $row["Auftraggeber"];
-					$nestedData[] = $row["Finanzstelle"];
 					$nestedData[] = $row["Lehrstuhl"];
+					$nestedData[] = $row["Finanzstelle"];
 					$nestedData[] = $row["ausstehend"];
 					$nestedData[] = $row["Anzahl"];
 					$nestedData[] = $row["Material"];

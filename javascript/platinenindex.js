@@ -103,7 +103,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
         },
 
          {
-          "targets": [3,17,18,19,20,21],
+          "targets": [17,18,19,20,21],
           "visible": false
          },
 
@@ -433,7 +433,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse2', function () {
 
     var Leiterkartenname = table.api().row($(this).closest('tr')).data()[1];
     var Auftraggeber = table.api().row($(this).closest('tr')).data()[2];
-    var Finanzstelle = table.api().row($(this).closest('tr')).data()[3];
+    var Finanzstelle = table.api().row($(this).closest('tr')).data()[4];
     var Anzahl = table.api().row($(this).closest('tr')).data()[6];
     var Material = table.api().row($(this).closest('tr')).data()[7];
     var Endkupfer = table.api().row($(this).closest('tr')).data()[8];

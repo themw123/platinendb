@@ -231,13 +231,6 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         <form method='post' enctype='multipart/form-data' id='edit'>
         <div class='container-fluid'>
 
-
-        <!--
-        <div class='divhidden'>
-        <label for='usr'>Auftraggeber:</label>
-        <input type='hidden' class='form-control' id='auftraggeber' name='Auftraggeber' value='$auftraggeber' required>
-        </div>
-        -->
         ";
 
         //if(!isUserAdmin($platinendb_connection)) {
