@@ -267,6 +267,14 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
           $('#buttonLegend').hide();
           //$('#buttondefault').hide();
           $('#button3').hide();
+          //Auftraggeber und Lehrstuhl verstecken, achtung aktivieren muss auch erfolgen damit browser beim wechseln zwischen admin und nicht admin auch aktualisiert
+          $(tabelle1).DataTable().column(2).visible(false);
+          $(tabelle1).DataTable().column(3).visible(false);
+        }
+        else {
+          //Auftraggeber und Lehrstuhl verstecken
+          $(tabelle1).DataTable().column(2).visible(true);
+          $(tabelle1).DataTable().column(3).visible(true);
         }
 
 }
