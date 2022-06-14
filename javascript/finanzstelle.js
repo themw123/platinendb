@@ -26,8 +26,7 @@ function getFinanz() {
   //Liste aktualisieren
   var namee;
   
-  var aktion = "finanz";
-
+  var aktion = "finanzGet";
   
 
   $.ajax({  
@@ -36,6 +35,9 @@ function getFinanz() {
         dataType: 'JSON',
         data:{aktion:aktion},
         success: function(response){
+          
+          var aktion = "finanz";
+
 
           $("#"+aktion).empty();
           $("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');

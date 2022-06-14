@@ -86,6 +86,8 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         }
 
 
+
+
         $auftraggeberForm .= "
         <div class='form-group'>
           <label for='usr'>Auftraggeber:</label>
@@ -159,7 +161,6 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         /*
         Finanzstelle vorbereitung
         */
-        $auftraggeber = $_SESSION['user_name'];
 
         if($aktion == "modaleinfuegen") {
           $finanzDeufault = "no";
@@ -168,50 +169,71 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           $finanzDeufault = $_POST['Finanzstelle'];
         }
 
-
-        $finanzForm .= "
-        <div class='form-group'>
-          <label for='usr'>Finanzstelle:</label>
-
-          <div class='finanzdiv'>
-
-            <div class='input-group ipg1'>
-
-            <select class='form-control $finanzDeufault' data-live-search='true' id='finanz' name='Finanz' required>     
-            </select>
-
-            
-            <div class='input-group-append'>
-            <button data-toggle='collapse' data-target='#collapse5' class='btn btn-primary finanzbutton' type='button'><i id='finanzbutton' class='far fa-caret-square-up'></i></button>
+        if(isUserAdmin($platinendb_connection)) {
+          $finanzForm .= "
+          <div class='form-group'>
+            <label for='usr'>Finanzstelle:</label>
+  
+            <div class='finanzdiv'>
+  
+              <div class='input-group ipg1'>
+  
+              <select class='form-control $finanzDeufault' data-live-search='true' id='finanz' name='Finanz' required>     
+              </select>
+  
+              
+              <div class='input-group-append'>
+              <button data-toggle='collapse' data-target='#collapse5' class='btn btn-primary finanzbutton' type='button'><i id='finanzbutton' class='far fa-caret-square-up'></i></button>
+              </div>
+  
+              </div>
+  
+  
+  
+  
+              <div class='collapse' id='collapse5'>
+                  <button class='btn btn-primary' id='rem3' type='button'>Finanzstelle löschen</button>
+                  <form>
+                    <div class='form-group test'>
+                      
+                      <label for='usr'>Neue Finanzstelle:</label>
+                      <input type='text' class='form-control' id='addFinanz1' aria-describedby='FinanzHelp' placeholder='Name'>                   
+  
+                      <input type='text' maxlength='10'  minlength='10' class='form-control' id='addFinanz2' aria-describedby='FinanzHelp' placeholder='Nummer(10-Stellig)'>                   
+                      <button class='btn btn-primary' id='add3' type='button'>Finanzstelle hinzufügen</button>
+  
+                    </div>
+  
+                  </form>
+                  <div class='alert alert-warning collapse' id='fehleraddfinanz'></div>
+              </div>
+  
+  
             </div>
-
-            </div>
-
-
-
-
-            <div class='collapse' id='collapse5'>
-                <button class='btn btn-primary' id='rem3' type='button'>Finanzstelle löschen</button>
-                <form>
-                  <div class='form-group test'>
-                    
-                    <label for='usr'>Neue Finanzstelle:</label>
-                    <input type='text' class='form-control' id='addFinanz1' aria-describedby='FinanzHelp' placeholder='Name'>                   
-
-                    <input type='text' maxlength='10'  minlength='10' class='form-control' id='addFinanz2' aria-describedby='FinanzHelp' placeholder='Nummer(10-Stellig)'>                   
-                    <button class='btn btn-primary' id='add3' type='button'>Finanzstelle hinzufügen</button>
-
-                  </div>
-
-                </form>
-                <div class='alert alert-warning collapse' id='fehleraddfinanz'></div>
-            </div>
-
-
           </div>
-        </div>
+  
+          ";
+        }
+        else {
+          $finanzForm .= "
+          <div class='form-group'>
+            <label for='usr'>Finanzstelle:</label>
+  
+            <div class='finanzdiv'>
+  
+              <div class='input-group'>
+  
+              <select class='form-control $finanzDeufault' data-live-search='true' id='finanz' name='Finanz' required>     
+              </select>
+  
+  
+            </div>
+          </div>
+  
+          ";
+        }
 
-        ";
+
 
         echo '<script> $("#fin").css({"margin-top":"8px"});</script>';
 
@@ -250,7 +272,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         ";
         
 
-        if(isUserAdmin($platinendb_connection) == true) {
+        if(isUserAdmin($platinendb_connection)) {
 
           $output .= $auftraggeberForm;
 

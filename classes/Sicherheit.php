@@ -219,13 +219,13 @@ class Sicherheit {
        }
 
 
-        if($this->aktion == "platinen" || $this->aktion == "finanz" || $this->aktion == "modaleinfuegen" || $this->aktion == "einfuegen") {
+        if($this->aktion == "platinen" || $this->aktion == "modaleinfuegen"|| $this->aktion == "finanzGet" || $this->aktion == "einfuegen") {
             $this->bestanden = true;
         }
 
 
         
-        elseif($this->aktion == "lehrstuhl" || $this->aktion == "download" || $this->aktion == "auftraggeber") {
+        elseif($this->aktion == "lehrstuhl" || $this->aktion == "finanz" || $this->aktion == "download" || $this->aktion == "auftraggeber") {
             $admin = isUserAdmin($this->login_connection);
             
             if($admin) {

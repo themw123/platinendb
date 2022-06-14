@@ -21,7 +21,7 @@ $von = "platine";
 $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
-if($bestanden == true && $aktion == "finanz") {
+if($bestanden == true && $aktion == "finanzGet") {
  
   
          $query = "
