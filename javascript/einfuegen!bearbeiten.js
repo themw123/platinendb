@@ -299,6 +299,25 @@ function truncate(fileName, n, type){
 };
 
 
+function intorextOff(){
+  remUploadData();
+  $("#uploadfeld").prop('required',false); 
+  $('#collapse3').collapse('hide');
+
+  $('#lagen').prop( "disabled", false);
+  $('#lagenid').text("Lagen: ");
+  $('#lagenid').addClass('iconaus');
+  $('#statuslabel').text("Status: ");
+};
+
+function intorextOn(){
+  $('#collapse3').collapse('show');
+  $("#uploadfeld").prop('required',true); 
+  $('#statuslabel').text("Status: ");
+  $('#statuslabel').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Kupferflächen(.txt) müssen angegeben werden wenn Status = Fertigung und int/ext = int'></i>");
+  $('[data-toggle="popover"]').popover();
+};
+
 
 
 
@@ -458,32 +477,19 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
         var abgeschlossenAnfangsDatum = $('#datepicker3').val();
 
 
-
         //Wenn int/ext geändert wird
         $('#int').change(function(){
+          
           var intorext = $('#int').val();
           if(intorext == 'ext') {
 
-          
-
-            $("#uploadfeld").prop('required',false); 
-
-            remUploadData();
-
-            $('#collapse3').collapse('hide');
-            $('#infoicon').removeAttr();
-
-            $('#lagen').prop( "disabled", false);
-            $('#lagenid').text("Lagen: ");
-            $('#lagenid').addClass('iconaus');
-            $('#statuslabel').text("Status: ");
+            intorextOff();
 
           }
           else if(intorext == 'int' && $("#status :selected").val() != "neu") {
-            $('#collapse3').collapse('show');
-            $("#uploadfeld").prop('required',true); 
-            $('#statuslabel').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Kupferflächen(.txt) müssen angegeben werden wenn Status = Fertigung und int/ext = int'></i>");
-            $('[data-toggle="popover"]').popover();
+
+            intorextOn();
+
           }
         });
 
@@ -528,11 +534,8 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                 
                 var intorext = $('#int').val();
                 if(intorext == 'int') {
-                  $('#collapse3').collapse('show');
-                  $("#uploadfeld").prop('required',true); 
-                  $('#statuslabel').text("Status: ");
-                  $('#statuslabel').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Kupferflächen(.txt) müssen angegeben werden wenn Status = Fertigung und int/ext = int'></i>");
-                  $('[data-toggle="popover"]').popover();
+
+                  intorextOn();
 
                 }
                 //$('#uploadfeld').attr("required", true);
@@ -594,6 +597,7 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
 
           if(selectedStatus == "neu") {
+            
             $('#uploadfeld').val(null);
             $('#collapse3').collapse('hide');
             $("#uploadfeld").prop('required',false); 

@@ -681,7 +681,12 @@ table.searchPanes.container().insertAfter('#leiste').addClass('collapse').attr("
 
 //weitere eigene functionen
 
-
+//popovers schließen wenn woanders geklickt wird
+$('html').on('click', function(e) {
+  if (typeof $(e.target).data('original-title') == 'undefined') {
+    $('[data-toggle="popover"]').popover('hide');
+  }
+});
 
 window.onscroll = function() {
   if($(".alertm").is(":visible")) {
