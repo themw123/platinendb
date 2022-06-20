@@ -105,7 +105,6 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           <form method='post' id='edit'>
           <div class='container-fluid'>
 
-
           <div class='divhidden'>
           <label for='usr'Status:</label>
           <input type='hidden' class='form-control' id='status' name='Status' value='neu' required>
@@ -313,10 +312,10 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
 
 
-
+    
 
           <div class='form-group'>
-          <label for='usr'>Status:</label>
+          <label id='statuslabel' for='usr'>Status: </label>
           <select class='form-control' id='status' name='Status' required>
           <option style='display: none;' >$_POST[Status]</option>
           <option>neu</option>
@@ -453,7 +452,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
 
           <div class='form-group'>
-          <label for='usr'>int/ext:</label>
+          <label id='intid' for='usr'>int/ext: </label>
           <select class='form-control' id='int' name='Int' required>
           <option style='display: none;' >$_POST[Int]</option>
           <option>int</option>

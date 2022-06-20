@@ -1,3 +1,4 @@
+//# sourceURL=formEditor.js
 
 
 $(function(){
@@ -6,6 +7,9 @@ $(function(){
 
       //Lagen aktivieren
       $("#lagen", this).prop("disabled", false);
+
+      //int/ext aktivieren
+      $("#int", this).prop("disabled", false);
 
       var show = false;
       var meldung;
@@ -17,13 +21,15 @@ $(function(){
       }
       //Wenn Nutzen bearbeiten 
       else if(aktionx == ("Nutzen bearbeiten")) {
-        //nur wenn von neu auf fertigung gestellt wurde
-        if(getselected == "neu" && getselected != $("#status :selected").val()) {
+        /*
+        //nur wenn von neu auf fertigung gestellt wurde und int/ext = int
+        if(getselected == "neu" && getselected != $("#status :selected").val() && $('#int').val() == "int") {
           if ($('#uploadfeld').get(0).files.length === 0) {
             show = true;
             meldung = "Ohne Kupferflächen fortfahren?";
           }
         }
+        */
       }
 
 
@@ -297,8 +303,6 @@ function truncate(fileName, n, type){
 
 
 
-
-
 $("#button8").html("fertig &nbsp <i class='fas fa-check greener'></i>");
 $("#button8").attr("disabled", false);
 
@@ -437,6 +441,8 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
 
         if(getselected != "neu") {
+          $('#int').prop("disabled", true);
+          $('#intid').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='int/ext kann erst wieder bearbeitet werden, wenn der Status des Nutzen in den Zustand neu überführt wird.'></i>");
           $('#lagenid').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Lagen können erst wieder bearbeitet werden, wenn der Status des Nutzen in den Zustand neu überführt wird.'></i>");
           $('[data-toggle="popover"]').popover();
         }
@@ -453,9 +459,38 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
 
 
+        //Wenn int/ext geändert wird
+        $('#int').change(function(){
+          var intorext = $('#int').val();
+          if(intorext == 'ext') {
+
+          
+
+            $("#uploadfeld").prop('required',false); 
+
+            remUploadData();
+
+            $('#collapse3').collapse('hide');
+            $('#infoicon').removeAttr();
+
+            $('#lagen').prop( "disabled", false);
+            $('#lagenid').text("Lagen: ");
+            $('#lagenid').addClass('iconaus');
+            $('#statuslabel').text("Status: ");
+
+          }
+          else if(intorext == 'int' && $("#status :selected").val() != "neu") {
+            $('#collapse3').collapse('show');
+            $("#uploadfeld").prop('required',true); 
+            $('#statuslabel').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Kupferflächen(.txt) müssen angegeben werden wenn Status = Fertigung und int/ext = int'></i>");
+            $('[data-toggle="popover"]').popover();
+          }
+        });
+
 
         //Wenn Status geändert wird
         $('#status').change(function(){
+
           //aktuelles Datum ermitteln
           var d = new Date();
           if ((d.getDate()+1) < 10) {
@@ -490,7 +525,16 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
             //nur bei neu Upload für Lagen anzeigen
             if(getselected != "abgeschlossen" && getselected != "Fertigung") {
-                $('#collapse3').collapse('show');
+                
+                var intorext = $('#int').val();
+                if(intorext == 'int') {
+                  $('#collapse3').collapse('show');
+                  $("#uploadfeld").prop('required',true); 
+                  $('#statuslabel').text("Status: ");
+                  $('#statuslabel').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Kupferflächen(.txt) müssen angegeben werden wenn Status = Fertigung und int/ext = int'></i>");
+                  $('[data-toggle="popover"]').popover();
+
+                }
                 //$('#uploadfeld').attr("required", true);
             } 
 
@@ -550,6 +594,13 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
 
           if(selectedStatus == "neu") {
+            $('#uploadfeld').val(null);
+            $('#collapse3').collapse('hide');
+            $("#uploadfeld").prop('required',false); 
+            $('#statuslabel').text("Status: ");
+
+
+
 
             document.getElementById("datepicker2").value = "";
             document.getElementById("datepicker3").value = "";
@@ -571,7 +622,7 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
               $('#lagenid').text("Lagen: ");
             }
             else {
-              $('#warnungStatus').text("Warnung: Die cam360-Daten der Lagen werden gelöscht. Außerdem wird das Fertigung und abgeschlossen Datum gelöscht, sobald der Status auf neu geändert wird");
+              $('#warnungStatus').text("Warnung: Die Kupferflächen(.txt) Daten der Lagen werden gelöscht. Außerdem wird das Fertigung und abgeschlossen Datum gelöscht, sobald der Status auf neu geändert wird");
               $('#warnungStatus').show();
             }
 

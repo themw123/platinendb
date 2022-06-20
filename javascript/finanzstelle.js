@@ -1,4 +1,3 @@
-//# sourceURL=formEditor.js
 $(document).ready(function(){ 
 
   getFinanz();
