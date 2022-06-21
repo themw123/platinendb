@@ -53,9 +53,9 @@ $(document).ready(function(){
     dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
     "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12 col-md-5'l><'col-sm-12 col-md-7'p>>", buttons: {
           buttons: [
-                { extend: 'csv', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], modifier: {page: 'current'}} , className: 'btn btn-aktion' },
-                { extend: 'excel', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], modifier: {page: 'current'}} , className: 'btn btn-aktion' },
-                { extend: 'pdf', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], modifier: {page: 'current'}} , orientation: 'landscape', pageSize: 'LEGAL' , className: 'btn btn-aktion' },
+                { extend: 'csv', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], modifier: {page: 'current'}} , className: 'btn btn-aktion' },
+                { extend: 'excel', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], modifier: {page: 'current'}} , className: 'btn btn-aktion' },
+                { extend: 'pdf', exportOptions: {columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], modifier: {page: 'current'}} , orientation: 'landscape', pageSize: 'LEGAL' , className: 'btn btn-aktion' },
                 ],
            dom: {
               button: {
@@ -157,7 +157,7 @@ $(document).ready(function(){
     
     
               {
-              "targets": [13], 
+              "targets": [14], 
               render: function(data, type, row, meta) { 
     
               if (data == 1) { return '<span class="fas fa-check check"></span>' + '<span style="visibility: hidden;">' + data + '</span>'} 
@@ -179,7 +179,7 @@ $(document).ready(function(){
              },
     
              {
-              "targets": [15],
+              "targets": [16],
               "visible": false
              },
 
@@ -190,7 +190,7 @@ $(document).ready(function(){
 
               "createdRow": function( row, data){
 
-                  if(data[15] == 0){
+                  if(data[16] == 0){
                     $(row).find('i:nth-child(3)').addClass("red").css("opacity", 1);
                   } 
               
@@ -501,19 +501,20 @@ $(document).ready(function(){
         var Erstellt = table.api().row($(this).closest('tr')).data()[4];
         var Fertigung = table.api().row($(this).closest('tr')).data()[5];
         var Abgeschlossen = table.api().row($(this).closest('tr')).data()[6];
-        var Material = table.api().row($(this).closest('tr')).data()[7];
-        var Endkupfer = table.api().row($(this).closest('tr')).data()[8];
-        var Staerke = table.api().row($(this).closest('tr')).data()[9];
-        var Lagen = table.api().row($(this).closest('tr')).data()[10];
-        var Groesse = table.api().row($(this).closest('tr')).data()[11];
-        var Int = table.api().row($(this).closest('tr')).data()[12];
-        var Testdaten = table.api().row($(this).closest('tr')).data()[13];
-        var Kommentar = table.api().row($(this).closest('tr')).data()[14];
+        var Finanzstelle = table.api().row($(this).closest('tr')).data()[7];
+        var Material = table.api().row($(this).closest('tr')).data()[8];
+        var Endkupfer = table.api().row($(this).closest('tr')).data()[9];
+        var Staerke = table.api().row($(this).closest('tr')).data()[10];
+        var Lagen = table.api().row($(this).closest('tr')).data()[11];
+        var Groesse = table.api().row($(this).closest('tr')).data()[12];
+        var Int = table.api().row($(this).closest('tr')).data()[13];
+        var Testdaten = table.api().row($(this).closest('tr')).data()[14];
+        var Kommentar = table.api().row($(this).closest('tr')).data()[15];
     
         $.ajax({  
                         url:"verarbeitungNU/Modal.php",  
                         method:"post",  
-                        data:{aktion:aktion, Id:Id, ziel:ziel, Nr:Nr, Bearbeiter:Bearbeiter, Status:Status, Material:Material, Endkupfer:Endkupfer, Staerke:Staerke, Lagen:Lagen, Erstellt:Erstellt, Fertigung:Fertigung, Abgeschlossen:Abgeschlossen, Groesse:Groesse, Int:Int, Testdaten:Testdaten, Kommentar:Kommentar},  
+                        data:{aktion:aktion, Id:Id, ziel:ziel, Nr:Nr, Bearbeiter:Bearbeiter, Status:Status, Material:Material, Endkupfer:Endkupfer, Staerke:Staerke, Lagen:Lagen, Erstellt:Erstellt, Fertigung:Fertigung, Abgeschlossen:Abgeschlossen, Finanzstelle:Finanzstelle, Groesse:Groesse, Int:Int, Testdaten:Testdaten, Kommentar:Kommentar},  
                         success:function(data){  
                             $('#modalbody2').html(data);  
                             

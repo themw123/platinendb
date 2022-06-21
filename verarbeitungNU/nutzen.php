@@ -80,6 +80,7 @@ if($bestanden == true && $aktion == "nutzen") {
 				$nestedData[] = $creation_time1;
 				$nestedData[] = $creation_time2;
 				$nestedData[] = $creation_time3;
+				$nestedData[] = $row["Finanzstelle"];
 				$nestedData[] = $row["Material"];
 				$nestedData[] = $row["Endkupfer"];
 				$nestedData[] = $row["Staerke"];

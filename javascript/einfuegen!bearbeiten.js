@@ -318,8 +318,29 @@ function intorextOn(){
   $('[data-toggle="popover"]').popover();
 };
 
+function statusAnimation1(getselected, selectedStatus, int) {
+  $('#fehleraddlagen').hide();
 
+  if(!$("#collapse3").hasClass("show") && getselected == "neu" && int == "int") {
+    $('.statusdiv').addClass('statusAn');
+    $('.statusdiv').removeClass('statusAus');
+  }
+  else if ($("#collapse3").hasClass("show") && selectedStatus != "Fertigung" && selectedStatus != "abgeschlossen" && int == "int"){
+    $('.statusdiv').removeClass('statusAn');
+    $('.statusdiv').addClass('statusAus');
+  }
+}
 
+function statusAnimation2(on, getselected) {
+  if(on && getselected != "neu") {
+    $('.statusdiv').addClass('statusAn');
+    $('.statusdiv').removeClass('statusAus');
+  }
+  else if(!on && getselected != "neu"){
+    $('.statusdiv').removeClass('statusAn');
+    $('.statusdiv').addClass('statusAus');
+  }
+}
 
 
 $("#button8").html("fertig &nbsp <i class='fas fa-check greener'></i>");
@@ -480,15 +501,19 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
         //Wenn int/ext geändert wird
         $('#int').change(function(){
           
-          var intorext = $('#int').val();
+          intorext = $('#int').val();
+          var sel = $("#status :selected").val();
+
           if(intorext == 'ext') {
 
             intorextOff();
-
+            statusAnimation2(false, sel);
           }
           else if(intorext == 'int' && $("#status :selected").val() != "neu") {
 
             intorextOn();
+            statusAnimation2(true, sel);
+
 
           }
         });
@@ -496,6 +521,7 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
         //Wenn Status geändert wird
         $('#status').change(function(){
+
 
           //aktuelles Datum ermitteln
           var d = new Date();
@@ -525,7 +551,10 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
           var selectedabgeschlossen = $(datepicker3).val();
 
 
-          //$('#uploadfeld').val('');
+          var int = $('#int').val();
+          statusAnimation1(getselected, selectedStatus, int);
+
+
 
           if(selectedStatus == "Fertigung") {
 
@@ -638,7 +667,6 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
           
         });
-
 
 
 

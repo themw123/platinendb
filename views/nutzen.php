@@ -72,6 +72,7 @@ echo'
 			<th>erstellt</th>
 			<th>Fertigung</th>
 			<th>abgeschlossen</th>
+			<th>Finanzstelle</th>
 			<th>Material</th>
 			<th>Endkupfer</th>
 			<th>Stärke(mm)</th>

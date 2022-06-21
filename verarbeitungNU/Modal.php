@@ -315,39 +315,35 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
     
 
           <div class='form-group'>
-          <label id='statuslabel' for='usr'>Status: </label>
-          <select class='form-control' id='status' name='Status' required>
-          <option style='display: none;' >$_POST[Status]</option>
-          <option>neu</option>
-          <option>Fertigung</option>
-          <option>abgeschlossen</option>
-          </select>
-          <div class='alert alert-warning collapse' id='warnungStatus' ></div>
-          </div>
+            <label id='statuslabel' for='usr'>Status: </label>
+            <div class='statusdiv statusAus'>
+
+              <select class='form-control' id='status' name='Status' required>
+              <option style='display: none;' >$_POST[Status]</option>
+              <option>neu</option>
+              <option>Fertigung</option>
+              <option>abgeschlossen</option>
+              </select>
+              <div class='alert alert-warning collapse' id='warnungStatus' ></div>
 
 
-          
-          <div class='collapse' id='collapse3' name='File'> 
-          <div class='form-group'>
 
-          <!--
-          <span class='btn btn-default btn-file'>
-          <input type='file' id='uploadfeld'>
-          </span>
-          -->
+              
+              <div class='collapse' id='collapse3' name='File'> 
+                <div class='form-group'>
+                  <label class='btn btn-primary' id='uploadlabel'>
+                  <input id='uploadfeld' type='file' style='opacity:0'>
+                  <p id='uploadtext'>Kupferflächen(.txt)</p>
+                  </label>
+                  <span class='label label-info' id='upload-info' style='opacity:0'>
+                  </span>
+                  <i class='far fa-file-alt collapse' id='inputbild'></i>
+                  <i class='fa fa-trash-alt collapse' id='delfile'></i>
+                  <div class='alert alert-warning collapse' id='fehleraddlagen'></div>
+                </div>
+              </div>
 
-          
-          <label class='btn btn-primary' id='uploadlabel'>
-          <input id='uploadfeld' type='file' style='opacity:0'>
-          <p id='uploadtext'>Kupferflächen(.txt)</p>
-          </label>
-          <span class='label label-info' id='upload-info' style='opacity:0'>
-          </span>
-          <i class='far fa-file-alt collapse' id='inputbild'></i>
-          <i class='fa fa-trash-alt collapse' id='delfile'></i>
-
-          <div class='alert alert-warning collapse' id='fehleraddlagen'></div>
-          </div>
+            </div>
           </div>
          
 
