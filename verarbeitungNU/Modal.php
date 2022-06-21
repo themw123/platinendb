@@ -253,14 +253,14 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           elseif($aktion == "modalbearbeiten") {
 
 
-
-          $ziel = $_POST['ziel'];
+            
+          $ziel = mysqli_real_escape_string($platinendb_connection, $_POST['ziel']);
 
 
 
 
           $check = '';
-          if ($_POST['Testdaten'] == 1){
+          if (mysqli_real_escape_string($platinendb_connection, $_POST['Testdaten']) == 1){
             $check = "checked=''";
           }
 

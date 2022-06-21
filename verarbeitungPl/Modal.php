@@ -425,7 +425,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
 
 
-            $ziel = $_POST['ziel'];
+            $ziel = mysqli_real_escape_string($platinendb_connection, $_POST['ziel']);
 
 
 

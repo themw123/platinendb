@@ -184,8 +184,7 @@ if($bestanden == true && $aktion == "bearbeiten") {
           else {
             //Bearbeiten und Layer Daten löschen
             if(isset($_POST['layerLoeschen'])) {
-              if($_POST['layerLoeschen'] == "true") {
-
+              if(mysqli_real_escape_string($platinendb_connection, $_POST['layerLoeschen']) == "true") {
                 $lagen_ID = "SELECT Lagen_ID FROM nutzen WHERE ID = '$id'";
                 $lagen_ID = mysqli_query($platinendb_connection,$lagen_ID);
                 $lagen_ID = mysqli_fetch_row($lagen_ID);
