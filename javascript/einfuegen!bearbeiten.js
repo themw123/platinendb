@@ -21,15 +21,7 @@ $(function(){
       }
       //Wenn Nutzen bearbeiten 
       else if(aktionx == ("Nutzen bearbeiten")) {
-        /*
-        //nur wenn von neu auf fertigung gestellt wurde und int/ext = int
-        if(getselected == "neu" && getselected != $("#status :selected").val() && $('#int').val() == "int") {
-          if ($('#uploadfeld').get(0).files.length === 0) {
-            show = true;
-            meldung = "Ohne Kupferflächen fortfahren?";
-          }
-        }
-        */
+
       }
 
 
@@ -138,7 +130,7 @@ function dostuff() {
 
       //gucken ob layer daten gelöscht werden sollen
       if(ziel == "NU" && aktion == "bearbeiten") {
-        if(getselected != "neu") {
+        if(selected != "neu") {
           var aktuellerStatus = $('#status').val();
           if(aktuellerStatus == "neu") {
             data = data + "&layerLoeschen=true";
@@ -299,10 +291,30 @@ function truncate(fileName, n, type){
 };
 
 
-function intorextOff(){
+
+
+
+
+function changesOn(){
+  $('#collapse3').collapse('show');
+
+  $('.statusdiv').addClass('statusAn');
+  $('.statusdiv').removeClass('statusAus');
+
+  $("#uploadfeld").prop('required',true); 
+  $('#statuslabel').text("Status: ");
+  $('#statuslabel').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Kupferflächen(.txt) müssen angegeben werden wenn Status = Fertigung und int/ext = int'></i>");
+  $('[data-toggle="popover"]').popover();
+};
+
+
+function changesOff(){
   remUploadData();
   $("#uploadfeld").prop('required',false); 
   $('#collapse3').collapse('hide');
+
+  $('.statusdiv').removeClass('statusAn');
+  $('.statusdiv').addClass('statusAus');
 
   $('#lagen').prop( "disabled", false);
   $('#lagenid').text("Lagen: ");
@@ -310,37 +322,13 @@ function intorextOff(){
   $('#statuslabel').text("Status: ");
 };
 
-function intorextOn(){
-  $('#collapse3').collapse('show');
-  $("#uploadfeld").prop('required',true); 
-  $('#statuslabel').text("Status: ");
-  $('#statuslabel').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Kupferflächen(.txt) müssen angegeben werden wenn Status = Fertigung und int/ext = int'></i>");
-  $('[data-toggle="popover"]').popover();
-};
 
-function statusAnimation1(getselected, selectedStatus, int) {
-  $('#fehleraddlagen').hide();
 
-  if(!$("#collapse3").hasClass("show") && getselected == "neu" && int == "int") {
-    $('.statusdiv').addClass('statusAn');
-    $('.statusdiv').removeClass('statusAus');
-  }
-  else if ($("#collapse3").hasClass("show") && selectedStatus != "Fertigung" && selectedStatus != "abgeschlossen" && int == "int"){
-    $('.statusdiv').removeClass('statusAn');
-    $('.statusdiv').addClass('statusAus');
-  }
-}
 
-function statusAnimation2(on, getselected) {
-  if(on && getselected != "neu") {
-    $('.statusdiv').addClass('statusAn');
-    $('.statusdiv').removeClass('statusAus');
-  }
-  else if(!on && getselected != "neu"){
-    $('.statusdiv').removeClass('statusAn');
-    $('.statusdiv').addClass('statusAus');
-  }
-}
+
+
+
+
 
 
 $("#button8").html("fertig &nbsp <i class='fas fa-check greener'></i>");
@@ -408,7 +396,62 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Platine")) {
 
 
 if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
-        //upload überpruefen
+
+    $(document).ready(function(){ 
+
+          //anfangsstatus
+          selected = $("#status :selected").val();
+          //statusNeu
+          selectedNew = selected;
+
+          //anfangsdatum auslesen
+          fertigungAnfangsDatum = $('#datepicker2').val();
+          abgeschlossenAnfangsDatum = $('#datepicker3').val();
+
+
+          //int/ext auslesen
+          intorext = $('#int').val();
+
+
+
+
+          //anfang setzen
+          $('#lagen').prop( "disabled", true );
+
+          if(selected == "neu") {
+            
+            $('#lagen').prop( "disabled", false);
+
+            fertigungAus();
+          
+            abgeschlossenAus();
+
+            $("#status option:nth-child(4)" ).attr("disabled","disabled");
+          }
+          else if (selected == "Fertigung") {
+            abgeschlossenAus();
+          }
+
+
+          if(selected != "neu") {
+            $('#int').prop("disabled", true);
+            $('#intid').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='int/ext kann erst wieder bearbeitet werden, wenn der Status des Nutzen in den Zustand neu überführt wird.'></i>");
+            $('#lagenid').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Lagen können erst wieder bearbeitet werden, wenn der Status des Nutzen in den Zustand neu überführt wird.'></i>");
+            $('[data-toggle="popover"]').popover();
+          }
+
+    });
+
+
+
+
+
+
+
+
+
+
+        //upload änderung
         $('#uploadfeld').change(function () {
             var input = event.target;
             var type = input.files[0].type;
@@ -458,212 +501,172 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
         });  
 
 
-        $(document).ready(function(){ 
+
                     
 
-        //anfangsstatus auslesen und reagieren
-        $('#lagen').prop( "disabled", true );
 
-        getselected = $("#status :selected").val();
-        if(getselected == "neu") {
-          
-          $('#lagen').prop( "disabled", false);
-
-          fertigungAus();
-        
-          abgeschlossenAus();
-
-          $("#status option:nth-child(4)" ).attr("disabled","disabled");
-        }
-        else if (getselected == "Fertigung") {
-          abgeschlossenAus();
-        }
-
-
-        if(getselected != "neu") {
-          $('#int').prop("disabled", true);
-          $('#intid').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='int/ext kann erst wieder bearbeitet werden, wenn der Status des Nutzen in den Zustand neu überführt wird.'></i>");
-          $('#lagenid').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Lagen können erst wieder bearbeitet werden, wenn der Status des Nutzen in den Zustand neu überführt wird.'></i>");
-          $('[data-toggle="popover"]').popover();
-        }
-
-        });
-
-
-
-
-
-        //anfangsdatum holen
-        var fertigungAnfangsDatum = $('#datepicker2').val();
-        var abgeschlossenAnfangsDatum = $('#datepicker3').val();
-
-
-        //Wenn int/ext geändert wird
+        //int/ext änderung
         $('#int').change(function(){
           
-          intorext = $('#int').val();
-          var sel = $("#status :selected").val();
+            intorext = $('#int').val();
+            selectedNew = $("#status :selected").val();
 
-          if(intorext == 'ext') {
-
-            intorextOff();
-            statusAnimation2(false, sel);
-          }
-          else if(intorext == 'int' && $("#status :selected").val() != "neu") {
-
-            intorextOn();
-            statusAnimation2(true, sel);
-
-
+            if(intorext == 'ext') {
+              changesOff();
+            }
+            else if(intorext == 'int' && selectedNew != "neu") {
+              changesOn();
           }
         });
+
 
 
         //Wenn Status geändert wird
         $('#status').change(function(){
 
 
-          //aktuelles Datum ermitteln
-          var d = new Date();
-          if ((d.getDate()+1) < 10) {
-            var currDate = '0' + (d.getDate());
-          }
-          else {
-            var currDate = (d.getDate());
-          }
-                            
-          if ((d.getMonth()+1) < 10) {
-            var currMonth = '0' + (d.getMonth()+1);
-          }
-          else {
-            var currMonth = (d.getMonth()+1);
-          }
+              //aktuelles Datum ermitteln
+              var d = new Date();
+              if ((d.getDate()+1) < 10) {
+                var currDate = '0' + (d.getDate());
+              }
+              else {
+                var currDate = (d.getDate());
+              }
+                                
+              if ((d.getMonth()+1) < 10) {
+                var currMonth = '0' + (d.getMonth()+1);
+              }
+              else {
+                var currMonth = (d.getMonth()+1);
+              }
 
-          var currYear = d.getFullYear();
-          var today = currDate + "-" + currMonth + "-" + currYear;
-
-
-
-          var selectedStatus = $(this).children("option:selected").val();
-
-          var selectedfertigung = $(datepicker2).val();
-
-          var selectedabgeschlossen = $(datepicker3).val();
-
-
-          var int = $('#int').val();
-          statusAnimation1(getselected, selectedStatus, int);
+              var currYear = d.getFullYear();
+              var today = currDate + "-" + currMonth + "-" + currYear;
 
 
 
-          if(selectedStatus == "Fertigung") {
+              selectedNew = $(this).children("option:selected").val();
 
-            //nur bei neu Upload für Lagen anzeigen
-            if(getselected != "abgeschlossen" && getselected != "Fertigung") {
+              var selectedfertigung = $(datepicker2).val();
+
+              var selectedabgeschlossen = $(datepicker3).val();
+
+
+
+
+
+              if(selectedNew == "Fertigung") {
+
+                //nur bei neu Upload für Lagen anzeigen
+                if(selected != "abgeschlossen" && selected != "Fertigung") {
+                    
+                    intorext = $('#int').val();
+                    if(intorext == 'int') {
+                     
+                      changesOn();
+
+
+                    }
+                    //$('#uploadfeld').attr("required", true);
+                } 
+
+                //warnung löschen
+                $('#warnungStatus').hide();
+
+
+                if(selectedfertigung == "") {
+
+                  document.getElementById("datepicker2").value = today;
+                  document.getElementById("datepicker3").value = "";
+                  
+                  fertigungAn();
                 
-                var intorext = $('#int').val();
-                if(intorext == 'int') {
-
-                  intorextOn();
+                  $('#status option:nth-child(4)').removeAttr('disabled');
 
                 }
-                //$('#uploadfeld').attr("required", true);
-            } 
+                else{
+                  document.getElementById("datepicker3").value = "";
 
-            //warnung löschen
-            $('#warnungStatus').hide();
+                  abgeschlossenAus();
+
+                }
+
+                if(selected == "Fertigung") {
+                  document.getElementById("datepicker2").value = fertigungAnfangsDatum;
+                }
+                
+                if(selected == "abgeschlossen") {
+                  document.getElementById("datepicker2").value = fertigungAnfangsDatum;
+                }
+
+              }
 
 
-            if(selectedfertigung == "") {
 
-              document.getElementById("datepicker2").value = today;
-              document.getElementById("datepicker3").value = "";
+
+              if(selectedNew == "abgeschlossen") {
+                //warnung löschen
+                $('#warnungStatus').hide();
+
+                if(selectedabgeschlossen == "") {
+                  document.getElementById("datepicker3").value = today;
+
+                  abgeschlossenAn();
+
+                }
+
+                if(selected == "abgeschlossen") {
+                  document.getElementById("datepicker3").value = abgeschlossenAnfangsDatum;
+                }
+
+
+
+              }
+
+
+
+              if(selectedNew == "neu") {
+                
+                $('#uploadfeld').val(null);
+                $('#collapse3').collapse('hide');
+                $("#uploadfeld").prop('required',false); 
+                $('#statuslabel').text("Status: ");
+                
+                $('.statusdiv').removeClass('statusAn');
+                $('.statusdiv').addClass('statusAus');
+
+
+
+                document.getElementById("datepicker2").value = "";
+                document.getElementById("datepicker3").value = "";
+
+                fertigungAus();
+
+                abgeschlossenAus();
+
+                $("#status option:nth-child(4)" ).attr("disabled","disabled");
               
-              fertigungAn();
-            
-              $('#status option:nth-child(4)').removeAttr('disabled');
+                if(selected == "neu") {
+                  $('#upload-info').animate({opacity: 0,fontSize: '0px'},500);
+                  $('#inputbild').animate({opacity: 0,fontSize: '0px'},500);
+                  $('#delfile').hide();
+                  $('#fehleraddlagen').hide();
+                  $('#lagen').prop( "disabled", false);
+                  $('#uploadfeld').val('');
+                  $('#collapse3').collapse('hide');
+                  $('#lagenid').text("Lagen: ");
+                }
+                else {
+                  $('#warnungStatus').text("Warnung: Die Kupferflächen(.txt) Daten der Lagen werden gelöscht. Außerdem wird das Fertigung und abgeschlossen Datum gelöscht, sobald der Status auf neu geändert wird");
+                  $('#warnungStatus').show();
+                }
 
-            }
-            else{
-              document.getElementById("datepicker3").value = "";
-
-              abgeschlossenAus();
-
-            }
-
-            if(getselected == "Fertigung") {
-              document.getElementById("datepicker2").value = fertigungAnfangsDatum;
-            }
-            
-            if(getselected == "abgeschlossen") {
-              document.getElementById("datepicker2").value = fertigungAnfangsDatum;
-            }
-
-          }
+                
+                $('#lagenid').addClass("iconaus");
 
 
-
-
-          if(selectedStatus == "abgeschlossen") {
-            //warnung löschen
-            $('#warnungStatus').hide();
-
-            if(selectedabgeschlossen == "") {
-              document.getElementById("datepicker3").value = today;
-
-              abgeschlossenAn();
-
-            }
-
-            if(getselected == "abgeschlossen") {
-              document.getElementById("datepicker3").value = abgeschlossenAnfangsDatum;
-            }
-
-
-
-          }
-
-
-
-          if(selectedStatus == "neu") {
-            
-            $('#uploadfeld').val(null);
-            $('#collapse3').collapse('hide');
-            $("#uploadfeld").prop('required',false); 
-            $('#statuslabel').text("Status: ");
-
-
-
-
-            document.getElementById("datepicker2").value = "";
-            document.getElementById("datepicker3").value = "";
-
-            fertigungAus();
-
-            abgeschlossenAus();
-
-            $("#status option:nth-child(4)" ).attr("disabled","disabled");
-           
-            if(getselected == "neu") {
-              $('#upload-info').animate({opacity: 0,fontSize: '0px'},500);
-              $('#inputbild').animate({opacity: 0,fontSize: '0px'},500);
-              $('#delfile').hide();
-              $('#fehleraddlagen').hide();
-              $('#lagen').prop( "disabled", false);
-              $('#uploadfeld').val('');
-              $('#collapse3').collapse('hide');
-              $('#lagenid').text("Lagen: ");
-            }
-            else {
-              $('#warnungStatus').text("Warnung: Die Kupferflächen(.txt) Daten der Lagen werden gelöscht. Außerdem wird das Fertigung und abgeschlossen Datum gelöscht, sobald der Status auf neu geändert wird");
-              $('#warnungStatus').show();
-            }
-
-            
-            $('#lagenid').addClass("iconaus");
-
-
-          }
+              }
 
           
         });
