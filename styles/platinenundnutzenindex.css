@@ -880,7 +880,6 @@ testdaten haken farbe
       border-color:#005ea9;
       outline: none !important;
       box-shadow: none!important;
-      width: 45%;
     }
     
     #uploadlabel:hover{
@@ -1294,3 +1293,13 @@ testdaten haken farbe
 #addFinanz1{
   margin-bottom: 10px;
 }
+
+
+#collapse3{
+  margin-top: 10px;
+}
+
+#collapse6{
+  margin-top: 10px;
+}
+

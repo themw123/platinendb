@@ -80,6 +80,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
 
 
+
           /*
           größte Nutzen Nummer vorbereiten
           */
@@ -265,6 +266,18 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           }
 
 
+          $plaufnu = "SELECT Finanzstelle_ID, Finanzstelle_Name, Finanzstelle_Nummer FROM platinenaufnutzen3 WHERE Nutzen_ID = $_POST[Id]";
+
+          $plaufnu = mysqli_query($platinendb_connection, $plaufnu);
+
+          $option3 = '';
+
+          while($row3 = mysqli_fetch_assoc($plaufnu))
+          {
+            $option3 .= '<option value = "'.$row3['Finanzstelle_ID'].'">'.$row3['Finanzstelle_Name'].'_'.$row3['Finanzstelle_Nummer'].'</option>';
+          }
+
+
             
           /*
           eingabefelder
@@ -330,18 +343,34 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
               
               <div class='collapse' id='collapse3' name='File'> 
-                <div class='form-group'>
-                  <label class='btn btn-primary' id='uploadlabel'>
-                  <input id='uploadfeld' type='file' style='opacity:0'>
-                  <p id='uploadtext'>Kupferflächen(.txt)</p>
-                  </label>
-                  <span class='label label-info' id='upload-info' style='opacity:0'>
-                  </span>
-                  <i class='far fa-file-alt collapse' id='inputbild'></i>
-                  <i class='fa fa-trash-alt collapse' id='delfile'></i>
-                  <div class='alert alert-warning collapse' id='fehleraddlagen'></div>
-                </div>
+                 <div class='kupferdiv'>
+                    <label class='btn btn-primary' id='uploadlabel'>
+                    <input id='uploadfeld' type='file' style='opacity:0'>
+                    <p id='uploadtext'>Kupferflächen(.txt)</p>
+                    </label>
+                    <span class='label label-info' id='upload-info' style='opacity:0'>
+                    </span>
+                    <i class='far fa-file-alt collapse' id='inputbild'></i>
+                    <i class='fa fa-trash-alt collapse' id='delfile'></i>
+                    <div class='alert alert-warning collapse' id='fehleraddlagen'></div>
+                  </div>
+             </div>
+
+             <div class='collapse' id='collapse6'> 
+                  <div class='finanzdiv'>
+                    <label id='finanzlabel' for='usr'>Finanzstelle: </label>
+                    <select class='form-control' id='finanz' name='Finanz'>
+                    <option value='' disabled='' selected=''>Option wählen</option>
+                    '$option3'
+                    </select>
+                  </div>
               </div>
+              <div class='alert alert-warning collapse' id='warnungStatus' ></div>
+
+
+  
+              
+
 
             </div>
           </div>

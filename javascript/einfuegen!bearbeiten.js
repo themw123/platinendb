@@ -272,6 +272,7 @@ function addUpload(fileName) {
 function remUploadData(mel) {
   $('#uploadfeld').val('');
   $('#lagen').prop( "disabled", false);
+
   if(mel != null) {
     $('#fehleraddlagen').text(mel);
     $('#fehleraddlagen').show();
@@ -292,23 +293,83 @@ function truncate(fileName, n, type){
 
 
 
+function ausklappStatus(rollout) {
+  if(rollout) {
+    intchange();
+    $('.statusdiv').addClass('statusAn');
+    $('.statusdiv').removeClass('statusAus');
+  }
+  else {
+    kupfer(false);
+    finanz(false);
+    $('.statusdiv').addClass('statusAus');
+    $('.statusdiv').removeClass('statusAn');
+  }
+}
 
 
+function intchange() {
+  
+  intorext = $('#int').val();
+  selectedNew = $("#status :selected").val();
 
-function changesOn(){
-  $('#collapse3').collapse('show');
+  if(selectedNew != "neu") {
+    if(intorext == 'ext') {
+      finanz(true);
+      kupfer(false);
+    }
+    else if(intorext == 'int') {
+      kupfer(true);
+      finanz(false);
+    }
+  } 
+  
+}
 
-  $('.statusdiv').addClass('statusAn');
-  $('.statusdiv').removeClass('statusAus');
 
-  $("#uploadfeld").prop('required',true); 
-  $('#statuslabel').text("Status: ");
-  $('#statuslabel').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Kupferflächen(.txt) müssen angegeben werden wenn Status = Fertigung und int/ext = int'></i>");
-  $('[data-toggle="popover"]').popover();
+function kupfer(rollout){
+  if(rollout) {
+    $('#collapse3').collapse('show');
+    $("#uploadfeld").prop('required',true); 
+    $('#statuslabel').text("Status: ");
+    $('#statuslabel').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Kupferflächen(.txt) müssen angegeben werden wenn Status = Fertigung und int/ext = int'></i>");
+    $('[data-toggle="popover"]').popover();
+  }
+  else {
+    $('#collapse3').collapse('hide');
+    $("#uploadfeld").prop('required',false); 
+    remUploadData();
+
+    $('#lagen').prop( "disabled", false);
+    $('#lagenid').text("Lagen: ");
+    $('#lagenid').addClass('iconaus');
+  }
+
+  /*
+    $("#uploadfeld").prop('required',true); 
+    $('#statuslabel').text("Status: ");
+    $('#statuslabel').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Kupferflächen(.txt) müssen angegeben werden wenn Status = Fertigung und int/ext = int'></i>");
+    $('[data-toggle="popover"]').popover();
+  */
 };
 
 
-function changesOff(){
+function finanz(rollout){
+
+  if(rollout) {  
+    $('#collapse6').collapse('show');
+    $("#finanz").prop('required',true); 
+    $('#statuslabel').text("Status: ");
+    $('#statuslabel').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Es muss eine FInanzstelle angegeben werden wenn Status = Fertigung und int/ext = ext. Die Auswahl erfolgt aus allen Finanzstellen der Platinen auf diesem Nutzen'></i>");
+    $('[data-toggle="popover"]').popover();
+  } 
+  else {
+    $('#collapse6').collapse('hide');
+    $("#finanz").prop('required',false); 
+  }
+
+
+  /*
   remUploadData();
   $("#uploadfeld").prop('required',false); 
   $('#collapse3').collapse('hide');
@@ -320,6 +381,7 @@ function changesOff(){
   $('#lagenid').text("Lagen: ");
   $('#lagenid').addClass('iconaus');
   $('#statuslabel').text("Status: ");
+  */
 };
 
 
@@ -508,15 +570,8 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
         //int/ext änderung
         $('#int').change(function(){
           
-            intorext = $('#int').val();
-            selectedNew = $("#status :selected").val();
-
-            if(intorext == 'ext') {
-              changesOff();
-            }
-            else if(intorext == 'int' && selectedNew != "neu") {
-              changesOn();
-          }
+          intchange();
+        
         });
 
 
@@ -556,19 +611,12 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
 
 
-              if(selectedNew == "Fertigung") {
+              if(selectedNew == "Fertigung") {               
+
 
                 //nur bei neu Upload für Lagen anzeigen
-                if(selected != "abgeschlossen" && selected != "Fertigung") {
-                    
-                    intorext = $('#int').val();
-                    if(intorext == 'int') {
-                     
-                      changesOn();
-
-
-                    }
-                    //$('#uploadfeld').attr("required", true);
+                if(selected != "abgeschlossen" && selected != "Fertigung") {                     
+                    ausklappStatus(true);
                 } 
 
                 //warnung löschen
@@ -628,6 +676,12 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
               if(selectedNew == "neu") {
                 
+                ausklappStatus(false);
+                kupfer(false);
+                finanz(false);
+                $('#statuslabel').text("Status: ");
+
+                /*
                 $('#uploadfeld').val(null);
                 $('#collapse3').collapse('hide');
                 $("#uploadfeld").prop('required',false); 
@@ -635,7 +689,7 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                 
                 $('.statusdiv').removeClass('statusAn');
                 $('.statusdiv').addClass('statusAus');
-
+                */
 
 
                 document.getElementById("datepicker2").value = "";
@@ -648,14 +702,16 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                 $("#status option:nth-child(4)" ).attr("disabled","disabled");
               
                 if(selected == "neu") {
+                  /*
                   $('#upload-info').animate({opacity: 0,fontSize: '0px'},500);
                   $('#inputbild').animate({opacity: 0,fontSize: '0px'},500);
                   $('#delfile').hide();
+
                   $('#fehleraddlagen').hide();
                   $('#lagen').prop( "disabled", false);
                   $('#uploadfeld').val('');
-                  $('#collapse3').collapse('hide');
                   $('#lagenid').text("Lagen: ");
+                  */
                 }
                 else {
                   $('#warnungStatus').text("Warnung: Die Kupferflächen(.txt) Daten der Lagen werden gelöscht. Außerdem wird das Fertigung und abgeschlossen Datum gelöscht, sobald der Status auf neu geändert wird");
