@@ -146,7 +146,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
 
           <div class='form-group'>
-          <label for='usr'>int/ext:</label>
+          <label for='usr'>Fertigung int/ext:</label>
           <select class='form-control' id='int' name='Int' required>
           <option>int</option>
           <option selected=selected>ext</option>
@@ -328,7 +328,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
 
           <div class='form-group'>
-          <label id='intid' for='usr'>int/ext: </label>
+          <label id='intid' for='usr'>Fertigung int/ext: </label>
           <select class='form-control' id='int' name='Int' required>
           <option style='display: none;' >$_POST[Int]</option>
           <option>int</option>
