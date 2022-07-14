@@ -76,6 +76,7 @@ if($bestanden == true && $aktion == "nutzen") {
 
 				$nestedData[] = $row["Nr"];
 				$nestedData[] = $row["Bearbeiter"];
+				$nestedData[] = $row["intoderext"];
 				$nestedData[] = $row["Status"];
 				$nestedData[] = $creation_time1;
 				$nestedData[] = $creation_time2;
@@ -86,7 +87,6 @@ if($bestanden == true && $aktion == "nutzen") {
 				$nestedData[] = $row["Staerke"];
 				$nestedData[] = $row["Lagen"];
 				$nestedData[] = $row["Groesse"];
-				$nestedData[] = $row["intoderext"];
 				$nestedData[] = $row["Testdaten"];
 				$nestedData[] = $row["Kommentar"];
 				$nestedData[] = $row["dringlichkeitFertigung"];

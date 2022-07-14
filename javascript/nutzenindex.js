@@ -29,7 +29,7 @@ $(document).ready(function(){
       searchPanes: {
                 viewTotal: true,
                 controls: false,
-                columns: [3]
+                columns: [4]
                 
             },
     
@@ -75,7 +75,7 @@ $(document).ready(function(){
             
           
             
-                "targets": [3], 
+                "targets": [4], 
 
 
                 searchPanes:{
@@ -83,19 +83,19 @@ $(document).ready(function(){
                           {
                               label: 'neu',
                               value: function(rowData) {
-                                  return rowData[3] == "neu";
+                                  return rowData[4] == "neu";
                               }
                           },
                           {
                               label: 'Fertigung',
                               value: function(rowData) {
-                                  return rowData[3] == "Fertigung";
+                                  return rowData[4] == "Fertigung";
                               }
                           },
                           {
                               label: 'abgeschlossen',
                               value: function(rowData) {
-                                  return rowData[3] == "abgeschlossen";
+                                  return rowData[4] == "abgeschlossen";
                               }
                           }
                       ]
@@ -120,9 +120,9 @@ $(document).ready(function(){
             },
     
               {
-              "targets": [4], 
+              "targets": [5], 
               render: function(data, type, row, meta) { 
-              if (row[3] == "neu") {
+              if (row[4] == "neu") {
                return '<div style="color: #005ea9;">' + data + '</div>';
               }
               else {
@@ -132,9 +132,9 @@ $(document).ready(function(){
               },
     
               {
-              "targets": [5], 
+              "targets": [6], 
               render: function(data, type, row, meta) {
-              if (row[3] == "Fertigung") { 
+              if (row[4] == "Fertigung") { 
                return '<div style="color: #e89b02;">' + data + '</div>';
               }
               else {
@@ -144,9 +144,9 @@ $(document).ready(function(){
               },
     
               {
-              "targets": [6], 
+              "targets": [7], 
               render: function(data, type, row, meta) { 
-              if (row[3] == "abgeschlossen") {
+              if (row[4] == "abgeschlossen") {
                return '<div style="color: #06a130;">' + data + '</div>';
               }
               else {
@@ -497,17 +497,17 @@ $(document).ready(function(){
 
         var Nr = table.api().row($(this).closest('tr')).data()[1];
         var Bearbeiter = table.api().row($(this).closest('tr')).data()[2];
-        var Status = table.api().row($(this).closest('tr')).data()[3];
-        var Erstellt = table.api().row($(this).closest('tr')).data()[4];
-        var Fertigung = table.api().row($(this).closest('tr')).data()[5];
-        var Abgeschlossen = table.api().row($(this).closest('tr')).data()[6];
-        var Finanzstelle = table.api().row($(this).closest('tr')).data()[7];
-        var Material = table.api().row($(this).closest('tr')).data()[8];
-        var Endkupfer = table.api().row($(this).closest('tr')).data()[9];
-        var Staerke = table.api().row($(this).closest('tr')).data()[10];
-        var Lagen = table.api().row($(this).closest('tr')).data()[11];
-        var Groesse = table.api().row($(this).closest('tr')).data()[12];
-        var Int = table.api().row($(this).closest('tr')).data()[13];
+        var Int = table.api().row($(this).closest('tr')).data()[3];
+        var Status = table.api().row($(this).closest('tr')).data()[4];
+        var Erstellt = table.api().row($(this).closest('tr')).data()[5];
+        var Fertigung = table.api().row($(this).closest('tr')).data()[6];
+        var Abgeschlossen = table.api().row($(this).closest('tr')).data()[7];
+        var Finanzstelle = table.api().row($(this).closest('tr')).data()[8];
+        var Material = table.api().row($(this).closest('tr')).data()[9];
+        var Endkupfer = table.api().row($(this).closest('tr')).data()[10];
+        var Staerke = table.api().row($(this).closest('tr')).data()[11];
+        var Lagen = table.api().row($(this).closest('tr')).data()[12];
+        var Groesse = table.api().row($(this).closest('tr')).data()[13];
         var Testdaten = table.api().row($(this).closest('tr')).data()[14];
         var Kommentar = table.api().row($(this).closest('tr')).data()[15];
     

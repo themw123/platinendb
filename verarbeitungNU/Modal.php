@@ -144,6 +144,18 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
 
 
+
+          <div class='form-group'>
+          <label for='usr'>int/ext:</label>
+          <select class='form-control' id='int' name='Int' required>
+          <option>int</option>
+          <option selected=selected>ext</option>
+          </select>
+          </div>
+
+
+
+
           <!--
           <div class='form-group'>
           <label for='usr'>Status:</label>
@@ -154,6 +166,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           </select>
           </div>
           -->
+
 
 
           <div class='form-group'>
@@ -211,15 +224,6 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           <option>groß</option>
           <option>spezial</option>
           <option>individuell</option>
-          </select>
-          </div>
-
-
-          <div class='form-group'>
-          <label for='usr'>int/ext:</label>
-          <select class='form-control' id='int' name='Int' required>
-          <option>int</option>
-          <option selected=selected>ext</option>
           </select>
           </div>
 
@@ -323,6 +327,14 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
 
 
+          <div class='form-group'>
+          <label id='intid' for='usr'>int/ext: </label>
+          <select class='form-control' id='int' name='Int' required>
+          <option style='display: none;' >$_POST[Int]</option>
+          <option>int</option>
+          <option>ext</option>
+          </select>
+          </div>
 
 
     
@@ -472,16 +484,6 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           <option>groß</option>
           <option>spezial</option>
           <option>individuell</option>
-          </select>
-          </div>
-
-
-          <div class='form-group'>
-          <label id='intid' for='usr'>int/ext: </label>
-          <select class='form-control' id='int' name='Int' required>
-          <option style='display: none;' >$_POST[Int]</option>
-          <option>int</option>
-          <option>ext</option>
           </select>
           </div>
 

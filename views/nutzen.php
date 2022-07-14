@@ -68,6 +68,7 @@ echo'
 			<th class="no-sort":>&nbsp; &nbsp; Aktion</th>
 			<th>Nr</th>
 			<th>Bearbeiter</th>
+			<th>int/ext</th>
 			<th>Status</th>
 			<th>erstellt</th>
 			<th>Fertigung</th>
@@ -78,7 +79,6 @@ echo'
 			<th>Stärke(mm)</th>
 			<th>Lagen</th>
 			<th>Größe</th>
-			<th>int/ext</th>
 			<th>Testdaten</th>
 			<th>Kommentare</th>
 			<th>dringlichkeitFertigung</th>
