@@ -168,7 +168,7 @@ if($bestanden == true && $aktion == "bearbeiten") {
           $intoderext .= "',";
 
 
-          if($Status == "Fertigung") {
+          if($Status != "neu") {
             $intoderext = "";
           }
 
