@@ -30,11 +30,11 @@ if($bestanden == true && $aktion == "platinen") {
 
 			
 			if (isUserAdmin($platinendb_connection) == true) {
-			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, Finanzstelle, Lehrstuhl, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Status, ignorieren, abgeschlossenPost, abgeschlossenFertigung, downloads1or0 FROM platinenviewest";
+			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, Finanzstelle_name, Finanzstelle_nummer, Lehrstuhl, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Status, ignorieren, abgeschlossenPost, abgeschlossenFertigung, downloads1or0 FROM platinenviewest";
 			}
 
 			else {
-			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, Finanzstelle, Lehrstuhl, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar FROM platinenview WHERE platinenview.Auftraggeber = '$auftraggeber1' order by erstelltam desc";
+			$sql = "SELECT ID, Name as Leiterkartenname, Auftraggeber, Finanzstelle_name, Finanzstelle_nummer, Lehrstuhl, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar FROM platinenview WHERE platinenview.Auftraggeber = '$auftraggeber1' order by erstelltam desc";
 			}
 
 
@@ -64,6 +64,15 @@ if($bestanden == true && $aktion == "platinen") {
 					*/
 
 
+					/*
+					finanzstelle formatieren
+					*/
+				
+					$finanzstelle_name = $row['Finanzstelle_name'];
+					$finanzstelle_nummer = $row['Finanzstelle_nummer'];
+					$finanzstelle_nummer = substr($finanzstelle_nummer, -4);
+					$finanzstelle = $finanzstelle_name .'_'. $finanzstelle_nummer;
+
 
 					/*
 					clickable rows und bearbeitungszeichen
@@ -85,7 +94,7 @@ if($bestanden == true && $aktion == "platinen") {
 					$nestedData[] = $row["Leiterkartenname"];
 					$nestedData[] = $row["Auftraggeber"];
 					$nestedData[] = $row["Lehrstuhl"];
-					$nestedData[] = $row["Finanzstelle"];
+					$nestedData[] = $finanzstelle;
 					$nestedData[] = $row["ausstehend"];
 					$nestedData[] = $row["Anzahl"];
 					$nestedData[] = $row["Material"];

@@ -39,7 +39,6 @@ function getFinanz() {
 
 
           $("#"+aktion).empty();
-          $("#"+aktion).append('<option value="" disabled selected>Option wählen</option>');
           
         
           //wird geholt aus Modal -> #finanz -> zweiter klassenname 
@@ -48,14 +47,15 @@ function getFinanz() {
           for(var i=0; i<response.length; i++){
             selected = "";
 
-            namee = response[i];
+            id = response[i][0];
+            namee = response[i][1];
 
             if(namee == $auftraggeberDefault) {
               selected = "selected";
             }
             
 
-            $("#"+aktion).append("<option value='" + namee + "' "+selected+">" + namee + "</option>");
+            $("#"+aktion).append("<option value='" + id + "' "+selected+">" + namee + "</option>");
           }
 
         //$("#auftraggeber").selectpicker("refresh");
@@ -150,7 +150,7 @@ $('#rem3').on( 'click', function () {
 
 
   var Objekt = document.getElementById(aktion);
-  var Text = Objekt.options[Objekt.selectedIndex].text;
+  var Text = Objekt.options[Objekt.selectedIndex].value;
   //var index = Objekt.options[Objekt.selectedIndex].index;
 
 

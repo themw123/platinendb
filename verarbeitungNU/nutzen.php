@@ -57,6 +57,17 @@ if($bestanden == true && $aktion == "nutzen") {
 
 
 
+				$finanzstelle_name = $row['Finanzstelle_name'];
+				$finanzstelle_nummer = $row['Finanzstelle_nummer'];
+				if($finanzstelle_name != null) {
+					$finanzstelle_nummer = substr($finanzstelle_nummer, -4);
+					$finanzstelle = $finanzstelle_name .'_'. $finanzstelle_nummer;
+				}
+				else {
+					$finanzstelle = null;
+				}
+
+
 				/*
 				clickable rows und bearbeitungszeichen
 				*/
@@ -71,6 +82,7 @@ if($bestanden == true && $aktion == "nutzen") {
 				$nestedData[] = $row["ID"];
 
 
+
 				
 				
 
@@ -81,7 +93,7 @@ if($bestanden == true && $aktion == "nutzen") {
 				$nestedData[] = $creation_time1;
 				$nestedData[] = $creation_time2;
 				$nestedData[] = $creation_time3;
-				$nestedData[] = $row["Finanzstelle"];
+				$nestedData[] = $finanzstelle;
 				$nestedData[] = $row["Material"];
 				$nestedData[] = $row["Endkupfer"];
 				$nestedData[] = $row["Staerke"];

@@ -262,6 +262,15 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           $ziel = mysqli_real_escape_string($platinendb_connection, $_POST['ziel']);
 
 
+          $statusEditable = "disabled";
+          $stausInfoicon = '
+            <i class="fas fa-info-circle" id="infoicon" data-toggle="popover" title="" data-content="Der Status kann nur verändert werden, wenn sich Platinen auf diesem Nutzen befinden." data-original-title="" aria-describedby="popover351399"></i>
+          ';
+          if(platineAufNutzen($_POST['Id'], $platinendb_connection)) {
+            $statusEditable = "";
+            $stausInfoicon = "";
+          }
+
 
 
           $check = '';
@@ -276,11 +285,26 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
           $option3 = '';
 
+
+          $arr = array();
+          $counter = 0;
           while($row3 = mysqli_fetch_assoc($plaufnu))
           {
-            $option3 .= '<option value = "'.$row3['Finanzstelle_ID'].'">'.$row3['Finanzstelle_Name'].'_'.$row3['Finanzstelle_Nummer'].'</option>';
+            $finanzstelle_id = $row3['Finanzstelle_ID'];
+            $finanzstelle_name = $row3['Finanzstelle_Name'];
+            $finanzstelle_nummer = $row3['Finanzstelle_Nummer'];
+            $finanzstelle_nummer = substr($finanzstelle_nummer, -4);
+            $finanzstelle = $finanzstelle_name .'_'. $finanzstelle_nummer;
+            $arr[$counter][0] = $finanzstelle_id;
+            $arr[$counter][1] = $finanzstelle;
+            $counter++;
           }
 
+          $arr = array_unique($arr, SORT_REGULAR);
+
+          foreach ($arr as $e) {
+            $option3 .= '<option value = '.$e[0].'>'.$e[1].'</option>';
+        }
 
             
           /*
@@ -340,10 +364,10 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
     
 
           <div class='form-group'>
-            <label id='statuslabel' for='usr'>Status: </label>
+            <label id='statuslabel' for='usr'>Status: $stausInfoicon</label>
             <div class='statusdiv statusAus'>
 
-              <select class='form-control' id='status' name='Status' required>
+              <select class='form-control' id='status' name='Status' $statusEditable required>
               <option style='display: none;' >$_POST[Status]</option>
               <option>neu</option>
               <option>Fertigung</option>

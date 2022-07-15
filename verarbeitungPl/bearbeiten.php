@@ -55,10 +55,7 @@ if($bestanden == true && $aktion == "bearbeiten") {
           Inputs auslesen Finanzstelle
           */
           $finanz = mysqli_real_escape_string($platinendb_connection, $_POST["Finanz"]);
-          $finanz = "SELECT id FROM finanzstelle WHERE name='$finanz'"; 
-          $finanz =  mysqli_query($platinendb_connection,  $finanz);
-          $finanz = mysqli_fetch_assoc($finanz);   
-          $finanz = $finanz['id'];
+          
 
           /*
           Inputs auslesen Anzahl

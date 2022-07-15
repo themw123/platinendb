@@ -25,12 +25,7 @@ $bestanden = $sicherheit->ergebnis();
 if($bestanden == true && $aktion == "finanz") {
   
       $finanz = mysqli_real_escape_string($login_connection, $_POST['Text']);
-      
-
-      $finanz = "SELECT id FROM finanzstelle WHERE name='$finanz'"; 
-      $finanz =  mysqli_query($platinendb_connection, $finanz);
-      $finanz = mysqli_fetch_assoc($finanz); 
-      $finanz = $finanz['id'];
+  
 
 
 

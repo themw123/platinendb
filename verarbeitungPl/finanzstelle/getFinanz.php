@@ -26,22 +26,33 @@ if($bestanden == true && $aktion == "finanzGet") {
   
          $query = "
          SELECT 
-           name
+           id, name, nummer
          FROM 
            finanzstelle
          order by 
            name asc
          "; 
          $result = mysqli_query($platinendb_connection, $query);  
-         $namen = array();
+         $alle = array();
          $counter = 0;
          if ($result->num_rows > 0) {
    
             while($row = $result->fetch_assoc()){
-                $namen[$counter] = $row['name'];
+              				
+                $finanzarray = array();
+                $finanzstelle_id = $row['id'];
+                $finanzstelle_name = $row['name'];
+                $finanzstelle_nummer = $row['nummer'];
+                $finanzstelle_nummer = substr($finanzstelle_nummer, -4);
+                $finanzstelle = $finanzstelle_name .'_'. $finanzstelle_nummer;
+
+                $finanzarray[0] = $finanzstelle_id;
+                $finanzarray[1] = $finanzstelle;
+
+                $alle[$counter] = $finanzarray;
                 $counter = $counter + 1;
             }
-            echo json_encode($namen);
+            echo json_encode($alle);
         }
 
         mysqli_close($platinendb_connection); 

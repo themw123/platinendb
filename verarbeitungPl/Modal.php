@@ -169,6 +169,8 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           $finanzDeufault = $_POST['Finanzstelle'];
         }
 
+        
+
         if(isUserAdmin($platinendb_connection)) {
           $finanzForm .= "
           <div class='form-group'>
@@ -178,7 +180,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
   
               <div class='input-group ipg1'>
   
-              <select class='form-control $finanzDeufault' data-live-search='true' id='finanz' name='Finanz' required>     
+              <select class='form-control $finanzDeufault' title='Option wählen' data-live-search='true' id='finanz' name='Finanz' required>     
               </select>
   
               
@@ -223,7 +225,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
   
               <div class='input-group'>
   
-              <select class='form-control $finanzDeufault' data-live-search='true' id='finanz' name='Finanz' required>     
+              <select class='form-control $finanzDeufault title='Option wählen'' data-live-search='true' id='finanz' name='Finanz' required>     
               </select>
   
   

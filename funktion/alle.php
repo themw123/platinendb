@@ -624,6 +624,21 @@ function sendMail($art, $user_name, $user_email, $user_password_hash) {
 }
 
 
+function platineAufNutzen($id, $platinendb_connection) {
+	$aufnu = "select ID from nutzenplatinen where Nutzen_ID = $id";
+	$aufnu = mysqli_query($platinendb_connection,$aufnu);
+	$aufnu = mysqli_fetch_array($aufnu);
+	$aufnu = $aufnu['ID'];
+
+	if($aufnu == null) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+
 
 function modal4($currentpage) {
 
