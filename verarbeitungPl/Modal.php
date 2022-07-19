@@ -223,9 +223,10 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
   
             <div class='finanzdiv'>
   
-              <div class='input-group'>
+              <div class='input-group' ipg1>
   
-              <select class='form-control $finanzDeufault title='Option wählen'' data-live-search='true' id='finanz' name='Finanz' required>     
+              <select class='form-control $finanzDeufault' title='Option wählen' data-live-search='true' id='finanz' name='Finanz' required>     
+              
               </select>
   
   
