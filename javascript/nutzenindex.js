@@ -322,7 +322,7 @@ $(document).ready(function(){
     
       aktion = "detail";
       $.ajax({  
-                     url:"verarbeitungNU/detail.php",  
+                     url:"verarbeitungNU/detail.php",         
                      method:"post",  
                      data:{Id:Id, ziel:ziel, aktion:aktion},  
                      success:function(data){
@@ -405,7 +405,7 @@ $(document).ready(function(){
     
          
         Id = table.api().row($(this).closest('tr')).data()[0]; 
-        statuss = table.api().row($(this).closest('tr')).data()[3]; 
+        statuss = table.api().row($(this).closest('tr')).data()[4]; 
         NutzenId = Id;
         ziel = "nutzen";
            
