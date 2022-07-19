@@ -168,7 +168,7 @@ if($bestanden == true && $aktion == "bearbeiten") {
 
             if($Fertigung == 1 && !isInFertigung($id, $platinendb_connection) && !isOnNutzen($id, $platinendb_connection)) {
               //In Fertigung überführen. Erst Nutzen erstellen und Platine da drauf packen und diesen in Fertigung versetzten.
-              ueberfuehren($id, $Anzahl, $user, $row2['ID'], $Endkupfer, $Staerke, $Lagen, $platinendb_connection);
+              ueberfuehren($id, $Anzahl, $user, $finanz, $row2['ID'], $Endkupfer, $Staerke, $Lagen, $platinendb_connection);
             }
 
           }

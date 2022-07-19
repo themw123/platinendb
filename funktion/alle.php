@@ -494,7 +494,7 @@ function isOnNutzen($id, $platinendb_connection) {
 }
 
 
-function ueberfuehren($id, $Anzahl, $Bearbeiter, $Material_ID, $Endkupfer, $Staerke, $Lagen, $platinendb_connection) {
+function ueberfuehren($id, $Anzahl, $Bearbeiter, $finanz, $Material_ID, $Endkupfer, $Staerke, $Lagen, $platinendb_connection) {
 	//Neuen Nutzen anlegen
 	
 	$nr = "select max(Nr)+1 as Nr from nutzen";
@@ -515,7 +515,7 @@ function ueberfuehren($id, $Anzahl, $Bearbeiter, $Material_ID, $Endkupfer, $Stae
 	$Erstellt = date('Y-m-d H:i:s', time());
 
 	//Nutzen anlegen
-	$nutzen = "INSERT INTO nutzen (Nr, Bearbeiter_ID, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Datum, intoderext, Status1, Testdaten, Datum1, Kommentar) VALUES ('$nr', '$bearbeiterId', '$Material_ID', '$Endkupfer', '$Staerke', '$Lagen', 'individuell', '$Erstellt', 'ext', 'Fertigung', '0', '$Erstellt', '')";
+	$nutzen = "INSERT INTO nutzen (Nr, Bearbeiter_ID, Finanzstelle_ID, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Datum, intoderext, Status1, Testdaten, Datum1, Kommentar) VALUES ('$nr', '$bearbeiterId', '$finanz', '$Material_ID', '$Endkupfer', '$Staerke', '$Lagen', 'individuell', '$Erstellt', 'ext', 'Fertigung', '0', '$Erstellt', '')";
 	mysqli_query($platinendb_connection, $nutzen);
 
 
