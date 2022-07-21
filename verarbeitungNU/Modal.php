@@ -349,12 +349,28 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
           
           if($_POST['Status'] != "neu" && $_POST['Int'] == "ext") {
+                   
+            $to = strpos($_POST['Finanzstelle'], "_");
+            $name = substr($_POST['Finanzstelle'], 0, $to);
+            $nummer = substr($_POST['Finanzstelle'], $to+1, strlen($_POST['Finanzstelle']));
+            $whereclause = "name = '$name' and nummer like '%$nummer' ";
+
+            $finanz = 
+            "SELECT id
+            FROM platinendb.finanzstelle
+            WHERE $whereclause
+            ";
+
+            $finanz =  mysqli_query($login_connection, $finanz);
+            $finanz = mysqli_fetch_assoc($finanz);
+            $finanz = $finanz["id"];
+
             $output .= "
             <div class='form-group'>
               <div class='finanzdiv'>
                 <label id='finanzlabel' for='usr'>Finanzstelle: </label>
                 <select class='form-control' id='finanz' name='Finanz'>
-                <option style='display: none;' >$_POST[Finanzstelle]</option>
+                <option value=$finanz style='display: none;' >$_POST[Finanzstelle]</option>
                 '$option3'
                 </select>
               </div>
