@@ -345,11 +345,26 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           </select>
           </div>
 
+          ";
+
+          
+          if($_POST['Status'] != "neu" && $_POST['Int'] == "ext") {
+            $output .= "
+            <div class='form-group'>
+              <div class='finanzdiv'>
+                <label id='finanzlabel' for='usr'>Finanzstelle: </label>
+                <select class='form-control' id='finanz' name='Finanz'>
+                <option style='display: none;' >$_POST[Finanzstelle]</option>
+                '$option3'
+                </select>
+              </div>
+            </div>
+            ";
+          }
 
 
 
-
-
+          $output .= "
 
           <div class='form-group'>
           <label id='intid' for='usr'>Fertigung int/ext: </label>
