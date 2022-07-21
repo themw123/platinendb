@@ -68,12 +68,12 @@ echo'
 			<th class="no-sort":>&nbsp; &nbsp; Aktion</th>
 			<th>Nr</th>
 			<th>Bearbeiter</th>
+			<th>Finanzstelle</th>
 			<th>int/ext</th>
 			<th>Status</th>
 			<th>erstellt</th>
 			<th>Fertigung</th>
 			<th>abgeschlossen</th>
-			<th>Finanzstelle</th>
 			<th>Material</th>
 			<th>Endkupfer</th>
 			<th>Stärke(mm)</th>

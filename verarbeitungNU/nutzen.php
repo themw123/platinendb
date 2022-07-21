@@ -88,12 +88,12 @@ if($bestanden == true && $aktion == "nutzen") {
 
 				$nestedData[] = $row["Nr"];
 				$nestedData[] = $row["Bearbeiter"];
+				$nestedData[] = $finanzstelle;
 				$nestedData[] = $row["intoderext"];
 				$nestedData[] = $row["Status"];
 				$nestedData[] = $creation_time1;
 				$nestedData[] = $creation_time2;
 				$nestedData[] = $creation_time3;
-				$nestedData[] = $finanzstelle;
 				$nestedData[] = $row["Material"];
 				$nestedData[] = $row["Endkupfer"];
 				$nestedData[] = $row["Staerke"];
