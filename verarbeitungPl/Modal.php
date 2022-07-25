@@ -86,6 +86,13 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         }
 
 
+        
+        $check2 = '';
+        if ($_POST['Bestueckungsdruck'] == 1){
+          $check2 = "checked=''";
+        }
+
+
 
 
         $auftraggeberForm .= "
@@ -374,6 +381,9 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         </select>
         </div>
 
+       
+
+
         <div class='wunschdatumdiv'>
         <label for='usr'>Wunschdatum:</label>
         <input id='datepicker' class='form-control' name='Wunschdatum'>
@@ -407,6 +417,11 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         <i class='fa fa-trash-alt collapse' id='delfile'></i>
         
         <div class='alert alert-warning collapse' id='fehleraddlagen'></div>
+        </div>
+
+        <div class='custom-control custom-checkbox form-group'>
+        <input name='Bestueckungsdruck' type='checkbox' class='custom-control-input' id='checkbox-4' $check2>
+        <label class='custom-control-label' for='checkbox-4' style='margin-top: 10px;margin-bottom: 10px;'>Bestückungsdruck</label>
         </div>
 
         </form>
@@ -580,7 +595,15 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
             <textarea class='form-control' id='kommentar' rows='1' name='Kommentar'>$_POST[Kommentar]</textarea>
             </div>
 
+            <div class='custom-control custom-checkbox form-group'>
+            <input name='Bestueckungsdruck' type='checkbox' class='custom-control-input' id='checkbox-4' $check2>
+            <label class='custom-control-label' for='checkbox-4' style='margin-top: 10px;margin-bottom: 10px;'>Bestückungsdruck</label>
+            </div>
+
             ";
+            
+
+
             
             
             if(isUserAdmin($platinendb_connection)) {
@@ -601,43 +624,6 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
                 <i class='fas fa-info-circle' id='infoicon3' data-toggle='popover' title='Hinweis' data-content='Die Platine wird in den Zustand Fertigung versetzt. Dafür wird ein neuer Nutzen im Zustand Fertigung erstellt und die Platine hinzugefügt.'></i>
                 </div>
                 ";
-
-                /*
-                erfolgt jetzt automatisch
-                
-                $bearbeiter = 'SELECT user_name FROM login.users';
-
-                $bearbeiterabfrage = mysqli_query($platinendb_connection, $bearbeiter);
-      
-                $option = '';
-      
-                while($row2 = mysqli_fetch_assoc($bearbeiterabfrage))
-                {
-                  $option .= '<option value = "'.$row2['user_name'].'">'.$row2['user_name'].'</option>';
-                }
-                
-                $output .= "
-                <div class='custom-control custom-checkbox form-group fertigungcheck'>
-                <input data-toggle='collapse' data-target='#collapse4' name='Fertigung' type='checkbox' class='custom-control-input' id='checkbox-3'>
-                <label class='custom-control-label' for='checkbox-3' style='margin-top: 10px;margin-bottom: 10px;'>Fertigung</label>
-                <i class='fas fa-info-circle' id='infoicon3' data-toggle='popover' title='Hinweis' data-content='Die Platine wird in den Zustand Fertigung versetzt. Dafür wird ein neuer Nutzen im Zustand Fertigung erstellt und die Platine hinzugefügt.'></i>
-                </div>
-
-                <div class='collapse' id='collapse4' name='BearbeiterColl'> 
-                <div id='form-group-bearbeiter' class='form-group'>
-
-                <label for='usr'>Bearbeiter:</label>
-                <select class='form-control' id='bearbeiter' name='Bearbeiter'>
-                <option value='' disabled selected>Option wählen</option>
-                '$option'
-                </select>
-                
-                </div>
-                </div>
-                
-
-                ";
-                */
               }
             }
             

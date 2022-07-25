@@ -111,6 +111,9 @@ if($bestanden == true && $aktion == "bearbeiten") {
           $Loetstopp = mysqli_real_escape_string($platinendb_connection, $_POST["Loetstopp"]);
 
 
+          $Bestueckungsdruck = mysqli_real_escape_string($platinendb_connection, $_POST["Bestueckungsdruck"]);
+
+
           /*
           Inputs auslesen wunschDatum
           */
@@ -134,6 +137,15 @@ if($bestanden == true && $aktion == "bearbeiten") {
           $Kommentar = mysqli_real_escape_string($platinendb_connection, $_POST["Kommentar"]);
         
 
+          /*
+          Input auslesen Bestückungsdruck
+          */
+          if (isset($_POST['Bestueckungsdruck'])) {
+            $Bestueckungsdruck = 1;
+          }
+          else{
+            $Bestueckungsdruck = 0;
+          }
           
           /*
           Input auslesen Testdaten
@@ -162,7 +174,7 @@ if($bestanden == true && $aktion == "bearbeiten") {
           
           //bearbeitung durchführen
           if(isUserAdmin($platinendb_connection)) {
-            $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id], Finanzstelle_ID = $finanz, Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar', ignorieren = '$Ignorieren' WHERE ID = $id";
+            $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id], Finanzstelle_ID = $finanz, Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp', Bestueckungsdruck = '$Bestueckungsdruck', wunschDatum = $Wunschdatum,Kommentar = '$Kommentar', ignorieren = '$Ignorieren' WHERE ID = $id";
             $user = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
             
 
@@ -173,7 +185,7 @@ if($bestanden == true && $aktion == "bearbeiten") {
 
           }
           else {
-            $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Finanzstelle_ID = $finanz,  Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar' WHERE ID = $id";
+            $bearbeiten= "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Finanzstelle_ID = $finanz,  Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp', Bestueckungsdruck = '$Bestueckungsdruck',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar' WHERE ID = $id";
           }
         
 

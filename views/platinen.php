@@ -77,6 +77,7 @@ echo'
 			<th>Größe(mm)</th>
 			<th>Oberfläche</th>
 			<th>Lötstopp</th>
+			<th>Bestückungsdruck</th>
 			<th>erstellt</th>
 			<th>Wunschdatum</th>
 			<th>Kommentar</th>
@@ -89,6 +90,7 @@ echo'
 			
 			<th>abgeschlossenFertigung</th>
 			<th>downloads1or0</th>
+
 
 			</thead>
 			</table>
