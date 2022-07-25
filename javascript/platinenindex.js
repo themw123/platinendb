@@ -482,6 +482,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse2', function () {
 
 $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
   
+
   Id = table.api().row($(this).closest('tr')).data()[0];
   ziel = "platinen";
 
@@ -490,6 +491,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
     size: "small",
     message: "Platine wirklich löschen?",
     backdrop: true,
+    closeButton: false,
 
     buttons: {
         cancel: {
@@ -596,51 +598,107 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse', function () {
   }});
 });
 
+
+
 //wenn auf downloadArchive geklickt wird
 $('#tabelle1 tbody').on( 'click', '#iconklasse4', function () {
+
+
+
   ziel = "platinen";
+  var bestueckungsdruck = table.api().row($(this).closest('tr')).data()[14]; 
   var aktion = "download";
   Id = table.api().row($(this).closest('tr')).data()[0]; 
   
-  
-  $.ajax({
-        url:"verarbeitungPl/downloadArchive.php",  
-        method: 'post',
-        data:{ziel:ziel, aktion:aktion, Id:Id},
-        xhrFields: {
-            responseType: 'blob'
-        },
-        success: function (data, status, xhr) {
-            var filename = "";
-          
-            var disposition = xhr.getResponseHeader('Content-Disposition');
-            filename = disposition.split(/;(.+)/)[1].split(/=(.+)/)[1];
 
-            if (disposition && disposition.indexOf('attachment') !== -1) {
-                var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-                var matches = filenameRegex.exec(disposition);
-                if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-            }
+  if(bestueckungsdruck == 1) {
 
-            filename = decodeURIComponent(escape(filename));
-            
-            var a = document.createElement('a');
-            var url = window.URL.createObjectURL(data);
-            a.href = url;
-            a.download = filename;
-            document.body.append(a);
-            a.click();
-            a.remove();
-            window.URL.revokeObjectURL(url);
+    bootbox.confirm({
+
+      size: "small",
+      message: "Achtung! Bei den Eagle-, Gerber- und Bohrdaten ist ein Bestückungsdruck vorhanden.",
+      backdrop: true,
+      closeButton: false,
+      swapButtonOrder: true,
+      
+      buttons: {
+          cancel: {
+              label: 'abbrechen',
+              className: 'btn btn-primary button17'
+          },
+          confirm: {
+              label: 'download',
+              className: 'btn btn-primary button18'
+          }
+      },
+
+
+      callback: function(result){
+
+    
+    
+        if(result){
+        
+      
+          download(ziel, aktion, Id);
+        
+
         }
-  });
-  
 
-  
+      }
+
+
+    });
+
+  }
+
+  else {
+    download(ziel, aktion, Id);
+  }
+
+
+
 
 
 
 })
+
+
+function download(ziel, aktion, Id) {
+  $.ajax({
+    url:"verarbeitungPl/downloadArchive.php",  
+    method: 'post',
+    data:{ziel:ziel, aktion:aktion, Id:Id},
+    xhrFields: {
+        responseType: 'blob'
+    },
+    success: function (data, status, xhr) {
+        var filename = "";
+      
+        var disposition = xhr.getResponseHeader('Content-Disposition');
+        filename = disposition.split(/;(.+)/)[1].split(/=(.+)/)[1];
+
+        if (disposition && disposition.indexOf('attachment') !== -1) {
+            var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+            var matches = filenameRegex.exec(disposition);
+            if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+        }
+
+        filename = decodeURIComponent(escape(filename));
+        
+        var a = document.createElement('a');
+        var url = window.URL.createObjectURL(data);
+        a.href = url;
+        a.download = filename;
+        document.body.append(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+    }
+  });
+}
+
+
 
 
 

@@ -640,6 +640,7 @@ function platineAufNutzen($id, $platinendb_connection) {
 
 
 
+//modal für benutzerinformationen
 function modal4($currentpage) {
 
 	echo'	

@@ -447,7 +447,6 @@ modal button anpassen
   display: flex !important;
   align-items: center;
   justify-content: center;
-  margin-left: -19px!important;
 }
 
 
@@ -456,12 +455,11 @@ modal button anpassen
   border-color:#005ea9!important;
   outline: none !important;
   box-shadow: none!important;
-  float: right;
-  margin-top: 8.5px;
   font-size: 13px;
-  height: 33px;
-  margin-left: 50px;
-  width: 80px;
+  width: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  
 }
 
 
@@ -475,12 +473,15 @@ modal button anpassen
   border-color:#005ea9!important;
   outline: none !important;
   box-shadow: none!important;
-  float: right;
-  margin-top: 8.5px;
   font-size: 13px;
-  height: 33px;
-  margin-right: 50px;
-  width: 80px;
+  width: 50px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.bootbox-body {
+  display: inline-block;
 }
 
 
@@ -1300,4 +1301,35 @@ testdaten haken farbe
 
 .filter-option-inner-inner{
   color: #495057;
+}
+
+.button17 {
+  background-color: #005ea9!important;
+  border-color:#005ea9!important;
+  outline: none !important;
+  box-shadow: none!important;
+  font-size: 13px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button18 {
+  background-color: #005ea9!important;
+  border-color:#005ea9!important;
+  outline: none !important;
+  box-shadow: none!important;
+  font-size: 13px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+.button17:hover{
+  background-color: #0000cc!important;
+  border-color:#0000cc!important;
+}
+.button18:hover{
+  background-color: #0000cc!important;
+  border-color:#0000cc!important;
 }
