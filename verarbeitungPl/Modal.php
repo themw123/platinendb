@@ -422,6 +422,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         <div class='custom-control custom-checkbox form-group'>
         <input name='Bestueckungsdruck' type='checkbox' class='custom-control-input' id='checkbox-4' $check2>
         <label class='custom-control-label' for='checkbox-4' style='margin-top: 10px;margin-bottom: 10px;'>Bestückungsdruck</label>
+        <i class='fas fa-info-circle' id='infoicon3' data-toggle='popover' title='Hinweis' data-content='Den Admins wird beim Download der Eagle-, Gerber-, und Bohrdaten ein Hinweis bezüglich der Vorhandenheit eines Bestückungsdrucks angezeigt.'></i>
         </div>
 
         </form>
@@ -598,6 +599,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
             <div class='custom-control custom-checkbox form-group'>
             <input name='Bestueckungsdruck' type='checkbox' class='custom-control-input' id='checkbox-4' $check2>
             <label class='custom-control-label' for='checkbox-4' style='margin-top: 10px;margin-bottom: 10px;'>Bestückungsdruck</label>
+            <i class='fas fa-info-circle' id='infoicon3' data-toggle='popover' title='Hinweis' data-content='Den Admins wird beim Download der Eagle-, Gerber-, und Bohrdaten ein Hinweis bezüglich der Vorhandenheit eines Bestückungsdrucks angezeigt.'></i>
             </div>
 
             ";
