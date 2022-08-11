@@ -158,11 +158,6 @@ else {
 
     <script src="plugins/bootbox5/bootbox.min.js" type="text/javascript"></script>
 
-
-    <!-- Datepicker für Bearbeiten-->
-    <script src="plugins/gijgo1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-    <script src="plugins/gijgo1.9.13/js/messages/messages.de-de.js" type="text/javascript"></script>
-
     <script src="plugins/dataTables.liveAjax.js" language="JavaScript"></script>
 
     <script src="plugins/fixedHeaders/datatables.min.js" type="text/javascript"></script>
