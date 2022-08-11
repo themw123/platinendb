@@ -383,16 +383,11 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
        
 
-
+        <div class='form-group'>
         <div class='wunschdatumdiv'>
         <label for='usr'>Wunschdatum:</label>
-        <input id='datepicker' class='form-control' name='Wunschdatum'>
+        <input type='date' class='form-control' name='Wunschdatum'>
         </div>
-
-        <div class='form-group'>
-        <button class='btn btn-secondary' id='reset-date' onclick='return false;'>
-        <i class='fas fa-calendar-times' id='kalender'></i> 
-        </button>
         </div>
 
 
@@ -447,6 +442,9 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
             $ziel = mysqli_real_escape_string($platinendb_connection, $_POST['ziel']);
 
 
+            if(!empty($_POST['Wunschdatum'])) {
+              $wunschdatum = date("Y-m-d", strtotime($_POST['Wunschdatum']));
+            }
 
             $check = '';
             if ($_POST['Ignorieren'] == 1){
@@ -580,16 +578,13 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
 
 
+            <div class='form-group'>
             <div class='wunschdatumdiv'>
             <label for='usr'>Wunschdatum:</label>
-            <input id='datepicker' class='form-control' name='Wunschdatum' value='$_POST[Wunschdatum]'>
+            <input class='form-control' type='date' data-date-format='DD-YYYY-MM' name='Wunschdatum' value='$wunschdatum'>
             </div>
 
-            <div class='form-group'>
-            <button class='btn btn-secondary' id='reset-date' onclick='return false;'>
-            <i class='fas fa-calendar-times' id='kalender'></i> 
-            </button>
-            </div>
+
 
             <div class='form-group'>
             <label for='exampleFormControlTextarea1'>Kommentar</label>

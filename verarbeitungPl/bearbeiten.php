@@ -124,7 +124,7 @@ if($bestanden == true && $aktion == "bearbeiten") {
           else {
               $datumzumformatieren = strtotime(mysqli_real_escape_string($platinendb_connection, $_POST["Wunschdatum"]));
               $Wunschdatum = "'";
-              $Wunschdatum .= date('Y-m-d', $datumzumformatieren);
+              $Wunschdatum .= date('Y.m.d', $datumzumformatieren);
               $Wunschdatum .= "'";
           }
         

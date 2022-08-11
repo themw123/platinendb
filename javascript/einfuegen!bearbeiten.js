@@ -467,8 +467,8 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
           selectedNew = selected;
 
           //anfangsdatum auslesen
-          fertigungAnfangsDatum = $('#datepicker2').val();
-          abgeschlossenAnfangsDatum = $('#datepicker3').val();
+          fertigungAnfangsDatum = $('#datumfertigung').val();
+          abgeschlossenAnfangsDatum = $('#datumabgeschlossen').val();
 
 
           //int/ext auslesen
@@ -597,17 +597,15 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
               }
 
               var currYear = d.getFullYear();
-              var today = currDate + "-" + currMonth + "-" + currYear;
+              var today = currYear + "-" + currMonth + "-" + currDate;
 
 
 
               selectedNew = $(this).children("option:selected").val();
 
-              var selectedfertigung = $(datepicker2).val();
+              var selectedfertigung = $('#datumfertigung').val();
 
-              var selectedabgeschlossen = $(datepicker3).val();
-
-
+              var selectedabgeschlossen = $('#datumabgeschlossen').val();
 
 
 
@@ -625,8 +623,8 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
                 if(selectedfertigung == "") {
 
-                  document.getElementById("datepicker2").value = today;
-                  document.getElementById("datepicker3").value = "";
+                  document.getElementById('datumfertigung').value = today;
+                  document.getElementById('datumabgeschlossen').value = "";
                   
                   fertigungAn();
                 
@@ -634,18 +632,18 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
                 }
                 else{
-                  document.getElementById("datepicker3").value = "";
+                  document.getElementById('datumabgeschlossen').value = "";
 
                   abgeschlossenAus();
 
                 }
 
                 if(selected == "Fertigung") {
-                  document.getElementById("datepicker2").value = fertigungAnfangsDatum;
+                  document.getElementById('datumfertigung').value = fertigungAnfangsDatum;
                 }
                 
                 if(selected == "abgeschlossen") {
-                  document.getElementById("datepicker2").value = fertigungAnfangsDatum;
+                  document.getElementById('datumfertigung').value = fertigungAnfangsDatum;
                 }
 
               }
@@ -658,14 +656,14 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                 $('#warnungStatus').hide();
 
                 if(selectedabgeschlossen == "") {
-                  document.getElementById("datepicker3").value = today;
+                  document.getElementById('datumabgeschlossen').value = today;
 
                   abgeschlossenAn();
 
                 }
 
                 if(selected == "abgeschlossen") {
-                  document.getElementById("datepicker3").value = abgeschlossenAnfangsDatum;
+                  document.getElementById('datumabgeschlossen').value = abgeschlossenAnfangsDatum;
                 }
 
 
@@ -692,8 +690,8 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                 */
 
 
-                document.getElementById("datepicker2").value = "";
-                document.getElementById("datepicker3").value = "";
+                document.getElementById('datumfertigung').value = "";
+                document.getElementById('datumabgeschlossen').value = "";
 
                 fertigungAus();
 
@@ -734,21 +732,38 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
 
         //Datum reset
-        $("#reset-date2").click( function()
-          {
-            $('#status').val('neu').trigger('change');    
-          }
-        );
 
-        $("#reset-date3").click( function()
-        {
+        $('#datumfertigung').click(function(e) {
+             $(this).focus();
+        }).change(function(e) {
+             var myValue = $(this);
+             if (!myValue.val()) {
+                // do something when cleared
+                myValue.blur();
+                $('#status').val('neu').trigger('change');    
+              } else {
+                // do something on changed date
+             }
+        });
 
-        
-          if (!($('#status').val() == 'neu')){
-          $('#status').val('Fertigung').trigger('change');    
-          }
-        }
-        );
+
+
+        $('#datumabgeschlossen').click(function(e) {
+          $(this).focus();
+        }).change(function(e) {
+              var myValue = $(this);
+              if (!myValue.val()) {
+                // do something when cleared
+                if (!($('#status').val() == 'neu')){
+                  myValue.blur();
+                  $('#status').val('Fertigung').trigger('change');    
+                }    
+              } else {
+                // do something on changed date
+              }
+        });
+
+
 
 
 
@@ -761,24 +776,24 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
 
         //sonstige funktionen
         function fertigungAn() {
-          $("#datepicker2" ).removeClass('ausschalten');
+          $("#datumfertigung" ).removeClass('ausschalten');
           $(".datepickericon2" ).parent('button').parent('span').removeClass('ausschalten');
         }
 
 
         function fertigungAus() {
-          $("#datepicker2" ).addClass('ausschalten');
+          $("#datumfertigung" ).addClass('ausschalten');
           $(".datepickericon2" ).parent('button').parent('span').addClass('ausschalten');
         }
 
 
         function abgeschlossenAn() {
-          $("#datepicker3" ).removeClass('ausschalten');
+          $("#datumabgeschlossen" ).removeClass('ausschalten');
           $(".datepickericon3" ).parent('button').parent('span').removeClass('ausschalten');
         }
 
         function abgeschlossenAus() {
-          $("#datepicker3" ).addClass('ausschalten');
+          $("#datumabgeschlossen" ).addClass('ausschalten');
           $(".datepickericon3" ).parent('button').parent('span').addClass('ausschalten');
         }
 

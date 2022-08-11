@@ -2,8 +2,8 @@ $(document).ready(function(){
 
 
     //Datumformat angeben, damit sorting funktioniert
-    $.fn.dataTable.moment( 'DD-MM-YYYY' );
-    
+    $.fn.dataTable.moment( 'DD.MM.YYYY' );
+
     var d = new Date();
     t1 = moment(d).format('YYYY-MM-DD');
 
@@ -363,7 +363,7 @@ $(document).ready(function(){
             $('#tabelle3 tbody tr').each(function(){
               
               var erstelltam = $(':nth-child(4)',this).text().trim();
-              var t2 = erstelltam.split('-');
+              var t2 = erstelltam.split('.');
               t2 = t2[2] + "-" + t2[1] + "-" + t2[0];
               
               var start = moment(t2);      
@@ -517,54 +517,7 @@ $(document).ready(function(){
                         data:{aktion:aktion, Id:Id, ziel:ziel, Nr:Nr, Bearbeiter:Bearbeiter, Status:Status, Material:Material, Endkupfer:Endkupfer, Staerke:Staerke, Lagen:Lagen, Erstellt:Erstellt, Fertigung:Fertigung, Abgeschlossen:Abgeschlossen, Finanzstelle:Finanzstelle, Groesse:Groesse, Int:Int, Testdaten:Testdaten, Kommentar:Kommentar},  
                         success:function(data){  
                             $('#modalbody2').html(data);  
-                            
-                            //datepicker übergeben
-                            $('#datepicker').datepicker({
-                              locale: 'de-de',
-                              format: 'dd-mm-yyyy',
-                              
-                              uiLibrary: 'bootstrap4'
-                            });
-                            //datepicker reset übergeben
-                            $("#reset-date").click(function(){
-                            $('#datepicker').val("").datepicker("update");
-                            })
-       
-
-
-                            //datepicker2 übergeben
-                            $('#datepicker2').datepicker({
-                              locale: 'de-de',
-                              format: 'dd-mm-yyyy',
-                              uiLibrary: 'bootstrap4',
-                              icons: {
-                                rightIcon: '<i class="gj-icon datepickericon2">event</i></span>'
-                              }
-                            });
-
-                            //datepicker2 reset übergeben
-                            $("#reset-date2").click(function(){
-                            $('#datepicker2').val("").datepicker("update");
-                            })
-
-
-
-                            //datepicker3 übergeben
-                            $('#datepicker3').datepicker({
-                              locale: 'de-de',
-                              format: 'dd-mm-yyyy',
-                              uiLibrary: 'bootstrap4',
-                              icons: {
-                                rightIcon: '<i class="gj-icon datepickericon3">event</i></span>'
-                              }
-                            });
-                            //datepicker3 reset übergeben
-                            $("#reset-date3").click(function(){
-                            $('#datepicker3').val("").datepicker("update");
-                            })
-
-
-                      
+                                         
                             $('#dataModal2').modal("show");  
                         }  
                   }); 

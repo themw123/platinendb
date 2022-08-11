@@ -113,7 +113,7 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
           <div class='divhidden'>
           <label for='usr'>erstellt:</label>
-          <input type='hidden' id='datepicker' class='form-control' name='Erstellt' onkeydown='return false'/>
+          <input type='hidden' type='date' class='form-control' name='Erstellt' onkeydown='return false'/>
           </div>
 
 
@@ -306,7 +306,16 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
             $option3 .= '<option value = '.$e[0].'>'.$e[1].'</option>';
         }
 
-            
+
+        $erstellt = date("Y-m-d", strtotime($_POST['Erstellt']));
+        if(!empty($_POST['Fertigung'])) {
+          $fertigung = date("Y-m-d", strtotime($_POST['Fertigung']));
+        }
+        if(!empty($_POST['Abgeschlossen'])) {
+          $abgeschlossen = date("Y-m-d", strtotime($_POST['Abgeschlossen']));
+        }
+
+
           /*
           eingabefelder
           */
@@ -447,36 +456,20 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           
           <div class='form-group'>
           <label for='usr'>erstellt:</label>
-          <input id='datepicker' class='form-control' name='Erstellt' value='$_POST[Erstellt]'>
+          <input type='date' id='datumerstellt' class='form-control' name='Erstellt' value='$erstellt' required>
           </div>
 
 
           <div class='form-group'>
           <label for='usr'>Fertigung:</label>
-          <input id='datepicker2' class='form-control' name='Fertigung' value='$_POST[Fertigung]'/>
+          <input type='date' id='datumfertigung' class='form-control' name='Fertigung' value='$fertigung'/>
           </div>
-
-
-          <div class='form-group'>
-          <button class='btn btn-secondary' id='reset-date2' onclick='return false'>
-          <i class='fas fa-calendar-times' id='kalender'></i> 
-          </button>
-          </div>
-
 
 
           <div class='form-group'>
           <label for='usr'>abgeschlossen:</label>
-          <input id='datepicker3' class='form-control' name='Abgeschlossen' value='$_POST[Abgeschlossen]'/>
+          <input type='date' id='datumabgeschlossen' class='form-control' name='Abgeschlossen' value='$abgeschlossen'/>
           </div>
-
-          <div class='form-group'>
-          <button class='btn btn-secondary' id='reset-date3' onclick='return false'>
-          <i class='fas fa-calendar-times' id='kalender'></i> 
-          </button>
-          </div>
-
-
 
 
           <div class='form-group'>

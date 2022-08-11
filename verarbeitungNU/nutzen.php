@@ -35,17 +35,17 @@ if($bestanden == true && $aktion == "nutzen") {
 				/*
 				datum richtig formatieren
 				*/
-				$creation_time1 = date('d-m-Y', strtotime($row['erstellt']));
+				$creation_time1 = date('d.m.Y', strtotime($row['erstellt']));
 				
 				if (isset($row['Fertigung'])) {
-				$creation_time2 = date('d-m-Y', strtotime($row['Fertigung']));
+				$creation_time2 = date('d.m.Y', strtotime($row['Fertigung']));
 				}
 				if ($row['Fertigung'] == null ) {
 				$creation_time2 = "";
 				}
 
 				if (isset($row['abgeschlossen'])) {
-				$creation_time3 = date('d-m-Y', strtotime($row['abgeschlossen']));
+				$creation_time3 = date('d.m.Y', strtotime($row['abgeschlossen']));
 				}
 				if ($row['abgeschlossen'] == null ) {
 				$creation_time3 = "";

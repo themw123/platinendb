@@ -11,23 +11,6 @@ select option[disabled]:first-child {
 
 
 
-/*--reset wunschdatum button --*/
-
-#reset-date {
-  background-color: #6C757D;
-  font-size: 9px;
-  
-}
-
-#reset-date2 {
-  background-color: #6C757D;
-  font-size: 9px;
-}
-
-#reset-date3 {
-  background-color: #6C757D;
-  font-size: 9px;
-}
 
 /*
 reset wunschdatum div container
@@ -45,36 +28,7 @@ reset wunschdatum div container
   font-size: 14px;
 }
 
-#reset-date {
-  outline: none !important;
-  box-shadow: none!important;
-}
 
-#reset-date:hover {
-  background-color: #606060!important;
-  border-color:#606060!important;
-}
-
-#reset-date2 {
-  outline: none !important;
-  box-shadow: none!important;
-}
-
-#reset-date2:hover {
-  background-color: #606060!important;
-  border-color:#606060!important;
-}
-
-
-#reset-date3 {
-  outline: none !important;
-  box-shadow: none!important;
-}
-
-#reset-date3:hover {
-  background-color: #606060!important;
-  border-color:#606060!important;
-}
 .alert {
   display: flex;
   justify-content: center;
@@ -155,3 +109,4 @@ border-color:#0000cc!important;
 .greener{
   color: #18de7b;
 }
+

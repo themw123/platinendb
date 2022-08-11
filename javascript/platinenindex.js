@@ -3,7 +3,7 @@ $(document).ready(function(){
   
 
 //Datumformat angeben, damit sorting funktioniert
-$.fn.dataTable.moment( 'DD-MM-YYYY' );
+$.fn.dataTable.moment( 'DD.MM.YYYY' );
 
 var d = new Date();
 t1 = moment(d).format('YYYY-MM-DD');
@@ -116,7 +116,7 @@ dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
             if(adminn == "ja") {
 
               var erstelltam = data[15].toString();
-              var t2 = erstelltam.split('-');
+              var t2 = erstelltam.split('.');
               t2 = t2[2] + "-" + t2[1] + "-" + t2[0];
 
               var start = moment(t2);      
@@ -392,24 +392,6 @@ aktion = "modaleinfuegen";
 
                         $('#modalbody2').html(data);
 
-                        /*
-                        $('#auftraggeber').selectpicker({
-                          size: 10
-                        });
-                        */
-
-                        //datepicker übergeben
-                        $('#datepicker').datepicker({
-                          locale: 'de-de',
-                          format: 'dd-mm-yyyy',
-                          uiLibrary: 'bootstrap4'
-                        });
-
-                        //datepicker reset übergeben
-                        $("#reset-date").click(function(){
-                        $('#datepicker').val("").datepicker("update");
-                        })
-
                         $('#dataModal2').modal("show");  
 
                           
@@ -453,20 +435,7 @@ $('#tabelle1 tbody').on( 'click', '#iconklasse2', function () {
                     data:{aktion:aktion, ziel:ziel, Id:Id, Leiterkartenname:Leiterkartenname, Auftraggeber:Auftraggeber, Finanzstelle:Finanzstelle, Anzahl:Anzahl, Material:Material, Endkupfer:Endkupfer, Staerke:Staerke, Lagen:Lagen, Groesse:Groesse, Oberflaeche:Oberflaeche, Loetstopp:Loetstopp, Bestueckungsdruck:Bestueckungsdruck, Wunschdatum:Wunschdatum, Kommentar:Kommentar, Ignorieren:Ignorieren},  
                     success:function(data){  
                         $('#modalbody2').html(data);  
-                        
-                        //datepicker übergeben
-                        $('#datepicker').datepicker({
-                          locale: 'de-de',
-                          format: 'dd-mm-yyyy',
-                          uiLibrary: 'bootstrap4'
-                        });
-
-                        //datepicker reset übergeben
-                        $("#reset-date").click(function(){
-                        $('#datepicker').val("").datepicker("update");
-                        })
-   
-                  
+        
                         $('#dataModal2').modal("show");  
                     }  
               }); 

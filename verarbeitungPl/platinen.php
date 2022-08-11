@@ -50,10 +50,10 @@ if($bestanden == true && $aktion == "platinen") {
 					/*
 					datum richtig formatieren
 					*/
-					$creation_time = date('d-m-Y', strtotime($row['erstellt']));
+					$creation_time = date('d.m.Y', strtotime($row['erstellt']));
 					
 					if (isset($row['Wunschdatum'])) {
-					$creation_time2 = date('d-m-Y', strtotime($row['Wunschdatum']));
+					$creation_time2 = date('d.m.Y', strtotime($row['Wunschdatum']));
 					}
 					if ($row['Wunschdatum'] == null ) {
 					$creation_time2 = "";
