@@ -166,7 +166,6 @@ else {
     <!-- selectpicker -->
     <script src="plugins/bootstrap-select-1.14.0-beta3/js/bootstrap-select.js"></script>
     
-    <!-- test2 -->
     <script src="javascript/platinenindex.js"></script>
 
 
