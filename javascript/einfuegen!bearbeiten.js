@@ -330,14 +330,14 @@ function intchange() {
 function kupfer(rollout){
   if(rollout) {
     $('#collapse3').collapse('show');
-    $("#uploadfeld").prop('required',true); 
+    //$("#uploadfeld").prop('required',true); 
     $('#statuslabel').text("Status: ");
     $('#statuslabel').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Kupferflächen(.txt) müssen angegeben werden wenn Status = Fertigung und int/ext = int'></i>");
     $('[data-toggle="popover"]').popover();
   }
   else {
     $('#collapse3').collapse('hide');
-    $("#uploadfeld").prop('required',false); 
+    //$("#uploadfeld").prop('required',false); 
     remUploadData();
 
     $('#lagen').prop( "disabled", false);
