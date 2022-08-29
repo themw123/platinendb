@@ -346,50 +346,95 @@ function uploadSecurity($toCheck){
 }
 
 function readfiledata() {
+
 	$contents = file_get_contents($_FILES['file']['tmp_name']);
-	$anfang = strpos($contents, ":Top")-8;
-	$ende = strpos($contents, ":Bottom")+40;
-	$contentsNeu = substr($contents, $anfang, $ende-$anfang);
 
-	$contentsNeu = trim($contentsNeu);
-	$contentsNeu = preg_replace("/[[:blank:]]+/","=",$contentsNeu);
-	$anzahlLines = substr_count($contentsNeu, "\n" )+1;
-	
-	$row = $anzahlLines;
+	if (!(strpos($contents, ":Top") !== false) && !(strpos($contents, ":Bottom") !== false)) {
+		// weder top noch bottom
+		return;
+	}
+	else {
+		if((strpos($contents, ":Top") !== false) && (strpos($contents, ":Bottom") !== false)) {
+			//top und bottom
+			$anfang = strpos($contents, ":Top")-8;
+			$ende = strpos($contents, ":Bottom")+40;
 
+			$contentsNeu = substr($contents, $anfang, $ende-$anfang);
 
-	$counter = 0;
-	while($counter < $anzahlLines){
-		$ende =  strpos($contentsNeu, "=");
-		if($counter == 0) {
-			$a[$counter][0] = "Top";
-		}
-		elseif($row == 1) {
-			$a[$counter][0] = "Bottom";
-		}
-		else{
-			$a[$counter][0] = "L".($counter+1);
-		}
-
+			$contentsNeu = trim($contentsNeu);
+			$contentsNeu = preg_replace("/[[:blank:]]+/","=",$contentsNeu);
+			$anzahlLines = substr_count($contentsNeu, "\n" )+1;
 			
-		$contentsNeu = substr($contentsNeu, strpos($contentsNeu, "=")+1, strlen($contentsNeu));
-		if($row != 1) {
-			$a[$counter][1] = substr($contentsNeu, 0, strpos($contentsNeu, "="));
+			$row = $anzahlLines;
+		
+		
+			$counter = 0;
+			while($counter < $anzahlLines){
+				$ende =  strpos($contentsNeu, "=");
+				if($counter == 0) {
+					$a[$counter][0] = "Top";
+				}
+				elseif($row == 1) {
+					$a[$counter][0] = "Bottom";
+				}
+				else{
+					$a[$counter][0] = "L".($counter+1);
+				}
+		
+					
+				$contentsNeu = substr($contentsNeu, strpos($contentsNeu, "=")+1, strlen($contentsNeu));
+				if($row != 1) {
+					$a[$counter][1] = substr($contentsNeu, 0, strpos($contentsNeu, "="));
+				}
+				else {
+					$a[$counter][1] = substr($contentsNeu, 0, strlen($contentsNeu));
+				}
+				$contentsNeu = substr($contentsNeu, strpos($contentsNeu, "=")+1, strlen($contentsNeu));
+				$counter = $counter+1;
+				$row = $row -1;
+			}
+			$summe = 0;
+			foreach($a as $value) {
+				$summe = $summe + $value[1];
+			}
+			$a[$counter][0] = "LagenSumme";
+			$a[$counter][1] = $summe;
+			return $a;
+
+
 		}
-		else {
-			$a[$counter][1] = substr($contentsNeu, 0, strlen($contentsNeu));
+		else if(strpos($contents, ":Top") !== false) {
+			//nur top
+			$anfang = strpos($contents, ":Top")+5;
+			$ende = strlen($contents);
+			$contentsNeu = substr($contents, $anfang, $ende-$anfang);
+			$contentsNeu = trim($contentsNeu);
+			$contentsNeu = preg_replace("/[[:blank:]]+/","=",$contentsNeu);
+			$a[0][0] = "Top";
+			$a[0][1] = substr($contentsNeu, 0, strpos($contentsNeu, "="));
+			$a[1][0] = "LagenSumme";
+			$a[1][1] = substr($contentsNeu, 0, strpos($contentsNeu, "="));
+
 		}
-		$contentsNeu = substr($contentsNeu, strpos($contentsNeu, "=")+1, strlen($contentsNeu));
-		$counter = $counter+1;
-		$row = $row -1;
+		else if(strpos($contents, ":Bottom") !== false) {
+			//nur bottom
+			$anfang = strpos($contents, ":Bottom")+7;
+			$ende = strlen($contents);
+			$contentsNeu = substr($contents, $anfang, $ende-$anfang);
+			$contentsNeu = trim($contentsNeu);
+			$contentsNeu = preg_replace("/[[:blank:]]+/","=",$contentsNeu);
+			$a[0][0] = "Bottom";
+			$a[0][1] = substr($contentsNeu, 0, strpos($contentsNeu, "="));
+			$a[1][0] = "LagenSumme";
+			$a[1][1] = substr($contentsNeu, 0, strpos($contentsNeu, "="));
+		}
+		return $a;
+
 	}
-	$summe = 0;
-	foreach($a as $value) {
-		$summe = $summe + $value[1];
-	}
-	$a[$counter][0] = "LagenSumme";
-	$a[$counter][1] = $summe;
-	return $a;
+
+
+
+
 }	
 	
 

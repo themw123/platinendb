@@ -522,23 +522,40 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                 var reader = new FileReader();
                 reader.onload = function(){
                   var text = reader.result;
+
+                  /*
                   var richtigerInhalt = text.includes(":Top");
                   var richtigerInhalt2 = text.includes(":Bottom");
-        
                   if(!richtigerInhalt || !richtigerInhalt2) {
                     remUploadData("Der Inhalt entspricht nicht den Erwartungen.");
                   }
-                  else {         
+                  */
+                  if(!text.includes(":Top") && !text.includes(":Bottom")) {
+                    //weder top noch buttom
+                    remUploadData("Der Inhalt entspricht nicht den Erwartungen.");
+                  }
+                  else {
+                    //nur top
                     //AnzahlLagen aus aktuellem Nutzen
                     anzahlLagen1 = $("#lagen").val();
                     $('#fehleraddlagen').hide();
                     var text = reader.result;
-                    var anfang = text.indexOf(":Top")-8;
-                    var ende = text.indexOf(":Bottom")+40;
-                    var textneu = text.substring(anfang, ende);
-                  
-                    textneu = textneu.replace(/ +(?= )/g,'').trim();
-                    var anzahlLagen2 = textneu.split(/\r\n|\r|\n/).length;
+                    var anzahlLagen2 = 0;
+
+                    if(text.includes(":Top") && text.includes(":Bottom")) {
+                      //top und buttom
+                      var anfang = text.indexOf(":Top")-8;
+                      var ende = text.indexOf(":Bottom")+40;
+                      var textneu = text.substring(anfang, ende);
+                      textneu = textneu.replace(/ +(?= )/g,'').trim();
+                      var anzahlLagen2 = textneu.split(/\r\n|\r|\n/).length;
+                    }
+                    else {
+                      //nur top oder nur bottom
+                      var anzahlLagen2 = 1;
+                    }
+
+
 
                     if(anzahlLagen1 != anzahlLagen2) {
                       remUploadData("Die Anzahl der Lagen stimmt nicht überein.");
@@ -552,6 +569,8 @@ if(aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
                       $('[data-toggle="popover"]').popover();
                     }
                   }
+
+
 
 
                 };
