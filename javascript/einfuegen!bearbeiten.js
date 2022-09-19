@@ -258,8 +258,13 @@ function addUpload(fileName) {
   $('#upload-info').animate({opacity: 1,fontSize: '17px'},500);
   $('#inputbild').animate({opacity: 1,fontSize: '16px'},500);
   $('#delfile').show(); 
-  $('#lagen').prop( "disabled", true );
+
+  if(aktionx.includes("Nutzen")) { 
+    $('#lagen').prop( "disabled", true );
+  }
+
   $('#fehleraddlagen').hide();
+
   //infoicon
   if($('#lagenid').hasClass('iconaus')) {
     $('#lagenid').append("<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Lagen können erst wieder bearbeitet werden, wenn keine Lagen.txt-Datei ausgewählt ist.'></i>");
