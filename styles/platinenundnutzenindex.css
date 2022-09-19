@@ -539,46 +539,56 @@ toggler icon größe
   margin-left: 21px !important;
 }
 
+#auswertung {
+  margin-left: 21px !important;
+}
 
 
 /*
 navbar bei toggle 
 */
 @media (max-width: 767px) {
+  
   .navbar-collapse {
     border-top: 1px solid transparent;
     box-shadow: inset 0 2px 0 rgba(255,255,255,0.1);
     margin-top: 7px;
-}
-.navbar-nav {
-  margin: 20.5px 0px;
-  margin-top: 7px;
+  }
 
-}
+  .navbar-nav {
+    margin: 20.5px 0px;
+    margin-top: 7px;
 
-.nav-item {
-  margin-bottom: 19px;
-}
+  }
 
-.navbar1 {
-  float: left;
-  font-size: 19px;
-  margin-left: 0px;
-  margin-top: 16px;
-}
-.navbar2 {
-  float: right;
-  font-size: 19px;
-  margin-top: 16px;
-}
+  .nav-item {
+    margin-bottom: 19px;
+  }
 
-#nutzen {
-  margin-left: 0px !important;
-}
+  .navbar1 {
+    float: left;
+    font-size: 19px;
+    margin-left: 0px;
+    margin-top: 16px;
+  }
+  .navbar2 {
+    float: right;
+    font-size: 19px;
+    margin-top: 16px;
+  }
 
-#benutzer {
-  margin-right: 0px !important
-}
+  #nutzen {
+    margin-left: 0px !important;
+  }
+
+  #auswertung {
+    margin-left: 0px !important
+  }
+
+  #benutzer {
+    margin-right: 0px !important
+  }
+
 }
 
 
