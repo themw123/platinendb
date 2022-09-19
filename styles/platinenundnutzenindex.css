@@ -2,16 +2,6 @@
 styles für platinenindex.php (view: logged_in.php)
 */
 
-body,html {
-  
-  zoom: 75%;
-  /*
-  musste weg für fixed headers plugin
-  overflow: auto!important;
-  high:100%
-  */
-}
-
 
 h2 {
   text-align: center;

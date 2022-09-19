@@ -10,7 +10,7 @@
     
     <link href="plugins/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="styles/platinenundnutzenindex.css" rel="stylesheet" type="text/css">
+    <link href="styles/auswertungindex.css" rel="stylesheet" type="text/css">
  
 
     
@@ -82,19 +82,19 @@ if ($login->isUserLoggedIn() == true) {
     //gucken ob es est ist
     if (isUserAdmin($login_connection) == true) {
 
-     //gucken ob Datenbankverbindung zu platinendb (bzw auch login) besteht, sonnst abbruch
-    if (isset($login)) {
-      if ($login->errors) {
-          foreach ($login->errors as $error) {
-              if($error != false) {
-                echo '<div class="alert alert-danger"> '.$error.'   </div> ';
-                die();
-              }
-          }
+      //gucken ob Datenbankverbindung zu platinendb (bzw auch login) besteht, sonnst abbruch
+      if (isset($login)) {
+        if ($login->errors) {
+            foreach ($login->errors as $error) {
+                if($error != false) {
+                  echo '<div class="alert alert-danger"> '.$error.'   </div> ';
+                  die();
+                }
+            }
+        }
       }
-    }
 
-    include("views/auswertung.php");
+      include("views/auswertung.php");
     }
     else {
       header("location: index.php");
@@ -120,10 +120,11 @@ else {
  
     <script src="plugins/bootstrap-4.5.3-dist/js/bootstrap.min.js" type="text/javascript"></script>
 
+    <script src="plugins/bootstrap-4.5.3-dist/js/bootstrap.min.js" type="text/javascript"></script>
 
+    <script src="plugins/chart/dist/chart.min.js" type="text/javascript"></script>
 
-
-
+    <script src="javascript/auswertungindex.js"></script>
 
 
 
