@@ -22,9 +22,13 @@ class Sicherheit {
         if($von == "platine") {
             $this->platine();
         }
-        else {
+        else if($von == "nutzen"){
             $this->nutzen();
         }
+        else {
+            $this->auswertung();
+        }
+
     }
 
 
@@ -42,6 +46,20 @@ class Sicherheit {
           header('Content-Type: application/json');
           echo json_encode(array('data'=> 'dberror', 'error'=> $connection->error));
           //die();
+        }
+        else{
+          header('Content-Type: application/json');
+          echo json_encode(array('data'=> "erfolgreich"));
+          //die();
+        }
+    }
+
+    public function checkQueryx($connection) {
+        if (mysqli_error($connection))
+        {
+          header('Content-Type: application/json');
+          echo json_encode(array('data'=> 'dberror', 'error'=> $connection->error));
+          die();
         }
         else{
           header('Content-Type: application/json');
@@ -302,6 +320,39 @@ class Sicherheit {
             }
 
         
+
+    }
+
+
+
+
+    
+
+
+
+    private function auswertung(){   
+
+        $fromajax = $this->fromJavascript();
+        $eingeloggt = $this->login->isUserLoggedIn();
+        $est = isUserAdmin($this->login_connection);
+ 
+ 
+        if($eingeloggt == false) {
+         die (header("location: ../index.php"));
+        }
+ 
+        if($est == false) {
+         die (header("location: ../platinenindex.php"));
+        }
+
+        if($fromajax == false) {
+            die (header("location: ../auswertungindex.php"));
+        }
+ 
+ 
+         if($this->aktion == "auswertung") {
+             $this->bestanden = true;
+         }
 
     }
 
