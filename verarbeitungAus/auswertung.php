@@ -23,36 +23,69 @@ $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinen
 $bestanden = $sicherheit->ergebnis();
 
 
+
 if($bestanden == true && $aktion == "auswertung") {
 
-			
-  //für where anweisung in abfrage
-  $jahr = mysqli_real_escape_string($platinendb_connection, $_POST['jahr']);
+
+  $zeitraum = mysqli_real_escape_string($platinendb_connection, $_POST["zeitraum"]);
+	
+
+  if($zeitraum == "monate") {
+    //für where anweisung in abfrage
+    $jahr = mysqli_real_escape_string($platinendb_connection, $_POST['jahr']);
 
 
-
-  /*
-  Abfrage von platinen Tabelle
-  */
-
-
-  $sql = "
-  Select
-    xxxmonthname(erstelltam) as monat,count(platinendb.platinen.ID) as summe
-  From
-      platinendb.platinen
-      
-  GROUP by
-      month(erstelltam) 
-  Order by
-      month(erstelltam) desc;
-  ";
+    $sql = "
+    Select
+      MonthName(platinendb.platinen.erstelltam) as monat,
+      Count(platinendb.platinen.ID) As summe,
+      Sum(platinendb.lehrstuhl.kuerzel = 'est') As intern,
+      Sum(platinendb.lehrstuhl.kuerzel != 'est') As extern
+    From
+      platinendb.platinen Inner Join
+      login.users On platinendb.platinen.Auftraggeber_ID = login.users.user_id Inner Join
+      platinendb.lehrstuhl On login.users.lehrstuhl = platinendb.lehrstuhl.id
+    Where
+      Year(platinendb.platinen.erstelltam) = '$jahr'
+    Group By
+      Month(platinendb.platinen.erstelltam)
+    Order By
+      Month(platinendb.platinen.erstelltam)
+    ";
   
+  }
+
+  else if ($zeitraum == "jahre") {
+
+    //für where anweisung in abfrage
+    $letzten = mysqli_real_escape_string($platinendb_connection, $_POST['letzten']);
+    
+
+    $sql = "
+    Select
+      Year(platinendb.platinen.erstelltam) as jahr,
+      Count(platinendb.platinen.ID) As summe,
+      Sum(platinendb.lehrstuhl.kuerzel = 'est') As intern,
+      Sum(platinendb.lehrstuhl.kuerzel != 'est') As extern
+    From
+        platinendb.platinen Inner Join
+        login.users On platinendb.platinen.Auftraggeber_ID = login.users.user_id Inner Join
+        platinendb.lehrstuhl On login.users.lehrstuhl = platinendb.lehrstuhl.id
+    Where
+        YEAR(erstelltam) = YEAR(DATE_SUB(CURDATE(), INTERVAL $letzten YEAR))
+    Group By
+        Year(platinendb.platinen.erstelltam)
+    Order By
+        Year(platinendb.platinen.erstelltam)
+    ";
+
+  }
+
 
 
   $result = $platinendb_connection->query($sql);
-  $sicherheit->checkQueryx($platinendb_connection);
-
+  
+  $sicherheit->checkQuery3($platinendb_connection);
 
 
   if ($result->num_rows > 0) {
@@ -63,24 +96,31 @@ if($bestanden == true && $aktion == "auswertung") {
       
       $nestedData=array();
 
-      
-      $nestedData[] = $row["monat"];
+      if($zeitraum == "monate") {
+        $nestedData[] = $row["monat"];
+      }
+      else {
+        $nestedData[] = $row["jahr"];
+      }
+
       $nestedData[] = $row["summe"];
-      
+      $nestedData[] = $row["intern"];
+      $nestedData[] = $row["extern"];
+
       $data[] = $nestedData;
 
     }
 
     
     $json_data = array("data" => $data);
-
+    header('Content-Type: application/json');
     echo json_encode($json_data);  // send data as json format
   }
 
   else {
-    $datax[1] = "leer";
+    $data[1] = 'leer';
     header('Content-Type: application/json');
-    echo json_encode(array('data'=> $datax));
+    echo json_encode(array('data'=> $data));
     die();
   }
 
@@ -89,9 +129,9 @@ if($bestanden == true && $aktion == "auswertung") {
 
 }
 else {
-  $datax[1] = "fehlerhaft";
+  $data[1] = 'fehlerhaft';
   header('Content-Type: application/json');
-  echo json_encode(array('data'=> $datax));
+  echo json_encode(array('data'=>  $data));
   die();
 }
 

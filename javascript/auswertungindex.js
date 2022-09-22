@@ -9,15 +9,20 @@ function getData() {
   aktion = "auswertung";
 
   //var zeit = table.api().row($(this).closest('tr')).data()[1];
-  var zeit = "x";
+  var zeitraum = "jahre";
+  
+  
+  var letzten = "0";
+  var jahr = "2022";
 
   $.ajax({  
                   url:"verarbeitungAus/auswertung.php",  
                   method:"post",  
-                  data:{aktion:aktion, zeit:zeit},  
+                  data:{aktion:aktion, zeitraum:zeitraum, letzten:letzten, jahr:jahr},  
                   success:function(data){
-                    var t = "";  
+                    
                     var zustand = data.data[1];
+
                     if (zustand == 'leer') {
                       $('#result').hide().fadeIn(1000).html('<div class="alert alert-warning alertm">Es wurden keine Daten gefunden</div>');
                     }
@@ -25,19 +30,23 @@ function getData() {
                       $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Es ist ein Fehler im Zusammenhang mit der Sicherheit aufgetreten.</div>');
                     }
                     else if(zustand == 'dberror'){
-                      $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Fehler bei der Durchführung des Datenbankbefehls. Fehler: ' + data.error +'</div>');
+                      $('#result').hide().fadeIn(1000).html('<div class="alert alert-danger alertm">Fehler bei der Durchführung des Datenbankbefehls. Fehler: ' + data.data[2] +'</div>');
                     }
-                    else if (zustand == 'erfolgreich') {
+
+                    //erfolgreich
+                    else {
+                      
+
+
+
+
+
 
                     }
                         
                     window.setTimeout(function() {
                       $(".alertm").fadeTo(500, 0);
                       $(this).remove();
-                      /*
-                      var table = $('#tabelle1').DataTable();
-                      table.fixedHeader.headerOffset(0);
-                      */
                     }, 5000);
                   }  
             }); 
