@@ -12,7 +12,7 @@ function getData() {
   var zeitraum = "jahre";
   
   
-  var letzten = "0";
+  var letzten = "3";
   var jahr = "2022";
 
   $.ajax({  

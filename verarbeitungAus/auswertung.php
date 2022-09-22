@@ -59,7 +59,6 @@ if($bestanden == true && $aktion == "auswertung") {
 
     //für where anweisung in abfrage
     $letzten = mysqli_real_escape_string($platinendb_connection, $_POST['letzten']);
-    
 
     $sql = "
     Select
@@ -67,18 +66,16 @@ if($bestanden == true && $aktion == "auswertung") {
       Count(platinendb.platinen.ID) As summe,
       Sum(platinendb.lehrstuhl.kuerzel = 'est') As intern,
       Sum(platinendb.lehrstuhl.kuerzel != 'est') As extern
-    From
+     From
         platinendb.platinen Inner Join
         login.users On platinendb.platinen.Auftraggeber_ID = login.users.user_id Inner Join
         platinendb.lehrstuhl On login.users.lehrstuhl = platinendb.lehrstuhl.id
-    Where
-        YEAR(erstelltam) = YEAR(DATE_SUB(CURDATE(), INTERVAL $letzten YEAR))
-    Group By
+     Group By
         Year(platinendb.platinen.erstelltam)
-    Order By
-        Year(platinendb.platinen.erstelltam)
-    ";
-
+     Order By
+        Year(platinendb.platinen.erstelltam) desc
+     LIMIT $letzten; 
+     ";
   }
 
 
