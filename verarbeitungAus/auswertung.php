@@ -60,6 +60,7 @@ if($bestanden == true && $aktion == "auswertung") {
     //für where anweisung in abfrage
     $letzten = mysqli_real_escape_string($platinendb_connection, $_POST['letzten']);
 
+
     $sql = "
     Select
       Year(platinendb.platinen.erstelltam) as jahr,
