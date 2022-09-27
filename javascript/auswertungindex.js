@@ -1,18 +1,89 @@
 
-setChart();
+
+setDefaultSettings();
+
+getData();
 
 
-function setChart() {
 
+
+$("#zeitinterval").on("input", function() {
+    jahroderletztechange = false;
+    setSettings();
+});
+
+$("#jahroderletzten").on("input", function() {
+    zeitintervalchange = false;
+    setSettings();
+});
+
+
+
+function setDefaultSettings() {
   aktion = "auswertung";
+  zeitraum = "monate";
+  jahroderletztechange = false;
+  zeitintervalchange = true;
 
-  zeitraum = "jahre";
+  letzten = "3";
   
-  
-  letzten = "4";
-  jahr = "2021";
+  jahr = new Date().getFullYear();
+  for (var i = 0; i <= 5; i++) {
+    $('#jahroderletzten').append(new Option((jahr-i), (jahr-i)));
+  }
+
+
   datar = null;
 
+
+}
+
+function setSettings() {
+
+  zeitraum = $("#zeitinterval option:selected").val().toLowerCase();
+
+  if(zeitraum == "jahre" && jahroderletztechange == false) {
+
+    jahroderletztechange = true;
+
+    $('#jahrlabel').text("Letzten:");
+
+    var $el = $("#jahroderletzten");
+    $el.empty();
+    for(var i = 1; i <= 3; i++) {
+      $el.append($("<option></option>").attr("value", i).text(i));
+    }
+
+    $("#jahroderletzten").val("3");
+  
+  }
+
+  else if(zeitraum == "monate"  && zeitintervalchange == true){
+    zeitintervalchange = true;
+    $('#jahrlabel').text("Jahr:");
+    jahr = new Date().getFullYear();
+    $('#jahroderletzten').empty();
+    for (var i = 0; i <= 5; i++) {
+      $('#jahroderletzten').append(new Option((jahr-i), (jahr-i)));
+    }
+  }
+
+  jahr = $("#jahroderletzten option:selected").val();
+  letzten = $("#jahroderletzten option:selected").val();
+
+  getData();
+
+}
+
+
+
+
+
+
+
+
+
+function getData() {
 
   $.ajax({  
                   url:"verarbeitungAus/auswertung.php",  
@@ -20,6 +91,14 @@ function setChart() {
                   data:{aktion:aktion, zeitraum:zeitraum, letzten:letzten, jahr:jahr},  
                   success:function(data){
                     
+                    try {
+                      chart1.destroy();
+                    }
+                    catch(error){
+                  
+                    }
+
+
                     var zustand = data.data[1];
 
                     if (zustand == 'leer') {
@@ -37,7 +116,27 @@ function setChart() {
 
                       datar = data;
 
-                      set();
+                      if(zeitraum == "jahre") {
+                        var datarTemp = new Array;
+                        for(var i = letzten-1; i >= 0; i--) {
+                          datarTemp.push(datar.data[i]);
+                        }
+                        datar = datarTemp;
+                      }
+                      else if(zeitraum == "monate") {
+                        datar = datar.data;
+                      }
+
+
+                      /*
+                      if(zeitraum == "monate") {
+                        $.each(datar, function( key, value ){
+                          $('#jahroderletzten').append('<option value="">' + value + '</option>');
+                        });
+                      }
+                      */
+
+                      setChart();
 
                     }
                         
@@ -67,22 +166,10 @@ function setChart() {
 
 
 
-function set() {
+function setChart() {
 
-  if(zeitraum == "jahre") {
-    var datarTemp = new Array;
-    for(var i = letzten-1; i >= 0; i--) {
-      datarTemp.push(datar.data[i]);
-    }
-    datar = datarTemp;
-  }
-  else if(zeitraum == "monate") {
-    datar = datar.data;
-  }
-
-
-  const ctx1 = document.getElementById('chart1').getContext('2d');
-  const chart1 = new Chart(ctx1, {
+  ctx1 = document.getElementById('chart1').getContext('2d');
+  chart1 = new Chart(ctx1, {
 
       type: 'bar',
       data: {
@@ -116,6 +203,22 @@ function set() {
         ]
       },
       options: {
+
+
+          plugins: {
+            /*
+              title: {
+                  display: true,
+                  text: 'Platinenaufträge',
+                  padding: {
+                    bottom: 30
+                  },
+                  font: {
+                    size: 20
+                  }
+              }
+              */
+          },
 
           scales: {
               x: {
@@ -154,8 +257,6 @@ function getValues(intorext) {
   
   var dataArray = new Array;
 
-
-  var laenge = 0;
 
   for (let i = 0; i < datar.length; i++) {
     var stelle = 0;

@@ -16,6 +16,31 @@ echo'
 	</div>
 
 	<div class="container" id="chartdiv">
+		<h3>Platinenaufträge</h3>
+	</div>
+
+	<div class="container" id="con">
+		<div class="set" id="zeitintervalDiv">
+			<label for="usr">Zeitinterval:</label>
+			
+			<select class="form-control" id="zeitinterval" name="Zeitinterval" required=""> 
+				<option>Monate</option>	
+				<option>Jahre</option>
+			</select>
+			
+		</div>
+
+		<div class="set" id="jahroderletztenDiv">
+			<label id="jahrlabel" for="usr">Jahr:</label>
+
+			<select class="form-control" id="jahroderletzten" name="jahroderletzten" required=""> 
+
+			</select>
+		</div>
+	</div>
+
+
+	<div class="container" id="chartdiv">
 		<canvas class="chart" id="chart1"></canvas>
 	</div>
 ';
