@@ -6,11 +6,11 @@ function setChart() {
 
   aktion = "auswertung";
 
-  zeitraum = "monate";
+  zeitraum = "jahre";
   
   
   letzten = "4";
-  jahr = "2022";
+  jahr = "2021";
   datar = null;
 
 
@@ -77,11 +77,7 @@ function set() {
     datar = datarTemp;
   }
   else if(zeitraum == "monate") {
-    var datarTemp = new Array;
-    for(var i = 0; i < datar.data.length; i++) {
-      datarTemp.push(datar.data[i]);
-    }
-    datar = datarTemp;
+    datar = datar.data;
   }
 
 
@@ -144,7 +140,7 @@ function getLabels() {
 
   var labels = new Array;
 
-   for (let i = 0; i < datar.length; i++) {
+  for (let i = 0; i < datar.length; i++) {
     labels.push(datar[i][0]+'');
   } 
   
@@ -160,14 +156,8 @@ function getValues(intorext) {
 
 
   var laenge = 0;
-  if(zeitraum == "jahre") {
-    laenge = letzten;
-  }
-  else if(zeitraum == "monate"){
-    laenge = datar.length;
-  }
 
-  for (let i = 0; i < laenge; i++) {
+  for (let i = 0; i < datar.length; i++) {
     var stelle = 0;
     if(intorext == "int") {
       stelle = 2;
