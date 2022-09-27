@@ -41,6 +41,7 @@ function setDefaultSettings() {
 function setSettings() {
 
   zeitraum = $("#zeitinterval option:selected").val().toLowerCase();
+  jahr = $("#jahroderletzten option:selected").val();
 
   if(zeitraum == "jahre" && jahroderletztechange == false) {
 
@@ -68,7 +69,6 @@ function setSettings() {
     }
   }
 
-  jahr = $("#jahroderletzten option:selected").val();
   letzten = $("#jahroderletzten option:selected").val();
 
   getData();
