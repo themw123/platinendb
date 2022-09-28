@@ -8,13 +8,11 @@ getData();
 
 
 $("#zeitinterval").on("input", function() {
-    jahroderletztechange = false;
-    setSettings();
+    setSettings1();
 });
 
 $("#jahroderletzten").on("input", function() {
-    zeitintervalchange = false;
-    setSettings();
+    setSettings2();
 });
 
 
@@ -22,15 +20,12 @@ $("#jahroderletzten").on("input", function() {
 function setDefaultSettings() {
   aktion = "auswertung";
   zeitraum = "monate";
-  jahroderletztechange = false;
-  zeitintervalchange = true;
 
-  letzten = "3";
+  letzten = "x";
   
-  jahr = new Date().getFullYear();
-  for (var i = 0; i <= 5; i++) {
-    $('#jahroderletzten').append(new Option((jahr-i), (jahr-i)));
-  }
+
+  setJahre();
+
 
 
   datar = null;
@@ -38,45 +33,72 @@ function setDefaultSettings() {
 
 }
 
-function setSettings() {
+function setSettings1() {
+
+  var jahroderletzten = $('#jahrlabel').text();
+  
+  zeitraum = $("#zeitinterval option:selected").val().toLowerCase();
+  jahr = $("#jahroderletzten option:selected").val();
+  letzten = $("#jahroderletzten option:selected").val();
+
+
+  if (zeitraum == "jahre" && jahroderletzten == "Jahr:") {
+   
+    $('#jahrlabel').text("Letzten:");
+
+
+    setLetzten();
+
+    $("#jahroderletzten option:last").attr("selected", "selected");  
+
+  }
+
+  else if (zeitraum == "monate" && jahroderletzten == "Letzten:") {
+   
+    $('#jahrlabel').text("Jahr:");
+    setJahre();
+
+  }
+
 
   zeitraum = $("#zeitinterval option:selected").val().toLowerCase();
   jahr = $("#jahroderletzten option:selected").val();
-
-  if(zeitraum == "jahre" && jahroderletztechange == false) {
-
-    jahroderletztechange = true;
-
-    $('#jahrlabel').text("Letzten:");
-
-    var $el = $("#jahroderletzten");
-    $el.empty();
-    for(var i = 1; i <= 3; i++) {
-      $el.append($("<option></option>").attr("value", i).text(i));
-    }
-
-    $("#jahroderletzten").val("3");
-  
-  }
-
-  else if(zeitraum == "monate"  && zeitintervalchange == true){
-    zeitintervalchange = true;
-    $('#jahrlabel').text("Jahr:");
-    jahr = new Date().getFullYear();
-    $('#jahroderletzten').empty();
-    for (var i = 0; i <= 5; i++) {
-      $('#jahroderletzten').append(new Option((jahr-i), (jahr-i)));
-    }
-  }
-
   letzten = $("#jahroderletzten option:selected").val();
+
 
   getData();
 
 }
 
 
+function setLetzten() {
+  var $el = $("#jahroderletzten");
+  $el.empty();
+  for(var i = 1; i <= 3; i++) {
+    $el.append($("<option></option>").attr("value", i).text(i));
+  }
 
+}
+
+function setJahre() {
+  $('#jahroderletzten').empty();
+  jahr = new Date().getFullYear();
+  for (var i = 0; i <= 5; i++) {
+    $('#jahroderletzten').append(new Option((jahr-i), (jahr-i)));
+  }
+}
+
+
+function setSettings2() {
+
+  zeitraum = $("#zeitinterval option:selected").val().toLowerCase();
+  jahr = $("#jahroderletzten option:selected").val();
+  letzten = $("#jahroderletzten option:selected").val();
+
+
+  getData();
+
+}
 
 
 
