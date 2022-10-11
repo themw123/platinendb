@@ -59,7 +59,13 @@ if($bestanden == true && $aktion == "auswertung") {
 
     //für where anweisung in abfrage
     $letzten = mysqli_real_escape_string($platinendb_connection, $_POST['letzten']);
-
+    
+    if ($letzten == 0) {
+      $limit = "";
+    }
+    else {
+      $limit = "LIMIT $letzten";
+    }
 
     $sql = "
     Select
@@ -75,7 +81,7 @@ if($bestanden == true && $aktion == "auswertung") {
         Year(platinendb.platinen.erstelltam)
      Order By
         Year(platinendb.platinen.erstelltam) desc
-     LIMIT $letzten; 
+     $limit; 
      ";
   }
 

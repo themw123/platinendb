@@ -61,12 +61,7 @@ function setSettings1() {
   }
 
 
-  zeitraum = $("#zeitinterval option:selected").val().toLowerCase();
-  jahr = $("#jahroderletzten option:selected").val();
-  letzten = $("#jahroderletzten option:selected").val();
-
-
-  getData();
+  setSettings2();
 
 }
 
@@ -74,16 +69,17 @@ function setSettings1() {
 function setLetzten() {
   var $el = $("#jahroderletzten");
   $el.empty();
-  for(var i = 1; i <= 3; i++) {
+  for(var i = 1; i <= 5; i++) {
     $el.append($("<option></option>").attr("value", i).text(i));
   }
+  $el.append($("<option></option>").attr("value", 0).text("alle"));
 
 }
 
 function setJahre() {
   $('#jahroderletzten').empty();
   jahr = new Date().getFullYear();
-  for (var i = 0; i <= 5; i++) {
+  for (var i = 0; i <= 10; i++) {
     $('#jahroderletzten').append(new Option((jahr-i), (jahr-i)));
   }
 }
@@ -136,19 +132,27 @@ function getData() {
                     //erfolgreich
                     else {
 
-                      datar = data;
+                      datar = data.data;
 
                       if(zeitraum == "jahre") {
                         var datarTemp = new Array;
-                        for(var i = letzten-1; i >= 0; i--) {
-                          datarTemp.push(datar.data[i]);
+                        
+                        if(letzten == 0) {
+                          for(var i = datar.length; i >= 0; i--) {
+                            datarTemp.push(datar[i]);
+                          }
                         }
-                        datar = datarTemp;
-                      }
-                      else if(zeitraum == "monate") {
-                        datar = datar.data;
-                      }
+                        else {
+                          for(var i = letzten-1; i >= 0; i--) {
+                            datarTemp.push(datar[i]);
+                          }
+                        }
+                        
 
+
+                        datar = datarTemp;
+                        datar = datar.filter(item => item);
+                      }
 
                       /*
                       if(zeitraum == "monate") {
@@ -265,8 +269,10 @@ function getLabels() {
 
   var labels = new Array;
 
-  for (let i = 0; i < datar.length; i++) {
+  for (let i = 0; i < datar.length && i < 10; i++) {
+
     labels.push(datar[i][0]+'');
+    
   } 
   
 
@@ -278,7 +284,6 @@ function getLabels() {
 function getValues(intorext) {
   
   var dataArray = new Array;
-
 
   for (let i = 0; i < datar.length; i++) {
     var stelle = 0;
