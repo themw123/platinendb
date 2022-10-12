@@ -3,7 +3,7 @@
 if ($currentpage == "index") {
 
     $hostname = $host= gethostname();
-    if($hostname == "DESKTOP-4HFA8OJ") {
+    if($hostname != "platinendb") {
       $style="style=\"margin-bottom:-24px;\"";
     }
     else {
@@ -24,7 +24,7 @@ if ($currentpage == "index") {
 
 if ($currentpage == "registrierindex") {
     $hostname = $host= gethostname();
-    if($hostname == "DESKTOP-4HFA8OJ") {
+    if($hostname != "platinendb") {
       $style="style=\"margin-bottom:-24px;\"";
     }
     else {
@@ -47,7 +47,7 @@ if ($currentpage == "registrierindex") {
 
 if ($currentpage == "password_reset") {
     $hostname = $host= gethostname();
-    if($hostname == "DESKTOP-4HFA8OJ") {
+    if($hostname != "platinendb") {
       $style="style=\"margin-bottom:-24px;\"";
     }
     else {
@@ -68,7 +68,7 @@ if ($currentpage == "password_reset") {
 if ($currentpage == "platinenindex") {
     
     $hostname = $host= gethostname();
-    if($hostname == "DESKTOP-4HFA8OJ") {
+    if($hostname != "platinendb") {
       $style="style=\"margin-top:-24px;\"";
     }
     else {
@@ -123,7 +123,7 @@ if ($currentpage == "platinenindex") {
 
 if ($currentpage == "nutzenindex") {
       $hostname = $host= gethostname();
-      if($hostname == "DESKTOP-4HFA8OJ") {
+      if($hostname != "platinendb") {
         $style="style=\"margin-top:-24px;\"";
       }
       else {
@@ -171,7 +171,7 @@ if ($currentpage == "nutzenindex") {
 
 if ($currentpage == "auswertungindex") {
       $hostname = $host= gethostname();
-      if($hostname == "DESKTOP-4HFA8OJ") {
+      if($hostname != "platinendb") {
         $style="style=\"margin-top:-24px;\"";
       }
       else {
