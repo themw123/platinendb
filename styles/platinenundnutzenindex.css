@@ -1,0 +1,1336 @@
+/*
+styles für platinenindex.php (view: logged_in.php)
+*/
+
+
+h2 {
+  text-align: center;
+  line-height: 109px; 
+  height: 84px;
+
+
+  font-size: 40px;
+  font-weight: 600;
+  color: #005EA9;
+
+}
+
+
+
+
+  /*-- Navigationsleiste --*/
+   .navbar {
+    background:#005ea9;
+    position: relative;
+    /*
+    margin-top: -24px;
+    */
+  }
+
+
+  .fas.fa-plus-square {
+  color: #005EA9;
+  }
+
+  .table td {
+    text-align: center;
+    vertical-align: middle !important;  
+ }
+ 
+  .nav-link,
+  .navbar-brand {
+    color: white;
+    cursor: pointer;
+  }
+
+  .nav-link {
+    margin-right: 0em !important;
+    display: inline;
+    font-size: 20px;
+    vertical-align: baseline!important;
+  }
+
+  .nav-link:hover,
+  .navbar-brand:hover {
+    color: white;
+
+    
+
+  }
+  .navbar-collapse {
+    justify-content: flex-end;
+  }
+
+  @media screen and (max-width: 768px) {
+
+    #main-navigation {
+      margin-bottom: -9px;
+    }
+    
+    #button2container {
+      margin-top: 0px;
+      margin-bottom: 14px;
+    }
+    
+    }
+
+
+
+/*
+  Tabelle
+*/
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+
+.table.text-center.table-hover tr{
+  cursor: pointer;
+}
+
+/*
+  Tabelle ohne line breaks 
+*/
+.table-responsive {
+  white-space:nowrap;
+  }
+
+
+/*
+icons der buttons
+*/
+#icons{
+  color:#005ea9;
+  font-size: 26px;
+  vertical-align: middle;
+  font-size: 34px;
+  
+}
+
+#icons:hover{
+  color: #0000cc;
+}
+
+
+
+
+/*
+buttons bar
+*/
+
+.mb-3, .my-3{
+  height: 50px;
+}
+
+
+/*
+buttons blauenrand entfernen
+*/
+
+#button1 {
+  outline: none !important;
+  box-shadow: none;
+} 
+/*
+bug entfernen (linie neben icon bei hover) 
+*/
+
+
+.liniebug, .fa.fa-edit, .fa.fa-trash-alt {
+  text-decoration: none !important
+}
+
+#iconklasse {
+  color: #005ea9;
+  padding-right: 9px;
+  padding-left: 9px;
+  font-size: 18px;
+}
+
+
+
+#iconklasse:hover {
+  color: #0000cc;
+}
+
+
+/*
+spalte für icons breiter machen
+*/
+
+#breiter {
+  padding:0;
+}
+
+
+
+/*
+confirm container für knöpfe
+*/
+.jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons{
+  float: none;
+  text-align: center;
+}
+
+
+/*
+confirm container für body
+*/
+.jconfirm.jconfirm-light .jconfirm-box {
+  text-align: center;
+}
+
+
+/*
+confirm knöpfe anordnung
+*/
+.jconfirm .jconfirm-box .jconfirm-buttons button {
+  margin-bottom: 6px;
+  margin-left: 23px;
+  margin-right: 23px;
+  width: 92px;
+}
+
+
+/*
+confirm knöpfe div anordnung
+*/
+
+.jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons {
+  float: none;
+  text-align: center;
+  margin-right: -15px;
+  margin-left: -15px;
+  
+}
+
+
+/*
+confirm knöpfe farbe
+*/
+.jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons button {
+text-transform: uppercase;
+font-size: 14px;
+font-weight: bold;
+text-shadow: none;
+background-color: #005ea9;
+outline: none !important;
+box-shadow: none!important;
+}
+
+/*
+confirm leeren div in body entfernen
+*/
+.jconfirm .jconfirm-box div.jconfirm-content-pane.no-scroll {
+  display: none!important;
+}
+
+
+
+/*
+tabelle ausblenden, bis javascript die Tabelle aufruft
+*/
+#tabelle1 {
+  display:none;
+}
+
+/*
+Formatierungen 
+*/
+#tabellecontainer {
+  margin-bottom: 86px;
+}
+
+
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+  margin-top: 16px;
+}
+
+div.row {
+  margin-top: 3px!important;
+}
+
+
+/*
+pegination responsive machen 
+*/
+ul.pagination {
+ 
+
+  display: -ms-flexbox;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: flex-end;
+ 
+}
+
+/*
+Pegination Farbe von zahlen
+*/
+.page-link {
+  color:#005ea9;
+}
+
+/*
+Pegination bei clicken blauen rand entfernen
+*/
+.page-link:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+
+/*
+Pegination active farbe
+*/
+
+.page-item.active .page-link {
+  background-color: #005ea9;
+  border-color: #005ea9;
+}
+
+
+
+/*
+searchbox verschieben
+*/
+
+div.dataTables_wrapper div.dataTables_filter label {
+margin-right: -1px;
+margin-top: 8px;
+}
+
+
+/*
+Reihen pro seite verschieben
+*/
+
+div.dataTables_wrapper div.dataTables_length label {
+  margin-top: 18px;
+  margin-left: 3px;
+}
+
+div.dt-buttons {
+  color:white;
+}
+
+/*
+Export buttons farbe ändern und blaue umrandung ausstellen
+*/
+
+.btn-aktion {
+  color: white;
+  background-color: #005ea9;
+  border-color:#005ea9;
+  outline: none !important;
+  box-shadow: none!important;
+}
+
+
+.btn-aktion:hover{
+  color: white;
+  background-color: #0000cc!important;
+  border-color:#0000cc!important;
+}
+
+
+div.dataTables_wrapper div.dataTables_filter {
+  margin-right: 5px;
+}
+
+.btn-group {
+  display: inherit;
+}
+
+
+/*
+Breakpoints anpassen von export buttons
+*/
+@media screen and (max-width: 767px) {
+  div.dt-buttons {
+                  text-align:center;
+                  float: none;
+                  flex: unset;
+                  max-width: none;
+                  }
+                  
+}
+
+/*
+damit bei breakpoint die export und such optionen center sind bzw center funktionieren lamm
+*/
+.col-sm-12 {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+
+/*
+modal button anpassen
+*/
+#button2 {
+  background-color: #005ea9;
+  border-color:#005ea9;
+  outline: none !important;
+  box-shadow: none!important;
+}
+
+#button2:hover{
+  background-color: #0000cc!important;
+  border-color:#0000cc!important;
+}
+
+
+#benutzer {
+  margin-right: 21px !important;
+}
+
+/*filter button*/
+
+#button3 {
+  background-color: #005ea9;
+  border-color: #005ea9;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 13px;
+  width: 30px;
+  height: 30px;
+  margin-right: 14px;
+ 
+}
+
+
+#button3:hover{
+  background-color: #0000cc!important;
+  border-color:#0000cc!important;
+}
+
+/*filter icon*/
+
+#icon2 {
+  margin-left: -4px;
+}
+
+
+/* Aktion sortier pfeile entfernen */
+
+.no-sort::after { display: none!important; }
+
+.no-sort::before { display: none!important; }
+
+.no-sort { pointer-events: none!important; cursor: default!important; }
+
+/*
+.table.text-center.table-hover.border.dataTable.no-footer {
+  width: 100%;
+}
+*/
+
+.klick {
+  background-color:#ECECEC;
+}
+
+/* loeschen ja nein mittig machen */
+.bootbox {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.button6 {
+  background-color: #005ea9!important;
+  border-color:#005ea9!important;
+  outline: none !important;
+  box-shadow: none!important;
+  font-size: 13px;
+  width: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+
+.button6:hover{
+  background-color: #0000cc!important;
+  border-color:#0000cc!important;
+}
+
+.button7 {
+  background-color: #005ea9!important;
+  border-color:#005ea9!important;
+  outline: none !important;
+  box-shadow: none!important;
+  font-size: 13px;
+  width: 50px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.bootbox-body {
+  display: inline-block;
+}
+
+
+.button7:hover{
+  background-color: #0000cc!important;
+  border-color:#0000cc!important;
+}
+
+
+#tabellecontainer {
+  display:none;
+}
+
+#iconklasse2 {
+  color: #005ea9;
+  padding-right: 9px;
+  padding-left: 9px;
+  font-size: 19px;
+}
+
+
+
+#iconklasse2:hover {
+  color: #0000cc;
+}
+
+
+.buttons-csv {
+  margin-right: -4px!important;
+}
+
+.buttons-pdf {
+  margin-left: -5px!important;
+}
+/*
+toggler icon größe
+*/
+.navbar-toggler-icon {
+  font-size: 15px;
+}
+
+
+.navbar1 {
+  font-size: 20px;
+  margin-left: 23px;
+}
+
+
+.navbar2 {
+  font-size: 21px;
+}
+
+
+#nutzen {
+  margin-left: 21px !important;
+}
+
+#auswertung {
+  margin-left: 21px !important;
+}
+
+
+/*
+navbar bei toggle 
+*/
+@media (max-width: 767px) {
+  
+  .navbar-collapse {
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.1);
+    margin-top: 7px;
+  }
+
+  .navbar-nav {
+    margin: 20.5px 0px;
+    margin-top: 7px;
+
+  }
+
+  .nav-item {
+    margin-bottom: 19px;
+  }
+
+  .navbar1 {
+    float: left;
+    font-size: 19px;
+    margin-left: 0px;
+    margin-top: 16px;
+  }
+  .navbar2 {
+    float: right;
+    font-size: 19px;
+    margin-top: 16px;
+  }
+
+  #nutzen {
+    margin-left: 0px !important;
+  }
+
+  #auswertung {
+    margin-left: 0px !important
+  }
+
+  #benutzer {
+    margin-right: 0px !important
+  }
+
+}
+
+
+
+/*
+navbar active
+*/
+
+.active {
+ background-color: #007bff;
+}
+
+
+.nav-link:hover {
+  background-color: #007bff;
+}
+
+
+
+/*
+testdaten haken farbe
+*/
+.check {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+
+#iconklasse33 {
+  color: #005ea9;
+  padding-right: 9px;
+  padding-left: 9px;
+  font-size: 19px;
+  visibility: hidden;
+  opacity: 0;
+  display: none;
+}
+
+
+
+#iconklasse33:hover {
+  color: #0000cc;
+}
+
+
+#iconklasse6 {
+  color: grey;
+  padding-right: 9px;
+  padding-left: 9px;
+  font-size: 24px;
+}
+
+
+
+#iconklasse6:hover {
+  color: red;
+  cursor: pointer;
+}
+
+
+
+
+#button9 {
+  outline: none !important;
+  box-shadow: none;
+  margin-left: -12px;
+} 
+
+.filerhinzufuegen {
+  width: 24%;
+}
+
+.platinenadd {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.warnung {
+  padding-right: 0px!important;
+  padding-left: 0px!important;
+}
+
+
+@media screen and (max-width: 990px) {
+  #anzahl2 {
+    width: 25%;
+  }
+}
+
+#iconklasse5 {
+  color: grey;
+  padding-right: 9px;
+  padding-left: 9px;
+  font-size: 24px;
+}
+
+
+
+#iconklasse5:hover {
+  color: green;
+  cursor: pointer;
+}
+
+
+#resultanzahl {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+
+#anzahl2 {
+  width: 76%;
+}
+
+
+
+
+/*
+#bearbeiter {
+  -webkit-appearance: none;
+}
+*/
+#bearbeiterbutton, #lehrstuhlbutton, #finanzbutton {
+  color: #005ea9;
+  font-size: 18px;
+  
+}
+
+#bearbeiterbutton:hover, #lehrstuhlbutton:hover, #finanzbutton:hover {
+  color: #0000cc;
+  
+}
+
+.bearbeiterbutton, .lehrstuhlbutton, .finanzbutton {
+  background-color: white!important;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;  
+  box-shadow: none!important;
+}
+
+.bearbeiterbutton:hover, .lehrstuhlbutton:hover, .finanzbutton:hover{
+  border: 1px solid #ced4da;
+}
+
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+:not(output):-moz-ui-invalid {
+  box-shadow: 0 0 1.5px 1px white;
+}
+
+
+
+.ipg2 {
+  margin-bottom: -3px;
+}
+
+#add1, #add3 {
+  background-color: #005ea9;
+  border-color:#005ea9;
+  outline: none !important;
+  box-shadow: none!important;
+  margin-top: 6px;
+  font-size: 12px;
+  }
+
+  
+#add2 {
+  background-color: #89c2f1;
+  border-color:#89c2f1;
+  outline: none !important;
+  box-shadow: none!important;
+  margin-top: 6px;
+  font-size: 12px;
+  }
+  
+  #add1:hover, #add3:hover {
+  background-color: #0000cc!important;
+  border-color:#0000cc!important;
+  }
+
+  #add2:hover {
+    background-color: #6262ec!important;
+    border-color:#6262ec!important;
+  }
+
+  #add1 {
+    margin-top: 15px;
+  }
+
+  #rem1, #rem3{
+    background-color: #005ea9;
+    border-color:#005ea9;
+    outline: none !important;
+    box-shadow: none!important;
+    margin-top: 6px;
+    font-size: 12px;
+    }
+
+     #rem2 {
+      background-color: #89c2f1;
+      border-color:#89c2f1;
+      outline: none !important;
+      box-shadow: none!important;
+      margin-top: 6px;
+      font-size: 12px;
+    }
+    
+    #rem1:hover, #rem3:hover{
+      background-color: #0000cc!important;
+      border-color:#0000cc!important;
+    }
+    #rem2:hover{
+      background-color: #6262ec!important;
+      border-color:#6262ec!important;
+    }
+
+    #lehrstuhl option[disabled]:first-child {
+      display: none;
+    }
+
+    #fehleraddlehrstuhl{
+      margin-top: 6px;
+    }
+
+
+
+    .bearbeiterbutton, .lehrstuhlbutton, .finanzbutton{
+      border-color: #ced4da!important;
+    }
+
+    .anzahldiv3 {
+      width: 104px;
+      margin: 0 auto;
+    }
+
+    #anzahl3{
+      text-align: center;
+      width: 55px;
+      outline: none !important;
+      box-shadow: none;
+    }
+
+    #saveanzahl {
+      outline: none !important;
+      box-shadow: none;
+      background-color: #005ea9;
+    }
+
+
+    #saveanzahl:hover{
+      background-color: #0000cc!important;
+      border-color:#0000cc!important;
+      }
+
+    .checkedcircle {
+      font-size: 87%;
+      display: flex;
+    }
+
+    .errorcircle {
+      font-size: 80%;
+      display: flex;
+    }
+
+    #fehleraddbenutzer{
+      margin-top: 6px;
+    }
+
+    #uploadfeld {
+      opacity: 0;
+      width: 0;
+    }
+
+    #uploadtext {
+      margin-top: -27px;
+      margin-bottom: 1px
+    }
+
+    #upload-info{
+      margin-left: 5px;
+      font-size: 0px;
+    }
+
+
+    #uploadlabel {
+      background-color: #005ea9;
+      border-color:#005ea9;
+      outline: none !important;
+      box-shadow: none!important;
+    }
+    
+    #uploadlabel:hover{
+      background-color: #0000cc!important;
+      border-color:#0000cc!important;
+    }
+
+    #infoicon, #infoicon2, #infoicon3{
+      color: #005ea9;
+      cursor: pointer; 
+    }
+    #infoicon:hover, #infoicon2:hover, #infoicon3:hover{
+      color: #0000cc!important;
+    }
+
+    #infoicon2, #infoicon3 {
+      margin-top: 14px;
+    }
+
+    #warnungStatus{
+      margin-top: 10px;
+    }
+
+
+    .table tr td:last-child {
+      word-break: break-all;
+      white-space: normal;
+      font-size: 14px;
+    }
+
+
+    .button15 {
+      background-color: #005ea9!important;
+      border-color:#005ea9!important;
+      outline: none !important;
+      box-shadow: none!important;
+      float: right;
+      margin-top: 8.5px;
+      font-size: 13px;
+      height: 33px;
+      margin-right: 50px;
+      width: 80px;
+    }
+    
+    
+    .button15:hover{
+      background-color: #0000cc!important;
+      border-color:#0000cc!important;
+    }
+
+    .button16 {
+      background-color: #005ea9!important;
+      border-color:#005ea9!important;
+      outline: none !important;
+      box-shadow: none!important;
+      float: right;
+      margin-top: 8.5px;
+      font-size: 13px;
+      height: 33px;
+      margin-left: 50px;
+      width: 80px;
+    }
+    
+    
+    .button16:hover{
+      background-color: #0000cc!important;
+      border-color:#0000cc!important;
+    }
+
+
+
+
+    #delfile {
+      color: #005ea9;
+      padding-right: 0px;
+      padding-left: 6px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    
+    
+    
+    #delfile:hover {
+      color: #0000cc;
+    }
+
+
+    /*
+    @media screen and (max-width: 3000px) {
+      .bootbox {
+        margin-left: 0px;
+        
+      }
+    }
+
+    @media screen and (max-width: 577px) {
+      .bootbox {
+        margin-left: -9px !important;
+        
+      }
+    }
+    */  
+    
+    .alert {
+      display: flex;
+      justify-content: center;
+    }
+    
+    
+    
+    /*
+    modal button anpassen
+    */
+    #button5 {
+    background-color: #005ea9;
+    border-color:#005ea9;
+    outline: none !important;
+    box-shadow: none!important;
+    }
+    
+    #button5:hover{
+    background-color: #0000cc!important;
+    border-color:#0000cc!important;
+    }
+    
+    
+    #tabelle2 tr, #tabelle3 tr{
+    cursor: default;
+    }
+    
+    .modal-backdrop {
+      width: 100%;
+      height: 100%;
+    }
+
+    #inputbild{
+      opacity: 0;
+      display: inline;
+    }
+
+    
+    #blue {
+      color:#005ea9;
+    }
+
+    #orange {
+      color:#e89b02;
+    }
+
+    #red {
+      color:red
+    }
+
+    #green {
+      color:green
+    }
+
+    #purple {
+      color:purple
+    }
+
+    #buttondefault{
+      color: #005ea9;
+      font-size: 12px;
+    }
+
+    #buttondefault:hover{
+      color: #0000cc!important;
+      }
+
+      .hinzu1 {
+        margin-right: auto;
+      }
+
+    
+      #leiste {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .anzahldiv {
+        display: none;
+      }
+      
+
+      #iconklasse3 {
+        color: black;
+        padding-right: 9px;
+        padding-left: 9px;
+        font-size: 18px;
+        opacity: 0;
+      }
+      
+      
+      
+      #iconklasse3:hover {
+        color: black;
+      }
+
+      .red {
+        color: red!important;
+      }
+
+      .orange {
+        color: orange!important;
+      }
+
+      .grey{
+        color: grey!important;
+      }
+
+      .tableInfo{
+        border-collapse: separate;
+        border-spacing: 1em;
+      }
+      
+      .tableInfo td {
+        word-break: break-all;
+      }
+
+      #uploadData {
+        background-color: #005ea9;
+        border-color:#005ea9;
+        outline: none !important;
+        box-shadow: none!important;
+        height: 40px;
+      }
+      
+      #uploadData:hover{
+        background-color: #0000cc!important;
+        border-color:#0000cc!important;
+      }
+
+      #uploadDataText{
+        float: left;
+      }
+
+
+      #inlinetext {
+        display: inline;
+      }
+
+
+      #iconklasse4 {
+        color: #005ea9;
+        padding-right: 9px;
+        padding-left: 9px;
+        font-size: 18px;
+        visibility: hidden;
+        display: none;
+      }
+      
+      
+      
+      #iconklasse4:hover {
+        color: #0000cc;
+      }
+
+      .link-primary {
+        color: #005ea9;
+      }
+  
+      #form-group-bearbeiter {
+        margin-top: -7px
+      }
+
+      #alertcontainer{
+        margin-right: 0px!important;
+      }
+
+      #result{
+        padding-right: 0px!important;
+      }
+
+
+
+      .auftraganiAn {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 10px;
+        border-radius: 11px;
+        box-shadow: 
+          0 0 0 0px rgba(0,0,0,0),
+          0 0 22px -6px rgb(0,0,0,1);
+      }
+      .auftraganiAus {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 0px;
+        border-radius: 0px;
+        box-shadow: 
+            0 0 0 0px rgba(0,0,0,0),
+      }
+
+
+
+      .lehrstuhlaniAn {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 10px;
+        border-radius: 11px;
+        box-shadow: 
+          0 0 0 0px rgba(0,0,0,0),
+          0 0 22px -6px rgb(0,0,0,1);
+      }
+      .lehrstuhlaniAus {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 0px;
+        border-radius: 0px;
+        box-shadow: 
+            0 0 0 0px rgba(0,0,0,0),
+      }
+
+      .finanzAn {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 10px;
+        border-radius: 11px;
+        box-shadow: 
+          0 0 0 0px rgba(0,0,0,0),
+          0 0 22px -6px rgb(0,0,0,1);
+      }
+      .finanzAus {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 0px;
+        border-radius: 0px;
+        box-shadow: 
+            0 0 0 0px rgba(0,0,0,0),
+      }
+
+
+      .nutzenaufplatinenAn {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 10px;
+        border-radius: 11px;
+        box-shadow: 
+          0 0 0 0px rgba(0,0,0,0),
+          0 0 22px -6px rgb(0,0,0,1);
+      }
+      .nutzenaufplatinenAus {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 0px;
+        border-radius: 0px;
+        box-shadow: 
+            0 0 0 0px rgba(0,0,0,0),
+      }
+
+      .statusAn {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 10px;
+        border-radius: 11px;
+        box-shadow: 
+          0 0 0 0px rgba(0,0,0,0),
+          0 0 22px -6px rgb(0,0,0,1);
+      }
+      .statusAus {
+        transition: padding 400ms, box-shadow 400ms, border-radius 400ms;
+        padding: 0px;
+        border-radius: 0px;
+        box-shadow: 
+            0 0 0 0px rgba(0,0,0,0),
+      }
+
+
+      #rem1, #rem2, #rem3{
+        margin-bottom: 15px;
+      }
+
+      
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #52525E!important;
+}
+
+
+.dropdown {
+ border: 1px solid #ced4da!important;
+ border-radius: .25rem!important;
+
+}
+.dropdown-menu {
+  border: 1px solid #ced4da!important;
+  border-radius: .25rem!important;
+ }
+
+.btn-light {
+  background-color: #fff!important;
+  border-color: #fff!important;
+  cursor: default !important;
+}
+
+.btn-light:hover {
+  background-color: #fff!important;
+  border-color: #fff!important;
+}
+
+.btn.dropdown-toggle.btn-light {
+  outline: 0px !important;
+  -webkit-appearance: none!important;
+  box-shadow: none !important;
+  
+}
+
+.bs-searchbox .form-control {
+  margin-bottom: 6px;
+}
+
+.scrollabledetail1 {
+  max-height: 335px;
+}
+.scrollabledetail2 {
+  max-height: 282px;
+}
+
+#addFinanz1{
+  margin-bottom: 10px;
+}
+
+
+#collapse3{
+  margin-top: 10px;
+}
+
+#collapse6{
+  margin-top: 10px;
+}
+
+.filter-option-inner-inner{
+  color: #495057;
+}
+
+.button17 {
+  background-color: #005ea9!important;
+  border-color:#005ea9!important;
+  outline: none !important;
+  box-shadow: none!important;
+  font-size: 13px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button18 {
+  background-color: #005ea9!important;
+  border-color:#005ea9!important;
+  outline: none !important;
+  box-shadow: none!important;
+  font-size: 13px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+.button17:hover{
+  background-color: #0000cc!important;
+  border-color:#0000cc!important;
+}
+.button18:hover{
+  background-color: #0000cc!important;
+  border-color:#0000cc!important;
+}
+

@@ -1,0 +1,65 @@
+<Files ~ "\.(htaccess)$">
+order allow,deny
+deny from all
+</Files>
+
+
+<Files Login.php>
+Order Allow,Deny
+Deny from all
+</Files>
+
+<Files Registration.php>
+Order Allow,Deny
+Deny from all
+</Files>
+
+<Files Sicherheit.php>
+Order Allow,Deny
+Deny from all
+</Files>
+
+<Files alle.php>
+Order Allow,Deny
+Deny from all
+</Files>
+
+<Files class.smtp.php>
+Order Allow,Deny
+Deny from all
+</Files>
+
+<Files password_compatibility_library.php>
+Order Allow,Deny
+Deny from all
+</Files>
+
+<Files PHPMailer.php>
+Order Allow,Deny
+Deny from all
+</Files>
+
+<Files navbar.php>
+Order Allow,Deny
+Deny from all
+</Files>
+
+<Files en.php>
+Order Allow,Deny
+Deny from all
+</Files>
+
+
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteRule ^(classes) - [F]
+  RewriteRule ^(funktion) - [F]
+  RewriteRule ^(libaries) - [F]
+  RewriteRule ^(navbar) - [F]
+  RewriteRule ^(translations) - [F]
+  RewriteRule ^(views) - [F]
+</IfModule>
+
+
+Options All -Indexes

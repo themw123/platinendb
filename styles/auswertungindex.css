@@ -1,0 +1,217 @@
+/*
+styles für platinenindex.php (view: logged_in.php)
+*/
+
+
+
+h2 {
+  text-align: center;
+  line-height: 109px; 
+  height: 84px;
+
+
+  font-size: 40px;
+  font-weight: 600;
+  color: #005EA9;
+
+  margin-bottom: 77px;
+}
+
+
+
+
+  /*-- Navigationsleiste --*/
+   .navbar {
+    background:#005ea9;
+    position: relative;
+    /*
+    margin-top: -24px;
+    */
+  }
+
+  .nav-link,
+  .navbar-brand {
+    color: white;
+    cursor: pointer;
+  }
+
+  .nav-link {
+    margin-right: 0em !important;
+    display: inline;
+    font-size: 20px;
+    vertical-align: baseline!important;
+  }
+
+  .nav-link:hover,
+  .navbar-brand:hover {
+    color: white;
+
+    
+
+  }
+  .navbar-collapse {
+    justify-content: flex-end;
+  }
+
+  @media screen and (max-width: 768px) {
+
+    #main-navigation {
+      margin-bottom: -9px;
+    }
+    
+    }
+
+
+
+/*
+modal button anpassen
+*/
+#button2 {
+  background-color: #005ea9;
+  border-color:#005ea9;
+  outline: none !important;
+  box-shadow: none!important;
+}
+
+#button2:hover{
+  background-color: #0000cc!important;
+  border-color:#0000cc!important;
+}
+
+
+#benutzer {
+  margin-right: 21px !important;
+}
+
+
+
+
+/*
+toggler icon größe
+*/
+.navbar-toggler-icon {
+  font-size: 15px;
+}
+
+
+.navbar1 {
+  font-size: 20px;
+  margin-left: 23px;
+}
+
+
+.navbar2 {
+  font-size: 21px;
+}
+
+
+#nutzen {
+  margin-left: 21px !important;
+}
+
+#auswertung {
+  margin-left: 21px !important;
+}
+
+
+/*
+navbar bei toggle 
+*/
+@media (max-width: 767px) {
+  
+  .navbar-collapse {
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,0.1);
+    margin-top: 7px;
+  }
+
+  .navbar-nav {
+    margin: 20.5px 0px;
+    margin-top: 7px;
+
+  }
+
+  .nav-item {
+    margin-bottom: 19px;
+  }
+
+  .navbar1 {
+    float: left;
+    font-size: 19px;
+    margin-left: 0px;
+    margin-top: 16px;
+  }
+  .navbar2 {
+    float: right;
+    font-size: 19px;
+    margin-top: 16px;
+  }
+
+  #nutzen {
+    margin-left: 0px !important;
+  }
+
+  #auswertung {
+    margin-left: 0px !important
+  }
+
+  #benutzer {
+    margin-right: 0px !important
+  }
+
+}
+
+
+
+/*
+navbar active
+*/
+
+.active {
+ background-color: #007bff;
+}
+
+
+.nav-link:hover {
+  background-color: #007bff;
+}
+
+
+
+.tableInfo{
+  border-collapse: separate;
+  border-spacing: 1em;
+}
+
+.tableInfo td {
+  word-break: break-all;
+}
+
+h3 {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+.chart{
+  margin-bottom: 200px;
+}
+
+.set{
+  margin-bottom: 20px;
+  display: inline-block; 
+}
+
+#con {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#zeitintervalDiv {
+  margin-right: 20px;
+}
+
+
+#jahroderletztenDiv {
+  margin-left: 20px;
+}
