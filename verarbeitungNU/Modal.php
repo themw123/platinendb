@@ -359,7 +359,8 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           
           if($_POST['Status'] != "neu" && $_POST['Int'] == "ext") {
                    
-            $to = strpos($_POST['Finanzstelle'], "_");
+            //$to = strpos($_POST['Finanzstelle'], "_");
+            $to = strripos($_POST['Finanzstelle'], "_");
             $name = substr($_POST['Finanzstelle'], 0, $to);
             $nummer = substr($_POST['Finanzstelle'], $to+1, strlen($_POST['Finanzstelle']));
             $whereclause = "name = '$name' and nummer like '%$nummer' ";
