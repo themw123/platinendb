@@ -10,6 +10,10 @@ $("#jahroderletzten").on("input", function () {
   setSettings2();
 });
 
+$("#auftraggeber").on("input", function () {
+  //todo
+});
+
 function setDefaultSettings() {
   aktion = "auswertung";
   zeitraum = "monate";

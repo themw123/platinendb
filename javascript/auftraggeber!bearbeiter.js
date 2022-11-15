@@ -1,10 +1,10 @@
 
 //Wenn Bei Nutzen oder Platine auf add Bearbeiter bzw Auftraggeber geklickt wird
+
+
 $(document).ready(function(){ 
 
-
-  
-  if(aktionx.includes("Nutzen")) {
+  if(typeof aktionx !== 'undefined' && aktionx.includes("Nutzen")) {
     aktion = "bearbeiter";
     ziel = "NU";
   }
@@ -16,6 +16,7 @@ $(document).ready(function(){
   
 
   getAuftraggeberOrBearbeiter();
+
 
 
 });
@@ -71,7 +72,6 @@ function getAuftraggeberOrBearbeiter() {
           else {
             getBearbeiter(response);
           }
-
         
     } 
     
@@ -81,10 +81,8 @@ function getAuftraggeberOrBearbeiter() {
 
 
 function getAuftraggeber(response) {
-
           var $optgroup1 =  $('<optgroup id="auftragopt" label="Auftraggeber">');
           var $optgroup2 = $('<optgroup id="adminoptc" label="Admin">');
-          
 
 
           for(var i=0; i<response.length; i++){
@@ -94,10 +92,10 @@ function getAuftraggeber(response) {
             //wird geholt aus Modal -> #auftraggeber -> zweiter klassenname 
             $auftraggeberDefault = $('#'+aktion).attr('class').split(' ')[1];
 
+
             if(namee == $auftraggeberDefault) {
               selected = "selected";
             }
-
 
             if(admin != 1) {
                var op1 = "<option value='" + namee + "' "+selected+">" + namee + "</option>";
@@ -110,6 +108,13 @@ function getAuftraggeber(response) {
 
         }
 
+
+        if(typeof $auftraggeberDefault === 'undefined') {
+          var $optgroupdef = $('<optgroup id="def" label="Default">');
+          var opdef = "<option value=''>alle</option>";
+          $optgroupdef.append(opdef);
+          $("#"+aktion).append($optgroupdef);
+        }
         
         $("#"+aktion).append($optgroup1,$optgroup2);
         
@@ -120,6 +125,13 @@ function getAuftraggeber(response) {
         $('#auftraggeber').selectpicker({
           size: 10
         });
+
+        //if auftraggeberDefault is undefinded then set default to none
+        if(typeof $auftraggeberDefault === 'undefined') {
+          $('#auftraggeber').selectpicker('val', 'none');
+          $("#con").css("visibility", "visible");
+        }
+
 }
 
 

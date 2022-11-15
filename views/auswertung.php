@@ -5,6 +5,7 @@
 modal1($login_connection);
 
 
+
 echo'
 
 	<div id="alertcontainer" class="container-fluid sticky-top">
@@ -19,7 +20,7 @@ echo'
 		<h3>Platinenaufträge</h3>
 	</div>
 
-	<div class="container" id="con">
+	<div class="container" id="con" style="visibility:hidden">
 		<div class="set" id="zeitintervalDiv">
 			<label for="usr">Zeitinterval:</label>
 			
@@ -37,6 +38,15 @@ echo'
 
 			</select>
 		</div>
+
+		<div class="set" id="auftraggeberDiv">
+			<label id="auftraggeberlabel" for="usr">Auftraggeber:</label>
+			<select title="alle" class="form-control" data-live-search="true"  id="auftraggeber" name="Auftraggeber">     
+			</select>
+		</div>
+
+	</div>
+
 	</div>
 
 

@@ -10,6 +10,10 @@
     
     <link href="plugins/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- selectpicker -->
+    <link rel="stylesheet" href="plugins/bootstrap-select-1.14.0-beta3/css/bootstrap-select.css">
+
+
     <link href="styles/auswertungindex.css" rel="stylesheet" type="text/css">
  
 
@@ -126,6 +130,12 @@ else {
 
     <script src="javascript/auswertungindex.js"></script>
 
+
+    <!-- selectpicker -->
+    <script src="plugins/bootstrap-select-1.14.0-beta3/js/bootstrap-select.js"></script>
+    
+
+    <script src="javascript/auftraggeber!bearbeiter.js"></script>
 
 
   </body>
