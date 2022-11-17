@@ -2,7 +2,7 @@
 
 if ($currentpage == "index") {
 
-  $hostname = $host = gethostname();
+  $hostname = gethostname();
   if ($hostname != "platinendb") {
     $style = "style=\"margin-bottom:-24px;\"";
   } else {
@@ -10,6 +10,8 @@ if ($currentpage == "index") {
   }
 
 ?>
+
+
 
   <nav class="navbar navbar-expand-md" <?php echo $style ?>>
     <a href="https://etit.ruhr-uni-bochum.de/est/" title=""><img src="bilder/est.png" alt="" width="50" height="35"></a>
@@ -26,7 +28,7 @@ if ($currentpage == "index") {
 
 
     if ($currentpage == "registrierindex") {
-      $hostname = $host = gethostname();
+      $hostname = gethostname();
       if ($hostname != "platinendb") {
         $style = "style=\"margin-bottom:-24px;\"";
       } else {
@@ -49,7 +51,7 @@ if ($currentpage == "index") {
     }
 
     if ($currentpage == "password_reset") {
-      $hostname = $host = gethostname();
+      $hostname = gethostname();
       if ($hostname != "platinendb") {
         $style = "style=\"margin-bottom:-24px;\"";
       } else {
@@ -69,7 +71,7 @@ if ($currentpage == "index") {
 
           if ($currentpage == "platinenindex") {
 
-            $hostname = $host = gethostname();
+            $hostname = gethostname();
             if ($hostname != "platinendb") {
               $style = "style=\"margin-top:-24px;\"";
             } else {
@@ -119,7 +121,7 @@ if ($currentpage == "index") {
           }
 
           if ($currentpage == "nutzenindex") {
-            $hostname = $host = gethostname();
+            $hostname = gethostname();
             if ($hostname != "platinendb") {
               $style = "style=\"margin-top:-24px;\"";
             } else {
@@ -166,7 +168,7 @@ if ($currentpage == "index") {
 
 
           if ($currentpage == "auswertungindex") {
-            $hostname = $host = gethostname();
+            $hostname = gethostname();
             if ($hostname != "platinendb") {
               $style = "style=\"margin-top:-24px;\"";
             } else {
