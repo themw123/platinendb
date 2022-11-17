@@ -138,5 +138,3 @@ else {
   echo json_encode(array('data'=>  $data));
   die();
 }
-
-?>

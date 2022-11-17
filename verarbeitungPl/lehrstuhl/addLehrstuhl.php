@@ -40,7 +40,3 @@ if($bestanden == true && $aktion == "lehrstuhl") {
 			mysqli_close($login_connection); 
 
   }
-
-
-
-?>

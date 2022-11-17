@@ -61,6 +61,3 @@ if($bestanden == true && $aktion == "auftraggeber") {
         mysqli_close($platinendb_connection); 
         mysqli_close($login_connection); 
   }
-
-
- ?>

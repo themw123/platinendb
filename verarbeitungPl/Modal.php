@@ -1,7 +1,6 @@
-
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    
-    
+
+
 <link href="plugins/fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
 <link href="plugins/gijgo1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css">
 
@@ -21,21 +20,20 @@ require_once("../classes/Sicherheit.php");
 
 $login = new Login();
 
-$login_connection= $login->getlogin_connection();
+$login_connection = $login->getlogin_connection();
 $platinendb_connection = $login->getplatinendb_connection();
- 
+
 
 //sicherheit checks
-if(!(isset($_POST['aktion']))) {
+if (!(isset($_POST['aktion']))) {
   $aktion = "";
-}
-else {
+} else {
   $aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 }
 
 
 //if($aktion == "modaleinfuegen") {
-  echo'
+echo '
   <script src="javascript/auftraggeber!bearbeiter.js"></script>
   <script src="javascript/lehrstuhl.js"></script>
   <script src="javascript/finanzstelle.js"></script>
@@ -47,55 +45,53 @@ $von = "platine";
 $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
 
-if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbeiten")) {
+if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbeiten")) {
 
-        $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
+  $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
-        /*
+  /*
         Auftraggeber vorbereitung
         */
 
 
 
-        /*
+  /*
         Material vorbereitung
         */
 
-        $material = 'SELECT Name FROM material';
+  $material = 'SELECT Name FROM material';
 
-        $abfragematerial = mysqli_query($platinendb_connection, $material);
+  $abfragematerial = mysqli_query($platinendb_connection, $material);
 
-        $option2 = '';
+  $option2 = '';
 
-        while($row2 = mysqli_fetch_assoc($abfragematerial))
-        {
-          $option2 .= '<option value = "'.$row2['Name'].'">'.$row2['Name'].'</option>';
-        }
+  while ($row2 = mysqli_fetch_assoc($abfragematerial)) {
+    $option2 .= '<option value = "' . $row2['Name'] . '">' . $row2['Name'] . '</option>';
+  }
 
 
-        /*
+  /*
         auftraggeber vorbereitung
         */
-        $auftraggeber = $_SESSION['user_name'];
+  $auftraggeber = $_SESSION['user_name'];
 
-        if($aktion == "modaleinfuegen") {
-          $auftraggeberDeufault = $_SESSION['user_name'];
-        }
-        else {
-          $auftraggeberDeufault = $_POST['Auftraggeber'];
-        }
-
-
-        
-        $check2 = '';
-        if ($_POST['Bestueckungsdruck'] == 1){
-          $check2 = "checked=''";
-        }
+  if ($aktion == "modaleinfuegen") {
+    $auftraggeberDeufault = $_SESSION['user_name'];
+  } else {
+    $auftraggeberDeufault = $_POST['Auftraggeber'];
+  }
 
 
 
+  $check2 = '';
+  if ($_POST['Bestueckungsdruck'] == 1) {
+    $check2 = "checked=''";
+  }
 
-        $auftraggeberForm .= "
+
+
+
+  $auftraggeberForm .= "
         <div class='form-group'>
           <label for='usr'>Auftraggeber:</label>
 
@@ -164,22 +160,21 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
 
 
-        
-        /*
+
+  /*
         Finanzstelle vorbereitung
         */
 
-        if($aktion == "modaleinfuegen") {
-          $finanzDeufault = "no";
-        }
-        else {
-          $finanzDeufault = $_POST['Finanzstelle'];
-        }
+  if ($aktion == "modaleinfuegen") {
+    $finanzDeufault = "no";
+  } else {
+    $finanzDeufault = $_POST['Finanzstelle'];
+  }
 
-        
 
-        if(isUserAdmin($platinendb_connection)) {
-          $finanzForm .= "
+
+  if (isUserAdmin($platinendb_connection)) {
+    $finanzForm .= "
           <div class='form-group'>
             <label for='usr'>Finanzstelle:</label>
   
@@ -222,9 +217,8 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           </div>
   
           ";
-        }
-        else {
-          $finanzForm .= "
+  } else {
+    $finanzForm .= "
           <div class='form-group'>
             <label for='usr'>Finanzstelle:</label>
   
@@ -241,23 +235,23 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           </div>
   
           ";
-        }
+  }
 
 
 
-        echo '<script> $("#fin").css({"margin-top":"8px"});</script>';
+  echo '<script> $("#fin").css({"margin-top":"8px"});</script>';
 
 
-        //gucken ob eingefügt oder bearbeitet werden soll. Wenn kein POST übergeben wurde, dann einfügen
-        if ($aktion == "modaleinfuegen") {
+  //gucken ob eingefügt oder bearbeitet werden soll. Wenn kein POST übergeben wurde, dann einfügen
+  if ($aktion == "modaleinfuegen") {
 
 
-        /*
+    /*
         eingabefelder
         */
-        $output = ''; 
+    $output = '';
 
-        $output .= "
+    $output .= "
 
 
         <form method='post' enctype='multipart/form-data' id='edit'>
@@ -265,34 +259,33 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
         ";
 
-        //if(!isUserAdmin($platinendb_connection)) {
-          $output .= "
+    //if(!isUserAdmin($platinendb_connection)) {
+    $output .= "
           <div class='form-group'>
           <label for='usr'>Anleitung:</label>
           <a target='_blank' href='https://homepage.ruhr-uni-bochum.de/tobias.solowjew/Share/Plakat.pdf' class='link-primary'>Designregeln</a>
           </div>
           ";
-        //}
+    //}
 
-        $output .= "
+    $output .= "
         <div class='form-group'>
         <label for='usr'>Name:</label>
         <input type='text' class='form-control' id='name' name='Name' required>
         </div>
         ";
-        
-
-        if(isUserAdmin($platinendb_connection)) {
-
-          $output .= $auftraggeberForm;
-
-        }
 
 
-        $output .= $finanzForm;
+    if (isUserAdmin($platinendb_connection)) {
+
+      $output .= $auftraggeberForm;
+    }
 
 
-        $output .= "
+    $output .= $finanzForm;
+
+
+    $output .= "
 
 
         <div class='form-group'>
@@ -426,38 +419,31 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
         </div>";
 
 
-        echo $output;
-
-        }
-
+    echo $output;
+  } elseif ($aktion == "modalbearbeiten") {
 
 
 
 
-        elseif($aktion == "modalbearbeiten") {
+    $ziel = mysqli_real_escape_string($platinendb_connection, $_POST['ziel']);
 
 
+    if (!empty($_POST['Wunschdatum'])) {
+      $wunschdatum = date("Y-m-d", strtotime($_POST['Wunschdatum']));
+    }
+
+    $check = '';
+    if ($_POST['Ignorieren'] == 1) {
+      $check = "checked=''";
+    }
 
 
-            $ziel = mysqli_real_escape_string($platinendb_connection, $_POST['ziel']);
-
-
-            if(!empty($_POST['Wunschdatum'])) {
-              $wunschdatum = date("Y-m-d", strtotime($_POST['Wunschdatum']));
-            }
-
-            $check = '';
-            if ($_POST['Ignorieren'] == 1){
-              $check = "checked=''";
-            }
-
-              
-            /*
+    /*
             eingabefelder
             */
-            $output = ''; 
+    $output = '';
 
-            $output .= "
+    $output .= "
 
 
 
@@ -484,14 +470,14 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
             ";
 
 
-            if(isUserAdmin($platinendb_connection) == true) {
-              $output .= $auftraggeberForm;
-            }
+    if (isUserAdmin($platinendb_connection) == true) {
+      $output .= $auftraggeberForm;
+    }
 
-            $output .= $finanzForm;
-            
+    $output .= $finanzForm;
 
-            $output .= "
+
+    $output .= "
             <div class='form-group'>
             <label for='usr'>Anzahl:</label>
             <input type='number' min='1' class='form-control' id='anzahl' name='Anzahl' value='$_POST[Anzahl]' required>
@@ -598,34 +584,34 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
             </div>
 
             ";
-            
 
 
-            
-            
-            if(isUserAdmin($platinendb_connection)) {
-              $output .= "
+
+
+
+    if (isUserAdmin($platinendb_connection)) {
+      $output .= "
               <div class='custom-control custom-checkbox form-group'>
               <input name='Ignorieren' type='checkbox' class='custom-control-input' id='checkbox-2' $check>
               <label class='custom-control-label' for='checkbox-2' style='margin-top: 10px;margin-bottom: 10px;'>ignorieren</label>
               <i class='fas fa-info-circle' id='infoicon2' data-toggle='popover' title='Hinweis' data-content='Die Platine wird innerhalb ihres Zustandes(Neu, Fertigung oder Abgeschlossen) nach ganz unten angefügt. Achtung: Die Platine wird nicht mehr beim Hinzufügen einer Platine auf einen Nutzen angezeigt!'></i>
               </div>
               ";
-              
-              if(!isInFertigung($id, $platinendb_connection) && !isOnNutzen($id, $platinendb_connection)){
-                
-                $output .= "
+
+      if (!isInFertigung($id, $platinendb_connection) && !isOnNutzen($id, $platinendb_connection)) {
+
+        $output .= "
                 <div class='custom-control custom-checkbox form-group fertigungcheck'>
                 <input data-toggle='collapse' data-target='#collapse4' name='Fertigung' type='checkbox' class='custom-control-input' id='checkbox-3'>
                 <label class='custom-control-label' for='checkbox-3' style='margin-top: 10px;margin-bottom: 10px;'>Fertigung</label>
                 <i class='fas fa-info-circle' id='infoicon3' data-toggle='popover' title='Hinweis' data-content='Die Platine wird in den Zustand Fertigung versetzt. Dafür wird ein neuer Nutzen im Zustand Fertigung erstellt und die Platine hinzugefügt.'></i>
                 </div>
                 ";
-              }
-            }
-            
+      }
+    }
 
-            $output .= "
+
+    $output .= "
             </form>
 
 
@@ -634,32 +620,24 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
             ";
 
 
-            echo $output;
+    echo $output;
+  }
 
+  mysqli_close($login_connection);
+  mysqli_close($platinendb_connection);
+} else {
+  echo '<div class="container-fluid">';
 
-
-
-            }
-
-            mysqli_close($login_connection); 
-            mysqli_close($platinendb_connection); 
-
-}
-
-else {
-     echo'<div class="container-fluid">';
-           
-     echo"
+  echo "
      <div class='alert alert-danger'> Es ist ein Fehler im Zusammenhang mit der Sicherheit aufgetreten.
      </div>";
-      
-     echo'</div>';  
+
+  echo '</div>';
 }
-      
+
 
 
 
 
 
 ?>
-

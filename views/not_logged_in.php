@@ -1,28 +1,27 @@
-
 <?php
 
-if(isset($_GET["Validation"])) {
+if (isset($_GET["Validation"])) {
   $login->messages[] = "Du musst dich erst als est einloggen und anschließend den Link erneut öffnen, um den Account bestätigen zu können.";
 }
 
-if(isset($_GET["wait"])) {
+if (isset($_GET["wait"])) {
   $login->messages[] = "Sobald ein Admin deinen Account bestätigt, kannst du dich einloggen. Du wirst außerdem per E-Mail benachrichtigt wenn dein Account bestätigt wurde.";
 }
 
 // show potential errors / feedback (from login object)
 if (isset($login)) {
-    if ($login->errors) {
-        foreach ($login->errors as $error) {
-            if($error != false) {
-              echo '<div class="alert alert-warning"> '.$error.'   </div> ';
-            }
-        }
+  if ($login->errors) {
+    foreach ($login->errors as $error) {
+      if ($error != false) {
+        echo '<div class="alert alert-warning"> ' . $error . '   </div> ';
+      }
     }
-    if ($login->messages) {
-        foreach ($login->messages as $message) {
-            echo '<div class="alert alert-info"> '.$message.'   </div> ';
-        }
+  }
+  if ($login->messages) {
+    foreach ($login->messages as $message) {
+      echo '<div class="alert alert-info"> ' . $message . '   </div> ';
     }
+  }
 }
 ?>
 
@@ -37,8 +36,8 @@ Hier folgt das einfliegende Login
     <!-- Icon -->
     <div class="fadeIn first">
 
-    <i class='fas fa-user-alt' id = icon1></i>
-    
+      <i class='fas fa-user-alt' id=icon1></i>
+
     </div>
 
     <!-- Login Form -->
@@ -52,7 +51,7 @@ Hier folgt das einfliegende Login
 
 
     </form>
-    
+
     <!--registrieren-->
 
     <div id="formFooter">
@@ -62,4 +61,3 @@ Hier folgt das einfliegende Login
 
   </div>
 </div>
-

@@ -154,10 +154,3 @@ else {
 	echo json_encode(array('data'=> $datax));
 	die();
 }
-
-
-
-		
-	
-	
-?>

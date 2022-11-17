@@ -47,6 +47,3 @@ if($bestanden == true && $aktion == "lehrstuhl") {
         mysqli_close($platinendb_connection); 
         mysqli_close($login_connection); 
   }
-
-
- ?>

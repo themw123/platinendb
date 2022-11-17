@@ -44,7 +44,3 @@ if($bestanden == true && $aktion == "finanz") {
 
 
 }
-
-
-
-?>

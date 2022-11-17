@@ -49,7 +49,3 @@ if($bestanden == true && $aktion == "lehrstuhl") {
 
 
 }
-
-
-
-?>

@@ -58,5 +58,3 @@ if($bestanden == true && $aktion == "detail") {
       }
 
 }
-    
-?>

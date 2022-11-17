@@ -50,7 +50,3 @@ if($bestanden == true && $aktion == "finanz") {
 			mysqli_close($login_connection); 
 
   }
-
-
-
-?>

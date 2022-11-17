@@ -50,7 +50,3 @@ if($bestanden == true  && $aktion == "auftraggeber") {
 			mysqli_close($login_connection); 
 
   }
-
-
-
-?>

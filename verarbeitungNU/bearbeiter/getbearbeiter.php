@@ -48,6 +48,3 @@ if($bestanden == true && $aktion == "bearbeiter") {
       
         mysqli_close($login_connection); 
   }
-
-
- ?>

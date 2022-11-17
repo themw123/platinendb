@@ -1,7 +1,6 @@
-
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    
-    
+
+
 <link href="plugins/fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
 <link href="plugins/gijgo1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css">
 
@@ -21,20 +20,19 @@ require_once("../classes/Sicherheit.php");
 
 $login = new Login();
 
-$login_connection= $login->getlogin_connection();
+$login_connection = $login->getlogin_connection();
 $platinendb_connection = $login->getplatinendb_connection();
 
 
 //sicherheit checks
-if(!(isset($_POST['aktion']))) {
+if (!(isset($_POST['aktion']))) {
   $aktion = "";
-}
-else {
+} else {
   $aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 }
 
-if($aktion == "modaleinfuegen") {
-  echo'
+if ($aktion == "modaleinfuegen") {
+  echo '
   <script src="javascript/auftraggeber!bearbeiter.js"></script>
   ';
 }
@@ -42,65 +40,63 @@ if($aktion == "modaleinfuegen") {
 $von = "nutzen";
 $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinendb_connection);
 $bestanden = $sicherheit->ergebnis();
- 
-
-if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbeiten")) {
 
 
-          /*
+if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbeiten")) {
+
+
+  /*
           Bearbeiter vorbereitung
           */
 
-          $bearbeiter = "SELECT user_name FROM users WHERE admin = '1' ORDER BY user_name asc"; 
-          $bearbeiterabfrage = mysqli_query($login_connection, $bearbeiter);  
+  $bearbeiter = "SELECT user_name FROM users WHERE admin = '1' ORDER BY user_name asc";
+  $bearbeiterabfrage = mysqli_query($login_connection, $bearbeiter);
 
-          $option = '';
+  $option = '';
 
-          while($row2 = mysqli_fetch_assoc($bearbeiterabfrage))
-          {
-            $option .= '<option value = "'.$row2['user_name'].'">'.$row2['user_name'].'</option>';
-          }
-
+  while ($row2 = mysqli_fetch_assoc($bearbeiterabfrage)) {
+    $option .= '<option value = "' . $row2['user_name'] . '">' . $row2['user_name'] . '</option>';
+  }
 
 
-          /*
+
+  /*
           Material vorbereiten
           */
 
-          $material = 'SELECT Name FROM material';
+  $material = 'SELECT Name FROM material';
 
-          $abfragematerial = mysqli_query($platinendb_connection, $material);
+  $abfragematerial = mysqli_query($platinendb_connection, $material);
 
-          $option2 = '';
+  $option2 = '';
 
-          while($row2 = mysqli_fetch_assoc($abfragematerial))
-          {
-            $option2 .= '<option value = "'.$row2['Name'].'">'.$row2['Name'].'</option>';
-          }
-
+  while ($row2 = mysqli_fetch_assoc($abfragematerial)) {
+    $option2 .= '<option value = "' . $row2['Name'] . '">' . $row2['Name'] . '</option>';
+  }
 
 
 
-          /*
+
+  /*
           größte Nutzen Nummer vorbereiten
           */
-          $maxnr = 'SELECT Max(Nr) as Nr From platinendb.nutzen';
-          $abfragemaxnr =  mysqli_query($platinendb_connection, $maxnr);
-          $abfragemaxnr2 = mysqli_fetch_assoc($abfragemaxnr);
-          $nrmax = $abfragemaxnr2['Nr'];
-          $nr = $nrmax +1;
+  $maxnr = 'SELECT Max(Nr) as Nr From platinendb.nutzen';
+  $abfragemaxnr =  mysqli_query($platinendb_connection, $maxnr);
+  $abfragemaxnr2 = mysqli_fetch_assoc($abfragemaxnr);
+  $nrmax = $abfragemaxnr2['Nr'];
+  $nr = $nrmax + 1;
 
 
-          //gucken ob eingefügt oder bearbeitet werden soll. Wenn kein POST übergeben wurde, dann einfügen
-          if ($aktion == "modaleinfuegen") {
+  //gucken ob eingefügt oder bearbeitet werden soll. Wenn kein POST übergeben wurde, dann einfügen
+  if ($aktion == "modaleinfuegen") {
 
 
-          /*
+    /*
           eingabefelder
           */
-          $output = ''; 
+    $output = '';
 
-          $output .= "
+    $output .= "
 
 
           <form method='post' id='edit'>
@@ -248,80 +244,73 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           </div>";
 
 
-          echo $output;
-
-          }
-
+    echo $output;
+  } elseif ($aktion == "modalbearbeiten") {
 
 
 
-          elseif($aktion == "modalbearbeiten") {
+    $ziel = mysqli_real_escape_string($platinendb_connection, $_POST['ziel']);
 
 
-            
-          $ziel = mysqli_real_escape_string($platinendb_connection, $_POST['ziel']);
-
-
-          $statusEditable = "disabled";
-          $stausInfoicon = '
+    $statusEditable = "disabled";
+    $stausInfoicon = '
             <i class="fas fa-info-circle" id="infoicon" data-toggle="popover" title="" data-content="Der Status kann nur verändert werden, wenn sich Platinen auf diesem Nutzen befinden." data-original-title="" aria-describedby="popover351399"></i>
           ';
-          if(platineAufNutzen($_POST['Id'], $platinendb_connection)) {
-            $statusEditable = "";
-            $stausInfoicon = "";
-          }
+    if (platineAufNutzen($_POST['Id'], $platinendb_connection)) {
+      $statusEditable = "";
+      $stausInfoicon = "";
+    }
 
 
 
-          $check = '';
-          if (mysqli_real_escape_string($platinendb_connection, $_POST['Testdaten']) == 1){
-            $check = "checked=''";
-          }
+    $check = '';
+    if (mysqli_real_escape_string($platinendb_connection, $_POST['Testdaten']) == 1) {
+      $check = "checked=''";
+    }
 
 
-          $plaufnu = "SELECT Finanzstelle_ID, Finanzstelle_Name, Finanzstelle_Nummer FROM platinenaufnutzen3 WHERE Nutzen_ID = $_POST[Id]";
+    $plaufnu = "SELECT Finanzstelle_ID, Finanzstelle_Name, Finanzstelle_Nummer FROM platinenaufnutzen3 WHERE Nutzen_ID = $_POST[Id]";
 
-          $plaufnu = mysqli_query($platinendb_connection, $plaufnu);
+    $plaufnu = mysqli_query($platinendb_connection, $plaufnu);
 
-          $option3 = '';
-
-
-          $arr = array();
-          $counter = 0;
-          while($row3 = mysqli_fetch_assoc($plaufnu))
-          {
-            $finanzstelle_id = $row3['Finanzstelle_ID'];
-            $finanzstelle_name = $row3['Finanzstelle_Name'];
-            $finanzstelle_nummer = $row3['Finanzstelle_Nummer'];
-            $finanzstelle_nummer = substr($finanzstelle_nummer, -4);
-            $finanzstelle = $finanzstelle_name .'_'. $finanzstelle_nummer;
-            $arr[$counter][0] = $finanzstelle_id;
-            $arr[$counter][1] = $finanzstelle;
-            $counter++;
-          }
-
-          $arr = array_unique($arr, SORT_REGULAR);
-
-          foreach ($arr as $e) {
-            $option3 .= '<option value = '.$e[0].'>'.$e[1].'</option>';
-        }
+    $option3 = '';
 
 
-        $erstellt = date("Y-m-d", strtotime($_POST['Erstellt']));
-        if(!empty($_POST['Fertigung'])) {
-          $fertigung = date("Y-m-d", strtotime($_POST['Fertigung']));
-        }
-        if(!empty($_POST['Abgeschlossen'])) {
-          $abgeschlossen = date("Y-m-d", strtotime($_POST['Abgeschlossen']));
-        }
+    $arr = array();
+    $counter = 0;
+    while ($row3 = mysqli_fetch_assoc($plaufnu)) {
+      $finanzstelle_id = $row3['Finanzstelle_ID'];
+      $finanzstelle_name = $row3['Finanzstelle_Name'];
+      $finanzstelle_nummer = $row3['Finanzstelle_Nummer'];
+      $finanzstelle_nummer = substr($finanzstelle_nummer, -4);
+      $finanzstelle = $finanzstelle_name . '_' . $finanzstelle_nummer;
+      $arr[$counter][0] = $finanzstelle_id;
+      $arr[$counter][1] = $finanzstelle;
+      $counter++;
+    }
+
+    $arr = array_unique($arr, SORT_REGULAR);
+
+    foreach ($arr as $e) {
+      $option3 .= '<option value = ' . $e[0] . '>' . $e[1] . '</option>';
+    }
 
 
-          /*
+    $erstellt = date("Y-m-d", strtotime($_POST['Erstellt']));
+    if (!empty($_POST['Fertigung'])) {
+      $fertigung = date("Y-m-d", strtotime($_POST['Fertigung']));
+    }
+    if (!empty($_POST['Abgeschlossen'])) {
+      $abgeschlossen = date("Y-m-d", strtotime($_POST['Abgeschlossen']));
+    }
+
+
+    /*
           eingabefelder
           */
-          $output = ''; 
+    $output = '';
 
-          $output .= "
+    $output .= "
 
 
 
@@ -356,26 +345,26 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
 
           ";
 
-          
-          if($_POST['Status'] != "neu" && $_POST['Int'] == "ext") {
-                   
-            //$to = strpos($_POST['Finanzstelle'], "_");
-            $to = strripos($_POST['Finanzstelle'], "_");
-            $name = substr($_POST['Finanzstelle'], 0, $to);
-            $nummer = substr($_POST['Finanzstelle'], $to+1, strlen($_POST['Finanzstelle']));
-            $whereclause = "name = '$name' and nummer like '%$nummer' ";
 
-            $finanz = 
-            "SELECT id
+    if ($_POST['Status'] != "neu" && $_POST['Int'] == "ext") {
+
+      //$to = strpos($_POST['Finanzstelle'], "_");
+      $to = strripos($_POST['Finanzstelle'], "_");
+      $name = substr($_POST['Finanzstelle'], 0, $to);
+      $nummer = substr($_POST['Finanzstelle'], $to + 1, strlen($_POST['Finanzstelle']));
+      $whereclause = "name = '$name' and nummer like '%$nummer' ";
+
+      $finanz =
+        "SELECT id
             FROM platinendb.finanzstelle
             WHERE $whereclause
             ";
 
-            $finanz =  mysqli_query($login_connection, $finanz);
-            $finanz = mysqli_fetch_assoc($finanz);
-            $finanz = $finanz["id"];
+      $finanz =  mysqli_query($login_connection, $finanz);
+      $finanz = mysqli_fetch_assoc($finanz);
+      $finanz = $finanz["id"];
 
-            $output .= "
+      $output .= "
             <div class='form-group'>
               <div class='finanzdiv'>
                 <label id='finanzlabel' for='usr'>Finanzstelle: </label>
@@ -386,11 +375,11 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
               </div>
             </div>
             ";
-          }
+    }
 
 
 
-          $output .= "
+    $output .= "
 
           <div class='form-group'>
           <label id='intid' for='usr'>Fertigung int/ext: </label>
@@ -561,23 +550,19 @@ if($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbe
           ";
 
 
-          echo $output;
+    echo $output;
+  }
 
+  mysqli_close($login_connection);
+  mysqli_close($platinendb_connection);
+} else {
+  echo '<div class="container-fluid">';
 
-
-          }
-
-          mysqli_close($login_connection); 
-          mysqli_close($platinendb_connection); 
-}
-else {
-  echo'<div class="container-fluid">';
-     
-  echo"
+  echo "
   <div class='alert alert-danger'> Es ist ein Fehler im Zusammenhang mit der Sicherheit aufgetreten.
   </div>";
 
-  echo'</div>';  
+  echo '</div>';
 }
 
 

@@ -56,7 +56,3 @@ if($bestanden == true && $aktion == "auftraggeber") {
 
 
 }
-
-
-
-?>
