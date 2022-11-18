@@ -1,6 +1,7 @@
 <?php
 
-class Sicherheit {
+class Sicherheit
+{
 
     private $bestanden;
     private $aktion;
@@ -10,7 +11,8 @@ class Sicherheit {
     private $platinendb_connection;
 
     //Konstruktor
-    public function __construct($aktion, $von, $login, $login_connection, $platinendb_connection){
+    public function __construct($aktion, $von, $login, $login_connection, $platinendb_connection)
+    {
 
         $this->bestanden = false;
         $this->aktion = $aktion;
@@ -19,327 +21,260 @@ class Sicherheit {
         $this->login_connection = $login_connection;
         $this->platinendb_connection = $platinendb_connection;
 
-        if($von == "platine") {
+        if ($von == "platine") {
             $this->platine();
-        }
-        else if($von == "nutzen"){
+        } else if ($von == "nutzen") {
             $this->nutzen();
-        }
-        else {
+        } else {
             $this->auswertung();
         }
-
     }
 
 
 
 
 
-    public function ergebnis(){
+    public function ergebnis()
+    {
         return $this->bestanden;
-    } 
+    }
 
 
-    public function checkQuery($connection) {
-        if (mysqli_error($connection))
-        {
-          header('Content-Type: application/json');
-          echo json_encode(array('data'=> 'dberror', 'error'=> $connection->error));
-          //die();
-        }
-        else{
-          header('Content-Type: application/json');
-          echo json_encode(array('data'=> "erfolgreich"));
-          //die();
+    public function checkQuery($connection)
+    {
+        if (mysqli_error($connection)) {
+            header('Content-Type: application/json');
+            echo json_encode(array('data' => 'dberror', 'error' => $connection->error));
+            //die();
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(array('data' => "erfolgreich"));
+            //die();
         }
     }
 
     //Rückmeldung nicht an javascript, sondern php 
-    public function checkQuery2($connection) {
-        if (mysqli_error($connection))
-        {
+    public function checkQuery2($connection)
+    {
+        if (mysqli_error($connection)) {
             return $connection->error;
-        }
-        else {
+        } else {
             return "erfolgreich";
         }
     }
 
 
     //Rückmeldung für platinen und nutzen und auswertung
-    public function checkQuery3($connection) {
-        if (mysqli_error($connection))
-        {
+    public function checkQuery3($connection)
+    {
+        if (mysqli_error($connection)) {
             $datax[1] = "dberror";
             $datax[2] = $connection->error;
             header('Content-Type: application/json');
-            echo json_encode(array('data'=> $datax));
+            echo json_encode(array('data' => $datax));
             die();
         }
     }
 
-    public function checkQuery4() {
+    public function checkQuery4()
+    {
         header('Content-Type: application/json');
-        echo json_encode(array('data'=> 'nichterlaubt'));
+        echo json_encode(array('data' => 'nichterlaubt'));
         die();
     }
 
 
-    private function nutzen(){   
+    private function nutzen()
+    {
 
         $fromajax = $this->fromJavascript();
         $eingeloggt = $this->login->isUserLoggedIn();
         $est = isUserAdmin($this->login_connection);
- 
- 
-        if($eingeloggt == false) {
-         die (header("location: ../index.php"));
-        }
- 
-        if($est == false) {
-         die (header("location: ../platinenindex.php"));
+
+
+        if ($eingeloggt == false) {
+            die(header("location: ../index.php"));
         }
 
-        if($fromajax == false) {
-            die (header("location: ../nutzenindex.php"));
+        if ($est == false) {
+            die(header("location: ../platinenindex.php"));
         }
- 
- 
-         if($this->aktion == "nutzen" || $this->aktion == "modaleinfuegen" || $this->aktion == "einfuegen" || $this->aktion == "bearbeiter") {
+
+        if ($fromajax == false) {
+            die(header("location: ../nutzenindex.php"));
+        }
+
+
+        if ($this->aktion == "nutzen" || $this->aktion == "modaleinfuegen" || $this->aktion == "einfuegen" || $this->aktion == "bearbeiter") {
             $this->bestanden = true;
-         }
+        } elseif ($this->aktion == "modalbearbeiten") {
+            $existens = existens($this->platinendb_connection);
 
- 
-         elseif($this->aktion == "modalbearbeiten") {
-                 $existens = existens($this->platinendb_connection);
- 
-                 if ($existens == false) {
-                     
-                 }
-                 else{
-                     $this->bestanden = true;
-                 }
-             }
- 
-
-
- 
-         elseif($this->aktion == "bearbeiten") {
-                 $existens = existens($this->platinendb_connection);
- 
-                 if ($existens == false) {
-                 
-                 }
-                 elseif(veraenderbarNutzen($this->platinendb_connection) == false) {
-                    header('Content-Type: application/json');
-                    echo json_encode(array('data'=> "nichtveraenderbar"));
-                    die();
-                }
- 
-                 else{
-                     $this->bestanden = true;
-                 }
-         }
- 
-         elseif($this->aktion == "detail") {
-                 $existens = existens($this->platinendb_connection);
- 
-                 if ($existens == false) {
- 
-                 }
-                 else{
-                     $this->bestanden = true;
-                 }
-             }
- 
-             elseif($this->aktion == "loeschen") {
-                 $existens = existens($this->platinendb_connection);
- 
-                 if ($existens == false) {
- 
-                 }
-                 else{
-                     $this->bestanden = true;
-                 }
-             }
- 
-         
- 
-     }
- 
- 
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     private function fromJavascript() {
-        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') 
-        {
-            return true;
-        }
-        else {
-            return false;
-        }
-        
-        
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    private function platine(){   
-
-       $fromajax = $this->fromJavascript();
-       $eingeloggt = $this->login->isUserLoggedIn();
-
-
-       if($eingeloggt == false) {
-        die (header("location: ../index.php"));
-       }
-
-       if($fromajax == false) {
-        die (header("location: ../platinenindex.php"));
-       }
-
-
-        if($this->aktion == "platinen" || $this->aktion == "modaleinfuegen"|| $this->aktion == "finanzGet" || $this->aktion == "einfuegen") {
-            $this->bestanden = true;
-        }
-
-
-        
-        elseif($this->aktion == "lehrstuhl" || $this->aktion == "finanz" || $this->aktion == "download" || $this->aktion == "auftraggeber") {
-            $admin = isUserAdmin($this->login_connection);
-            
-            if($admin) {
+            if ($existens == false) {
+            } else {
                 $this->bestanden = true;
             }
+        } elseif ($this->aktion == "bearbeiten") {
+            $existens = existens($this->platinendb_connection);
 
+            if ($existens == false) {
+            } elseif (veraenderbarNutzen($this->platinendb_connection) == false) {
+                header('Content-Type: application/json');
+                echo json_encode(array('data' => "nichtveraenderbar"));
+                die();
+            } else {
+                $this->bestanden = true;
+            }
+        } elseif ($this->aktion == "detail") {
+            $existens = existens($this->platinendb_connection);
+
+            if ($existens == false) {
+            } else {
+                $this->bestanden = true;
+            }
+        } elseif ($this->aktion == "loeschen") {
+            $existens = existens($this->platinendb_connection);
+
+            if ($existens == false) {
+            } else {
+                $this->bestanden = true;
+            }
         }
-
-
-        elseif($this->aktion == "modalbearbeiten") {
-                $existens = existens($this->platinendb_connection);
-
-                if ($existens == false) {
-                    
-                }
-                else{
-                    $this->bestanden = true;
-                }
-            }
-
-        elseif($this->aktion == "bearbeiten") {
-                $existens = existens($this->platinendb_connection);
-                $veraenderbar = veraenderbarPlatine($this->platinendb_connection);
-
-                if ($existens == false) {
-                
-                }
-                elseif(legitimierung($this->login_connection) == false) {
-
-                }
-                elseif($veraenderbar[0] == false) {
-                        header('Content-Type: application/json');
-                        echo json_encode(array('data'=> $veraenderbar[1]));
-                        die();
-                }
-
-                else{
-                    $this->bestanden = true;
-                }
-        }
-
-        elseif($this->aktion == "detail") {
-                $existens = existens($this->platinendb_connection);
-
-                if ($existens == false) {
-
-                }
-                elseif(legitimierung ($this->login_connection) == false) {
-
-                }
-                else{
-                    $this->bestanden = true;
-                }
-            }
-
-            elseif($this->aktion == "loeschen") {
-                $existens = existens($this->platinendb_connection);
-                $veraenderbar = veraenderbarPlatine($this->platinendb_connection);
-
-                if ($existens == false) {
-
-                }
-                elseif(legitimierung ($this->login_connection) == false) {
-
-                }
-                elseif($veraenderbar[0] == false) {
-                    header('Content-Type: application/json');
-                    echo json_encode(array('data'=> $veraenderbar[1]));
-                    die();
-                }
-                else{
-                    $this->bestanden = true;
-                }
-            }
-
-        
-
     }
 
 
 
 
-    
 
 
 
-    private function auswertung(){   
+
+
+
+
+
+
+
+
+
+
+
+
+    private function fromJavascript()
+    {
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    private function platine()
+    {
+
+        $fromajax = $this->fromJavascript();
+        $eingeloggt = $this->login->isUserLoggedIn();
+
+
+        if ($eingeloggt == false) {
+            die(header("location: ../index.php"));
+        }
+
+        if ($fromajax == false) {
+            die(header("location: ../platinenindex.php"));
+        }
+
+
+        if ($this->aktion == "platinen" || $this->aktion == "modaleinfuegen" || $this->aktion == "finanzGet" || $this->aktion == "einfuegen") {
+            $this->bestanden = true;
+        } elseif ($this->aktion == "lehrstuhl" || $this->aktion == "finanz" || $this->aktion == "download" || $this->aktion == "auftraggeber") {
+            $admin = isUserAdmin($this->login_connection);
+
+            if ($admin) {
+                $this->bestanden = true;
+            }
+        } elseif ($this->aktion == "modalbearbeiten") {
+            $existens = existens($this->platinendb_connection);
+
+            if ($existens == false) {
+            } else {
+                $this->bestanden = true;
+            }
+        } elseif ($this->aktion == "bearbeiten") {
+            $existens = existens($this->platinendb_connection);
+            $veraenderbar = veraenderbarPlatine($this->platinendb_connection);
+
+            if ($existens == false) {
+            } elseif (legitimierung($this->login_connection) == false) {
+            } elseif ($veraenderbar[0] == false) {
+                header('Content-Type: application/json');
+                echo json_encode(array('data' => $veraenderbar[1]));
+                die();
+            } else {
+                $this->bestanden = true;
+            }
+        } elseif ($this->aktion == "detail") {
+            $existens = existens($this->platinendb_connection);
+
+            if ($existens == false) {
+            } elseif (legitimierung($this->login_connection) == false) {
+            } else {
+                $this->bestanden = true;
+            }
+        } elseif ($this->aktion == "loeschen") {
+            $existens = existens($this->platinendb_connection);
+            $veraenderbar = veraenderbarPlatine($this->platinendb_connection);
+
+            if ($existens == false) {
+            } elseif (legitimierung($this->login_connection) == false) {
+            } elseif ($veraenderbar[0] == false) {
+                header('Content-Type: application/json');
+                echo json_encode(array('data' => $veraenderbar[1]));
+                die();
+            } else {
+                $this->bestanden = true;
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+    private function auswertung()
+    {
 
         $fromajax = $this->fromJavascript();
         $eingeloggt = $this->login->isUserLoggedIn();
         $est = isUserAdmin($this->login_connection);
- 
- 
-        if($eingeloggt == false) {
-         die (header("location: ../index.php"));
-        }
- 
-        if($est == false) {
-         die (header("location: ../platinenindex.php"));
+
+
+        if ($eingeloggt == false) {
+            die(header("location: ../index.php"));
         }
 
-        if($fromajax == false) {
-            die (header("location: ../auswertungindex.php"));
+        if ($est == false) {
+            die(header("location: ../platinenindex.php"));
         }
- 
- 
-         if($this->aktion == "auswertung") {
-             $this->bestanden = true;
-         }
 
+        if ($fromajax == false) {
+            die(header("location: ../auswertungindex.php"));
+        } else {
+            $this->bestanden = true;
+        }
     }
-
 }

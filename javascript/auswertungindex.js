@@ -3,47 +3,49 @@ setDefaultSettings();
 getData();
 
 $("#zeitinterval").on("input", function () {
-  setSettings1();
+  setSettings();
+  getData();
 });
 
 $("#jahroderletzten").on("input", function () {
-  setSettings2();
+  setSettings();
+  getData();
 });
 
-$("#auftraggeber").on("input", function () {
-  //todo
+$("#auftraggeber").on("change", function () {
+  setSettings();
+  getData();
 });
 
 function setDefaultSettings() {
-  aktion = "auswertung";
   zeitraum = "monate";
-
   letzten = "x";
-
+  auftraggeber = "";
   setJahre();
-
   datar = null;
 }
 
-function setSettings1() {
+function setSettings() {
   var jahroderletzten = $("#jahrlabel").text();
 
   zeitraum = $("#zeitinterval option:selected").val().toLowerCase();
   jahr = $("#jahroderletzten option:selected").val();
   letzten = $("#jahroderletzten option:selected").val();
+  auftraggeber = $("#auftraggeber option:selected").val();
 
   if (zeitraum == "jahre" && jahroderletzten == "Jahr:") {
     $("#jahrlabel").text("Letzten:");
-
     setLetzten();
-
     $("#jahroderletzten option:last").attr("selected", "selected");
   } else if (zeitraum == "monate" && jahroderletzten == "Letzten:") {
     $("#jahrlabel").text("Jahr:");
     setJahre();
   }
 
-  setSettings2();
+  zeitraum = $("#zeitinterval option:selected").val().toLowerCase();
+  jahr = $("#jahroderletzten option:selected").val();
+  letzten = $("#jahroderletzten option:selected").val();
+  auftraggeber = $("#auftraggeber option:selected").val();
 }
 
 function setLetzten() {
@@ -68,23 +70,22 @@ function setJahre() {
   }
 }
 
-function setSettings2() {
-  zeitraum = $("#zeitinterval option:selected").val().toLowerCase();
-  jahr = $("#jahroderletzten option:selected").val();
-  letzten = $("#jahroderletzten option:selected").val();
-
-  getData();
-}
-
 function getData() {
+  aktion = "auswertung";
   $.ajax({
     url: "verarbeitungAus/auswertung.php",
     method: "post",
-    data: { aktion: aktion, zeitraum: zeitraum, letzten: letzten, jahr: jahr },
+    data: {
+      aktion: aktion,
+      zeitraum: zeitraum,
+      letzten: letzten,
+      jahr: jahr,
+      auftraggeber: auftraggeber,
+    },
     success: function (data) {
       try {
         chart1.destroy();
-      } catch (error) { }
+      } catch (error) {}
 
       var zustand = data.data[1];
 
@@ -108,8 +109,8 @@ function getData() {
           .fadeIn(1000)
           .html(
             '<div class="alert alert-danger alertm">Fehler bei der Durchführung des Datenbankbefehls. Fehler: ' +
-            data.data[2] +
-            "</div>"
+              data.data[2] +
+              "</div>"
           );
       }
 
@@ -210,7 +211,7 @@ function setChart() {
 function getLabels() {
   var labels = new Array();
 
-  for (let i = 0; i < datar.length && i < 10; i++) {
+  for (let i = 0; i < datar.length; i++) {
     labels.push(datar[i][0] + "");
   }
 

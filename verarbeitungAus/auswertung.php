@@ -7,15 +7,14 @@ require_once("../classes/Sicherheit.php");
 
 $login = new Login();
 
-$login_connection= $login->getlogin_connection();
+$login_connection = $login->getlogin_connection();
 $platinendb_connection = $login->getplatinendb_connection();
 
 
 //sicherheit checks
-if(!(isset($_POST['aktion']))) {
+if (!(isset($_POST['aktion']))) {
   $aktion = "";
-}
-else {
+} else {
   $aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 }
 $von = "auswertung";
@@ -24,16 +23,28 @@ $bestanden = $sicherheit->ergebnis();
 
 
 
-if($bestanden == true && $aktion == "auswertung") {
+if ($bestanden == true && $aktion == "auswertung") {
 
 
   $zeitraum = mysqli_real_escape_string($platinendb_connection, $_POST["zeitraum"]);
-	
+  $auftraggeber = mysqli_real_escape_string($platinendb_connection, $_POST['auftraggeber']);
+  if (empty($auftraggeber)) {
+    $whereAuftraggeber = "";
+  } else {
+    $whereAuftraggeber = "login.users.user_name = '$auftraggeber'";
+    if ($zeitraum == "monate") {
+      $whereAuftraggeber = "and " . $whereAuftraggeber;
+    } else if ($zeitraum == "jahre") {
+      $whereAuftraggeber = "Where " . $whereAuftraggeber;
+    }
+  }
 
-  if($zeitraum == "monate") {
+
+
+
+  if ($zeitraum == "monate") {
     //für where anweisung in abfrage
     $jahr = mysqli_real_escape_string($platinendb_connection, $_POST['jahr']);
-
 
     $sql = "
     Select
@@ -47,23 +58,20 @@ if($bestanden == true && $aktion == "auswertung") {
       platinendb.lehrstuhl On login.users.lehrstuhl = platinendb.lehrstuhl.id
     Where
       Year(platinendb.platinen.erstelltam) = '$jahr'
+      $whereAuftraggeber
     Group By
       Month(platinendb.platinen.erstelltam)
     Order By
       Month(platinendb.platinen.erstelltam)
     ";
-  
-  }
-
-  else if ($zeitraum == "jahre") {
+  } else if ($zeitraum == "jahre") {
 
     //für where anweisung in abfrage
     $letzten = mysqli_real_escape_string($platinendb_connection, $_POST['letzten']);
-    
+
     if ($letzten == 0) {
       $limit = "";
-    }
-    else {
+    } else {
       $limit = "LIMIT $letzten";
     }
 
@@ -77,6 +85,7 @@ if($bestanden == true && $aktion == "auswertung") {
         platinendb.platinen Inner Join
         login.users On platinendb.platinen.Auftraggeber_ID = login.users.user_id Inner Join
         platinendb.lehrstuhl On login.users.lehrstuhl = platinendb.lehrstuhl.id
+     $whereAuftraggeber 
      Group By
         Year(platinendb.platinen.erstelltam)
      Order By
@@ -88,22 +97,21 @@ if($bestanden == true && $aktion == "auswertung") {
 
 
   $result = $platinendb_connection->query($sql);
-  
+
   $sicherheit->checkQuery3($platinendb_connection);
 
 
   if ($result->num_rows > 0) {
-      
-      while($row = $result->fetch_array()) {
 
-      
-      
-      $nestedData=array();
+    while ($row = $result->fetch_array()) {
 
-      if($zeitraum == "monate") {
+
+
+      $nestedData = array();
+
+      if ($zeitraum == "monate") {
         $nestedData[] = $row["monat"];
-      }
-      else {
+      } else {
         $nestedData[] = $row["jahr"];
       }
 
@@ -112,29 +120,24 @@ if($bestanden == true && $aktion == "auswertung") {
       $nestedData[] = $row["extern"];
 
       $data[] = $nestedData;
-
     }
 
-    
+
     $json_data = array("data" => $data);
     header('Content-Type: application/json');
     echo json_encode($json_data);  // send data as json format
-  }
-
-  else {
+  } else {
     $data[1] = 'leer';
     header('Content-Type: application/json');
-    echo json_encode(array('data'=> $data));
+    echo json_encode(array('data' => $data));
     die();
   }
 
-  mysqli_close($platinendb_connection); 
-  mysqli_close($login_connection);  
-
-}
-else {
+  mysqli_close($platinendb_connection);
+  mysqli_close($login_connection);
+} else {
   $data[1] = 'fehlerhaft';
   header('Content-Type: application/json');
-  echo json_encode(array('data'=>  $data));
+  echo json_encode(array('data' =>  $data));
   die();
 }
