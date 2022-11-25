@@ -19,7 +19,9 @@ modal1($login_connection);
 <div class="container" id="options" style="visibility:hidden">
 
 	<div id="downloadDiv">
-		<label id="downloadlabel" for="usr">Download:</label>
+		<label id="downloadlabel" for="usr">Download :
+			<i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='Hinweis' data-content='Falls Tabelle der generierten PDF zu klein ist, Tabelle durch zoom vergrößern und erneut downloaden.'></i>
+		</label>
 		<button id="downloadpdf" class="btn btn-primary">PDF</button>
 	</div>
 

@@ -14,6 +14,8 @@
   <!-- selectpicker -->
   <link rel="stylesheet" href="plugins/bootstrap-select-1.14.0-beta3/css/bootstrap-select.css">
 
+  <link href="plugins/fontawesome-free-5.15.1-web/css/all.css" rel="stylesheet">
+
 
   <link href="styles/auswertungindex.css" rel="stylesheet" type="text/css">
 

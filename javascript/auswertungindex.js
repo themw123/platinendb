@@ -16,6 +16,15 @@ $("#downloadpdf").on("click", function () {
   doc.save("Platinenaufträge.pdf");
 });
 
+$('[data-toggle="popover"]').popover();
+
+//popovers schließen wenn woanders geklickt wird
+$("html").on("click", function (e) {
+  if (typeof $(e.target).data("original-title") == "undefined") {
+    $('[data-toggle="popover"]').popover("hide");
+  }
+});
+
 $("#zeitinterval").on("input", function () {
   setSettings();
   getData();
@@ -179,7 +188,7 @@ function setChart() {
         {
           label: "# intern",
           data: getValues("int"),
-          backgroundColor: ["rgba(46, 196, 87, 0.6)"],
+          backgroundColor: ["rgba(0, 94, 169, 0.6)"],
           borderColor: ["rgba(0, 0, 0, 0.6)"],
           borderWidth: 1,
         },

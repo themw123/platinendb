@@ -276,3 +276,10 @@ h3 {
   align-items: center;
 }
 
+#infoicon{
+  color: #005ea9;
+  cursor: pointer; 
+}
+#infoicon:hover{
+  color: #0000cc!important;
+}
