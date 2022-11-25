@@ -12,33 +12,41 @@ modal1($login_connection);
 	</div>
 </div>
 
-<div class="container" id="chartdiv">
+<div class="container">
 	<h3>Platinenaufträge</h3>
 </div>
 
-<div class="container" id="con" style="visibility:hidden">
-	<div class="set" id="zeitintervalDiv">
-		<label for="usr">Zeitinterval:</label>
+<div class="container" id="options" style="visibility:hidden">
 
-		<select class="form-control" id="zeitinterval" name="Zeitinterval" required="">
-			<option>Monate</option>
-			<option>Jahre</option>
-		</select>
-
+	<div id="downloadDiv">
+		<label id="downloadlabel" for="usr">Download:</label>
+		<button id="downloadpdf" class="btn btn-primary">PDF</button>
 	</div>
 
-	<div class="set" id="jahroderletztenDiv">
-		<label id="jahrlabel" for="usr">Jahr:</label>
+	<div class="filter">
+		<div class="set" id="zeitintervalDiv">
+			<label for="usr">Zeitinterval:</label>
 
-		<select class="form-control" id="jahroderletzten" name="jahroderletzten" required="">
+			<select class="form-control" id="zeitinterval" name="Zeitinterval" required="">
+				<option>Monate</option>
+				<option>Jahre</option>
+			</select>
 
-		</select>
-	</div>
+		</div>
 
-	<div class="set" id="auftraggeberDiv">
-		<label id="auftraggeberlabel" for="usr">Auftraggeber:</label>
-		<select title="alle" class="form-control" data-live-search="true" id="auftraggeber" name="Auftraggeber">
-		</select>
+		<div class="set" id="jahroderletztenDiv">
+			<label id="jahrlabel" for="usr">Jahr:</label>
+
+			<select class="form-control" id="jahroderletzten" name="jahroderletzten" required="">
+
+			</select>
+		</div>
+
+		<div class="set" id="auftraggeberDiv">
+			<label id="auftraggeberlabel" for="usr">Auftraggeber:</label>
+			<select title="alle" class="form-control" data-live-search="true" id="auftraggeber" name="Auftraggeber">
+			</select>
+		</div>
 	</div>
 
 </div>

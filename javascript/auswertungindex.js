@@ -2,6 +2,20 @@ setDefaultSettings();
 
 getData();
 
+$("#downloadpdf").on("click", function () {
+  var newCanvas = document.querySelector("#chart1");
+
+  //create image from dummy canvas
+  var newCanvasImg = newCanvas.toDataURL("image/jpg", 1.0);
+
+  //creates PDF from img
+  window.jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF("landscape");
+  doc.text(15, 15, "Platinenaufträge");
+  doc.addImage(newCanvasImg, "JPG", 10, 20, 230, 100);
+  doc.save("Platinenaufträge.pdf");
+});
+
 $("#zeitinterval").on("input", function () {
   setSettings();
   getData();

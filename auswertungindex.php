@@ -129,6 +129,7 @@
   <!-- selectpicker -->
   <script src="plugins/bootstrap-select-1.14.0-beta3/js/bootstrap-select.js"></script>
 
+  <script src="plugins\jsPDF-2.5.1\dist\jspdf.umd.min.js" type="text/javascript"></script>
 
   <script src="javascript/auftraggeber!bearbeiter.js"></script>
 
