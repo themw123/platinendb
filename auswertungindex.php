@@ -123,7 +123,9 @@
 
   <script src="plugins/bootstrap-4.5.3-dist/js/bootstrap.min.js" type="text/javascript"></script>
 
-  <script src="plugins/chart/dist/chart.min.js" type="text/javascript"></script>
+  <script src="plugins/chart/chart.js/dist/chart.umd.js" type="text/javascript"></script>
+
+  <script src="plugins/chart/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.min.js" type="text/javascript"></script>
 
   <script src="javascript/auswertungindex.js"></script>
 

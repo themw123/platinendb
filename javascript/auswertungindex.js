@@ -178,12 +178,13 @@ function getData() {
 }
 
 function setChart() {
-  ctx1 = document.getElementById("chart1").getContext("2d");
+  ctx1 = document.getElementById("chart1");
+  Chart.register(ChartDataLabels);
+
   chart1 = new Chart(ctx1, {
     type: "bar",
     data: {
       labels: getLabels(),
-
       datasets: [
         {
           label: "# intern",
@@ -204,20 +205,19 @@ function setChart() {
     },
     options: {
       plugins: {
-        /*
-              title: {
-                  display: true,
-                  text: 'Platinenaufträge',
-                  padding: {
-                    bottom: 30
-                  },
-                  font: {
-                    size: 20
-                  }
-              }
-              */
+        datalabels: {
+          anchor: "end",
+          align: "start",
+          labels: {
+            value: {
+              color: "black",
+            },
+          },
+          display: function (context) {
+            return context.dataset.data[context.dataIndex] >= 1;
+          },
+        },
       },
-
       scales: {
         x: {
           stacked: true,
