@@ -296,6 +296,8 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
     }
 
 
+    $abgeschlossen = "";
+    $fertigung = "";
     $erstellt = date("Y-m-d", strtotime($_POST['Erstellt']));
     if (!empty($_POST['Fertigung'])) {
       $fertigung = date("Y-m-d", strtotime($_POST['Fertigung']));

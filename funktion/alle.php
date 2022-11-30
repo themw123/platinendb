@@ -1,30 +1,29 @@
 <?php
 
 //gucken ob eingeloggter benutzer est ist
-function isUserAdmin ($login_connection) {
+function isUserAdmin($login_connection)
+{
 
 	//eingeloggter user holen
 	//$user = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
 
 	$userPriv = mysqli_real_escape_string($login_connection, $_SESSION['admin']);
-	
+
 	if ($userPriv == 1) {
 		return true;
-	}
-
-	else {
+	} else {
 		return false;
 	}
-
 }
 
-function isThisUserAdmin ($login_connection, $username) {
+function isThisUserAdmin($login_connection, $username)
+{
 
 	//eingeloggter user holen
 	//$user = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
 
-	$admin = 
-	"SELECT
+	$admin =
+		"SELECT
 	users.admin
 	FROM login.users
 	WHERE user_name = '$username'";
@@ -34,30 +33,28 @@ function isThisUserAdmin ($login_connection, $username) {
 	$admin =  mysqli_query($login_connection, $admin);
 	$admin = mysqli_fetch_assoc($admin);
 	$admin = $admin["admin"];
-	
+
 
 	if ($admin == "1") {
 		return true;
-	}
-
-	else {
+	} else {
 		return false;
 	}
-
 }
 
 // gucken ob zu bearbeitende oder detail anschauende Platine  dem eingeloggten Benutzer gehört
 
-function legitimierung ($login_connection) {
+function legitimierung($login_connection)
+{
 
 
 	$id = mysqli_real_escape_string($login_connection, $_POST['Id']);
 	$ziel =  mysqli_real_escape_string($login_connection, $_POST['ziel']);
 
 
-	
-	$auftraggeberquery = 
-	"SELECT
+
+	$auftraggeberquery =
+		"SELECT
 	users.user_name as Nameee,
 	platinen.ID
 	FROM platinendb.platinen
@@ -70,29 +67,24 @@ function legitimierung ($login_connection) {
 	$auftraggeberid =  mysqli_query($login_connection, $auftraggeberquery);
 	$rowauftraggeber = mysqli_fetch_assoc($auftraggeberid);
 	$VariableAuftraggeber = $rowauftraggeber["Nameee"];
-	
-	
 
-	if ($VariableAuftraggeber == $_SESSION['user_name'] || "1" == $_SESSION['admin'] ) {
+
+
+	if ($VariableAuftraggeber == $_SESSION['user_name'] || "1" == $_SESSION['admin']) {
 
 		return true;
-	}
-	else {
+	} else {
 		return false;
 	}
-
-	
-
-	
-
 }
 
-function veraenderbarNutzen($platinendb_connection) {
+function veraenderbarNutzen($platinendb_connection)
+{
 
 	$id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
-	$query = 
-	"SELECT
+	$query =
+		"SELECT
     	nutzenplatinen.Nutzen_ID
 	FROM
   	  nutzenplatinen
@@ -102,15 +94,15 @@ function veraenderbarNutzen($platinendb_connection) {
 	$queryresult2 = mysqli_fetch_assoc($queryresult1);
 
 	//Überprüfung nur wenn Platinen auf Nutzen drauf sind
-	if($queryresult2 !== null) {
+	if ($queryresult2 !== null) {
 
-			$eigenschaftenNeu[1] = mysqli_real_escape_string($platinendb_connection, $_POST['Material']);
-			$eigenschaftenNeu[2] = mysqli_real_escape_string($platinendb_connection, $_POST['Endkupfer']);
-			$eigenschaftenNeu[3] = mysqli_real_escape_string($platinendb_connection, $_POST['Staerke']);
-			$eigenschaftenNeu[4] = mysqli_real_escape_string($platinendb_connection, $_POST['Lagen']);
+		$eigenschaftenNeu[1] = mysqli_real_escape_string($platinendb_connection, $_POST['Material']);
+		$eigenschaftenNeu[2] = mysqli_real_escape_string($platinendb_connection, $_POST['Endkupfer']);
+		$eigenschaftenNeu[3] = mysqli_real_escape_string($platinendb_connection, $_POST['Staerke']);
+		$eigenschaftenNeu[4] = mysqli_real_escape_string($platinendb_connection, $_POST['Lagen']);
 
 
-			$query = 
+		$query =
 			"SELECT
 			nutzen.ID,
 			material.Name as Material,
@@ -124,73 +116,70 @@ function veraenderbarNutzen($platinendb_connection) {
 				nutzen.ID = '$id'";
 
 
-			$queryresult1 =  mysqli_query($platinendb_connection, $query);
-			$queryresult2 = mysqli_fetch_assoc($queryresult1);
+		$queryresult1 =  mysqli_query($platinendb_connection, $query);
+		$queryresult2 = mysqli_fetch_assoc($queryresult1);
 
-			$eigenschaftenAlt[1] = $queryresult2["Material"];
-			$eigenschaftenAlt[2] = $queryresult2["Endkupfer"];
-			$eigenschaftenAlt[3] = $queryresult2["Staerke"];
-			$eigenschaftenAlt[4] = $queryresult2["Lagen"];
+		$eigenschaftenAlt[1] = $queryresult2["Material"];
+		$eigenschaftenAlt[2] = $queryresult2["Endkupfer"];
+		$eigenschaftenAlt[3] = $queryresult2["Staerke"];
+		$eigenschaftenAlt[4] = $queryresult2["Lagen"];
 
 
-			//vergleichen
-			$counter = 1;
-			$veraenderbar = 0;
-			while($counter <= count($eigenschaftenAlt)) {
-				if($eigenschaftenAlt[$counter] == $eigenschaftenNeu[$counter]){
-					$veraenderbar = $veraenderbar + 1;
-				}
-				$counter = $counter + 1;
+		//vergleichen
+		$counter = 1;
+		$veraenderbar = 0;
+		while ($counter <= count($eigenschaftenAlt)) {
+			if ($eigenschaftenAlt[$counter] == $eigenschaftenNeu[$counter]) {
+				$veraenderbar = $veraenderbar + 1;
 			}
-			if($veraenderbar == 4) {
-				return true;
-			}
-			else{
-				return false;
-			}
-
-	}	
-	else {
+			$counter = $counter + 1;
+		}
+		if ($veraenderbar == 4) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
 		return true;
 	}
-
 }
 
 
 
-function veraenderbarPlatine ($platinendb_connection) {
+function veraenderbarPlatine($platinendb_connection)
+{
 
 	$id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
-	$anzahlaufnutzen = 
-	"SELECT
+	$anzahlaufnutzen =
+		"SELECT
 	platinendb.nutzenplatinen.Platinen_ID
 	FROM
 	platinendb.nutzenplatinen
 	WHERE
 	platinendb.nutzenplatinen.Platinen_ID = '$id'";
 
-	$anzahlaufnutzen2=  mysqli_query($platinendb_connection, $anzahlaufnutzen);
-	
-	$anzahlaufnutzen3 = mysqli_fetch_assoc($anzahlaufnutzen2);	
+	$anzahlaufnutzen2 =  mysqli_query($platinendb_connection, $anzahlaufnutzen);
+
+	$anzahlaufnutzen3 = mysqli_fetch_assoc($anzahlaufnutzen2);
 
 
 
 
 	if ($anzahlaufnutzen3 !== null) {
-		
 
-		if(isUserAdmin($platinendb_connection) == true) {
+
+		if (isUserAdmin($platinendb_connection) == true) {
 
 			$aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
-			if($aktion != "loeschen") { 
-	
-					$eigenschaftenNeu[1] = mysqli_real_escape_string($platinendb_connection, $_POST['Material']);
-					$eigenschaftenNeu[2] = mysqli_real_escape_string($platinendb_connection, $_POST['Endkupfer']);
-					$eigenschaftenNeu[3] = mysqli_real_escape_string($platinendb_connection, $_POST['Staerke']);
-					$eigenschaftenNeu[4] = mysqli_real_escape_string($platinendb_connection, $_POST['Lagen']);
+			if ($aktion != "loeschen") {
 
-					$query = 
+				$eigenschaftenNeu[1] = mysqli_real_escape_string($platinendb_connection, $_POST['Material']);
+				$eigenschaftenNeu[2] = mysqli_real_escape_string($platinendb_connection, $_POST['Endkupfer']);
+				$eigenschaftenNeu[3] = mysqli_real_escape_string($platinendb_connection, $_POST['Staerke']);
+				$eigenschaftenNeu[4] = mysqli_real_escape_string($platinendb_connection, $_POST['Lagen']);
+
+				$query =
 					"SELECT
 						platinen.ID,
 						material.Name as Material,
@@ -203,244 +192,207 @@ function veraenderbarPlatine ($platinendb_connection) {
 					WHERE platinen.ID = '$id'";
 
 
-					$queryresult1 =  mysqli_query($platinendb_connection, $query);
-					$queryresult2 = mysqli_fetch_assoc($queryresult1);
+				$queryresult1 =  mysqli_query($platinendb_connection, $query);
+				$queryresult2 = mysqli_fetch_assoc($queryresult1);
 
-					$eigenschaftenAlt[1] = $queryresult2["Material"];
-					$eigenschaftenAlt[2] = $queryresult2["Endkupfer"];
-					$eigenschaftenAlt[3] = $queryresult2["Staerke"];
-					$eigenschaftenAlt[4] = $queryresult2["Lagen"];
+				$eigenschaftenAlt[1] = $queryresult2["Material"];
+				$eigenschaftenAlt[2] = $queryresult2["Endkupfer"];
+				$eigenschaftenAlt[3] = $queryresult2["Staerke"];
+				$eigenschaftenAlt[4] = $queryresult2["Lagen"];
 
 
-					//vergleichen
-					$counter = 1;
-					$veraenderbar = 0;
-					while($counter <= count($eigenschaftenAlt)) {
-						if($eigenschaftenAlt[$counter] == $eigenschaftenNeu[$counter]){
-							$veraenderbar = $veraenderbar + 1;
-						}
-						$counter = $counter + 1;
+				//vergleichen
+				$counter = 1;
+				$veraenderbar = 0;
+				while ($counter <= count($eigenschaftenAlt)) {
+					if ($eigenschaftenAlt[$counter] == $eigenschaftenNeu[$counter]) {
+						$veraenderbar = $veraenderbar + 1;
 					}
-					if($veraenderbar == 4) {
-						$array[0] = true;
-						$array[1] = "xxx";
-						return $array;
-					}
-					else{
-						$array[0] = false;
-						$array[1] = "nichtveraenderbar";
-						return $array;
-					}
-			}
-			else {
+					$counter = $counter + 1;
+				}
+				if ($veraenderbar == 4) {
+					$array[0] = true;
+					$array[1] = "xxx";
+					return $array;
+				} else {
+					$array[0] = false;
+					$array[1] = "nichtveraenderbar";
+					return $array;
+				}
+			} else {
 				$array[0] = false;
 				$array[1] = "nichtveraenderbar";
 				return $array;
-			}	
-
-		}
-		else {
+			}
+		} else {
 			$array[0] = false;
 			$array[1] = "nichtest";
 			return $array;
 		}
-			
-
-}
-
-else {
-	$array[0] = true;
-	$array[1] = "xxx";
-	return $array;
-}
-
-	
+	} else {
+		$array[0] = true;
+		$array[1] = "xxx";
+		return $array;
+	}
 }
 
 
 
 //existens der paramater prüfen und gucken ob überhaupt übergeben wurde
 
-function existens ($connection) {
+function existens($connection)
+{
 
 
-if (isset($_POST["Id"]) && isset($_POST["ziel"])) {
+	if (isset($_POST["Id"]) && isset($_POST["ziel"])) {
 
 
-$ziel = mysqli_real_escape_string($connection, $_POST['ziel']);
-$url_id = mysqli_real_escape_string($connection, $_POST['Id']);
+		$ziel = mysqli_real_escape_string($connection, $_POST['ziel']);
+		$url_id = mysqli_real_escape_string($connection, $_POST['Id']);
 
-if($ziel == "platinen") {
-$sqlx = "SELECT ID FROM platinenview WHERE ID='$url_id'";
-}
+		if ($ziel == "platinen") {
+			$sqlx = "SELECT ID FROM platinenview WHERE ID='$url_id'";
+		} elseif ($ziel == "nutzen") {
+			$sqlx = "SELECT ID FROM nutzenview WHERE ID='$url_id'";
+		} elseif ($ziel == "nutzenplatinen") {
+			$sqlx = "SELECT ID FROM platinenaufnutzen2 WHERE nuplid='$url_id'";
+		}
 
-elseif ($ziel == "nutzen") {
-$sqlx = "SELECT ID FROM nutzenview WHERE ID='$url_id'";
-}
-
-elseif($ziel == "nutzenplatinen") {
-$sqlx = "SELECT ID FROM platinenaufnutzen2 WHERE nuplid='$url_id'";
-}
-
-$resultx = mysqli_query($connection, $sqlx);
+		$resultx = mysqli_query($connection, $sqlx);
 
 
-//gucken ob Platinen id in tabelle existiert 
-if(mysqli_num_rows($resultx) > 0 ) {
-	return true;
-}
-else {
-	return false;
-}
+		//gucken ob Platinen id in tabelle existiert 
+		if (mysqli_num_rows($resultx) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		echo '<div class="container-fluid">';
 
-
-}
-
-else {
-echo'<div class="container-fluid">';
-		 
-echo"
+		echo "
 <div class='alert alert-danger'> Es wurden nicht die benötigten parameter übergeben(Id und ziel).
 </div>";
 
-echo'</div>';  
-}
-	
-
-
-
-
+		echo '</div>';
+	}
 }
 
 
-function uploadSecurity($toCheck){
+function uploadSecurity($toCheck)
+{
 	//check type
-	$fileInfo = finfo_open(FILEINFO_MIME_TYPE);// return mime-type extension
+	$fileInfo = finfo_open(FILEINFO_MIME_TYPE); // return mime-type extension
 	$filePath = $_FILES['file']['tmp_name'];
 	$fileSize = filesize($filePath);
 	$fileType = finfo_file($fileInfo, $filePath);
 	finfo_close($fileInfo);
 
-	if($toCheck == "text") {
-		if($fileType != "text/plain") {
+	if ($toCheck == "text") {
+		if ($fileType != "text/plain") {
 			die();
 		}
-		
+
 		//check file size(ungefähr > 1,5kb)
 		if ($fileSize > 1500) {
 			die();
-		}	
-	}
-
-	else if($toCheck == "archive") {
-		if($fileType != "application/zip" && $fileType != "application/x-rar") {
+		}
+	} else if ($toCheck == "archive") {
+		if ($fileType != "application/zip" && $fileType != "application/x-rar") {
 			die();
 		}
-		
+
 		//check file size(ungefähr > 2mb)
 		if ($fileSize > 2000000) {
 			die();
-		}	
+		}
 	}
-
 }
 
-function readfiledata() {
+function readfiledata()
+{
 
 	$contents = file_get_contents($_FILES['file']['tmp_name']);
 
 	if (!(strpos($contents, ":Top") !== false) && !(strpos($contents, ":Bottom") !== false)) {
 		// weder top noch bottom
 		return;
-	}
-	else {
-		if((strpos($contents, ":Top") !== false) && (strpos($contents, ":Bottom") !== false)) {
+	} else {
+		if ((strpos($contents, ":Top") !== false) && (strpos($contents, ":Bottom") !== false)) {
 			//top und bottom
-			$anfang = strpos($contents, ":Top")-8;
-			$ende = strpos($contents, ":Bottom")+40;
+			$anfang = strpos($contents, ":Top") - 8;
+			$ende = strpos($contents, ":Bottom") + 40;
 
-			$contentsNeu = substr($contents, $anfang, $ende-$anfang);
+			$contentsNeu = substr($contents, $anfang, $ende - $anfang);
 
 			$contentsNeu = trim($contentsNeu);
-			$contentsNeu = preg_replace("/[[:blank:]]+/","=",$contentsNeu);
-			$anzahlLines = substr_count($contentsNeu, "\n" )+1;
-			
+			$contentsNeu = preg_replace("/[[:blank:]]+/", "=", $contentsNeu);
+			$anzahlLines = substr_count($contentsNeu, "\n") + 1;
+
 			$row = $anzahlLines;
-		
-		
+
+
 			$counter = 0;
-			while($counter < $anzahlLines){
+			while ($counter < $anzahlLines) {
 				$ende =  strpos($contentsNeu, "=");
-				if($counter == 0) {
+				if ($counter == 0) {
 					$a[$counter][0] = "Top";
-				}
-				elseif($row == 1) {
+				} elseif ($row == 1) {
 					$a[$counter][0] = "Bottom";
+				} else {
+					$a[$counter][0] = "L" . ($counter + 1);
 				}
-				else{
-					$a[$counter][0] = "L".($counter+1);
-				}
-		
-					
-				$contentsNeu = substr($contentsNeu, strpos($contentsNeu, "=")+1, strlen($contentsNeu));
-				if($row != 1) {
+
+
+				$contentsNeu = substr($contentsNeu, strpos($contentsNeu, "=") + 1, strlen($contentsNeu));
+				if ($row != 1) {
 					$a[$counter][1] = substr($contentsNeu, 0, strpos($contentsNeu, "="));
-				}
-				else {
+				} else {
 					$a[$counter][1] = substr($contentsNeu, 0, strlen($contentsNeu));
 				}
-				$contentsNeu = substr($contentsNeu, strpos($contentsNeu, "=")+1, strlen($contentsNeu));
-				$counter = $counter+1;
-				$row = $row -1;
+				$contentsNeu = substr($contentsNeu, strpos($contentsNeu, "=") + 1, strlen($contentsNeu));
+				$counter = $counter + 1;
+				$row = $row - 1;
 			}
 			$summe = 0;
-			foreach($a as $value) {
+			foreach ($a as $value) {
 				$summe = $summe + $value[1];
 			}
 			$a[$counter][0] = "LagenSumme";
 			$a[$counter][1] = $summe;
 			return $a;
-
-
-		}
-		else if(strpos($contents, ":Top") !== false) {
+		} else if (strpos($contents, ":Top") !== false) {
 			//nur top
-			$anfang = strpos($contents, ":Top")+5;
+			$anfang = strpos($contents, ":Top") + 5;
 			$ende = strlen($contents);
-			$contentsNeu = substr($contents, $anfang, $ende-$anfang);
+			$contentsNeu = substr($contents, $anfang, $ende - $anfang);
 			$contentsNeu = trim($contentsNeu);
-			$contentsNeu = preg_replace("/[[:blank:]]+/","=",$contentsNeu);
+			$contentsNeu = preg_replace("/[[:blank:]]+/", "=", $contentsNeu);
 			$a[0][0] = "Top";
 			$a[0][1] = substr($contentsNeu, 0, strpos($contentsNeu, "="));
 			$a[1][0] = "LagenSumme";
 			$a[1][1] = substr($contentsNeu, 0, strpos($contentsNeu, "="));
-
-		}
-		else if(strpos($contents, ":Bottom") !== false) {
+		} else if (strpos($contents, ":Bottom") !== false) {
 			//nur bottom
-			$anfang = strpos($contents, ":Bottom")+7;
+			$anfang = strpos($contents, ":Bottom") + 7;
 			$ende = strlen($contents);
-			$contentsNeu = substr($contents, $anfang, $ende-$anfang);
+			$contentsNeu = substr($contents, $anfang, $ende - $anfang);
 			$contentsNeu = trim($contentsNeu);
-			$contentsNeu = preg_replace("/[[:blank:]]+/","=",$contentsNeu);
+			$contentsNeu = preg_replace("/[[:blank:]]+/", "=", $contentsNeu);
 			$a[0][0] = "Bottom";
 			$a[0][1] = substr($contentsNeu, 0, strpos($contentsNeu, "="));
 			$a[1][0] = "LagenSumme";
 			$a[1][1] = substr($contentsNeu, 0, strpos($contentsNeu, "="));
 		}
 		return $a;
-
 	}
+}
 
 
 
+function lagenAnlegen($a, $platinendb_connection)
+{
 
-}	
-	
-
-
-function lagenAnlegen($a, $platinendb_connection) {
-	
 	$aNeu = array(
 		array("Top", "null"),
 		array("L2", "null"),
@@ -452,10 +404,10 @@ function lagenAnlegen($a, $platinendb_connection) {
 	);
 
 	$counter = 0;
-	foreach($aNeu as $valueNeu) {
-		foreach($a as $value) {
-			if($valueNeu[0] == $value[0]) {
-				$aNeu[$counter][1] = "'".$value[1]."'";
+	foreach ($aNeu as $valueNeu) {
+		foreach ($a as $value) {
+			if ($valueNeu[0] == $value[0]) {
+				$aNeu[$counter][1] = "'" . $value[1] . "'";
 				break;
 			}
 		}
@@ -476,26 +428,25 @@ function lagenAnlegen($a, $platinendb_connection) {
 	$Lagen_ID = mysqli_insert_id($platinendb_connection);
 
 	return $Lagen_ID;
-
-
 }
 
 
-function deleteDownload($PlatinenID, $platinendb_connection) {
+function deleteDownload($PlatinenID, $platinendb_connection)
+{
 	//wenn platine im zustand abgeschlossenPost = 1 ist, dann lösche Download_ID und den download
 	$abgeschlossenFertigung = "select abgeschlossenFertigung from platinenviewest where id = '$PlatinenID'";
-	$abgeschlossenFertigung = mysqli_query($platinendb_connection,$abgeschlossenFertigung);
+	$abgeschlossenFertigung = mysqli_query($platinendb_connection, $abgeschlossenFertigung);
 	$abgeschlossenFertigung = mysqli_fetch_array($abgeschlossenFertigung);
-	$abgeschlossenFertigung = $abgeschlossenFertigung['abgeschlossenFertigung']; 
-		  
-		
-	if($abgeschlossenFertigung == 1) {
+	$abgeschlossenFertigung = $abgeschlossenFertigung['abgeschlossenFertigung'];
+
+
+	if ($abgeschlossenFertigung == 1) {
 		$deleteDownload_IDInPlatinen = "update platinen set Downloads_ID = null where ID = '$PlatinenID'";
-	
+
 		$download_id = "SELECT Downloads_ID FROM platinen WHERE ID = '$PlatinenID'";
-		$download_id = mysqli_query($platinendb_connection,$download_id);
+		$download_id = mysqli_query($platinendb_connection, $download_id);
 		$download_id = mysqli_fetch_array($download_id);
-		$download_id = $download_id['Downloads_ID']; 
+		$download_id = $download_id['Downloads_ID'];
 		$deleteDownload = "delete from downloads where ID = '$download_id'";
 		mysqli_query($platinendb_connection, $deleteDownload_IDInPlatinen);
 		mysqli_query($platinendb_connection, $deleteDownload);
@@ -504,55 +455,55 @@ function deleteDownload($PlatinenID, $platinendb_connection) {
 
 
 
-function isInFertigung($id, $platinendb_connection) {
+function isInFertigung($id, $platinendb_connection)
+{
 	$abgeschlossenPost = "select abgeschlossenPost from platinenviewest where ID = $id";
-	$abgeschlossenPost = mysqli_query($platinendb_connection,$abgeschlossenPost);
+	$abgeschlossenPost = mysqli_query($platinendb_connection, $abgeschlossenPost);
 	$abgeschlossenPost = mysqli_fetch_array($abgeschlossenPost);
-	$abgeschlossenPost = $abgeschlossenPost['abgeschlossenPost']; 
+	$abgeschlossenPost = $abgeschlossenPost['abgeschlossenPost'];
 
-	if($abgeschlossenPost == 1) {
+	if ($abgeschlossenPost == 1) {
 		return true;
-	}
-	else {
+	} else {
 		return false;
 	}
-
 }
 
-function isOnNutzen($id, $platinendb_connection) {
+function isOnNutzen($id, $platinendb_connection)
+{
 	$anzahl = "select Anzahl from platinenviewest where ID = $id";
-	$anzahl = mysqli_query($platinendb_connection,$anzahl);
+	$anzahl = mysqli_query($platinendb_connection, $anzahl);
 	$anzahl = mysqli_fetch_array($anzahl);
-	$anzahl = $anzahl['Anzahl']; 
+	$anzahl = $anzahl['Anzahl'];
 
 	$ausstehend = "select ausstehend from platinenviewest where ID = $id";
-	$ausstehend = mysqli_query($platinendb_connection,$ausstehend);
+	$ausstehend = mysqli_query($platinendb_connection, $ausstehend);
 	$ausstehend = mysqli_fetch_array($ausstehend);
-	$ausstehend = $ausstehend['ausstehend']; 
+	$ausstehend = $ausstehend['ausstehend'];
 
-	if($anzahl == $ausstehend) {
+	if ($anzahl == $ausstehend) {
 		return false;
-	}
-	else {
+	} else {
 		return true;
 	}
 }
 
 
-function ueberfuehren($id, $Anzahl, $Bearbeiter, $finanz, $Material_ID, $Endkupfer, $Staerke, $Lagen, $platinendb_connection) {
+function ueberfuehren($id, $Anzahl, $Bearbeiter, $finanz, $Material_ID, $Endkupfer, $Staerke, $Lagen, $platinendb_connection)
+{
 	//Neuen Nutzen anlegen
-	
+
 	$nr = "select max(Nr)+1 as Nr from nutzen";
-	$nr = mysqli_query($platinendb_connection,$nr);
+	$nr = mysqli_query($platinendb_connection, $nr);
 	$nr = mysqli_fetch_array($nr);
-	$nr = $nr['Nr']; 
-	if($nr == null) {
+	$nr = $nr['Nr'];
+	if ($nr == null) {
 		$nr = 1;
 	}
 
 
 	$bearbeiterId = "select user_id from login.users where user_name = '$Bearbeiter'";
-	$bearbeiterId = mysqli_query($platinendb_connection,$bearbeiterId);
+	$bearbeiterId = mysqli_query($platinendb_connection, $bearbeiterId);
 	$bearbeiterId = mysqli_fetch_array($bearbeiterId);
 	$bearbeiterId = $bearbeiterId['user_id'];
 
@@ -569,7 +520,7 @@ function ueberfuehren($id, $Anzahl, $Bearbeiter, $finanz, $Material_ID, $Endkupf
 
 	//Id von nutzen
 	$nutzenId = "select ID from nutzen where Nr = $nr";
-	$nutzenId = mysqli_query($platinendb_connection,$nutzenId);
+	$nutzenId = mysqli_query($platinendb_connection, $nutzenId);
 	$nutzenId = mysqli_fetch_array($nutzenId);
 	$nutzenId = $nutzenId['ID'];
 
@@ -578,29 +529,30 @@ function ueberfuehren($id, $Anzahl, $Bearbeiter, $finanz, $Material_ID, $Endkupf
 }
 
 
-function zustandNeu($platinendb_connection, $NutzenID) {
+function zustandNeu($platinendb_connection, $NutzenID)
+{
 	$getZustand = "SELECT Status1 FROM nutzen WHERE ID=$NutzenID";
 	$getZustand = mysqli_query($platinendb_connection, $getZustand);
 	$getZustand = mysqli_fetch_array($getZustand);
 	$getZustand = $getZustand['Status1'];
 
-	if($getZustand == "neu") {
+	if ($getZustand == "neu") {
 		return true;
-	}
-	else {
+	} else {
 		return false;
 	}
 }
 
-function sendMail($art, $user_name, $user_email, $user_password_hash) {
-	if($art == "newPlatineNotification") {
+function sendMail($art, $user_name, $user_email, $user_password_hash)
+{
+	if ($art == "newPlatineNotification") {
 		require_once('../libraries/PHPMailer.php');
 	}
-	
+
 	$mail = new PHPMailer;
 
 	//damit Umlaute richtig angezeigt werden
-	$mail->CharSet = 'utf-8'; 
+	$mail->CharSet = 'utf-8';
 
 	// please look into the config/config.php for much more info on how to use this!
 	// use SMTP or use mail()
@@ -628,38 +580,35 @@ function sendMail($art, $user_name, $user_email, $user_password_hash) {
 	$mail->FromName = EMAIL_PASSWORDRESET_FROM_NAME;
 
 
-	if($art == "validation") {
+	if ($art == "validation") {
 		$mail->Subject = ACCOUNT_VALIDATE_SUBJECT;
 		$mail->AddAddress(ACCOUNT_VALIDATE_TO);
 
 		$accountinfo = "Benutzername: " . $user_name . "\n" . "E-Mail-Adresse: " . $user_email;
 
 		//$link = ACCOUNT_VALIDATE_URL;
-		$link = ACCOUNT_VALIDATE_URL.'&user_name='.urlencode($user_name).'&user_email='.urlencode($user_email).'&user_password='.urlencode($user_password_hash). "\n \n \n" ;
-	
+		$link = ACCOUNT_VALIDATE_URL . '&user_name=' . urlencode($user_name) . '&user_email=' . urlencode($user_email) . '&user_password=' . urlencode($user_password_hash) . "\n \n \n";
+
 		$mail->Body = ACCOUNT_VALIDATE_CONTENT . '' . $link . '' . $accountinfo;
-	}
-	else if($art == "userNotification")  {
+	} else if ($art == "userNotification") {
 		$mail->Subject = NOTIFICATION_SUBJECT;
 		$mail->AddAddress($user_email);
-		
+
 		$benutzername = "\n\n Benutzername: " . $user_name;
 
 		$mail->Body = NOTIFICATION_CONTENT . '' . $benutzername;
-	}
-
-	else if($art == "newPlatineNotification")  {
+	} else if ($art == "newPlatineNotification") {
 		$mail->Subject = NEWPLATINE_SUBJECT;
 		$mail->AddAddress($user_email);
-		
+
 		$benutzername = "\n\n Benutzername: " . $user_name;
 
 		$mail->Body = NEWPLATINE_CONTENT . '' . $benutzername;
 	}
-	
 
-	if(!$mail->Send()) {
-		if($art != "newPlatineNotification") {
+
+	if (!$mail->Send()) {
+		if ($art != "newPlatineNotification") {
 			//$this->errors[] = MESSAGE_PASSWORD_RESET_MAIL_FAILED . $mail->ErrorInfo;
 		}
 		return false;
@@ -669,16 +618,16 @@ function sendMail($art, $user_name, $user_email, $user_password_hash) {
 }
 
 
-function platineAufNutzen($id, $platinendb_connection) {
+function platineAufNutzen($id, $platinendb_connection)
+{
 	$aufnu = "select ID from nutzenplatinen where Nutzen_ID = $id";
-	$aufnu = mysqli_query($platinendb_connection,$aufnu);
+	$aufnu = mysqli_query($platinendb_connection, $aufnu);
 	$aufnu = mysqli_fetch_array($aufnu);
 	$aufnu = $aufnu['ID'];
 
-	if($aufnu == null) {
+	if ($aufnu == null) {
 		return false;
-	}
-	else {
+	} else {
 		return true;
 	}
 }
@@ -686,9 +635,10 @@ function platineAufNutzen($id, $platinendb_connection) {
 
 
 //modal für benutzerinformationen
-function modal4($currentpage) {
+function modal4($currentpage)
+{
 
-	echo'	
+	echo '	
 		<div id="dataModal3" tabindex="-1" style=" padding-right:0!important" class="modal fade">  
 		<div class="modal-dialog">
 	
@@ -700,8 +650,8 @@ function modal4($currentpage) {
 				  <div class="modal-body" id="modalbody3">  
 				 	';
 
-					 if ($currentpage == "platinenindex") {
-						echo'
+	if ($currentpage == "platinenindex") {
+		echo '
 						<p style="text-align:center;font-size:20px;font-weight:600;">Zeilenfarbe:</p> 
 						<p><span style="color:#005ea9">Blau</span> = Platine im Nutzen-Zustand neu/post </p> 
 						<p><span style="color:#e89b02">Orange</span> = Platine im Nutzen-Zustand Fertigung </p> 
@@ -711,15 +661,14 @@ function modal4($currentpage) {
 						<p><i class="fas fa-exclamation-triangle red"></i> = Platine länger als 15 Tage im Zustand Neu</p>
 						<p><i class="fas fa-exclamation-triangle orange"></i> = Platine länger als 10 Tage im Zustand Neu</p>
 						';
-					 }
-					 else {
-						echo'
+	} else {
+		echo '
 						<p style="text-align:center;font-size:20px;font-weight:600;">Warnfarbe:</p> 
 						<p><i class="fas fa-exclamation-triangle red"></i> = Nutzen länger als 5 Tage im Zustand Fertigung</p>
-						';	
-					 }
+						';
+	}
 
-				  echo' 
+	echo ' 
 				  </div>  
 				  <div class="modal-footer">  
 				  <button id="button5" type="button" class="btn btn-primary" data-dismiss="modal">schließen</button>  
@@ -729,7 +678,6 @@ function modal4($currentpage) {
 	</div> 
 	
 	';
-	
 }
 
 
@@ -737,9 +685,10 @@ function modal4($currentpage) {
 
 //modal für einfügen und bearbeiten
 //der modal-title wird durch javascript eingefügt
-function modal3() {
-//data-backdrop="static" data-keyboard="false" damit modal nur mit abbrechen geschlossen wird
-	echo'	
+function modal3()
+{
+	//data-backdrop="static" data-keyboard="false" damit modal nur mit abbrechen geschlossen wird
+	echo '	
 		<div id="dataModal2" tabindex="-1" style=" padding-right:0!important" class="modal fade" data-backdrop="static" data-keyboard="false">  
 		<div id=modalbearbeiten class="modal-dialog modal-dialog-centered modal-xl">  
 			 <div class="modal-content">  
@@ -761,15 +710,15 @@ function modal3() {
 	</div> 
 	
 	';
-	
 }
 
 
 //modal für detail
 
-function modal2() {
+function modal2()
+{
 
-echo'	
+	echo '	
 	<div id="dataModal1" tabindex="-1" class="modal fade">  
 	<div class="modal-dialog modal-dialog-centered modal-lg">  
 		 <div class="modal-content">  
@@ -832,18 +781,18 @@ echo'
 </div> 
 
 ';
-
 }
 
 
 //modal für benutzerinformationen
 
-function modal1($login_connection) {
+function modal1($login_connection)
+{
 
-	
 
-	
-echo "
+
+
+	echo "
 <!-- Modal -->
 <div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
   <div class='modal-dialog' role='document'>
@@ -870,18 +819,17 @@ echo "
 	  <tr>
 	  	<th>Berechtigung:</th>
 	  	<td>
-		"; 
-		if (isUserAdmin ($login_connection) == true) { 
-				echo 'Admin';
-			}
-			else { 
-			  echo 'Standardbenutzer';
-		}
-		echo "
+		";
+	if (isUserAdmin($login_connection) == true) {
+		echo 'Admin';
+	} else {
+		echo 'Standardbenutzer';
+	}
+	echo "
 	</table>
 ";
 
-echo"
+	echo "
 	  </div>
 	  <div class='modal-footer'>
 		<button id='button2' type='button' class='btn btn-primary' data-dismiss='modal'>schließen</button>
@@ -891,4 +839,3 @@ echo"
 </div>		
 ";
 }
-

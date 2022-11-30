@@ -91,7 +91,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
 
 
 
-  $auftraggeberForm .= "
+  $auftraggeberForm = "
         <div class='form-group'>
           <label for='usr'>Auftraggeber:</label>
 
@@ -174,7 +174,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
 
 
   if (isUserAdmin($platinendb_connection)) {
-    $finanzForm .= "
+    $finanzForm = "
           <div class='form-group'>
             <label for='usr'>Finanzstelle:</label>
   
@@ -218,7 +218,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
   
           ";
   } else {
-    $finanzForm .= "
+    $finanzForm = "
           <div class='form-group'>
             <label for='usr'>Finanzstelle:</label>
   
@@ -428,6 +428,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
     $ziel = mysqli_real_escape_string($platinendb_connection, $_POST['ziel']);
 
 
+    $wunschdatum = "";
     if (!empty($_POST['Wunschdatum'])) {
       $wunschdatum = date("Y-m-d", strtotime($_POST['Wunschdatum']));
     }
