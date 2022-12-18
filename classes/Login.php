@@ -53,12 +53,12 @@ class Login
         }
 
         //wenn eingeloggt, dann mit Datenbanken verbinden, ist wichtig, da die vorherige Verbindung welche beim login hergestellt wurde nicht mehr existiert sobald login abgeschlossen ist und verbindung zu platinendb fehlt sowieso noch.
-        else if($this->isUserLoggedIn()) {
+        else if ($this->isUserLoggedIn()) {
             //Verbindung zur Platinendb Datenbank aufbauen
             $this->mysqlplatinendb();
 
             //Verbindung zur login Datenbank aufbauen
-            $this->mysqllogin();   
+            $this->mysqllogin();
         }
 
 
@@ -72,55 +72,55 @@ class Login
         }
     }
 
-    public function geterrors() {
+    public function geterrors()
+    {
         return $this->errors;
     }
 
 
 
-    
-    public function mysqllogin() {
+
+    public function mysqllogin()
+    {
         $this->login_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-            // change character set to utf8 and check it
-            if (!$this->login_connection->set_charset("utf8")) {
-                $this->errors[] = $this->login_connection->error;
-            }
+        // change character set to utf8 and check it
+        if (!$this->login_connection->set_charset("utf8")) {
+            $this->errors[] = $this->login_connection->error;
+        }
 
-            // if no connection errors (= working database connection)
-            if ($this->login_connection->connect_errno) {
-                $this->errors[] = "Problem bei der Verbindung mit der login Datenbank";
-            }
-
+        // if no connection errors (= working database connection)
+        if ($this->login_connection->connect_errno) {
+            $this->errors[] = "Problem bei der Verbindung mit der login Datenbank";
+        }
     }
 
 
 
-    public function mysqlplatinendb() {
+    public function mysqlplatinendb()
+    {
         $this->platinendb_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME_platinendb);
-        //$this->platinendb_connection = new mysqli("p:127.0.0.1", "est", "***REMOVED***", "platinendb");
 
-            // change character set to utf8 and check it
-            if (!$this->platinendb_connection->set_charset("utf8")) {
-                $this->errors[] = $this->platinendb_connection->error;
-            }
+        // change character set to utf8 and check it
+        if (!$this->platinendb_connection->set_charset("utf8")) {
+            $this->errors[] = $this->platinendb_connection->error;
+        }
 
-            // if no connection errors (= working database connection)
-            if ($this->platinendb_connection->connect_errno) {
-                $this->errors[] = "Problem bei der Verbindung mit der platinendb Datenbank";
-            }
-
-
-
+        // if no connection errors (= working database connection)
+        if ($this->platinendb_connection->connect_errno) {
+            $this->errors[] = "Problem bei der Verbindung mit der platinendb Datenbank";
+        }
     }
 
 
 
-    public function getlogin_connection() {
+    public function getlogin_connection()
+    {
         return $this->login_connection;
     }
 
-    public function getplatinendb_connection() {
+    public function getplatinendb_connection()
+    {
         return $this->platinendb_connection;
     }
 
@@ -178,7 +178,6 @@ class Login
                         $_SESSION['admin'] = $result_row->admin;
                         $_SESSION['lehrstuhl'] = $result_row->lehrstuhl;
                         $_SESSION['user_login_status'] = 1;
-
                     } else {
                         $this->errors[] = "falsches Passwort";
                     }
@@ -201,8 +200,6 @@ class Login
         session_destroy();
         // return a little feeedback message
         $this->messages[] = "Du wurdest ausgeloggt";
-
-
     }
 
 
@@ -212,7 +209,7 @@ class Login
      */
     public function isUserLoggedIn()
     {
-        if (isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] == 1) {
+        if (isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] == 1) {
             return true;
         }
         // default return
@@ -251,7 +248,7 @@ class Login
                 // @see http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers#Connecting_to_MySQL says:
                 // "Adding the charset to the DSN is very important for security reasons,
                 // most examples you'll see around leave it out. MAKE SURE TO INCLUDE THE CHARSET!"
-                $this->login_connection = new PDO('mysql:host='. DB_HOST_RESET .';dbname='. DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
+                $this->login_connection = new PDO('mysql:host=' . DB_HOST_RESET . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
                 return true;
             } catch (PDOException $e) {
                 $this->errors[] = MESSAGE_DATABASE_ERROR . $e->getMessage();
@@ -279,7 +276,7 @@ class Login
             return false;
         }
     }
-    
+
 
     public function setPasswordResetDatabaseTokenAndSendMail($user_name)
     {
@@ -287,7 +284,6 @@ class Login
 
         if (empty($user_name)) {
             $this->errors[] = MESSAGE_USERNAME_EMPTY;
-
         } else {
             // generate timestamp (to see when exactly the user (or an attacker) requested the password reset mail)
             // btw this is an integer ;)
@@ -326,7 +322,7 @@ class Login
     }
 
 
-     /**
+    /**
      * Sends the password-reset-email.
      */
     public function sendPasswordResetMail($user_name, $user_email, $user_password_reset_hash)
@@ -334,7 +330,7 @@ class Login
         $mail = new PHPMailer;
 
         //damit Umlaute richtig angezeigt werden
-        $mail->CharSet = 'utf-8'; 
+        $mail->CharSet = 'utf-8';
 
         // please look into the config/config.php for much more info on how to use this!
         // use SMTP or use mail()
@@ -363,10 +359,10 @@ class Login
         $mail->AddAddress($user_email);
         $mail->Subject = EMAIL_PASSWORDRESET_SUBJECT;
 
-        $link    = EMAIL_PASSWORDRESET_URL.'?user_name='.urlencode($user_name).'&verification_code='.urlencode($user_password_reset_hash);
+        $link    = EMAIL_PASSWORDRESET_URL . '?user_name=' . urlencode($user_name) . '&verification_code=' . urlencode($user_password_reset_hash);
         $mail->Body = EMAIL_PASSWORDRESET_CONTENT . ' ' . $link;
 
-        if(!$mail->Send()) {
+        if (!$mail->Send()) {
             $this->errors[] = MESSAGE_PASSWORD_RESET_MAIL_FAILED . $mail->ErrorInfo;
             return false;
         } else {
@@ -417,13 +413,13 @@ class Login
 
         if (empty($user_name) || empty($user_password_reset_hash) || empty($user_password_new) || empty($user_password_repeat)) {
             $this->errors[] = MESSAGE_PASSWORD_EMPTY;
-        // is the repeat password identical to password
+            // is the repeat password identical to password
         } else if ($user_password_new !== $user_password_repeat) {
             $this->errors[] = MESSAGE_PASSWORD_BAD_CONFIRM;
-        // password need to have a minimum length of 6 characters
+            // password need to have a minimum length of 6 characters
         } else if (strlen($user_password_new) < 6) {
             $this->errors[] = MESSAGE_PASSWORD_TOO_SHORT;
-        // if database connection opened
+            // if database connection opened
         } else if ($this->databaseConnection()) {
             // now it gets a little bit crazy: check if we have a constant HASH_COST_FACTOR defined (in config/hashing.php),
             // if so: put the value into $hash_cost_factor, if not, make $hash_cost_factor = null
@@ -485,11 +481,8 @@ class Login
     }
 
 
-    public function returnDatabase() {
+    public function returnDatabase()
+    {
         return $this->login_connection;
     }
 }
-
-
-
-
