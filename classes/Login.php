@@ -153,12 +153,16 @@ class Login
 
                 // database query, getting all the info of the selected user (allows login via email address in the
                 // username field)
-                $sql = "SELECT user_name, admin, user_email, user_password_hash, platinendb.lehrstuhl.kuerzel as lehrstuhl
-                        FROM login.users Inner Join platinendb.lehrstuhl On login.users.lehrstuhl = platinendb.lehrstuhl.id
-                        WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
-                $result_of_login_check = $this->login_connection->query($sql);
 
-                //hole lehrstuhl des benutzers 
+                $stmt = $this->login_connection->prepare(
+                    "SELECT user_name, admin, user_email, user_password_hash, platinendb.lehrstuhl.kuerzel as lehrstuhl
+                FROM login.users Inner Join platinendb.lehrstuhl On login.users.lehrstuhl = platinendb.lehrstuhl.id
+                WHERE user_name = ? OR user_email = ?;"
+                );
+                $stmt->bind_param("ss", $user_name, $user_name);
+                $stmt->execute();
+                $result_of_login_check = $stmt->get_result();
+
 
 
                 // if this user exists
