@@ -21,18 +21,18 @@ function isThisUserAdmin($login_connection, $username)
 
 	//eingeloggter user holen
 	//$user = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
-
-	$admin =
-		"SELECT
-	users.admin
-	FROM login.users
-	WHERE user_name = '$username'";
-
-
-
-	$admin =  mysqli_query($login_connection, $admin);
-	$admin = mysqli_fetch_assoc($admin);
-	$admin = $admin["admin"];
+	$stmt = $login_connection->prepare(
+		"
+		SELECT
+		users.admin
+		FROM login.users
+		WHERE user_name = ?
+		;"
+	);
+	$stmt->bind_param("s", $username);
+	$stmt->execute();
+	$admin = $stmt->get_result();
+	$admin = mysqli_fetch_assoc($admin)["admin"];
 
 
 	if ($admin == "1") {
@@ -63,8 +63,19 @@ function legitimierung($login_connection)
 	WHERE platinen.ID = '$id'";
 
 
-
-	$auftraggeberid =  mysqli_query($login_connection, $auftraggeberquery);
+	$stmt = $login_connection->prepare(
+		"SELECT
+		users.user_name as Nameee,
+		platinen.ID
+		FROM platinendb.platinen
+		INNER JOIN login.users
+		  ON platinen.Auftraggeber_ID = users.user_id
+		WHERE platinen.ID = ?
+		;"
+	);
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$auftraggeberid = $stmt->get_result();
 	$rowauftraggeber = mysqli_fetch_assoc($auftraggeberid);
 	$VariableAuftraggeber = $rowauftraggeber["Nameee"];
 
@@ -83,18 +94,21 @@ function veraenderbarNutzen($platinendb_connection)
 
 	$id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
-	$query =
+
+	$stmt = $platinendb_connection->prepare(
 		"SELECT
     	nutzenplatinen.Nutzen_ID
-	FROM
-  	  nutzenplatinen
-	WHERE Nutzen_ID = '$id'";
-
-	$queryresult1 =  mysqli_query($platinendb_connection, $query);
-	$queryresult2 = mysqli_fetch_assoc($queryresult1);
+		FROM
+		nutzenplatinen
+		WHERE Nutzen_ID = ?;"
+	);
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$queryresult = $stmt->get_result();
+	$queryresult = mysqli_fetch_assoc($queryresult);
 
 	//Überprüfung nur wenn Platinen auf Nutzen drauf sind
-	if ($queryresult2 !== null) {
+	if ($queryresult !== null) {
 
 		$eigenschaftenNeu[1] = mysqli_real_escape_string($platinendb_connection, $_POST['Material']);
 		$eigenschaftenNeu[2] = mysqli_real_escape_string($platinendb_connection, $_POST['Endkupfer']);
@@ -102,7 +116,9 @@ function veraenderbarNutzen($platinendb_connection)
 		$eigenschaftenNeu[4] = mysqli_real_escape_string($platinendb_connection, $_POST['Lagen']);
 
 
-		$query =
+
+
+		$stmt = $platinendb_connection->prepare(
 			"SELECT
 			nutzen.ID,
 			material.Name as Material,
@@ -113,16 +129,17 @@ function veraenderbarNutzen($platinendb_connection)
 				nutzen Inner Join
 				material On nutzen.Material_ID = material.ID
 			WHERE
-				nutzen.ID = '$id'";
+				nutzen.ID = ?;"
+		);
+		$stmt->bind_param("i", $id);
+		$stmt->execute();
+		$queryresult = $stmt->get_result();
+		$queryresult = mysqli_fetch_assoc($queryresult);
 
-
-		$queryresult1 =  mysqli_query($platinendb_connection, $query);
-		$queryresult2 = mysqli_fetch_assoc($queryresult1);
-
-		$eigenschaftenAlt[1] = $queryresult2["Material"];
-		$eigenschaftenAlt[2] = $queryresult2["Endkupfer"];
-		$eigenschaftenAlt[3] = $queryresult2["Staerke"];
-		$eigenschaftenAlt[4] = $queryresult2["Lagen"];
+		$eigenschaftenAlt[1] = $queryresult["Material"];
+		$eigenschaftenAlt[2] = $queryresult["Endkupfer"];
+		$eigenschaftenAlt[3] = $queryresult["Staerke"];
+		$eigenschaftenAlt[4] = $queryresult["Lagen"];
 
 
 		//vergleichen
@@ -151,22 +168,25 @@ function veraenderbarPlatine($platinendb_connection)
 
 	$id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
-	$anzahlaufnutzen =
+
+
+	$stmt = $platinendb_connection->prepare(
 		"SELECT
-	platinendb.nutzenplatinen.Platinen_ID
-	FROM
-	platinendb.nutzenplatinen
-	WHERE
-	platinendb.nutzenplatinen.Platinen_ID = '$id'";
+		platinendb.nutzenplatinen.Platinen_ID
+		FROM
+		platinendb.nutzenplatinen
+		WHERE
+		platinendb.nutzenplatinen.Platinen_ID = ?;"
+	);
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$anzahlaufnutzen = $stmt->get_result();
+	$anzahlaufnutzen = mysqli_fetch_assoc($anzahlaufnutzen);
 
-	$anzahlaufnutzen2 =  mysqli_query($platinendb_connection, $anzahlaufnutzen);
-
-	$anzahlaufnutzen3 = mysqli_fetch_assoc($anzahlaufnutzen2);
 
 
 
-
-	if ($anzahlaufnutzen3 !== null) {
+	if ($anzahlaufnutzen !== null) {
 
 
 		if (isUserAdmin($platinendb_connection) == true) {
@@ -179,7 +199,7 @@ function veraenderbarPlatine($platinendb_connection)
 				$eigenschaftenNeu[3] = mysqli_real_escape_string($platinendb_connection, $_POST['Staerke']);
 				$eigenschaftenNeu[4] = mysqli_real_escape_string($platinendb_connection, $_POST['Lagen']);
 
-				$query =
+				$stmt = $platinendb_connection->prepare(
 					"SELECT
 						platinen.ID,
 						material.Name as Material,
@@ -189,16 +209,17 @@ function veraenderbarPlatine($platinendb_connection)
 					FROM
 						platinen Inner Join
 						material On platinen.Material_ID = material.ID
-					WHERE platinen.ID = '$id'";
+					WHERE platinen.ID = ?"
+				);
+				$stmt->bind_param("i", $id);
+				$stmt->execute();
+				$queryresult = $stmt->get_result();
+				$queryresult = mysqli_fetch_assoc($queryresult);
 
-
-				$queryresult1 =  mysqli_query($platinendb_connection, $query);
-				$queryresult2 = mysqli_fetch_assoc($queryresult1);
-
-				$eigenschaftenAlt[1] = $queryresult2["Material"];
-				$eigenschaftenAlt[2] = $queryresult2["Endkupfer"];
-				$eigenschaftenAlt[3] = $queryresult2["Staerke"];
-				$eigenschaftenAlt[4] = $queryresult2["Lagen"];
+				$eigenschaftenAlt[1] = $queryresult["Material"];
+				$eigenschaftenAlt[2] = $queryresult["Endkupfer"];
+				$eigenschaftenAlt[3] = $queryresult["Staerke"];
+				$eigenschaftenAlt[4] = $queryresult["Lagen"];
 
 
 				//vergleichen
@@ -251,18 +272,21 @@ function existens($connection)
 		$url_id = mysqli_real_escape_string($connection, $_POST['Id']);
 
 		if ($ziel == "platinen") {
-			$sqlx = "SELECT ID FROM platinenview WHERE ID='$url_id'";
+			$sql = "SELECT ID FROM platinenview WHERE ID=?";
 		} elseif ($ziel == "nutzen") {
-			$sqlx = "SELECT ID FROM nutzenview WHERE ID='$url_id'";
+			$sql = "SELECT ID FROM nutzenview WHERE ID=?";
 		} elseif ($ziel == "nutzenplatinen") {
-			$sqlx = "SELECT ID FROM platinenaufnutzen2 WHERE nuplid='$url_id'";
+			$sql = "SELECT ID FROM platinenaufnutzen2 WHERE nuplid=?";
 		}
 
-		$resultx = mysqli_query($connection, $sqlx);
 
+		$stmt = $connection->prepare($sql);
+		$stmt->bind_param("i", $url_id);
+		$stmt->execute();
+		$queryresult = $stmt->get_result();
 
 		//gucken ob Platinen id in tabelle existiert 
-		if (mysqli_num_rows($resultx) > 0) {
+		if (mysqli_num_rows($queryresult) > 0) {
 			return true;
 		} else {
 			return false;
@@ -434,22 +458,41 @@ function lagenAnlegen($a, $platinendb_connection)
 function deleteDownload($PlatinenID, $platinendb_connection)
 {
 	//wenn platine im zustand abgeschlossenPost = 1 ist, dann lösche Download_ID und den download
-	$abgeschlossenFertigung = "select abgeschlossenFertigung from platinenviewest where id = '$PlatinenID'";
-	$abgeschlossenFertigung = mysqli_query($platinendb_connection, $abgeschlossenFertigung);
-	$abgeschlossenFertigung = mysqli_fetch_array($abgeschlossenFertigung);
-	$abgeschlossenFertigung = $abgeschlossenFertigung['abgeschlossenFertigung'];
+	$stmt = $platinendb_connection->prepare(
+		"select abgeschlossenFertigung from platinenviewest where id = ?"
+	);
+	$stmt->bind_param("i", $PlatinenID);
+	$stmt->execute();
+	$queryresult = $stmt->get_result();
+	$queryresult = mysqli_fetch_assoc($queryresult);
+	$abgeschlossenFertigung = $queryresult['abgeschlossenFertigung'];
+
 
 
 	if ($abgeschlossenFertigung == 1) {
-		$deleteDownload_IDInPlatinen = "update platinen set Downloads_ID = null where ID = '$PlatinenID'";
 
-		$download_id = "SELECT Downloads_ID FROM platinen WHERE ID = '$PlatinenID'";
-		$download_id = mysqli_query($platinendb_connection, $download_id);
-		$download_id = mysqli_fetch_array($download_id);
-		$download_id = $download_id['Downloads_ID'];
-		$deleteDownload = "delete from downloads where ID = '$download_id'";
-		mysqli_query($platinendb_connection, $deleteDownload_IDInPlatinen);
-		mysqli_query($platinendb_connection, $deleteDownload);
+		$download_id = "SELECT Downloads_ID FROM platinen WHERE ID = ?";
+		$stmt = $platinendb_connection->prepare(
+			"SELECT Downloads_ID FROM platinen WHERE ID = ?"
+		);
+		$stmt->bind_param("i", $PlatinenID);
+		$stmt->execute();
+		$queryresult = $stmt->get_result();
+		$queryresult = mysqli_fetch_assoc($queryresult);
+		$download_id = $queryresult['Downloads_ID'];
+
+		$stmt = $platinendb_connection->prepare(
+			"update platinen set Downloads_ID = null where ID = ?"
+		);
+		$stmt->bind_param("i", $PlatinenID);
+		$stmt->execute();
+
+
+		$stmt = $platinendb_connection->prepare(
+			"delete from downloads where ID = ?"
+		);
+		$stmt->bind_param("i", $download_id);
+		$stmt->execute();
 	}
 }
 
@@ -457,10 +500,14 @@ function deleteDownload($PlatinenID, $platinendb_connection)
 
 function isInFertigung($id, $platinendb_connection)
 {
-	$abgeschlossenPost = "select abgeschlossenPost from platinenviewest where ID = $id";
-	$abgeschlossenPost = mysqli_query($platinendb_connection, $abgeschlossenPost);
-	$abgeschlossenPost = mysqli_fetch_array($abgeschlossenPost);
-	$abgeschlossenPost = $abgeschlossenPost['abgeschlossenPost'];
+	$stmt = $platinendb_connection->prepare(
+		"select abgeschlossenPost from platinenviewest where ID = ?"
+	);
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$queryresult = $stmt->get_result();
+	$queryresult = mysqli_fetch_array($queryresult);
+	$abgeschlossenPost = $queryresult['abgeschlossenPost'];
 
 	if ($abgeschlossenPost == 1) {
 		return true;
@@ -471,15 +518,25 @@ function isInFertigung($id, $platinendb_connection)
 
 function isOnNutzen($id, $platinendb_connection)
 {
-	$anzahl = "select Anzahl from platinenviewest where ID = $id";
-	$anzahl = mysqli_query($platinendb_connection, $anzahl);
-	$anzahl = mysqli_fetch_array($anzahl);
-	$anzahl = $anzahl['Anzahl'];
 
-	$ausstehend = "select ausstehend from platinenviewest where ID = $id";
-	$ausstehend = mysqli_query($platinendb_connection, $ausstehend);
-	$ausstehend = mysqli_fetch_array($ausstehend);
-	$ausstehend = $ausstehend['ausstehend'];
+	$stmt = $platinendb_connection->prepare(
+		"select Anzahl from platinenviewest where ID = ?"
+	);
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$queryresult = $stmt->get_result();
+	$queryresult = mysqli_fetch_array($queryresult);
+	$anzahl = $queryresult['Anzahl'];
+
+
+	$stmt = $platinendb_connection->prepare(
+		"select ausstehend from platinenviewest where ID = ?"
+	);
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$queryresult = $stmt->get_result();
+	$queryresult = mysqli_fetch_array($queryresult);
+	$ausstehend = $queryresult['ausstehend'];
 
 	if ($anzahl == $ausstehend) {
 		return false;
@@ -502,39 +559,60 @@ function ueberfuehren($id, $Anzahl, $Bearbeiter, $finanz, $Material_ID, $Endkupf
 	}
 
 
-	$bearbeiterId = "select user_id from login.users where user_name = '$Bearbeiter'";
-	$bearbeiterId = mysqli_query($platinendb_connection, $bearbeiterId);
-	$bearbeiterId = mysqli_fetch_array($bearbeiterId);
-	$bearbeiterId = $bearbeiterId['user_id'];
+
+	$stmt = $platinendb_connection->prepare(
+		"select user_id from login.users where user_name = ?"
+	);
+	$stmt->bind_param("i", $Bearbeiter);
+	$stmt->execute();
+	$queryresult = $stmt->get_result();
+	$queryresult = mysqli_fetch_array($queryresult);
+	$bearbeiterId = $queryresult['user_id'];
+
 
 	//Datum
 	$Erstellt = date('Y-m-d H:i:s', time());
 
 	//Nutzen anlegen
-	$nutzen = "INSERT INTO nutzen (Nr, Bearbeiter_ID, Finanzstelle_ID, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Datum, intoderext, Status1, Testdaten, Datum1, Kommentar) VALUES ('$nr', '$bearbeiterId', '$finanz', '$Material_ID', '$Endkupfer', '$Staerke', '$Lagen', 'individuell', '$Erstellt', 'ext', 'Fertigung', '0', '$Erstellt', '')";
-	mysqli_query($platinendb_connection, $nutzen);
-
+	$stmt = $platinendb_connection->prepare(
+		"INSERT INTO nutzen (Nr, Bearbeiter_ID, Finanzstelle_ID, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Datum, intoderext, Status1, Testdaten, Datum1, Kommentar) VALUES (?, ?, ?, ?, ?, ?, ?, 'individuell', ?, 'ext', 'Fertigung', '0', ?, '')"
+	);
+	$stmt->bind_param("iiiississ", $nr, $bearbeiterId, $finanz, $Material_ID, $Endkupfer, $Staerke, $Lagen, $Erstellt, $Erstellt);
+	$stmt->execute();
 
 
 	//Platine auf Nutzen packen
 
 	//Id von nutzen
-	$nutzenId = "select ID from nutzen where Nr = $nr";
-	$nutzenId = mysqli_query($platinendb_connection, $nutzenId);
-	$nutzenId = mysqli_fetch_array($nutzenId);
-	$nutzenId = $nutzenId['ID'];
+	$stmt = $platinendb_connection->prepare(
+		"select ID from nutzen where Nr = ?"
+	);
+	$stmt->bind_param("i", $nr);
+	$stmt->execute();
+	$queryresult = $stmt->get_result();
+	$queryresult = mysqli_fetch_array($queryresult);
+	$nutzenId = $queryresult['ID'];
 
-	$PlaufNutzen = "INSERT INTO nutzenplatinen (Platinen_ID, Nutzen_ID, platinenaufnutzen) VALUES ($id, $nutzenId, $Anzahl)";
-	mysqli_query($platinendb_connection, $PlaufNutzen);
+
+	$stmt = $platinendb_connection->prepare(
+		"INSERT INTO nutzenplatinen (Platinen_ID, Nutzen_ID, platinenaufnutzen) VALUES (?,?,?)"
+	);
+	$stmt->bind_param("iii", $id, $nutzenId, $Anzahl);
+	$stmt->execute();
 }
 
 
 function zustandNeu($platinendb_connection, $NutzenID)
 {
-	$getZustand = "SELECT Status1 FROM nutzen WHERE ID=$NutzenID";
-	$getZustand = mysqli_query($platinendb_connection, $getZustand);
-	$getZustand = mysqli_fetch_array($getZustand);
-	$getZustand = $getZustand['Status1'];
+
+	$stmt = $platinendb_connection->prepare(
+		"SELECT Status1 FROM nutzen WHERE ID=?"
+	);
+	$stmt->bind_param("i", $NutzenID);
+	$stmt->execute();
+	$queryresult = $stmt->get_result();
+	$queryresult = mysqli_fetch_array($queryresult);
+	$getZustand = $queryresult['Status1'];
 
 	if ($getZustand == "neu") {
 		return true;
@@ -621,9 +699,16 @@ function sendMail($art, $user_name, $user_email, $user_password_hash)
 function platineAufNutzen($id, $platinendb_connection)
 {
 	$aufnu = "select ID from nutzenplatinen where Nutzen_ID = $id";
-	$aufnu = mysqli_query($platinendb_connection, $aufnu);
-	$aufnu = mysqli_fetch_array($aufnu);
-	$aufnu = $aufnu['ID'];
+
+
+	$stmt = $platinendb_connection->prepare(
+		"select ID from nutzenplatinen where Nutzen_ID = ?"
+	);
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$queryresult = $stmt->get_result();
+	$queryresult = mysqli_fetch_array($queryresult);
+	$aufnu = $queryresult['ID'];
 
 	if ($aufnu == null) {
 		return false;

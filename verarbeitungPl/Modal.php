@@ -47,7 +47,9 @@ $bestanden = $sicherheit->ergebnis();
 
 if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearbeiten")) {
 
-  $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
+  if (isset($_POST['Id'])) {
+    $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
+  }
 
   /*
         Auftraggeber vorbereitung
@@ -84,7 +86,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
 
 
   $check2 = '';
-  if ($_POST['Bestueckungsdruck'] == 1) {
+  if (isset($_POST['Bestueckungsdruck']) && $_POST['Bestueckungsdruck'] == 1) {
     $check2 = "checked=''";
   }
 
