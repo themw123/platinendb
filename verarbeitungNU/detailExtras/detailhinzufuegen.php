@@ -29,9 +29,13 @@ if ($bestanden == true && $aktion == "detail") {
      $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
      //Status Namen holen
-     $status = "SELECT Status1 FROM nutzen WHERE ID = '$id'";
-     $status = mysqli_query($platinendb_connection, $status);
-     $row = mysqli_fetch_assoc($status);
+     $stmt = $platinendb_connection->prepare(
+          "SELECT Status1 FROM nutzen WHERE ID = ?"
+     );
+     $stmt->bind_param("i", $id);
+     $stmt->execute();
+     $result = $stmt->get_result();
+     $row = $result->fetch_assoc();
      $status = $row['Status1'];
 
      if ($status != "neu") {
@@ -40,43 +44,64 @@ if ($bestanden == true && $aktion == "detail") {
 
 
      //Material Namen holen
-     $materialname = "SELECT Name FROM material WHERE ID = (SELECT Material_ID FROM nutzen WHERE ID = '$id')";
-     $resultMaterialName = mysqli_query($platinendb_connection, $materialname);
-     $row = mysqli_fetch_assoc($resultMaterialName);
+     $stmt = $platinendb_connection->prepare(
+          "SELECT Name FROM material WHERE ID = (SELECT Material_ID FROM nutzen WHERE ID = ?)"
+     );
+     $stmt->bind_param("i", $id);
+     $stmt->execute();
+     $result = $stmt->get_result();
+     $row = $result->fetch_assoc();
      $MaterialName = $row['Name'];
 
 
      //Endkupfer Bezeichnung holen
-     $endkupfername = "SELECT Endkupfer FROM nutzen WHERE ID = '$id'";
-     $resultEndkupferName = mysqli_query($platinendb_connection, $endkupfername);
-     $row = mysqli_fetch_assoc($resultEndkupferName);
+     $stmt = $platinendb_connection->prepare(
+          "SELECT Endkupfer FROM nutzen WHERE ID = ?"
+     );
+     $stmt->bind_param("i", $id);
+     $stmt->execute();
+     $result = $stmt->get_result();
+     $row = $result->fetch_assoc();
      $EndkupferName = $row['Endkupfer'];
 
 
      //Stärke holen
-     $staerkezahl = "SELECT Staerke FROM nutzen WHERE ID = '$id'";
-     $resultstaerke = mysqli_query($platinendb_connection, $staerkezahl);
-     $row = mysqli_fetch_assoc($resultstaerke);
+     $stmt = $platinendb_connection->prepare(
+          "SELECT Staerke FROM nutzen WHERE ID = ?"
+     );
+     $stmt->bind_param("i", $id);
+     $stmt->execute();
+     $result = $stmt->get_result();
+     $row = $result->fetch_assoc();
      $StaerkeZahl = $row['Staerke'];
 
-
      //Lagen holen
-     $lagenanzahl = "SELECT Lagen FROM nutzen WHERE ID = '$id'";
-     $resultlagen = mysqli_query($platinendb_connection, $lagenanzahl);
-     $row = mysqli_fetch_assoc($resultlagen);
+     $stmt = $platinendb_connection->prepare(
+          "SELECT Lagen FROM nutzen WHERE ID = ?"
+     );
+     $stmt->bind_param("i", $id);
+     $stmt->execute();
+     $result = $stmt->get_result();
+     $row = $result->fetch_assoc();
      $LagenAnzahl = $row['Lagen'];
 
 
 
      $output = '';
-     $query = "SELECT ID, Name, user_name, erstelltam, ausstehend FROM detailplatineadd WHERE MaterialName = '$MaterialName' AND Endkupfer = '$EndkupferName' AND Staerke = '$StaerkeZahl' AND Lagen = '$LagenAnzahl' AND (ausstehend <0 OR ausstehend >0) AND ignorieren = 0";
-     $add = mysqli_query($platinendb_connection, $query);
+     $stmt = $platinendb_connection->prepare(
+          "SELECT ID, Name, user_name, erstelltam, ausstehend FROM detailplatineadd WHERE MaterialName = ? AND Endkupfer = ? AND Staerke = ? AND Lagen = ? AND (ausstehend <0 OR ausstehend >0) AND ignorieren = 0"
+     );
+     $stmt->bind_param("sssi", $MaterialName, $EndkupferName, $StaerkeZahl, $LagenAnzahl);
+     $stmt->execute();
+     $add = $stmt->get_result();
 
 
-     $query2 = "SELECT Platinen_ID FROM nutzenplatinen WHERE Nutzen_ID = '$id'";
-     $platinenaufnutzen = mysqli_query($platinendb_connection, $query2);
-
-
+     $stmt = $platinendb_connection->prepare(
+          "SELECT Platinen_ID FROM nutzenplatinen WHERE Nutzen_ID = ?"
+     );
+     $stmt->bind_param("i", $id);
+     $stmt->execute();
+     $platinenaufnutzen = $stmt->get_result();
 
 
 

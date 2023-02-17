@@ -60,9 +60,11 @@ if ($bestanden == true && $aktion == "bearbeiten") {
 
 
   /*
-          Inputs auslesen Status
-          */
-  $Status = mysqli_real_escape_string($platinendb_connection, $_POST["Status"]);
+   Inputs auslesen Status
+  */
+  if (isset($_POST["Status"])) {
+    $Status = mysqli_real_escape_string($platinendb_connection, $_POST["Status"]);
+  }
 
   //wenn keine platine auf nutzen dann status nicht verändern
   if (!platineAufNutzen($_POST['Id'], $platinendb_connection)) {
