@@ -46,12 +46,20 @@ if ($bestanden == true && $aktion == "bearbeiten") {
   $bearbeiterid =  mysqli_query($login_connection, $bearbeiter2query);
   $Bearbeiter = mysqli_fetch_assoc($bearbeiterid);
 
+  $stmt = $platinendb_connection->prepare(
+    "SELECT user_id FROM login.users WHERE user_name=?"
+  );
+  $stmt->bind_param("s", $bearbeiter2);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $Bearbeiter = mysqli_fetch_assoc($result);
+
 
   /*
           Inputs auslesen Finanzstelle
           */
 
-  $finanz = "null";
+  $finanz = null;
   if (isset($_POST["Finanz"]) && $_POST["Finanz"] != "") {
     $finanz = mysqli_real_escape_string($platinendb_connection, $_POST["Finanz"]);
   }
@@ -76,9 +84,14 @@ if ($bestanden == true && $aktion == "bearbeiten") {
   $Erstellt = null;
 
   //Datum aus db holen
-  $datumquery = "SELECT Datum FROM nutzen WHERE ID ='$id'";
-  $datumresult =  mysqli_query($platinendb_connection, $datumquery);
-  $datumAlt = mysqli_fetch_assoc($datumresult);
+  $stmt = $platinendb_connection->prepare(
+    "SELECT Datum FROM nutzen WHERE ID =?"
+  );
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $datumAlt = mysqli_fetch_assoc($result);
+
 
   $datumAltString = $datumAlt['Datum'];
   $createDate = new DateTime($datumAltString);
@@ -100,7 +113,7 @@ if ($bestanden == true && $aktion == "bearbeiten") {
 
 
   if (empty($_POST["Fertigung"])) {
-    $Fertigung = "null";
+    $Fertigung = null;
   } else {
     $datumzumformatieren = strtotime(mysqli_real_escape_string($platinendb_connection, $_POST["Fertigung"]));
     $Fertigung = "'";
@@ -110,7 +123,7 @@ if ($bestanden == true && $aktion == "bearbeiten") {
 
 
   if (empty($_POST["Abgeschlossen"])) {
-    $Abgeschlossen = "null";
+    $Abgeschlossen = null;
   } else {
     $datumzumformatieren = strtotime(mysqli_real_escape_string($platinendb_connection, $_POST["Abgeschlossen"]));
     $Abgeschlossen = "'";
@@ -125,10 +138,13 @@ if ($bestanden == true && $aktion == "bearbeiten") {
           Inputs auslesen material
           */
   $material2 = mysqli_real_escape_string($platinendb_connection, $_POST["Material"]);
-  $material2query = "SELECT ID FROM material WHERE Name='$material2'";
-  $material2id =  mysqli_query($platinendb_connection, $material2query);
-  $row2 = mysqli_fetch_assoc($material2id);
-
+  $stmt = $platinendb_connection->prepare(
+    "SELECT ID FROM material WHERE Name=?"
+  );
+  $stmt->bind_param("s", $material2);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $row2 = mysqli_fetch_assoc($result);
 
   /*
           Inputs auslesen Endkupfer
@@ -167,9 +183,14 @@ if ($bestanden == true && $aktion == "bearbeiten") {
 
 
 
-  $statusur = "SELECT Status1 FROM nutzen WHERE ID='$id'";
-  $statusur =  mysqli_query($platinendb_connection, $statusur);
-  $statusur = mysqli_fetch_row($statusur)[0];
+  $stmt = $platinendb_connection->prepare(
+    "SELECT Status1 FROM nutzen WHERE ID=?"
+  );
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $statusur = mysqli_fetch_row($result)[0];
+
 
   if ($statusur != "neu") {
     $intoderext = "";
@@ -203,7 +224,11 @@ if ($bestanden == true && $aktion == "bearbeiten") {
     $a = readfiledata();
     if ($a != null) {
       $Lagen_ID = lagenAnlegen($a, $platinendb_connection);
-      $bearbeiten = "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[user_id],Material_ID = $row2[ID], Finanzstelle_ID = $finanz, Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen', Lagen_ID = '$Lagen_ID', Groesse = '$Groesse',Datum = '$Erstellt', $intoderext Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
+
+      $stmt = $platinendb_connection->prepare(
+        "UPDATE nutzen SET Nr = ?,Bearbeiter_ID = ?,Material_ID = ?, Finanzstelle_ID = ?, Endkupfer = ?, Staerke = ?,Lagen = ?, Lagen_ID = ?, Groesse = ?,Datum = ?, $intoderext Status1 = ?,Testdaten = ?,Datum1 = ?,Datum2 = ?,Kommentar = ? WHERE ID = ?"
+      );
+      $stmt->bind_param("iiiissiisssisssi", $Nr, $Bearbeiter['user_id'], $row2['ID'], $finanz, $Endkupfer, $Staerke, $Lagen, $Lagen_ID, $Groesse, $Erstellt, $Status, $Testdaten, $Fertigung, $Abgeschlossen, $Kommentar, $id);
     }
   } else {
     //Bearbeiten, kupferdaten und finanzstelle löschen
@@ -242,7 +267,7 @@ if ($bestanden == true && $aktion == "bearbeiten") {
   }
 
 
-  mysqli_query($platinendb_connection, $bearbeiten);
+  $stmt->execute();
 
   //Lagen_ID falls vorhanden löschen nachdem Nutzen auf neu gesetzt wurde
   if ($lagen_ID != null) {

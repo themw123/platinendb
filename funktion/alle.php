@@ -176,7 +176,7 @@ function veraenderbarPlatine($platinendb_connection)
 		FROM
 		platinendb.nutzenplatinen
 		WHERE
-		platinendb.nutzenplatinen.Platinen_ID = ?;"
+		platinendb.nutzenplatinen.Platinen_ID = ?"
 	);
 	$stmt->bind_param("i", $id);
 	$stmt->execute();
