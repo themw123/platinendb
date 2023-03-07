@@ -239,6 +239,15 @@ if ($bestanden == true && $aktion == "bearbeiten") {
         $lagen_ID = mysqli_fetch_row($lagen_ID);
         $lagen_ID = $lagen_ID[0];
 
+        $stmt = $platinendb_connection->prepare(
+          "SELECT Lagen_ID FROM nutzen WHERE ID = ?"
+        );
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $anzahlaufnutzen = $stmt->get_result();
+        $anzahlaufnutzen = mysqli_fetch_assoc($anzahlaufnutzen);
+
+
         $bearbeiten = "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[user_id],Material_ID = $row2[ID], Finanzstelle_ID = null, Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen', Lagen_ID = null, Groesse = '$Groesse',Datum = '$Erstellt', $intoderext Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
       }
     }
