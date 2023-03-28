@@ -30,10 +30,26 @@ if ($bestanden == true && $aktion == "detail") {
      $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
      $output = '';
-     $query = "SELECT * FROM platinenaufnutzen2 WHERE ID = '$id'";
 
-     $result = mysqli_query($platinendb_connection, $query);
+     $stmt = $platinendb_connection->prepare(
+          "SELECT * FROM platinenaufnutzen2 WHERE ID = ?"
+     );
+     $stmt->bind_param("i", $id);
+     $stmt->execute();
+     $result = $stmt->get_result();
+
      $zustand = $sicherheit->checkQuery2($platinendb_connection);
+
+
+
+
+
+
+
+
+
+
+
 
      $zudstandNeu = zustandNeu($platinendb_connection, $id);
      if (!$zudstandNeu) {

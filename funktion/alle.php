@@ -468,7 +468,6 @@ function deleteDownload($PlatinenID, $platinendb_connection)
 	$abgeschlossenFertigung = $queryresult['abgeschlossenFertigung'];
 
 
-
 	if ($abgeschlossenFertigung == 1) {
 
 		$download_id = "SELECT Downloads_ID FROM platinen WHERE ID = ?";
@@ -698,8 +697,6 @@ function sendMail($art, $user_name, $user_email, $user_password_hash)
 
 function platineAufNutzen($id, $platinendb_connection)
 {
-	$aufnu = "select ID from nutzenplatinen where Nutzen_ID = $id";
-
 
 	$stmt = $platinendb_connection->prepare(
 		"select ID from nutzenplatinen where Nutzen_ID = ?"
@@ -708,13 +705,13 @@ function platineAufNutzen($id, $platinendb_connection)
 	$stmt->execute();
 	$queryresult = $stmt->get_result();
 	$queryresult = mysqli_fetch_array($queryresult);
-	$aufnu = $queryresult['ID'];
 
-	if ($aufnu == null) {
+	if ($queryresult == null) {
 		return false;
-	} else {
-		return true;
 	}
+
+	$aufnu = $queryresult['ID'];
+	return $aufnu;
 }
 
 

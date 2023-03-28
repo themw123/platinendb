@@ -52,6 +52,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
   $bearbeiter = "SELECT user_name FROM users WHERE admin = '1' ORDER BY user_name asc";
   $bearbeiterabfrage = mysqli_query($login_connection, $bearbeiter);
 
+
   $option = '';
 
   while ($row2 = mysqli_fetch_assoc($bearbeiterabfrage)) {
@@ -269,9 +270,13 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
     }
 
 
-    $plaufnu = "SELECT Finanzstelle_ID, Finanzstelle_Name, Finanzstelle_Nummer FROM platinenaufnutzen3 WHERE Nutzen_ID = $_POST[Id]";
+    $stmt = $platinendb_connection->prepare(
+      "SELECT Finanzstelle_ID, Finanzstelle_Name, Finanzstelle_Nummer FROM platinenaufnutzen3 WHERE Nutzen_ID = ?"
+    );
+    $stmt->bind_param("i", $_POST["Id"]);
+    $stmt->execute();
+    $plaufnu = $stmt->get_result();
 
-    $plaufnu = mysqli_query($platinendb_connection, $plaufnu);
 
     $option3 = '';
 

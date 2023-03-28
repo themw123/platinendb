@@ -116,9 +116,7 @@ if ($bestanden == true && $aktion == "bearbeiten") {
     $Fertigung = null;
   } else {
     $datumzumformatieren = strtotime(mysqli_real_escape_string($platinendb_connection, $_POST["Fertigung"]));
-    $Fertigung = "'";
-    $Fertigung .= date('Y-m-d', $datumzumformatieren);
-    $Fertigung .= "'";
+    $Fertigung = date('Y-m-d', $datumzumformatieren);
   }
 
 
@@ -126,9 +124,7 @@ if ($bestanden == true && $aktion == "bearbeiten") {
     $Abgeschlossen = null;
   } else {
     $datumzumformatieren = strtotime(mysqli_real_escape_string($platinendb_connection, $_POST["Abgeschlossen"]));
-    $Abgeschlossen = "'";
-    $Abgeschlossen .= date('Y-m-d', $datumzumformatieren);
-    $Abgeschlossen .= "'";
+    $Abgeschlossen = date('Y-m-d', $datumzumformatieren);
   }
 
 
@@ -234,36 +230,51 @@ if ($bestanden == true && $aktion == "bearbeiten") {
     //Bearbeiten, kupferdaten und finanzstelle löschen
     if (isset($_POST['layerLoeschen'])) {
       if (mysqli_real_escape_string($platinendb_connection, $_POST['layerLoeschen']) == "true") {
-        $lagen_ID = "SELECT Lagen_ID FROM nutzen WHERE ID = '$id'";
-        $lagen_ID = mysqli_query($platinendb_connection, $lagen_ID);
-        $lagen_ID = mysqli_fetch_row($lagen_ID);
-        $lagen_ID = $lagen_ID[0];
-
         $stmt = $platinendb_connection->prepare(
           "SELECT Lagen_ID FROM nutzen WHERE ID = ?"
         );
         $stmt->bind_param("i", $id);
         $stmt->execute();
-        $anzahlaufnutzen = $stmt->get_result();
-        $anzahlaufnutzen = mysqli_fetch_assoc($anzahlaufnutzen);
+        $queryresult = $stmt->get_result();
+        $lagen_ID = mysqli_fetch_array($queryresult)[0];
 
 
-        $bearbeiten = "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[user_id],Material_ID = $row2[ID], Finanzstelle_ID = null, Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen', Lagen_ID = null, Groesse = '$Groesse',Datum = '$Erstellt', $intoderext Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
+        $Lagen_ID = null;
+        $finanz = null;
+        $stmt = $platinendb_connection->prepare(
+          "UPDATE nutzen SET Nr = ?,Bearbeiter_ID = ?,Material_ID = ?, Finanzstelle_ID = ?, Endkupfer = ?, Staerke = ?,Lagen = ?, Lagen_ID = ?, Groesse = ?,Datum = ?, $intoderext Status1 = ?,Testdaten = ?,Datum1 = ?,Datum2 = ?,Kommentar = ? WHERE ID = ?"
+        );
+        $stmt->bind_param("iiiissiisssisssi", $Nr, $Bearbeiter['user_id'], $row2['ID'], $finanz, $Endkupfer, $Staerke, $Lagen, $Lagen_ID, $Groesse, $Erstellt, $Status, $Testdaten, $Fertigung, $Abgeschlossen, $Kommentar, $id);
       }
     }
     //Nur bearbeiten
     else {
       $bearbeiten = "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[user_id],Material_ID = $row2[ID], Finanzstelle_ID = $finanz, Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',Groesse = '$Groesse',Datum = '$Erstellt', $intoderext Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
+
+      $stmt = $platinendb_connection->prepare(
+        "UPDATE nutzen SET Nr = ?,Bearbeiter_ID = ?,Material_ID = ?, Finanzstelle_ID = ?, Endkupfer = ?, Staerke = ?,Lagen = ?, Groesse = ?,Datum = ?, $intoderext Status1 = ?,Testdaten = ?,Datum1 = ?,Datum2 = ?,Kommentar = ? WHERE ID = ?"
+      );
+      $stmt->bind_param("iiiississsisssi", $Nr, $Bearbeiter['user_id'], $row2['ID'], $finanz, $Endkupfer, $Staerke, $Lagen, $Groesse, $Erstellt, $Status, $Testdaten, $Fertigung, $Abgeschlossen, $Kommentar, $id);
     }
   }
 
-  $ursprungStatus = "SELECT Status1 FROM nutzen WHERE ID='$id'";
-  $ursprungStatus =  mysqli_query($platinendb_connection, $ursprungStatus);
-  $ursprungStatus = mysqli_fetch_array($ursprungStatus);
+  $stmtTemp = $platinendb_connection->prepare(
+    "SELECT Status1 FROM nutzen WHERE ID=?"
+  );
+  $stmtTemp->bind_param("i", $id);
+  $stmtTemp->execute();
+  $queryresult = $stmtTemp->get_result();
+  $ursprungStatus = mysqli_fetch_array($queryresult);
   $ursprungStatus = $ursprungStatus['Status1'];
 
-  $allePlaufNutzen = "SELECT Platinen_ID FROM nutzenplatinen WHERE Nutzen_ID ='$id'";
-  $allePlaufNutzen = mysqli_query($platinendb_connection, $allePlaufNutzen);
+  $stmtTemp = $platinendb_connection->prepare(
+    "SELECT Platinen_ID FROM nutzenplatinen WHERE Nutzen_ID =?"
+  );
+  $stmtTemp->bind_param("i", $id);
+  $stmtTemp->execute();
+  $allePlaufNutzen = $stmtTemp->get_result();
+
+
 
   //Nutzen nur in Fertigung überführt wenn Platinen drauf sind
   if ($ursprungStatus == "neu" && $Status != "neu") {
@@ -277,12 +288,19 @@ if ($bestanden == true && $aktion == "bearbeiten") {
 
 
   $stmt->execute();
+  $queryresult = $stmt->get_result();
+
 
   //Lagen_ID falls vorhanden löschen nachdem Nutzen auf neu gesetzt wurde
   if ($lagen_ID != null) {
-    $loeschen2 = "DELETE FROM nutzenlagen WHERE id=$lagen_ID";
-    mysqli_query($platinendb_connection, $loeschen2);
+    $stmt = $platinendb_connection->prepare(
+      "DELETE FROM nutzenlagen WHERE id = ?"
+    );
+    $stmt->bind_param("i", $lagen_ID);
+    $stmt->execute();
+    $queryresult = $stmt->get_result();
   }
+
 
   //Wenn Nutzen von Fertigung in abgeschlossen überführt wurde soll
   if ($ursprungStatus == "Fertigung" && $Status == "abgeschlossen") {
