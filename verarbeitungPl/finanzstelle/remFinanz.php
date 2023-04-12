@@ -6,15 +6,14 @@ require_once("../../classes/Sicherheit.php");
 
 $login = new Login();
 
-$login_connection= $login->getlogin_connection();
+$login_connection = $login->getlogin_connection();
 $platinendb_connection = $login->getplatinendb_connection();
 
 
 //sicherheit checks
-if(!(isset($_POST['aktion']))) {
+if (!(isset($_POST['aktion']))) {
   $aktion = "";
-}
-else {
+} else {
   $aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 }
 $von = "platine";
@@ -22,25 +21,21 @@ $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinen
 $bestanden = $sicherheit->ergebnis();
 
 
-if($bestanden == true && $aktion == "finanz") {
-  
-      $finanz = mysqli_real_escape_string($login_connection, $_POST['Text']);
-  
+if ($bestanden == true && $aktion == "finanz") {
+
+  $finanz = mysqli_real_escape_string($login_connection, $_POST['Text']);
 
 
 
-      $del = "DELETE FROM finanzstelle WHERE id=$finanz";
+  $stmt = $platinendb_connection->prepare(
+    "DELETE FROM finanzstelle WHERE id=?"
+  );
+  $stmt->bind_param("i", $finanz);
+  $stmt->execute();
 
 
-      mysqli_query($platinendb_connection, $del);
 
-
-      $sicherheit->checkQuery($platinendb_connection);
-
-      
-      mysqli_close($platinendb_connection);
-       
-			mysqli_close($login_connection); 
-
-
+  $sicherheit->checkQuery($platinendb_connection);
+  mysqli_close($platinendb_connection);
+  mysqli_close($login_connection);
 }

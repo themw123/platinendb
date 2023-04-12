@@ -43,9 +43,15 @@ if ($bestanden == true && $aktion == "bearbeiten") {
             Inputs auslesen Auftraggeber
             */
     $auftraggeber = mysqli_real_escape_string($platinendb_connection, $_POST["Auftraggeber"]);
-    $auftraggeberquery = "SELECT user_id FROM users WHERE user_name='$auftraggeber'";
-    $auftraggeberid =  mysqli_query($login_connection, $auftraggeberquery);
-    $Auftraggeber = mysqli_fetch_assoc($auftraggeberid);
+
+    $stmt = $login_connection->prepare(
+      "SELECT user_id FROM users WHERE user_name=?"
+    );
+    $stmt->bind_param("s", $auftraggeber);
+    $stmt->execute();
+    $queryresult = $stmt->get_result();
+    $queryresult = mysqli_fetch_assoc($queryresult);
+    $user_id = $queryresult['user_id'];
   }
 
 
@@ -66,11 +72,15 @@ if ($bestanden == true && $aktion == "bearbeiten") {
           Inputs auslesen material
           */
   $material2 = mysqli_real_escape_string($platinendb_connection, $_POST["Material"]);
-  $material2query = "SELECT ID FROM material WHERE Name='$material2'";
-  $material2id =  mysqli_query($platinendb_connection, $material2query);
-  $row2 = mysqli_fetch_assoc($material2id);
 
-
+  $stmt = $platinendb_connection->prepare(
+    "SELECT ID FROM material WHERE Name=?"
+  );
+  $stmt->bind_param("s", $material2);
+  $stmt->execute();
+  $queryresult = $stmt->get_result();
+  $queryresult = mysqli_fetch_assoc($queryresult);
+  $material_id = $queryresult['ID'];
 
   /*
           Inputs auslesen Endkupfer
@@ -170,8 +180,14 @@ if ($bestanden == true && $aktion == "bearbeiten") {
 
   //bearbeitung durchführen
   if (isUserAdmin($platinendb_connection)) {
-    $bearbeiten = "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id], Finanzstelle_ID = $finanz, Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp', Bestueckungsdruck = '$Bestueckungsdruck', wunschDatum = $Wunschdatum,Kommentar = '$Kommentar', ignorieren = '$Ignorieren' WHERE ID = $id";
+    //$bearbeiten = "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id], Finanzstelle_ID = $finanz, Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp', Bestueckungsdruck = '$Bestueckungsdruck', wunschDatum = $Wunschdatum,Kommentar = '$Kommentar', ignorieren = '$Ignorieren' WHERE ID = $id";
     $user = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
+
+    $stmt = $platinendb_connection->prepare(
+      "UPDATE platinen SET Name = ?,Anzahl = ?, Auftraggeber_ID = ?, Finanzstelle_ID = ?, Material_ID = ?,Endkupfer = ?,Staerke = ?,Lagen = ?,Groesse = ?,Oberflaeche = ?,Loetstopp = ?, Bestueckungsdruck = ?, wunschDatum = ?,Kommentar = ?, ignorieren = ? WHERE ID = ?"
+    );
+    $stmt->bind_param("siiiississsissii", $Name, $Anzahl, $user_id, $finanz, $material_id, $Endkupfer, $Staerke, $Lagen, $Groeße, $Oberflaeche, $Loetstopp, $Bestueckungsdruck, $Wunschdatum, $Kommentar, $Ignorieren, $id);
+
 
 
     if ($Fertigung == 1 && !isInFertigung($id, $platinendb_connection) && !isOnNutzen($id, $platinendb_connection)) {
@@ -179,11 +195,16 @@ if ($bestanden == true && $aktion == "bearbeiten") {
       ueberfuehren($id, $Anzahl, $user, $finanz, $row2['ID'], $Endkupfer, $Staerke, $Lagen, $platinendb_connection);
     }
   } else {
-    $bearbeiten = "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Finanzstelle_ID = $finanz,  Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp', Bestueckungsdruck = '$Bestueckungsdruck',wunschDatum = $Wunschdatum,Kommentar = '$Kommentar' WHERE ID = $id";
+    $stmt = $platinendb_connection->prepare(
+      "UPDATE platinen SET Name = ?,Anzahl = ?, Finanzstelle_ID = ?, Material_ID = ?,Endkupfer = ?,Staerke = ?,Lagen = ?,Groesse = ?,Oberflaeche = ?,Loetstopp = ?, Bestueckungsdruck = ?, wunschDatum = ?,Kommentar = ? WHERE ID = ?"
+    );
+    $stmt->bind_param("siiississsissi", $Name, $Anzahl, $finanz, $material_id, $Endkupfer, $Staerke, $Lagen, $Groeße, $Oberflaeche, $Loetstopp, $Bestueckungsdruck, $Wunschdatum, $Kommentar, $id);
   }
 
 
-  mysqli_query($platinendb_connection, $bearbeiten);
+  $stmt->execute();
+
+
 
   $sicherheit->checkQuery($platinendb_connection);
 
