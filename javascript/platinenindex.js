@@ -126,10 +126,10 @@ $(document).ready(function () {
       },
 
       {
-        targets: [9],
+        targets: [8],
         render: function (data, type, row, meta) {
-          if (data != "1,55" && row[20] == "0") {
-            return '<div style="color: #f54242;">' + data + "</div>";
+          if (data != "35µ" && row[20] == "0") {
+            return '<div style="color: #f54242; font-weight: bold;">' + data + "</div>";
           } else {
             return data;
           }
@@ -137,7 +137,18 @@ $(document).ready(function () {
       },
 
       {
-        targets: [14, 18, 19, 20, 21, 22],
+        targets: [9],
+        render: function (data, type, row, meta) {
+          if (data != "1,55" && row[20] == "0") {
+            return '<div style="color: #f54242; font-weight: bold;">' + data + "</div>";
+          } else {
+            return data;
+          }
+        },
+      },
+
+      {
+        targets: [5, 14, 18, 19, 20, 21, 22],
         visible: false,
       },
     ],

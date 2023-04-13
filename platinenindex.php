@@ -162,7 +162,7 @@
   <!-- selectpicker -->
   <script src="plugins/bootstrap-select-1.14.0-beta3/js/bootstrap-select.js"></script>
 
-  <script src="javascript/platinenindex.js"></script>
+  <script src="javascript/platinenindex.js?v=1.0"></script>
 
 
 </body>

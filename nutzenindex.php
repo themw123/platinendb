@@ -162,9 +162,9 @@
   <script src="plugins/fixedHeaders/datatables.min.js" type="text/javascript"></script>
   <!--<script src="plugins/fixedColumns/datatables.min.js" type="text/javascript"></script>-->
 
-  <script src="javascript/nutzenindex.js"></script>
+  <script src="javascript/nutzenindex.js?v=1.0"></script>
 
-  <script src="javascript/detailExtras.js"></script>
+  <script src="javascript/detailExtras.js?v=1.0"></script>
 
 </body>
 

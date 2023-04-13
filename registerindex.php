@@ -100,7 +100,7 @@
 
   <script src='plugins/fontawesome-free-5.15.1-web/a076d05399.js'></script>
 
-  <script src="javascript/lehrstuhl.js"></script>
+  <script src="javascript/lehrstuhl.js?v=1.0"></script>
 
 
 </body>

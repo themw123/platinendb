@@ -135,7 +135,7 @@
 
   <script src="plugins\jsPDF-2.5.1\dist\jspdf.umd.min.js" type="text/javascript"></script>
 
-  <script src="javascript/auftraggeber!bearbeiter.js"></script>
+  <script src="javascript/auftraggeber!bearbeiter.js?v=1.0"></script>
 
 
 </body>
