@@ -34,7 +34,7 @@ if ($bestanden == true && $aktion == "platinen") {
 		$result = $platinendb_connection->query($sql);
 	} else {
 		$stmt = $platinendb_connection->prepare(
-			"SELECT ID, Name as Leiterkartennamex, Auftraggeber, Finanzstelle_name, Finanzstelle_nummer, Lehrstuhl, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Bestueckungsdruck FROM platinenview WHERE platinenview.Auftraggeber = ? order by erstelltam desc"
+			"SELECT ID, Name as Leiterkartenname, Auftraggeber, Finanzstelle_name, Finanzstelle_nummer, Lehrstuhl, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Bestueckungsdruck FROM platinenview WHERE platinenview.Auftraggeber = ? order by erstelltam desc"
 		);
 		$stmt->bind_param("s", $auftraggeber1);
 		$stmt->execute();

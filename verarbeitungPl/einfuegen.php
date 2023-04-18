@@ -139,12 +139,10 @@ if ($bestanden == true && $aktion == "einfuegen") {
           */
 
   if (empty($_POST["Wunschdatum"])) {
-    $Wunschdatum = "null";
+    $Wunschdatum = null;
   } else {
     $datumzumformatieren = strtotime(mysqli_real_escape_string($platinendb_connection, $_POST["Wunschdatum"]));
-    $Wunschdatum = "'";
-    $Wunschdatum .= date('Y-m-d', $datumzumformatieren);
-    $Wunschdatum .= "'";
+    $Wunschdatum = date('Y-m-d', $datumzumformatieren);
   }
 
 
@@ -154,6 +152,7 @@ if ($bestanden == true && $aktion == "einfuegen") {
           Inputs auslesen Kommentar
           */
   $Kommentar = mysqli_real_escape_string($platinendb_connection, $_POST["Kommentar"]);
+
 
 
 
@@ -194,7 +193,7 @@ if ($bestanden == true && $aktion == "einfuegen") {
     $stmt = $platinendb_connection->prepare(
       "INSERT INTO platinen (Name, Auftraggeber_ID, Finanzstelle_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, Bestueckungsdruck, erstelltam, wunschDatum, Kommentar, Downloads_ID, ignorieren) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '0')"
     );
-    $stmt->bind_param("siiiissississsii", $Name, $auftraggeber_id, $finanz, $Anzahl, $material_id, $Endkupfer, $Staerke, $Lagen, $Groeße, $Oberflaeche, $Loetstopp, $Bestueckungsdruck, $erstelltam, $Wunschdatum, $Kommentar, $maxid);
+    $stmt->bind_param("siiiississsisssi", $Name, $auftraggeber_id, $finanz, $Anzahl, $material_id, $Endkupfer, $Staerke, $Lagen, $Groeße, $Oberflaeche, $Loetstopp, $Bestueckungsdruck, $erstelltam, $Wunschdatum, $Kommentar, $maxid);
   } else {
     $stmt = $platinendb_connection->prepare(
       "INSERT INTO platinen (Name, Auftraggeber_ID, Finanzstelle_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, Bestueckungsdruck, erstelltam, wunschDatum, Kommentar, Downloads_ID, ignorieren) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, null, '0')"

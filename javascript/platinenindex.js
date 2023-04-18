@@ -148,7 +148,8 @@ $(document).ready(function () {
       },
 
       {
-        targets: [5, 14, 18, 19, 20, 21, 22],
+        targets: [5, 14, 
+          18, 19, 20, 21, 22],
         visible: false,
       },
     ],

@@ -249,8 +249,6 @@ if ($bestanden == true && $aktion == "bearbeiten") {
     }
     //Nur bearbeiten
     else {
-      $bearbeiten = "UPDATE nutzen SET Nr = '$Nr',Bearbeiter_ID = $Bearbeiter[user_id],Material_ID = $row2[ID], Finanzstelle_ID = $finanz, Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = '$Lagen',Groesse = '$Groesse',Datum = '$Erstellt', $intoderext Status1 = '$Status',Testdaten = '$Testdaten',Datum1 = $Fertigung,Datum2 = $Abgeschlossen,Kommentar = '$Kommentar' WHERE ID = $id";
-
       $stmt = $platinendb_connection->prepare(
         "UPDATE nutzen SET Nr = ?,Bearbeiter_ID = ?,Material_ID = ?, Finanzstelle_ID = ?, Endkupfer = ?, Staerke = ?,Lagen = ?, Groesse = ?,Datum = ?, $intoderext Status1 = ?,Testdaten = ?,Datum1 = ?,Datum2 = ?,Kommentar = ? WHERE ID = ?"
       );
