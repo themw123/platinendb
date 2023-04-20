@@ -265,7 +265,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
     $output .= "
           <div class='form-group'>
           <label for='usr'>Anleitung:</label>
-          <a target='_blank' href='https://homepage.ruhr-uni-bochum.de/tobias.solowjew/Share/Plakat.pdf' class='link-primary'>Designregeln</a>
+          <a target='_blank' href='https://www.multi-circuit-boards.eu/fileadmin/user_upload/downloads/leiterplatten_design-hilfe/Multi-CB-Leiterplatten_Basic-Design-Rules.pdf' class='link-primary'>Designregeln</a>
           </div>
           ";
     //}
