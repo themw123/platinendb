@@ -562,7 +562,7 @@ function ueberfuehren($id, $Anzahl, $Bearbeiter, $finanz, $Material_ID, $Endkupf
 	$stmt = $platinendb_connection->prepare(
 		"select user_id from login.users where user_name = ?"
 	);
-	$stmt->bind_param("i", $Bearbeiter);
+	$stmt->bind_param("s", $Bearbeiter);
 	$stmt->execute();
 	$queryresult = $stmt->get_result();
 	$queryresult = mysqli_fetch_array($queryresult);
