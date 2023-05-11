@@ -178,7 +178,6 @@ if ($bestanden == true && $aktion == "bearbeiten") {
 
   //bearbeitung durchführen
   if (isUserAdmin($platinendb_connection)) {
-    //$bearbeiten = "UPDATE platinen SET Name = '$Name',Anzahl = $Anzahl, Auftraggeber_ID = $Auftraggeber[user_id], Finanzstelle_ID = $finanz, Material_ID = $row2[ID],Endkupfer = '$Endkupfer',Staerke = '$Staerke',Lagen = $Lagen,Groesse = '$Groeße',Oberflaeche = '$Oberflaeche',Loetstopp = '$Loetstopp', Bestueckungsdruck = '$Bestueckungsdruck', wunschDatum = $Wunschdatum,Kommentar = '$Kommentar', ignorieren = '$Ignorieren' WHERE ID = $id";
     $user = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);
 
     $stmt = $platinendb_connection->prepare(
@@ -190,7 +189,7 @@ if ($bestanden == true && $aktion == "bearbeiten") {
 
     if ($Fertigung == 1 && !isInFertigung($id, $platinendb_connection) && !isOnNutzen($id, $platinendb_connection)) {
       //In Fertigung überführen. Erst Nutzen erstellen und Platine da drauf packen und diesen in Fertigung versetzten.
-      ueberfuehren($id, $Anzahl, $user, $finanz, $row2['ID'], $Endkupfer, $Staerke, $Lagen, $platinendb_connection);
+      ueberfuehren($id, $Anzahl, $user, $finanz, $material_id, $Endkupfer, $Staerke, $Lagen, $platinendb_connection);
     }
   } else {
     $stmt = $platinendb_connection->prepare(
