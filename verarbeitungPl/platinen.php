@@ -34,7 +34,7 @@ if ($bestanden == true && $aktion == "platinen") {
 		$result = $platinendb_connection->query($sql);
 	} else {
 		$stmt = $platinendb_connection->prepare(
-			"SELECT ID, Name as Leiterkartenname, Auftraggeber, Finanzstelle_name, Finanzstelle_nummer, Lehrstuhl, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Bestueckungsdruck FROM platinenview WHERE platinenview.Auftraggeber = ? order by erstelltam desc"
+			"SELECT ID, Name as Leiterkartenname, Auftraggeber, Finanzstelle_name, Finanzstelle_nummer, Lehrstuhl, ausstehend, Anzahl, Material, Endkupfer, Staerke as Stärke, Lagen, Groesse as Größe, Oberflaeche as Oberfläche, Loetstopp as Lötstopp, erstelltam as erstellt, wunschDatum as Wunschdatum, Kommentar, Status, ignorieren, abgeschlossenPost, abgeschlossenFertigung, downloads1or0, Bestueckungsdruck FROM platinenviewest WHERE platinenviewest.Auftraggeber = ? order by erstelltam desc"
 		);
 		$stmt->bind_param("s", $auftraggeber1);
 		$stmt->execute();
@@ -112,22 +112,11 @@ if ($bestanden == true && $aktion == "platinen") {
 			$nestedData[] = $creation_time2;
 			$nestedData[] = $row["Kommentar"];
 
-			if (isUserAdmin($platinendb_connection) == true) {
-				$nestedData[] = $row["Status"];
-				$nestedData[] = $row["ignorieren"];
-				$nestedData[] = $row["abgeschlossenPost"];
-				$nestedData[] = $row["abgeschlossenFertigung"];
-				$nestedData[] = $row["downloads1or0"];
-			} else {
-				$nestedData[] = "";
-				$nestedData[] = "";
-				$nestedData[] = "";
-				$nestedData[] = "";
-				$nestedData[] = "";
-			}
-
-
-
+			$nestedData[] = $row["Status"];
+			$nestedData[] = $row["ignorieren"];
+			$nestedData[] = $row["abgeschlossenPost"];
+			$nestedData[] = $row["abgeschlossenFertigung"];
+			$nestedData[] = $row["downloads1or0"];
 
 			$data[] = $nestedData;
 		}

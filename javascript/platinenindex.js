@@ -156,7 +156,7 @@ $(document).ready(function () {
 
     createdRow: function (row, data) {
       //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
-      if (adminn == "ja") {
+      //if (adminn == "ja") {
         var erstelltam = data[15].toString();
         var t2 = erstelltam.split(".");
         t2 = t2[2] + "-" + t2[1] + "-" + t2[0];
@@ -198,7 +198,7 @@ $(document).ready(function () {
         if (data[22] == 0) {
           $(row).find("i:nth-child(3)").addClass("grey").prop("disabled", true);
         }
-      }
+      //}
     },
 
     oLanguage: {
@@ -300,7 +300,7 @@ $(document).ready(function () {
 
       //wenn est searchpane button, info button und filter button verstecken
       if (adminn == "nein") {
-        $("#buttonLegend").hide();
+        //$("#buttonLegend").hide();
         //$('#buttondefault').hide();
         $("#button3").hide();
         //Auftraggeber und Lehrstuhl verstecken, achtung aktivieren muss auch erfolgen damit browser beim wechseln zwischen admin und nicht admin auch aktualisiert

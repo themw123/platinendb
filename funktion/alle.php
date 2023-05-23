@@ -49,18 +49,6 @@ function legitimierung($login_connection)
 
 
 	$id = mysqli_real_escape_string($login_connection, $_POST['Id']);
-	$ziel =  mysqli_real_escape_string($login_connection, $_POST['ziel']);
-
-
-
-	$auftraggeberquery =
-		"SELECT
-	users.user_name as Nameee,
-	platinen.ID
-	FROM platinendb.platinen
-	INNER JOIN login.users
-	  ON platinen.Auftraggeber_ID = users.user_id
-	WHERE platinen.ID = '$id'";
 
 
 	$stmt = $login_connection->prepare(
@@ -83,6 +71,39 @@ function legitimierung($login_connection)
 
 	if ($VariableAuftraggeber == $_SESSION['user_name'] || "1" == $_SESSION['admin']) {
 
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function legitimierungDownload($platinendb_connection, $login_connection)
+{
+
+
+	$id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
+
+
+	$stmt = $platinendb_connection->prepare(
+		"SELECT Auftraggeber_ID FROM platinen WHERE ID =?"
+	);
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$queryresult = $stmt->get_result();
+	$queryresult = mysqli_fetch_assoc($queryresult);
+	$auftraggeber_id = $queryresult['Auftraggeber_ID'];
+
+	$stmt = $login_connection->prepare(
+		"select user_id from login.users where user_name = ?"
+	);
+	$stmt->bind_param("s", $_SESSION['user_name']);
+	$stmt->execute();
+	$queryresult = $stmt->get_result();
+	$queryresult = mysqli_fetch_array($queryresult);
+	$sessionuserid = $queryresult['user_id'];
+
+
+	if ($auftraggeber_id == $sessionuserid || "1" == $_SESSION['admin']) {
 		return true;
 	} else {
 		return false;

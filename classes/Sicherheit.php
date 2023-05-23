@@ -198,7 +198,7 @@ class Sicherheit
 
         if ($this->aktion == "platinen" || $this->aktion == "modaleinfuegen" || $this->aktion == "finanzGet" || $this->aktion == "einfuegen") {
             $this->bestanden = true;
-        } elseif ($this->aktion == "lehrstuhl" || $this->aktion == "finanz" || $this->aktion == "download" || $this->aktion == "auftraggeber") {
+        } elseif ($this->aktion == "lehrstuhl" || $this->aktion == "finanz" || $this->aktion == "auftraggeber") {
             $admin = isUserAdmin($this->login_connection);
 
             if ($admin) {
@@ -243,6 +243,12 @@ class Sicherheit
                 echo json_encode(array('data' => $veraenderbar[1]));
                 die();
             } else {
+                $this->bestanden = true;
+            }
+        } elseif ($this->aktion == "download") {
+            $legitim = legitimierungDownload($this->platinendb_connection, $this->login_connection);
+
+            if ($legitim == true) {
                 $this->bestanden = true;
             }
         }
