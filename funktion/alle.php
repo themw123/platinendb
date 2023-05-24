@@ -323,6 +323,36 @@ function existens($connection)
 	}
 }
 
+function uploadFile($platinendb_connection)
+{
+	uploadSecurity("archive");
+	$fileName = $_FILES['file']['name'];
+	$size = $_FILES['file']['size'];
+	$type = $_FILES['file']['type'];
+	$file = $_FILES['file']['tmp_name'];
+	$blob = addslashes(fread(fopen($file, "r"), filesize($file)));
+
+	$maxid = "select max(ID)+1 as ID from downloads";
+	$maxid = mysqli_query($platinendb_connection, $maxid);
+	$maxid = mysqli_fetch_array($maxid);
+	$maxid = $maxid['ID'];
+
+
+	if ($maxid == null) {
+		$maxid = 1;
+	}
+
+
+	$stmt = $platinendb_connection->prepare(
+		"INSERT INTO downloads (id, download, name, size, type) VALUES (?, ?, ?, ?, ?)"
+	);
+	$stmt->bind_param("ibsis", $maxid, $blob, $fileName, $size, $type);
+	$stmt->send_long_data(1, file_get_contents($file));
+
+	$stmt->execute();
+
+	return $maxid;
+}
 
 function uploadSecurity($toCheck)
 {
@@ -476,22 +506,28 @@ function lagenAnlegen($a, $platinendb_connection)
 }
 
 
-function deleteDownload($PlatinenID, $platinendb_connection)
+function deleteDownload($mode, $PlatinenID, $download_id, $platinendb_connection)
 {
-	//wenn platine im zustand abgeschlossenPost = 1 ist, dann lösche Download_ID und den download
-	$stmt = $platinendb_connection->prepare(
-		"select abgeschlossenFertigung from platinenviewest where id = ?"
-	);
-	$stmt->bind_param("i", $PlatinenID);
-	$stmt->execute();
-	$queryresult = $stmt->get_result();
-	$queryresult = mysqli_fetch_assoc($queryresult);
-	$abgeschlossenFertigung = $queryresult['abgeschlossenFertigung'];
 
 
-	if ($abgeschlossenFertigung == 1) {
+	if ($mode == 1) {
+		//wenn platine im zustand abgeschlossenPost = 1 ist, dann lösche Download_ID und den download
+		$stmt = $platinendb_connection->prepare(
+			"select abgeschlossenFertigung from platinenviewest where id = ?"
+		);
+		$stmt->bind_param("i", $PlatinenID);
+		$stmt->execute();
+		$queryresult = $stmt->get_result();
+		$queryresult = mysqli_fetch_assoc($queryresult);
+		$abgeschlossenFertigung = $queryresult['abgeschlossenFertigung'];
 
-		$download_id = "SELECT Downloads_ID FROM platinen WHERE ID = ?";
+		if ($abgeschlossenFertigung == 0) {
+			return;
+		}
+	}
+
+
+	if (empty($download_id)) {
 		$stmt = $platinendb_connection->prepare(
 			"SELECT Downloads_ID FROM platinen WHERE ID = ?"
 		);
@@ -500,20 +536,22 @@ function deleteDownload($PlatinenID, $platinendb_connection)
 		$queryresult = $stmt->get_result();
 		$queryresult = mysqli_fetch_assoc($queryresult);
 		$download_id = $queryresult['Downloads_ID'];
+	}
 
+
+	if ($mode == 1 || $mode == 2) {
 		$stmt = $platinendb_connection->prepare(
 			"update platinen set Downloads_ID = null where ID = ?"
 		);
 		$stmt->bind_param("i", $PlatinenID);
 		$stmt->execute();
-
-
-		$stmt = $platinendb_connection->prepare(
-			"delete from downloads where ID = ?"
-		);
-		$stmt->bind_param("i", $download_id);
-		$stmt->execute();
 	}
+
+	$stmt = $platinendb_connection->prepare(
+		"delete from downloads where ID = ?"
+	);
+	$stmt->bind_param("i", $download_id);
+	$stmt->execute();
 }
 
 

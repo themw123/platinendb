@@ -50,6 +50,7 @@ if ($bestanden == true && $aktion == "detail") {
   $stmt->execute();
 
 
+  /*
   $stmt = $platinendb_connection->prepare(
     "select Platinen_ID from nutzenplatinen where ID = ?"
   );
@@ -58,8 +59,10 @@ if ($bestanden == true && $aktion == "detail") {
   $result = $stmt->get_result();
   $row = $result->fetch_array();
   $PlatinenID = $row['Platinen_ID'];
+  */
 
-  deleteDownload($PlatinenID, $platinendb_connection);
+  //nicht nötig, man kann keine Anzahl von platine auf nutzten ändern wenn nutzten zustand != neu. und wenn nutzten zustand neu ist, dann sollen keine downdloads gelöscht werden
+  //deleteDownload("IFfertigungabgeschlossen", $PlatinenID, $platinendb_connection);
   $sicherheit->checkQuery($platinendb_connection);
 
 

@@ -44,7 +44,8 @@ if ($bestanden == true && $aktion == "detail") {
     $stmt->bind_param("iii", $PlatinenID, $NutzenID, $Anzahl);
     $stmt->execute();
 
-    deleteDownload($PlatinenID, $platinendb_connection);
+    //nicht nötig, man kann keine platine hinzufügen wenn nutzten zustand != neu. und wenn nutzten zustand neu ist, dann sollen keine downdloads gelöscht werden
+    //deleteDownload("IFfertigungabgeschlossen", $PlatinenID, $platinendb_connection);
 
     $sicherheit->checkQuery($platinendb_connection);
 

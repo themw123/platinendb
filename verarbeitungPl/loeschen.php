@@ -36,21 +36,15 @@ if ($bestanden == true && $aktion == "loeschen") {
 	$queryresult = mysqli_fetch_array($queryresult);
 	$download_id = $queryresult['Downloads_ID'];
 
-
 	$stmt = $platinendb_connection->prepare(
 		"DELETE FROM platinen WHERE id=?"
 	);
 	$stmt->bind_param("i", $id);
 	$stmt->execute();
 
+	deleteDownload(0, $id, $download_id, $platinendb_connection);
 
-	if ($download_id != null) {
-		$stmt = $platinendb_connection->prepare(
-			"DELETE FROM downloads WHERE id=?"
-		);
-		$stmt->bind_param("i", $download_id);
-		$stmt->execute();
-	}
+
 
 	$sicherheit->checkQuery($platinendb_connection);
 

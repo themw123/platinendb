@@ -176,6 +176,31 @@ if ($bestanden == true && $aktion == "bearbeiten") {
   }
 
 
+
+
+
+
+
+
+
+  //bearbeitung für download durchführen
+  if (!empty($_FILES)) {
+
+    deleteDownload(2, $id, null, $platinendb_connection);
+
+    $maxid = uploadFile($platinendb_connection);
+
+    $stmt = $platinendb_connection->prepare(
+      "UPDATE platinen SET Downloads_ID = ? WHERE ID = ?"
+    );
+    $stmt->bind_param("ii", $maxid, $id);
+    $stmt->execute();
+  }
+
+
+
+
+
   //bearbeitung durchführen
   if (isUserAdmin($platinendb_connection)) {
     $user = mysqli_real_escape_string($login_connection, $_SESSION['user_name']);

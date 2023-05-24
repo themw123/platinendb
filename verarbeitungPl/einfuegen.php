@@ -162,33 +162,8 @@ if ($bestanden == true && $aktion == "einfuegen") {
           */
 
   if (!empty($_FILES)) {
-    uploadSecurity("archive");
-    $fileName = $_FILES['file']['name'];
-    $size = $_FILES['file']['size'];
-    $type = $_FILES['file']['type'];
-    $file = $_FILES['file']['tmp_name'];
-    $blob = addslashes(fread(fopen($file, "r"), filesize($file)));
 
-    $maxid = "select max(ID)+1 as ID from downloads";
-    $maxid = mysqli_query($platinendb_connection, $maxid);
-    $maxid = mysqli_fetch_array($maxid);
-    $maxid = $maxid['ID'];
-
-
-    if ($maxid == null) {
-      $maxid = 1;
-    }
-
-
-    $stmt = $platinendb_connection->prepare(
-      "INSERT INTO downloads (id, download, name, size, type) VALUES (?, ?, ?, ?, ?)"
-    );
-    $stmt->bind_param("ibsis", $maxid, $blob, $fileName, $size, $type);
-    $stmt->send_long_data(1, file_get_contents($file));
-
-    $stmt->execute();
-
-
+    $maxid = uploadFile($platinendb_connection);
 
     $stmt = $platinendb_connection->prepare(
       "INSERT INTO platinen (Name, Auftraggeber_ID, Finanzstelle_ID, Anzahl, Material_ID, Endkupfer, Staerke, Lagen, Groesse, Oberflaeche, Loetstopp, Bestueckungsdruck, erstelltam, wunschDatum, Kommentar, Downloads_ID, ignorieren) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '0')"

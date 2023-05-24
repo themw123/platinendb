@@ -300,11 +300,11 @@ if ($bestanden == true && $aktion == "bearbeiten") {
   }
 
 
-  //Wenn Nutzen von Fertigung in abgeschlossen überführt wurde soll
-  if ($ursprungStatus == "Fertigung" && $Status == "abgeschlossen") {
+  //Wenn Nutzen in abgeschlossen überführt wurde
+  if ($Status == "abgeschlossen") {
     foreach ($allePlaufNutzen as $row) {
       $pl = $row['Platinen_ID'];
-      deleteDownload($pl, $platinendb_connection);
+      deleteDownload(1, $pl, null, $platinendb_connection);
     }
   }
 

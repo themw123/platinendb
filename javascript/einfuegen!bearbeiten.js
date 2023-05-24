@@ -1,3 +1,5 @@
+//# sourceURL=formEditorx.js
+
 $(function () {
   $("#edit").submit(function (event) {
     event.preventDefault();
@@ -385,7 +387,8 @@ $("#delfile").click(function (ev) {
   remUploadData();
 });
 
-if (aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
+//aktion == "modaleinfuegen" && 
+if (aktionx.includes("Platine")) {
   if (adminn == "nein") {
     $("#uploadfeld").prop("required", true);
   }
