@@ -1,4 +1,3 @@
-//# sourceURL=formEditorx.js
 
 //Wenn Bei Nutzen oder Platine auf add Bearbeiter bzw Auftraggeber geklickt wird
 $(document).ready(function () {

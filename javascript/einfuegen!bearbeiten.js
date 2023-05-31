@@ -382,6 +382,21 @@ function finanz(rollout) {
 $("#button8").html("fertig &nbsp <i class='fas fa-check greener'></i>");
 $("#button8").attr("disabled", false);
 
+
+//check upload size
+function checksize(feld) {
+  var file = feld.files[0];
+
+  // Überprüfen Sie die maximale Dateigröße (auf php server ist post_max_size und upload_max_filesize auf 8M gesetzt). Server verwirft post anfrage wenn größer
+  var maxSize = 8 * 1024 * 1024; // 8 Megabyte in Bytes
+  if (file.size > maxSize) {
+    remUploadData("Die Datei ist zu groß");
+    return false;
+  }
+  return true;
+}
+
+
 //Wenn auf delfile geklickt wird
 $("#delfile").click(function (ev) {
   remUploadData();
@@ -395,8 +410,12 @@ if (aktionx.includes("Platine")) {
 
   //$('#button8').css('margin-top','112px');
 
-  //upload überpruefen
+  //upload überpruefen (bei platine)
   $("#uploadfeld").change(function () {
+    var correct = checksize(this);
+    if(!correct) {
+      return;
+    }
     var input = event.target;
     var name = input.files[0].name;
     var type = "error";
@@ -469,8 +488,13 @@ if (aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
     }
   });
 
-  //upload änderung
+  //upload änderung (bei nutzten)
   $("#uploadfeld").change(function () {
+    var correct = checksize(this);
+    if(!correct) {
+      return;
+    }
+    
     var input = event.target;
     var type = input.files[0].type;
 
