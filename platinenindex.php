@@ -62,7 +62,7 @@
   // include the configs / constants for the database connection
   require_once("/documents/config/db.php");
 
-  require_once("funktion/alle.php");
+  require_once("utils/util.php");
 
 
   // load the login class

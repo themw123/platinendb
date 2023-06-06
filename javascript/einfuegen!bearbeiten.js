@@ -381,7 +381,7 @@ function finanz(rollout) {
 
 $("#button8").html("fertig &nbsp <i class='fas fa-check greener'></i>");
 $("#button8").attr("disabled", false);
-
+  
 
 //check upload size
 function checksize(feld) {
@@ -404,7 +404,8 @@ $("#delfile").click(function (ev) {
 
 //aktion == "modaleinfuegen" && 
 if (aktionx.includes("Platine")) {
-  if (adminn == "nein") {
+
+  if (adminn == "nein" && aktionx.includes("hinzufügen")) {
     $("#uploadfeld").prop("required", true);
   }
 
@@ -494,7 +495,7 @@ if (aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
     if(!correct) {
       return;
     }
-    
+
     var input = event.target;
     var type = input.files[0].type;
 

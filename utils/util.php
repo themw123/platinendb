@@ -363,6 +363,8 @@ function uploadSecurity($toCheck)
 	$fileType = finfo_file($fileInfo, $filePath);
 	finfo_close($fileInfo);
 
+	//unnötig weil php verwirft anfrage wenn datei über 8mb
+
 	if ($toCheck == "text") {
 		if ($fileType != "text/plain") {
 			die();
@@ -377,8 +379,8 @@ function uploadSecurity($toCheck)
 			die();
 		}
 
-		//check file size(ungefähr > 2mb)
-		if ($fileSize > 2000000) {
+		//check file size(ungefähr > 8mb)
+		if ($fileSize > 8000000) {
 			die();
 		}
 	}

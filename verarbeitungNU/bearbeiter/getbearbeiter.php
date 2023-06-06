@@ -1,7 +1,7 @@
 <?php
 require_once("/documents/config/db.php");
 require_once("../../classes/Login.php");
-require_once("../../funktion/alle.php");
+require_once("../../utils/util.php");
 require_once("../../classes/Sicherheit.php");
 
 $login = new Login();
