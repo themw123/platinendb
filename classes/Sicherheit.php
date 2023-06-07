@@ -83,6 +83,19 @@ class Sicherheit
         die();
     }
 
+    public function checkQuery5($connection, $upload)
+    {
+        if (mysqli_error($connection)) {
+            header('Content-Type: application/json');
+            echo json_encode(array('data' => 'dberror', 'error' => $connection->error));
+        } else if (isset($upload) && !$upload) {
+            header('Content-Type: application/json');
+            echo json_encode(array('data' => 'ohneupload'));
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(array('data' => "erfolgreich"));
+        }
+    }
 
     private function nutzen()
     {

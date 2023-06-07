@@ -38,7 +38,7 @@ if ($bestanden == true && $aktion == "bearbeiten") {
   $Name = mysqli_real_escape_string($platinendb_connection, $_POST["Name"]);
 
 
-  if (isUserAdmin($platinendb_connection) == true) {
+  if (isUserAdmin($platinendb_connection)) {
     /*
             Inputs auslesen Auftraggeber
             */
@@ -183,19 +183,25 @@ if ($bestanden == true && $aktion == "bearbeiten") {
 
 
 
-  //bearbeitung für download durchführen
   if (!empty($_FILES)) {
 
-    deleteDownload(2, $id, null, $platinendb_connection);
-
-    $maxid = uploadFile($platinendb_connection);
-
-    $stmt = $platinendb_connection->prepare(
-      "UPDATE platinen SET Downloads_ID = ? WHERE ID = ?"
-    );
-    $stmt->bind_param("ii", $maxid, $id);
-    $stmt->execute();
+    //nur wenn im zustand neu, ui zeigt upload bei bearbeiten auch nur dann an
+    if (!isInFertigung($id, $platinendb_connection)) {
+      //bearbeitung für download durchführen wenn admin, ansonnsten wenn kein admin nur wenn noch nicht gedownloaded 
+      $upload = false;
+      if (isUserAdmin($platinendb_connection) || !checkDownloaded($platinendb_connection, $id)) {
+        $upload = true;
+        deleteDownload(2, $id, null, $platinendb_connection);
+        $maxid = uploadFile($platinendb_connection);
+        $stmt = $platinendb_connection->prepare(
+          "UPDATE platinen SET Downloads_ID = ? WHERE ID = ?"
+        );
+        $stmt->bind_param("ii", $maxid, $id);
+        $stmt->execute();
+      }
+    }
   }
+
 
 
 
@@ -226,9 +232,10 @@ if ($bestanden == true && $aktion == "bearbeiten") {
 
   $stmt->execute();
 
-
-
-  $sicherheit->checkQuery($platinendb_connection);
+  if (!isset($upload)) {
+    $upload = null;
+  }
+  $sicherheit->checkQuery5($platinendb_connection, $upload);
 
   mysqli_close($platinendb_connection);
   mysqli_close($login_connection);

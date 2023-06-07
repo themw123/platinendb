@@ -344,7 +344,7 @@ function uploadFile($platinendb_connection)
 
 
 	$stmt = $platinendb_connection->prepare(
-		"INSERT INTO downloads (id, download, name, size, type) VALUES (?, ?, ?, ?, ?)"
+		"INSERT INTO downloads (id, download, name, size, type, downloaded) VALUES (?, ?, ?, ?, ?, 0)"
 	);
 	$stmt->bind_param("ibsis", $maxid, $blob, $fileName, $size, $type);
 	$stmt->send_long_data(1, file_get_contents($file));
@@ -385,6 +385,37 @@ function uploadSecurity($toCheck)
 		}
 	}
 }
+
+function markAsDownloaded($platinendb_connection, $download_id)
+{
+	$stmt = $platinendb_connection->prepare(
+		"UPDATE downloads set downloaded = 1 WHERE id = ?"
+	);
+	$stmt->bind_param("i", $download_id);
+	$stmt->execute();
+}
+
+function checkDownloaded($platinendb_connection, $id)
+{
+	$stmt = $platinendb_connection->prepare(
+		"SELECT downloads.downloaded
+		FROM downloads
+		INNER JOIN platinen ON downloads.id = platinen.Downloads_ID
+		WHERE platinen.id = ?
+		;"
+	);
+	$stmt->bind_param("i", $id);
+	$stmt->execute();
+	$queryresult = $stmt->get_result();
+	$queryresult = mysqli_fetch_assoc($queryresult);
+	$downloaded = $queryresult['downloaded'];
+	if ($downloaded == 1) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 
 function readfiledata()
 {
@@ -511,7 +542,6 @@ function lagenAnlegen($a, $platinendb_connection)
 function deleteDownload($mode, $PlatinenID, $download_id, $platinendb_connection)
 {
 
-
 	if ($mode == 1) {
 		//wenn platine im zustand abgeschlossenPost = 1 ist, dann lösche Download_ID und den download
 		$stmt = $platinendb_connection->prepare(
@@ -527,6 +557,7 @@ function deleteDownload($mode, $PlatinenID, $download_id, $platinendb_connection
 			return;
 		}
 	}
+
 
 
 	if (empty($download_id)) {

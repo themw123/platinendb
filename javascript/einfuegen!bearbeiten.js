@@ -136,7 +136,16 @@ function dostuff() {
               aktionText +
               ".</div>"
           );
-      } else if (zustand == "nichtest") {
+      }
+      else if (zustand == "ohneupload") {
+        $("#result")
+          .hide()
+          .fadeIn(1000)
+          .html(
+            '<div class="alert alert-warning alertm">Bearbeitung erfolgreich, aber Eagle-, Gerber- bzw. Bohrdaten wurden nicht geändert, da ein Admin sie bereits gedownloaded hat.</div>'
+          );
+      } 
+      else if (zustand == "nichtest") {
         $("#result")
           .hide()
           .fadeIn(1000)

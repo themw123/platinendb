@@ -572,7 +572,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
             <label for='usr'>Wunschdatum:</label>
             <input class='form-control' type='date' data-date-format='DD-YYYY-MM' name='Wunschdatum' value='$wunschdatum'>
             </div>
-
+            </div>
 
 
             <div class='form-group'>
@@ -580,26 +580,31 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
             <textarea class='form-control' id='kommentar' rows='1' name='Kommentar'>$_POST[Kommentar]</textarea>
             </div>
 
+            ";
+
+    //wenn noch nicht in fertigung oder abgeschlossen
+    if (!isInFertigung($id, $platinendb_connection)) {
+      $output .= "
+              <div class='form-group'>
+              <p style='margin-bottom:0.5rem;'>Eagle-, Gerber- und Bohrdaten: <i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='' data-content='Die Datei muss eine rar oder zip Datei sein.'></i></p>
+              <div id='inlinetext'>
+              <label class='btn btn-primary' id='uploadData'>
+              <input id='uploadfeld' type='file' style='opacity:0'>
+              <p id='uploadDataText'>upload</p>
+              </label>
+              </div>
+              <span class='label label-info' id='upload-info' style='opacity:0'>
+              </span>
+              <i class='fas fa-file-archive collapse' id='inputbild' style='opacity: 0; font-size: 16px;'></i>
+              <i class='fa fa-trash-alt collapse' id='delfile'></i>
+              
+              <div class='alert alert-warning collapse' id='fehleraddlagen'></div>
+              </div>
+              ";
+    }
 
 
-            <div class='form-group'>
-            <p style='margin-bottom:0.5rem;'>Eagle-, Gerber- und Bohrdaten: <i class='fas fa-info-circle' id='infoicon' data-toggle='popover' title='' data-content='Die Datei muss eine rar oder zip Datei sein.'></i></p>
-            <div id='inlinetext'>
-            <label class='btn btn-primary' id='uploadData'>
-            <input id='uploadfeld' type='file' style='opacity:0'>
-            <p id='uploadDataText'>upload</p>
-            </label>
-            </div>
-            <span class='label label-info' id='upload-info' style='opacity:0'>
-            </span>
-            <i class='fas fa-file-archive collapse' id='inputbild' style='opacity: 0; font-size: 16px;'></i>
-            <i class='fa fa-trash-alt collapse' id='delfile'></i>
-            
-            <div class='alert alert-warning collapse' id='fehleraddlagen'></div>
-            </div>
-
-
-
+    $output .= "
             <div class='custom-control custom-checkbox form-group'>
             <input name='Bestueckungsdruck' type='checkbox' class='custom-control-input' id='checkbox-4' $check2>
             <label class='custom-control-label' for='checkbox-4' style='margin-top: 10px;margin-bottom: 10px;'>Bestückungsdruck</label>

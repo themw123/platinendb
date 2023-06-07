@@ -24,8 +24,13 @@ $bestanden = $sicherheit->ergebnis();
 
 if ($bestanden == true && $aktion == "loeschen") {
 
-
 	$id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
+
+	if (!isUserAdmin($platinendb_connection) && checkDownloaded($platinendb_connection, $id)) {
+		header('Content-Type: application/json');
+		echo json_encode(array('data' => 'bereitsdownloaded'));
+		return;
+	}
 
 	$stmt = $platinendb_connection->prepare(
 		"SELECT Downloads_ID FROM platinen WHERE ID = ?"
@@ -42,7 +47,11 @@ if ($bestanden == true && $aktion == "loeschen") {
 	$stmt->bind_param("i", $id);
 	$stmt->execute();
 
-	deleteDownload(0, $id, $download_id, $platinendb_connection);
+
+	//nur download löschen wenn download vorhanden
+	if (isset($download_id)) {
+		deleteDownload(0, $id, $download_id, $platinendb_connection);
+	}
 
 
 

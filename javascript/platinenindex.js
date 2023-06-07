@@ -516,7 +516,19 @@ $(document).ready(function () {
                       '<div class="alert alert-danger alertm">Die Platine befindet sich bereits auf einem Nutzen und kann nur von einem Admin gelöscht werden.</div>'
                     );
                 }, 1000);
-              } else if (zustand == "nichtveraenderbar") {
+              }
+              else if (zustand == "bereitsdownloaded") {
+                setTimeout(function () {
+                  $("#result")
+                    .hide()
+                    .fadeIn(1000)
+                    .html(
+                      '<div class="alert alert-danger alertm">Platine kann nicht gelöscht werden, da die Eagle-, Gerber- bzw. Bohrdaten bereits von einem Admin gedownloaded wurden.</div>'
+                    );
+                }, 1000);
+              }
+              //überflüssig ? 
+               else if (zustand == "nichtveraenderbar") {
                 setTimeout(function () {
                   $("#result")
                     .hide()

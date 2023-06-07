@@ -64,6 +64,10 @@ if ($bestanden == true  && $aktion == "download") {
     ob_clean();
     flush();
     echo $download;
+
+    if (isUserAdmin($platinendb_connection)) {
+      markAsDownloaded($platinendb_connection, $download_id);
+    }
   }
 } else {
   header('Content-Type: application/json');
