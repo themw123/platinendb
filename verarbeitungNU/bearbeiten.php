@@ -41,15 +41,11 @@ if ($bestanden == true && $aktion == "bearbeiten") {
   /*
           Inputs auslesen Bearbeiter
           */
-  $bearbeiter2 = mysqli_real_escape_string($platinendb_connection, $_POST["Bearbeiter"]);
-  $bearbeiter2query = "SELECT user_id FROM login.users WHERE user_name='$bearbeiter2'";
-  $bearbeiterid =  mysqli_query($login_connection, $bearbeiter2query);
-  $Bearbeiter = mysqli_fetch_assoc($bearbeiterid);
-
-  $stmt = $platinendb_connection->prepare(
-    "SELECT user_id FROM login.users WHERE user_name=?"
+  $bearbeiter = mysqli_real_escape_string($platinendb_connection, $_POST["Bearbeiter"]);
+  $stmt = $login_connection->prepare(
+    "SELECT user_id FROM users WHERE user_name=?"
   );
-  $stmt->bind_param("s", $bearbeiter2);
+  $stmt->bind_param("s", $bearbeiter);
   $stmt->execute();
   $result = $stmt->get_result();
   $Bearbeiter = mysqli_fetch_assoc($result);

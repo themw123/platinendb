@@ -34,10 +34,10 @@ if ($bestanden == true && $aktion == "einfuegen") {
             Bearbeiter
             */
   $bearbeiter = mysqli_real_escape_string($platinendb_connection, $_POST["Bearbeiter"]);
-  $stmt = $platinendb_connection->prepare(
-    "SELECT user_id FROM login.users WHERE user_name=?"
+  $stmt = $login_connection->prepare(
+    "SELECT user_id FROM users WHERE user_name=?"
   );
-  $stmt->bind_param("i", $bearbeiter);
+  $stmt->bind_param("s", $bearbeiter);
   $stmt->execute();
   $result = $stmt->get_result();
   $Bearbeiterx = mysqli_fetch_assoc($result);
