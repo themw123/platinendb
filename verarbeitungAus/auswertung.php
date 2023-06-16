@@ -120,7 +120,7 @@ if ($bestanden == true && $aktion == "auswertung") {
       $nestedData = array();
 
       if ($zeitraum == "monate") {
-        $nestedData[] = $row["monat"];
+        $nestedData[] = englischZuDeutsch($row["monat"]);
       } else {
         $nestedData[] = $row["jahr"];
       }

@@ -178,6 +178,30 @@ function getData() {
 }
 
 function setChart() {
+  /*
+  //summen zähler
+  var totalizer = {
+    id: 'totalizer',
+    beforeUpdate: chart1 => {
+        let totals = {}
+        let utmost = 0
+
+            chart1.data.datasets.forEach((dataset, datasetIndex) => {
+                if (chart1.isDatasetVisible(datasetIndex)) {
+                    utmost = datasetIndex
+                        dataset.data.forEach((value, index) => {
+                            totals[index] = (totals[index] || 0) + parseInt(value, 10);
+                        })
+                }
+            })
+            chart1.$totalizer = {
+            totals: totals,
+            utmost: utmost
+        }
+    }
+  }
+  */
+
   ctx1 = document.getElementById("chart1");
   Chart.register(ChartDataLabels);
 
@@ -189,18 +213,50 @@ function setChart() {
         {
           label: "# intern",
           data: getValues("int"),
-          backgroundColor: ["rgba(0, 94, 169, 0.6)"],
-          borderColor: ["rgba(0, 0, 0, 0.6)"],
+          backgroundColor: "rgba(0, 94, 169, 0.6)",
+          borderColor: "rgba(0, 0, 0, 0.6)",
           borderWidth: 1,
         },
 
         {
           label: "# extern",
           data: getValues("ext"),
-          backgroundColor: ["rgba(0, 172, 240, 0.6)"],
-          borderColor: ["rgba(0, 0, 0, 0.6)"],
+          backgroundColor: "rgba(0, 172, 240, 0.6)",
+          borderColor: "rgba(0, 0, 0, 0.6)",
           borderWidth: 1,
         },
+        
+        {
+          /*
+          label: '# summe',
+          //dumme array mit null für jede spalte
+          data: Array(datar.length).fill(0),
+          backgroundColor: "rgba(52, 225, 235)",
+          datalabels: {
+              backgroundColor: function (context) {
+
+                  return "rgba(52, 225, 235)";
+
+              },
+              formatter: (value, ctx) => {
+                  const total = ctx.chart.$totalizer.totals[ctx.dataIndex];
+                  return total.toLocaleString('de-DE', {})
+              },
+              align: "end",
+              anchor: "end",
+              display: function (ctx) {
+                const total = ctx.chart.$totalizer.totals[ctx.dataIndex];
+                const intern = ctx.chart.data.datasets[0].data;
+                const extern = ctx.chart.data.datasets[1].data;
+                var multipleBars = (intern[ctx.dataIndex] >= 1 && extern[ctx.dataIndex] >= 1);
+                //summe nur anzeigen wenn total größer 0 und wenn es intern und extern gibt
+                return total > 0 && multipleBars && ctx.datasetIndex === ctx.chart.$totalizer.utmost;
+              }
+          }
+          */
+        },
+
+
       ],
     },
     options: {
@@ -225,9 +281,12 @@ function setChart() {
         y: {
           stacked: true,
           beginAtZero: true,
+          //höhe einen über maximaler balkenlänge setzten, damit summenangabe reinpasst in chart
+          //suggestedMax: Math.max(...datar.map(item => item[1])) + 1,
         },
       },
     },
+    //plugins: [totalizer],
   });
 }
 

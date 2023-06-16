@@ -608,7 +608,7 @@ $(document).ready(function () {
     var aktion = "download";
     Id = table.api().row($(this).closest("tr")).data()[0];
 
-    if (bestueckungsdruck == 1) {
+    if (bestueckungsdruck == 1 && adminn == "ja") {
       bootbox.confirm({
         size: "small",
         message:
