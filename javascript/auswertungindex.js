@@ -178,14 +178,14 @@ function getData() {
 }
 
 function setChart() {
-  /*
+
   //summen zähler
   var totalizer = {
     id: 'totalizer',
     beforeUpdate: chart1 => {
         let totals = {}
         let utmost = 0
-
+  
             chart1.data.datasets.forEach((dataset, datasetIndex) => {
                 if (chart1.isDatasetVisible(datasetIndex)) {
                     utmost = datasetIndex
@@ -200,7 +200,7 @@ function setChart() {
         }
     }
   }
-  */
+
 
   ctx1 = document.getElementById("chart1");
   Chart.register(ChartDataLabels);
@@ -225,9 +225,7 @@ function setChart() {
           borderColor: "rgba(0, 0, 0, 0.6)",
           borderWidth: 1,
         },
-        
         {
-          /*
           label: '# summe',
           //dumme array mit null für jede spalte
           data: Array(datar.length).fill(0),
@@ -253,7 +251,6 @@ function setChart() {
                 return total > 0 && multipleBars && ctx.datasetIndex === ctx.chart.$totalizer.utmost;
               }
           }
-          */
         },
 
 
@@ -282,11 +279,11 @@ function setChart() {
           stacked: true,
           beginAtZero: true,
           //höhe einen über maximaler balkenlänge setzten, damit summenangabe reinpasst in chart
-          //suggestedMax: Math.max(...datar.map(item => item[1])) + 1,
+          suggestedMax: Math.max(...datar.map(item => item[1])) + 1,
         },
       },
     },
-    //plugins: [totalizer],
+    plugins: [totalizer],
   });
 }
 
