@@ -150,8 +150,9 @@ $(document).ready(function () {
       {
         targets: [17],
         render: function (data) {
-          test = data.replace(/\\r\\n/g, "<br>");
-          return data.replace(/\\r\\n/g, "<br>");
+          newstring = data.replace(/\\r\\n/g, "<br>");
+          newstring = newstring.replace(/\\"/g, '"');
+          return newstring;
         },
       },
 

@@ -88,7 +88,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
 
   $test = $_POST["Kommentar"];
   $kommentar = str_replace("\\r\\n", '&#13;&#10;', $_POST["Kommentar"]);
-
+  $kommentar = str_replace('\\"', '"', $kommentar);
 
   //gucken ob eingefügt oder bearbeitet werden soll. Wenn kein POST übergeben wurde, dann einfügen
   if ($aktion == "modaleinfuegen") {

@@ -92,6 +92,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
 
   $test = $_POST["Kommentar"];
   $kommentar = str_replace("\\r\\n", '&#13;&#10;', $_POST["Kommentar"]);
+  $kommentar = str_replace('\\"', '"', $kommentar);
 
 
 
