@@ -205,7 +205,8 @@ if ($bestanden == true && $aktion == "bearbeiten") {
           Inputs auslesen Kommentar
           */
   $Kommentar = mysqli_real_escape_string($platinendb_connection, $_POST["Kommentar"]);
-
+  #remove \\ with \
+  $Kommentar = str_replace("\\\\", "\\", $Kommentar);
 
 
   $lagen_ID = null;

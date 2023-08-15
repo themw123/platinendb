@@ -148,6 +148,14 @@ $(document).ready(function () {
       },
 
       {
+        targets: [17],
+        render: function (data) {
+          test = data.replace(/\\r\\n/g, "<br>");
+          return data.replace(/\\r\\n/g, "<br>");
+        },
+      },
+
+      {
         targets: [5, 14, 
           18, 19, 20, 21, 22],
         visible: false,

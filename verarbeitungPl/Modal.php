@@ -90,6 +90,8 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
     $check2 = "checked=''";
   }
 
+  $test = $_POST["Kommentar"];
+  $kommentar = str_replace("\\r\\n", '&#13;&#10;', $_POST["Kommentar"]);
 
 
 
@@ -388,7 +390,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
 
         <div class='form-group'>
         <label for='exampleFormControlTextarea1'>Kommentar:</label>
-        <textarea class='form-control' id='kommentar' rows='1' name='Kommentar'></textarea>
+        <textarea class='form-control' id='kommentar' style='min-height:100px;' name='Kommentar'></textarea>
         </div>
 
 
@@ -577,7 +579,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
 
             <div class='form-group'>
             <label for='exampleFormControlTextarea1'>Kommentar:</label>
-            <textarea class='form-control' id='kommentar' rows='1' name='Kommentar'>$_POST[Kommentar]</textarea>
+            <textarea class='form-control' id='kommentar' style='min-height:100px;' name='Kommentar'>$kommentar</textarea>
             </div>
 
             ";

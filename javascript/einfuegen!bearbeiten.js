@@ -1,5 +1,6 @@
 //# sourceURL=formEditorx.js
 
+
 $(function () {
   $("#edit").submit(function (event) {
     event.preventDefault();
@@ -411,6 +412,8 @@ $("#delfile").click(function (ev) {
   remUploadData();
 });
 
+
+
 //aktion == "modaleinfuegen" && 
 if (aktionx.includes("Platine")) {
 
@@ -456,6 +459,13 @@ if (aktion == "modalbearbeiten" && aktionx.includes("Platine")) {
     }
   });
 }
+
+
+
+
+
+
+
 
 if (aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
   $(document).ready(function () {
@@ -683,6 +693,7 @@ if (aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
       $("#lagenid").addClass("iconaus");
     }
   });
+  
 
   //Datum reset
 

@@ -132,6 +132,7 @@ if ($bestanden == true && $aktion == "einfuegen") {
             Inputs auslesen Kommentar
             */
   $Kommentar = mysqli_real_escape_string($platinendb_connection, $_POST["Kommentar"]);
+  $Kommentar = str_replace("\\\\", "\\", $Kommentar);
 
 
   /*

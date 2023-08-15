@@ -76,8 +76,6 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
   }
 
 
-
-
   /*
           größte Nutzen Nummer vorbereiten
           */
@@ -86,6 +84,10 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
   $abfragemaxnr2 = mysqli_fetch_assoc($abfragemaxnr);
   $nrmax = $abfragemaxnr2['Nr'];
   $nr = $nrmax + 1;
+
+
+  $test = $_POST["Kommentar"];
+  $kommentar = str_replace("\\r\\n", '&#13;&#10;', $_POST["Kommentar"]);
 
 
   //gucken ob eingefügt oder bearbeitet werden soll. Wenn kein POST übergeben wurde, dann einfügen
@@ -236,7 +238,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
 
           <div class='form-group'>
           <label for='exampleFormControlTextarea1'>Kommentar</label>
-          <textarea class='form-control' id='kommentar' rows='1' name='Kommentar'></textarea>
+          <textarea class='form-control' id='kommentar' style='min-height:100px;' name='Kommentar'></textarea>
           </div>
 
           </form>
@@ -542,11 +544,11 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
 
 
 
-
           <div class='form-group'>
-          <label for='exampleFormControlTextarea1'>Kommentar</label>
-          <textarea class='form-control' id='kommentar' rows='1' name='Kommentar'>$_POST[Kommentar]</textarea>
+          <label for='exampleFormControlTextarea1'>Kommentar:</label>
+          <textarea class='form-control' id='kommentar' style='min-height:100px;' name='Kommentar'>$kommentar</textarea>
           </div>
+
 
 
           </form>
