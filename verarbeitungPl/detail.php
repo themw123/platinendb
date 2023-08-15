@@ -4,7 +4,7 @@
 <?php
 require_once("/documents/config/db.php");
 require_once("../classes/Login.php");
-require_once("../funktion/alle.php");
+require_once("../utils/util.php");
 require_once("../classes/Sicherheit.php");
 
 $login = new Login();
@@ -31,10 +31,14 @@ if ($bestanden == true && $aktion == "detail") {
      $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
 
      $output = '';
-     $query = "SELECT * FROM platinenaufnutzen1 WHERE Platinen_ID = '$id'";
+     $stmt = $platinendb_connection->prepare(
+          "SELECT * FROM platinenaufnutzen1 WHERE Platinen_ID = ?"
+     );
+     $stmt->bind_param("i", $id);
+     $stmt->execute();
+     $result = $stmt->get_result();
 
 
-     $result = mysqli_query($platinendb_connection, $query);
      $zustand = $sicherheit->checkQuery2($platinendb_connection);
      mysqli_close($platinendb_connection);
      mysqli_close($login_connection);

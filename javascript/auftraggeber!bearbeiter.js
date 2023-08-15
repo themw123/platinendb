@@ -1,5 +1,5 @@
-//Wenn Bei Nutzen oder Platine auf add Bearbeiter bzw Auftraggeber geklickt wird
 
+//Wenn Bei Nutzen oder Platine auf add Bearbeiter bzw Auftraggeber geklickt wird
 $(document).ready(function () {
   if (typeof aktionx !== "undefined" && aktionx.includes("Nutzen")) {
     aktion = "bearbeiter";

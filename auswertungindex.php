@@ -46,7 +46,7 @@
   // include the configs / constants for the database connection
   require_once("/documents/config/db.php");
 
-  require_once("funktion/alle.php");
+  require_once("utils/util.php");
   // load the login class
   require_once("classes/Login.php");
 
@@ -135,7 +135,7 @@
 
   <script src="plugins\jsPDF-2.5.1\dist\jspdf.umd.min.js" type="text/javascript"></script>
 
-  <script src="javascript/auftraggeber!bearbeiter.js"></script>
+  <script src="javascript/auftraggeber!bearbeiter.js?v=1.0"></script>
 
 
 </body>

@@ -61,7 +61,7 @@
   // include the configs / constants for the database connection
   require_once("/documents/config/db.php");
 
-  require_once("funktion/alle.php");
+  require_once("utils/util.php");
 
   // load the registration class
   require_once("classes/Registration.php");
@@ -100,7 +100,7 @@
 
   <script src='plugins/fontawesome-free-5.15.1-web/a076d05399.js'></script>
 
-  <script src="javascript/lehrstuhl.js"></script>
+  <script src="javascript/lehrstuhl.js?v=1.0"></script>
 
 
 </body>

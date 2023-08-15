@@ -1,22 +1,21 @@
 <?php
 require_once("/documents/config/db.php");
 require_once("../classes/Login.php");
-require_once("../funktion/alle.php");
+require_once("../utils/util.php");
 require_once("../classes/Sicherheit.php");
 
 
 $login = new Login();
 
-$login_connection= $login->getlogin_connection();
+$login_connection = $login->getlogin_connection();
 $platinendb_connection = $login->getplatinendb_connection();
 
 
 //$aktion = "einfuegen";
 //sicherheit checks
-if(!(isset($_POST['aktion']))) {
+if (!(isset($_POST['aktion']))) {
   $aktion = "";
-}
-else {
+} else {
   $aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 }
 $von = "platine";
@@ -25,25 +24,35 @@ $bestanden = $sicherheit->ergebnis();
 
 
 
-if($bestanden == true  && $aktion == "download") {
+if ($bestanden == true  && $aktion == "download") {
 
   $id = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
-  $download_id = "SELECT Downloads_ID FROM platinen WHERE ID = '$id'";
-  $download_id = mysqli_query($platinendb_connection,$download_id);
-  $download_id = mysqli_fetch_array($download_id);
-  $download_id = $download_id['Downloads_ID']; 
 
-  if($download_id != null) {
-    $query = "SELECT download,name,size,type FROM downloads WHERE id = '$download_id'";
+  $stmt = $platinendb_connection->prepare(
+    "SELECT Downloads_ID FROM platinen WHERE ID =?"
+  );
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  $queryresult = $stmt->get_result();
+  $queryresult = mysqli_fetch_assoc($queryresult);
+  $download_id = $queryresult['Downloads_ID'];
 
-    $result = mysqli_query($platinendb_connection,$query);
-    $row = mysqli_fetch_array($result);
 
-    $download = $row['download'];
-    $name = $row['name'];
-    $size = $row['size'];
-    $type = $row['type'];
 
+  if ($download_id != null) {
+
+    $stmt = $platinendb_connection->prepare(
+      "SELECT download,name,size,type FROM downloads WHERE id = ?"
+    );
+    $stmt->bind_param("i", $download_id);
+    $stmt->execute();
+    $queryresult = $stmt->get_result();
+    $queryresult = mysqli_fetch_array($queryresult);
+
+    $download = $queryresult['download'];
+    $name = $queryresult['name'];
+    $size = $queryresult['size'];
+    $type = $queryresult['type'];
 
 
     header("Pragma: public");
@@ -55,11 +64,12 @@ if($bestanden == true  && $aktion == "download") {
     ob_clean();
     flush();
     echo $download;
-  } 
-}
 
-
-else {
+    if (isUserAdmin($platinendb_connection)) {
+      markAsDownloaded($platinendb_connection, $download_id);
+    }
+  }
+} else {
   header('Content-Type: application/json');
-  echo json_encode(array('data'=> "fehlerhaft"));
+  echo json_encode(array('data' => "fehlerhaft"));
 }

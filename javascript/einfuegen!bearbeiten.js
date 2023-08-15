@@ -1,3 +1,6 @@
+//# sourceURL=formEditorx.js
+
+
 $(function () {
   $("#edit").submit(function (event) {
     event.preventDefault();
@@ -134,7 +137,16 @@ function dostuff() {
               aktionText +
               ".</div>"
           );
-      } else if (zustand == "nichtest") {
+      }
+      else if (zustand == "ohneupload") {
+        $("#result")
+          .hide()
+          .fadeIn(1000)
+          .html(
+            '<div class="alert alert-warning alertm">Bearbeitung erfolgreich, aber Eagle-, Gerber- bzw. Bohrdaten wurden nicht geändert, da ein Admin sie bereits gedownloaded hat.</div>'
+          );
+      } 
+      else if (zustand == "nichtest") {
         $("#result")
           .hide()
           .fadeIn(1000)
@@ -379,21 +391,44 @@ function finanz(rollout) {
 
 $("#button8").html("fertig &nbsp <i class='fas fa-check greener'></i>");
 $("#button8").attr("disabled", false);
+  
+
+//check upload size
+function checksize(feld) {
+  var file = feld.files[0];
+
+  // Überprüfen Sie die maximale Dateigröße (auf php server ist post_max_size und upload_max_filesize auf 8M gesetzt). Server verwirft post anfrage wenn größer
+  var maxSize = 8 * 1024 * 1024; // 8 Megabyte in Bytes
+  if (file.size > maxSize) {
+    remUploadData("Die Datei ist zu groß");
+    return false;
+  }
+  return true;
+}
+
 
 //Wenn auf delfile geklickt wird
 $("#delfile").click(function (ev) {
   remUploadData();
 });
 
-if (aktion == "modaleinfuegen" && aktionx.includes("Platine")) {
-  if (adminn == "nein") {
+
+
+//aktion == "modaleinfuegen" && 
+if (aktionx.includes("Platine")) {
+
+  if (adminn == "nein" && aktionx.includes("hinzufügen")) {
     $("#uploadfeld").prop("required", true);
   }
 
   //$('#button8').css('margin-top','112px');
 
-  //upload überpruefen
+  //upload überpruefen (bei platine)
   $("#uploadfeld").change(function () {
+    var correct = checksize(this);
+    if(!correct) {
+      return;
+    }
     var input = event.target;
     var name = input.files[0].name;
     var type = "error";
@@ -424,6 +459,13 @@ if (aktion == "modalbearbeiten" && aktionx.includes("Platine")) {
     }
   });
 }
+
+
+
+
+
+
+
 
 if (aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
   $(document).ready(function () {
@@ -466,8 +508,13 @@ if (aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
     }
   });
 
-  //upload änderung
+  //upload änderung (bei nutzten)
   $("#uploadfeld").change(function () {
+    var correct = checksize(this);
+    if(!correct) {
+      return;
+    }
+
     var input = event.target;
     var type = input.files[0].type;
 
@@ -646,6 +693,7 @@ if (aktion == "modalbearbeiten" && aktionx.includes("Nutzen")) {
       $("#lagenid").addClass("iconaus");
     }
   });
+  
 
   //Datum reset
 

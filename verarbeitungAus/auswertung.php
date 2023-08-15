@@ -2,7 +2,7 @@
 
 require_once("/documents/config/db.php");
 require_once("../classes/Login.php");
-require_once("../funktion/alle.php");
+require_once("../utils/util.php");
 require_once("../classes/Sicherheit.php");
 
 $login = new Login();
@@ -22,9 +22,7 @@ $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinen
 $bestanden = $sicherheit->ergebnis();
 
 
-
 if ($bestanden == true && $aktion == "auswertung") {
-
 
   $zeitraum = mysqli_real_escape_string($platinendb_connection, $_POST["zeitraum"]);
   $auftraggeber = mysqli_real_escape_string($platinendb_connection, $_POST['auftraggeber']);
@@ -46,24 +44,31 @@ if ($bestanden == true && $aktion == "auswertung") {
     //für where anweisung in abfrage
     $jahr = mysqli_real_escape_string($platinendb_connection, $_POST['jahr']);
 
-    $sql = "
-    Select
-      MonthName(platinendb.platinen.erstelltam) as monat,
-      Count(platinendb.platinen.ID) As summe,
-      Sum(platinendb.lehrstuhl.kuerzel = 'est') As intern,
-      Sum(platinendb.lehrstuhl.kuerzel != 'est') As extern
-    From
-      platinendb.platinen Inner Join
-      login.users On platinendb.platinen.Auftraggeber_ID = login.users.user_id Inner Join
-      platinendb.lehrstuhl On login.users.lehrstuhl = platinendb.lehrstuhl.id
-    Where
-      Year(platinendb.platinen.erstelltam) = '$jahr'
-      $whereAuftraggeber
-    Group By
-      Month(platinendb.platinen.erstelltam)
-    Order By
-      Month(platinendb.platinen.erstelltam)
-    ";
+
+    $stmt = $platinendb_connection->prepare(
+      "
+      Select
+        MonthName(platinendb.platinen.erstelltam) as monat,
+        Count(platinendb.platinen.ID) As summe,
+        Sum(platinendb.lehrstuhl.kuerzel = 'est') As intern,
+        Sum(platinendb.lehrstuhl.kuerzel != 'est') As extern
+      From
+        platinendb.platinen Inner Join
+        login.users On platinendb.platinen.Auftraggeber_ID = login.users.user_id Inner Join
+        platinendb.lehrstuhl On login.users.lehrstuhl = platinendb.lehrstuhl.id
+      Where
+        Year(platinendb.platinen.erstelltam) = ?
+        $whereAuftraggeber
+      Group By
+        Month(platinendb.platinen.erstelltam)
+      Order By
+        Month(platinendb.platinen.erstelltam)
+    "
+    );
+
+    $stmt->bind_param("s", $jahr);
+    $stmt->execute();
+    $query = $stmt->get_result();
   } else if ($zeitraum == "jahre") {
 
     //für where anweisung in abfrage
@@ -75,42 +80,47 @@ if ($bestanden == true && $aktion == "auswertung") {
       $limit = "LIMIT $letzten";
     }
 
-    $sql = "
-    Select
-      Year(platinendb.platinen.erstelltam) as jahr,
-      Count(platinendb.platinen.ID) As summe,
-      Sum(platinendb.lehrstuhl.kuerzel = 'est') As intern,
-      Sum(platinendb.lehrstuhl.kuerzel != 'est') As extern
-     From
-        platinendb.platinen Inner Join
-        login.users On platinendb.platinen.Auftraggeber_ID = login.users.user_id Inner Join
-        platinendb.lehrstuhl On login.users.lehrstuhl = platinendb.lehrstuhl.id
-     $whereAuftraggeber 
-     Group By
-        Year(platinendb.platinen.erstelltam)
-     Order By
-        Year(platinendb.platinen.erstelltam) desc
-     $limit; 
-     ";
+
+
+
+    $stmt = $platinendb_connection->prepare(
+      "
+      Select
+        Year(platinendb.platinen.erstelltam) as jahr,
+        Count(platinendb.platinen.ID) As summe,
+        Sum(platinendb.lehrstuhl.kuerzel = 'est') As intern,
+        Sum(platinendb.lehrstuhl.kuerzel != 'est') As extern
+       From
+          platinendb.platinen Inner Join
+          login.users On platinendb.platinen.Auftraggeber_ID = login.users.user_id Inner Join
+          platinendb.lehrstuhl On login.users.lehrstuhl = platinendb.lehrstuhl.id
+          $whereAuftraggeber
+       Group By
+          Year(platinendb.platinen.erstelltam)
+       Order By
+          Year(platinendb.platinen.erstelltam) desc
+       $limit
+       "
+    );
+
+    $stmt->execute();
+    $query = $stmt->get_result();
   }
 
-
-
-  $result = $platinendb_connection->query($sql);
 
   $sicherheit->checkQuery3($platinendb_connection);
 
 
-  if ($result->num_rows > 0) {
+  if (isset($query) && $query->num_rows > 0) {
 
-    while ($row = $result->fetch_array()) {
+    while ($row = $query->fetch_array()) {
 
-
+      //$row = mysqli_fetch_array($query);
 
       $nestedData = array();
 
       if ($zeitraum == "monate") {
-        $nestedData[] = $row["monat"];
+        $nestedData[] = englischZuDeutsch($row["monat"]);
       } else {
         $nestedData[] = $row["jahr"];
       }

@@ -201,6 +201,14 @@ $(document).ready(function () {
         targets: [16],
         visible: false,
       },
+
+      {
+        targets: [15],
+        render: function (data) {
+          test = data.replace(/\\r\\n/g, "<br>");
+          return data.replace(/\\r\\n/g, "<br>");
+        },
+      },
     ],
 
     createdRow: function (row, data) {

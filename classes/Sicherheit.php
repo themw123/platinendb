@@ -83,6 +83,19 @@ class Sicherheit
         die();
     }
 
+    public function checkQuery5($connection, $upload)
+    {
+        if (mysqli_error($connection)) {
+            header('Content-Type: application/json');
+            echo json_encode(array('data' => 'dberror', 'error' => $connection->error));
+        } else if (isset($upload) && !$upload) {
+            header('Content-Type: application/json');
+            echo json_encode(array('data' => 'ohneupload'));
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(array('data' => "erfolgreich"));
+        }
+    }
 
     private function nutzen()
     {
@@ -198,7 +211,7 @@ class Sicherheit
 
         if ($this->aktion == "platinen" || $this->aktion == "modaleinfuegen" || $this->aktion == "finanzGet" || $this->aktion == "einfuegen") {
             $this->bestanden = true;
-        } elseif ($this->aktion == "lehrstuhl" || $this->aktion == "finanz" || $this->aktion == "download" || $this->aktion == "auftraggeber") {
+        } elseif ($this->aktion == "lehrstuhl" || $this->aktion == "finanz" || $this->aktion == "auftraggeber") {
             $admin = isUserAdmin($this->login_connection);
 
             if ($admin) {
@@ -243,6 +256,12 @@ class Sicherheit
                 echo json_encode(array('data' => $veraenderbar[1]));
                 die();
             } else {
+                $this->bestanden = true;
+            }
+        } elseif ($this->aktion == "download") {
+            $legitim = legitimierungDownload($this->platinendb_connection, $this->login_connection);
+
+            if ($legitim == true) {
                 $this->bestanden = true;
             }
         }

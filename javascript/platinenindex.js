@@ -126,10 +126,10 @@ $(document).ready(function () {
       },
 
       {
-        targets: [9],
+        targets: [8],
         render: function (data, type, row, meta) {
-          if (data != "1,55" && row[20] == "0") {
-            return '<div style="color: #f54242;">' + data + "</div>";
+          if (data != "35µ" && row[20] == "0") {
+            return '<div style="color: #f54242; font-weight: bold;">' + data + "</div>";
           } else {
             return data;
           }
@@ -137,14 +137,34 @@ $(document).ready(function () {
       },
 
       {
-        targets: [14, 18, 19, 20, 21, 22],
+        targets: [9],
+        render: function (data, type, row, meta) {
+          if (data != "1,55" && row[20] == "0") {
+            return '<div style="color: #f54242; font-weight: bold;">' + data + "</div>";
+          } else {
+            return data;
+          }
+        },
+      },
+
+      {
+        targets: [17],
+        render: function (data) {
+          test = data.replace(/\\r\\n/g, "<br>");
+          return data.replace(/\\r\\n/g, "<br>");
+        },
+      },
+
+      {
+        targets: [5, 14, 
+          18, 19, 20, 21, 22],
         visible: false,
       },
     ],
 
     createdRow: function (row, data) {
       //wenn benutzer est ist (siehe logged_in.php, dort wird est als globale Variable deklariert)
-      if (adminn == "ja") {
+      //if (adminn == "ja") {
         var erstelltam = data[15].toString();
         var t2 = erstelltam.split(".");
         t2 = t2[2] + "-" + t2[1] + "-" + t2[0];
@@ -186,7 +206,7 @@ $(document).ready(function () {
         if (data[22] == 0) {
           $(row).find("i:nth-child(3)").addClass("grey").prop("disabled", true);
         }
-      }
+      //}
     },
 
     oLanguage: {
@@ -288,7 +308,7 @@ $(document).ready(function () {
 
       //wenn est searchpane button, info button und filter button verstecken
       if (adminn == "nein") {
-        $("#buttonLegend").hide();
+        //$("#buttonLegend").hide();
         //$('#buttondefault').hide();
         $("#button3").hide();
         //Auftraggeber und Lehrstuhl verstecken, achtung aktivieren muss auch erfolgen damit browser beim wechseln zwischen admin und nicht admin auch aktualisiert
@@ -504,7 +524,19 @@ $(document).ready(function () {
                       '<div class="alert alert-danger alertm">Die Platine befindet sich bereits auf einem Nutzen und kann nur von einem Admin gelöscht werden.</div>'
                     );
                 }, 1000);
-              } else if (zustand == "nichtveraenderbar") {
+              }
+              else if (zustand == "bereitsdownloaded") {
+                setTimeout(function () {
+                  $("#result")
+                    .hide()
+                    .fadeIn(1000)
+                    .html(
+                      '<div class="alert alert-danger alertm">Platine kann nicht gelöscht werden, da die Eagle-, Gerber- bzw. Bohrdaten bereits von einem Admin gedownloaded wurden.</div>'
+                    );
+                }, 1000);
+              }
+              //überflüssig ? 
+               else if (zustand == "nichtveraenderbar") {
                 setTimeout(function () {
                   $("#result")
                     .hide()
@@ -584,7 +616,7 @@ $(document).ready(function () {
     var aktion = "download";
     Id = table.api().row($(this).closest("tr")).data()[0];
 
-    if (bestueckungsdruck == 1) {
+    if (bestueckungsdruck == 1 && adminn == "ja") {
       bootbox.confirm({
         size: "small",
         message:

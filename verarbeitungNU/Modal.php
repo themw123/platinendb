@@ -15,7 +15,7 @@
 
 require_once("/documents/config/db.php");
 require_once("../classes/Login.php");
-require_once("../funktion/alle.php");
+require_once("../utils/util.php");
 require_once("../classes/Sicherheit.php");
 
 $login = new Login();
@@ -52,6 +52,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
   $bearbeiter = "SELECT user_name FROM users WHERE admin = '1' ORDER BY user_name asc";
   $bearbeiterabfrage = mysqli_query($login_connection, $bearbeiter);
 
+
   $option = '';
 
   while ($row2 = mysqli_fetch_assoc($bearbeiterabfrage)) {
@@ -75,8 +76,6 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
   }
 
 
-
-
   /*
           größte Nutzen Nummer vorbereiten
           */
@@ -85,6 +84,10 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
   $abfragemaxnr2 = mysqli_fetch_assoc($abfragemaxnr);
   $nrmax = $abfragemaxnr2['Nr'];
   $nr = $nrmax + 1;
+
+
+  $test = $_POST["Kommentar"];
+  $kommentar = str_replace("\\r\\n", '&#13;&#10;', $_POST["Kommentar"]);
 
 
   //gucken ob eingefügt oder bearbeitet werden soll. Wenn kein POST übergeben wurde, dann einfügen
@@ -235,7 +238,7 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
 
           <div class='form-group'>
           <label for='exampleFormControlTextarea1'>Kommentar</label>
-          <textarea class='form-control' id='kommentar' rows='1' name='Kommentar'></textarea>
+          <textarea class='form-control' id='kommentar' style='min-height:100px;' name='Kommentar'></textarea>
           </div>
 
           </form>
@@ -269,9 +272,13 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
     }
 
 
-    $plaufnu = "SELECT Finanzstelle_ID, Finanzstelle_Name, Finanzstelle_Nummer FROM platinenaufnutzen3 WHERE Nutzen_ID = $_POST[Id]";
+    $stmt = $platinendb_connection->prepare(
+      "SELECT Finanzstelle_ID, Finanzstelle_Name, Finanzstelle_Nummer FROM platinenaufnutzen3 WHERE Nutzen_ID = ?"
+    );
+    $stmt->bind_param("i", $_POST["Id"]);
+    $stmt->execute();
+    $plaufnu = $stmt->get_result();
 
-    $plaufnu = mysqli_query($platinendb_connection, $plaufnu);
 
     $option3 = '';
 
@@ -537,11 +544,11 @@ if ($bestanden == true && ($aktion == "modaleinfuegen" || $aktion == "modalbearb
 
 
 
-
           <div class='form-group'>
-          <label for='exampleFormControlTextarea1'>Kommentar</label>
-          <textarea class='form-control' id='kommentar' rows='1' name='Kommentar'>$_POST[Kommentar]</textarea>
+          <label for='exampleFormControlTextarea1'>Kommentar:</label>
+          <textarea class='form-control' id='kommentar' style='min-height:100px;' name='Kommentar'>$kommentar</textarea>
           </div>
+
 
 
           </form>

@@ -2,20 +2,19 @@
 
 require_once("/documents/config/db.php");
 require_once("../../classes/Login.php");
-require_once("../../funktion/alle.php");
+require_once("../../utils/util.php");
 require_once("../../classes/Sicherheit.php");
 
 $login = new Login();
 
-$login_connection= $login->getlogin_connection();
+$login_connection = $login->getlogin_connection();
 $platinendb_connection = $login->getplatinendb_connection();
 
 
 //sicherheit checks
-if(!(isset($_POST['aktion']))) {
+if (!(isset($_POST['aktion']))) {
   $aktion = "";
-}
-else {
+} else {
   $aktion = mysqli_real_escape_string($platinendb_connection, $_POST["aktion"]);
 }
 $von = "nutzen";
@@ -23,38 +22,38 @@ $sicherheit = new Sicherheit($aktion, $von, $login, $login_connection, $platinen
 $bestanden = $sicherheit->ergebnis();
 
 
-if($bestanden == true && $aktion == "detail") {
+if ($bestanden == true && $aktion == "detail") {
 
-      $PlatinenID = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
-      $NutzenID = mysqli_real_escape_string($platinendb_connection, $_POST['NutzenId']);
-      $Anzahl = mysqli_real_escape_string($platinendb_connection, $_POST['anzahl']);
-      
-      if($Anzahl > 0) {
-          //nur Platine hinzufügen wenn Nutzen im Zustand neu ist. Ansonnsten abbruch ab hier.
-          if(zustandNeu($platinendb_connection, $NutzenID) == false) {
-            mysqli_close($platinendb_connection); 
-            mysqli_close($login_connection); 
-            header('Content-Type: application/json');
-            echo json_encode(array('data'=> 'nichterlaubt')); 
-            die();
-          }
+  $PlatinenID = mysqli_real_escape_string($platinendb_connection, $_POST['Id']);
+  $NutzenID = mysqli_real_escape_string($platinendb_connection, $_POST['NutzenId']);
+  $Anzahl = mysqli_real_escape_string($platinendb_connection, $_POST['anzahl']);
 
-          $hinzufuegen = "INSERT INTO nutzenplatinen (Platinen_ID, Nutzen_ID, platinenaufnutzen) VALUES ('$PlatinenID', '$NutzenID', '$Anzahl')";
+  if ($Anzahl > 0) {
+    //nur Platine hinzufügen wenn Nutzen im Zustand neu ist. Ansonnsten abbruch ab hier.
+    if (zustandNeu($platinendb_connection, $NutzenID) == false) {
+      mysqli_close($platinendb_connection);
+      mysqli_close($login_connection);
+      header('Content-Type: application/json');
+      echo json_encode(array('data' => 'nichterlaubt'));
+      die();
+    }
 
-          mysqli_query($platinendb_connection, $hinzufuegen);
+    $stmt = $platinendb_connection->prepare(
+      "INSERT INTO nutzenplatinen (Platinen_ID, Nutzen_ID, platinenaufnutzen) VALUES (?,?,?)"
+    );
+    $stmt->bind_param("iii", $PlatinenID, $NutzenID, $Anzahl);
+    $stmt->execute();
 
-          deleteDownload($PlatinenID, $platinendb_connection);
+    //nicht nötig, man kann keine platine hinzufügen wenn nutzten zustand != neu. und wenn nutzten zustand neu ist, dann sollen keine downdloads gelöscht werden
+    //deleteDownload("IFfertigungabgeschlossen", $PlatinenID, $platinendb_connection);
 
-          $sicherheit->checkQuery($platinendb_connection);
+    $sicherheit->checkQuery($platinendb_connection);
 
-          mysqli_close($platinendb_connection);
-          
-          mysqli_close($login_connection);  
+    mysqli_close($platinendb_connection);
 
-      }
-      else {
-        header('Content-Type: application/json');
-        echo json_encode(array('data'=> "fehlerhaft"));
-      }
-
+    mysqli_close($login_connection);
+  } else {
+    header('Content-Type: application/json');
+    echo json_encode(array('data' => "fehlerhaft"));
+  }
 }
