@@ -397,6 +397,8 @@ function markAsDownloaded($platinendb_connection, $download_id)
 
 function checkDownloaded($platinendb_connection, $id)
 {
+	$downloaded = false;
+
 	$stmt = $platinendb_connection->prepare(
 		"SELECT downloads.downloaded
 		FROM downloads
@@ -410,10 +412,11 @@ function checkDownloaded($platinendb_connection, $id)
 	$queryresult = mysqli_fetch_assoc($queryresult);
 	$downloaded = $queryresult['downloaded'];
 	if ($downloaded == 1) {
-		return true;
+		$downloaded = true;
 	} else {
-		return false;
+		$downloaded = false;
 	}
+	return $downloaded;
 }
 
 
